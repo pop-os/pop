@@ -14,4 +14,4 @@ for source in archive.getPublishedSources(status="Published", distro_series=seri
     print(source.display_name)
     for binary in source.getPublishedBinaries():
         if binary.distro_arch_series_link == arch_series:
-            print("  " + binary.display_name)
+            print("  " + binary.display_name + ": " + str(binary.getDownloadCount()))
