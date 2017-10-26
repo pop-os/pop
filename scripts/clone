@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 
 import argparse
-import json
 import os.path
 import subprocess
 import sys
-import urllib.request
+
+from lib import foreach_repo
 
 parser = argparse.ArgumentParser(description="Clone all Pop!_OS repositories")
 parser.add_argument('--ssh', action='store_true')
 args = parser.parse_args(sys.argv[1:])
 
-response = urllib.request.urlopen("https://api.github.com/orgs/pop-os/repos")
-repos = json.loads(response.read())
+def clone(repo):
+    print("Cloning " + repo["name"])
 
-repos.sort(key=lambda repo: repo["name"])
-for repo in repos:
     if args.ssh:
         url = repo["ssh_url"]
     else:
@@ -25,3 +23,5 @@ for repo in repos:
         print(repo["name"] + " already exists")
     else:
         subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
+
+foreach_repo(clone)
