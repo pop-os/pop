@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+# Documentation can be found here: https://launchpad.net/+apidoc/devel.html
 from launchpadlib.launchpad import Launchpad
 
 cache = "scripts/__lpcache__"
