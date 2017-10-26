@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+import argparse
+import os.path
+import subprocess
+import sys
+
+from lib import foreach_repo
+
+parser = argparse.ArgumentParser(description="Clone all Pop!_OS repositories")
+parser.add_argument('--ssh', action='store_true')
+args = parser.parse_args(sys.argv[1:])
+
+def clone(repo):
+    print("Validating " + repo["name"])
+
+    if os.path.exists(repo["name"]):
+        files = [
+            "LICENSE",
+            "README",
+            "TESTING"
+        ]
+
+        for file in files:
+            if not os.path.exists(os.path.join(repo["name"], file)) \
+            and not os.path.exists(os.path.join(repo["name"], file + ".md")):
+                print("  " + file + " not found")
+    else:
+        print(repo["name"] + " does not exist")
+
+foreach_repo(clone)
