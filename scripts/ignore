@@ -10,6 +10,8 @@ args = parser.parse_args(sys.argv[1:])
 
 f = open(".gitignore", "w")
 
+f.write("# This is an automatically generated file. See scripts/ignore\n\n")
+
 def ignore(repo):
     print("Ignoring " + repo["name"])
     f.write("/" + repo["name"] + "/\n")

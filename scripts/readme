@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+
+import argparse
+import sys
+
+from lib import foreach_repo, markdown_escape
+
+parser = argparse.ArgumentParser(description="Generate gitignore file")
+args = parser.parse_args(sys.argv[1:])
+
+f = open("REPOS.md", "w")
+
+f.write("# Repositories\n")
+f.write("This is an automatically generated file. See `scripts/readme`\n\n")
+
+def readme(repo):
+    print("Linking " + repo["name"])
+
+    name = markdown_escape(repo["name"])
+    description = markdown_escape(repo["description"])
+
+    f.write("- [" + name + "](" + repo["html_url"] + ") - " + description + "\n")
+
+foreach_repo(readme)
+
+f.close()
