@@ -8,6 +8,7 @@ import sys
 from lib import foreach_repo
 
 parser = argparse.ArgumentParser(description="Pull all Pop!_OS repositories")
+args = parser.parse_args(sys.argv[1:])
 
 def pull(repo):
     print("Pulling " + repo["name"])

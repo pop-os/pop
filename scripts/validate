@@ -2,13 +2,11 @@
 
 import argparse
 import os.path
-import subprocess
 import sys
 
 from lib import foreach_repo
 
 parser = argparse.ArgumentParser(description="Validate all Pop!_OS repositories")
-parser.add_argument('--ssh', action='store_true')
 args = parser.parse_args(sys.argv[1:])
 
 def clone(repo):
