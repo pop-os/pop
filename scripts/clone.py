@@ -2,13 +2,13 @@
 
 import argparse
 import json
+import os.path
 import subprocess
 import sys
 import urllib.request
 
 parser = argparse.ArgumentParser(description="Clone all Pop!_OS repositories")
 parser.add_argument('--ssh', action='store_true')
-
 args = parser.parse_args(sys.argv[1:])
 
 response = urllib.request.urlopen("https://api.github.com/orgs/pop-os/repos")
@@ -21,4 +21,7 @@ for repo in repos:
     else:
         url = repo["clone_url"]
 
-    subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
+    if os.path.exists(repo["name"]):
+        print(repo["name"] + " already exists")
+    else:
+        subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
