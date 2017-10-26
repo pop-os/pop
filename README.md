@@ -4,11 +4,11 @@ Pop!\_OS is designed for people who use their computer to create; whether it’s
 
 Pop!\_OS’s first release was on October 19th, 2017. For more information, [visit the Pop!\_OS website](https://system76.com/pop) and [view the Pop!\_OS documentation](http://pop.system76.com/docs/).
 
-Pop!\_OS packages are hosted [on Launchpad](https://launchpad.net/~system76/+archive/ubuntu/pop/+packages). Many Pop!\_OS packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
-
 ## Purpose
 
 The purpose of this repository is to allow easy management of all Pop!\_OS related source code and assets.
+
+Binary packages are hosted [on Launchpad](https://launchpad.net/~system76/+archive/ubuntu/pop/+packages). Many packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
 
 To view a list of all included repositores, see [REPOS.md](./REPOS.md)
 
@@ -18,7 +18,7 @@ You must install the following packages to use this repository:
 
 - `python3-launchpadlib`
 
-## Scripts
+### Scripts
 
 This repository contains the following commands:
 
