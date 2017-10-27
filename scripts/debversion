@@ -11,7 +11,8 @@ parser = argparse.ArgumentParser(description="Version all Pop!_OS repositories")
 args = parser.parse_args(sys.argv[1:])
 
 def version(repo):
-    print("Versioning " + repo["name"])
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
     if os.path.exists(repo["name"]):
         if os.path.exists(os.path.join(repo["name"], "debian", "changelog")):
             source = subprocess.run(["dpkg-parsechangelog", "--show-field", "Source"], check=True, cwd=repo["name"], stdout=subprocess.PIPE)
@@ -20,6 +21,6 @@ def version(repo):
         else:
             print("debian/changelog not found")
     else:
-        print(repo["name"] + " does not exist")
+        print("does not exist")
 
 foreach_repo(version)

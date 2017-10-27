@@ -18,7 +18,6 @@ This is an automatically generated file. See `scripts/readme`
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
-- [launchpad](https://github.com/pop-os/launchpad) - Launchpad Bot
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libparted\-sys](https://github.com/pop-os/libparted-sys) - Rust bindings to libparted
 - [muff](https://github.com/pop-os/muff) - Multiple USB File Flasher

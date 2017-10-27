@@ -9,7 +9,8 @@ archive = owner.getPPAByName(name="pop")
 series = "https://api.launchpad.net/devel/ubuntu/artful"
 arch_series = series + "/amd64"
 for source in archive.getPublishedSources(status="Published", distro_series=series):
-    print(source.source_package_name)
+    print("\x1B[1m" + source.source_package_name + "\x1B[0m")
+
     for binary in source.getPublishedBinaries():
         if binary.distro_arch_series_link == arch_series:
-            print("  " + binary.binary_package_name + ": " + str(binary.getDownloadCount()))
+            print(binary.binary_package_name + ": " + str(binary.getDownloadCount()))

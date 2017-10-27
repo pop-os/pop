@@ -20,7 +20,8 @@ f.write("/*.tar.*\n")
 f.write("/*.upload\n")
 
 def ignore(repo):
-    print("Ignoring " + repo["name"])
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
     f.write("/" + repo["name"] + "/\n")
 
 foreach_repo(ignore)

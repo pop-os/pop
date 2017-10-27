@@ -12,7 +12,7 @@ parser.add_argument('--ssh', action='store_true')
 args = parser.parse_args(sys.argv[1:])
 
 def clone(repo):
-    print("Cloning " + repo["name"])
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if args.ssh:
         url = repo["ssh_url"]
@@ -20,7 +20,7 @@ def clone(repo):
         url = repo["clone_url"]
 
     if os.path.exists(repo["name"]):
-        print(repo["name"] + " already exists")
+        print("already exists")
     else:
         subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
 

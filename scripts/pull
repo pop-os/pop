@@ -11,11 +11,12 @@ parser = argparse.ArgumentParser(description="Pull all Pop!_OS repositories")
 args = parser.parse_args(sys.argv[1:])
 
 def pull(repo):
-    print("Pulling " + repo["name"])
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
     if os.path.exists(repo["name"]):
         subprocess.run(["git", "-C", repo["name"], "pull"], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "update", "--init", "--recursive"], check=True)
     else:
-        print(repo["name"] + " does not exist")
+        print("does not exist")
 
 foreach_repo(pull)

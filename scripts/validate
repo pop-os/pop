@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description="Validate all Pop!_OS repositories"
 args = parser.parse_args(sys.argv[1:])
 
 def clone(repo):
-    print("Validating " + repo["name"])
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if os.path.exists(repo["name"]):
         files = [
@@ -23,8 +23,8 @@ def clone(repo):
         for file in files:
             if not os.path.exists(os.path.join(repo["name"], file)) \
             and not os.path.exists(os.path.join(repo["name"], file + ".md")):
-                print("  " + file + " not found")
+                print(file + " not found")
     else:
-        print(repo["name"] + " does not exist")
+        print("does not exist")
 
 foreach_repo(clone)
