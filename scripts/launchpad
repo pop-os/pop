@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 
-# Documentation can be found here: https://launchpad.net/+apidoc/devel.html
-from launchpadlib.launchpad import Launchpad
+from lib import launchpad_anon
 
-cache = "scripts/__lpcache__"
-
-lp = Launchpad.login_anonymously("pop-os/pop", "production", cache, version="devel")
+lp = launchpad_anon()
 owner = lp.people["system76"]
 archive = owner.getPPAByName(name="pop")
 
 series = "https://api.launchpad.net/devel/ubuntu/artful"
-arch_series = "https://api.launchpad.net/devel/ubuntu/artful/amd64"
+arch_series = series + "/amd64"
 for source in archive.getPublishedSources(status="Published", distro_series=series):
-    print(source.display_name)
+    print(source.source_package_name)
     for binary in source.getPublishedBinaries():
         if binary.distro_arch_series_link == arch_series:
-            print("  " + binary.display_name + ": " + str(binary.getDownloadCount()))
+            print("  " + binary.binary_package_name + ": " + str(binary.getDownloadCount()))

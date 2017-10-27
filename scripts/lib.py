@@ -2,6 +2,15 @@ import json
 import os.path
 import urllib.request
 
+# Documentation can be found here: https://launchpad.net/+apidoc/devel.html
+from launchpadlib.launchpad import Launchpad
+
+def launchpad():
+    return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
+
+def launchpad_anon():
+    return Launchpad.login_anonymously("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
+
 def github(url):
     # Put a token in scripts/.github_token to increase rate limit
     if os.path.exists("scripts/.github_token"):
