@@ -1,11 +1,22 @@
 import json
+import os.path
 import urllib.request
 
+def github(url):
+    # Put a token in scripts/.github_token to increase rate limit
+    if os.path.exists("scripts/.github_token"):
+        f = open("scripts/.github_token")
+        url += "?access_token=" + f.read().strip()
+        f.close()
+
+    response = urllib.request.urlopen(url)
+    return json.loads(response.read())
+
 def foreach_repo(fn):
-    response = urllib.request.urlopen("https://api.github.com/orgs/pop-os/repos")
-    repos = json.loads(response.read())
+    repos = github("https://api.github.com/orgs/pop-os/repos")
 
     repos.sort(key=lambda repo: repo["name"])
+
     for repo in repos:
         if repo["name"] != "pop":
             fn(repo)
