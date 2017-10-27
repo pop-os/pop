@@ -1,5 +1,12 @@
 # This is an automatically generated file. See scripts/ignore
 
+/*.build
+/*.buildinfo
+/*.changes
+/*.dsc
+/*.tar
+/*.tar.*
+/*.upload
 /code-of-conduct/
 /default-settings/
 /desktop/
