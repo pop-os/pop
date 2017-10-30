@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import argparse
+import os.path
+import subprocess
+import sys
+
+from lib import foreach_repo, github
+
+parser = argparse.ArgumentParser(description="View issues on all Pop!_OS repositories")
+args = parser.parse_args(sys.argv[1:])
+
+def issues(repo):
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
+    issues = github(repo["issues_url"].replace("{/number}", ""))
+
+    issues.sort(key=lambda issue: issue["number"])
+
+    for issue in issues:
+        if issue["state"] == "open":
+            print(str(issue["number"]) + ": " + issue["title"] + ": " + issue["html_url"])
+
+foreach_repo(issues)
