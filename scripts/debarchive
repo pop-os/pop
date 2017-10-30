@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import os.path
+from subprocess import check_output
+import sys
+
+parser = argparse.ArgumentParser(description="Build package archive")
+args = parser.parse_args(sys.argv[1:])
+
+if os.path.exists("dpkg"):
+    if os.path.exists("dpkg/Sources"):
+        os.remove("dpkg/Sources")
+
+    if os.path.exists("dpkg/Packages"):
+        os.remove("dpkg/Packages")
+
+    if os.path.exists("dpkg/Release"):
+        os.remove("dpkg/Release")
+
+    source = check_output(["apt-ftparchive", "sources", "."], cwd="dpkg").decode("utf-8")
+    packages = check_output(["apt-ftparchive", "packages", "."], cwd="dpkg").decode("utf-8")
+
+    with open("dpkg/Sources", "w") as f:
+        f.write(source)
+
+    with open("dpkg/Packages", "w") as f:
+        f.write(packages)
+
+    release = check_output(["apt-ftparchive", "release", "."], cwd="dpkg").decode("utf-8")
+
+    with open("dpkg/Release", "w") as f:
+        f.write(release)
