@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 
+# Setting up sbuild requires the following commands:
+#     sudo apt install sbuild
+#     sudo sbuild-adduser "$USER"
+#     newgrp sbuild
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse artful /srv/chroot/artful-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#
+# Put the following in ~/.sbuildrc:
+#     $build_arch_all = 1;
+#     $distribution = 'artful';
+
 import argparse
 import os
 import os.path
@@ -16,12 +26,14 @@ if os.path.exists("dpkg"):
             if parts[1] == ".dsc":
                 print("\x1B[1m" + parts[0] + "\x1B[0m")
 
-                deb_arch = parts[0] + "_amd64.deb"
-                deb_all = parts[0] + "_all.deb"
-                if os.path.exists(os.path.join(root, deb_all)):
-                    print(deb_all + " already built")
-                elif os.path.exists(os.path.join(root, deb_arch)):
-                    print(deb_arch + " already built")
+                changes = parts[0] + "_amd64.changes"
+                if os.path.exists(os.path.join(root, changes)):
+                    print(changes + " already built")
                 else:
                     print("building with sbuild")
-                    subprocess.run(["sbuild", entry], check=True, cwd=root)
+                    subprocess.run([
+                        "sbuild",
+                        "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu artful main",
+                        "--extra-repository-key=" + os.path.abspath("scripts/.ppa.asc"),
+                        entry
+                    ], check=True, cwd=root)
