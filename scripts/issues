@@ -8,6 +8,7 @@ import sys
 from lib import foreach_repo, github
 
 parser = argparse.ArgumentParser(description="View issues on all Pop!_OS repositories")
+parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def issues(repo):
@@ -21,4 +22,4 @@ def issues(repo):
         if issue["state"] == "open":
             print(str(issue["number"]) + ": " + issue["title"] + ": " + issue["html_url"])
 
-foreach_repo(issues)
+foreach_repo(issues, args.repos)

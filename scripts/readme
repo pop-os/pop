@@ -6,6 +6,7 @@ import sys
 from lib import foreach_repo, markdown_escape
 
 parser = argparse.ArgumentParser(description="Generate gitignore file")
+parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 f = open("REPOS.md", "w")
@@ -21,6 +22,6 @@ def readme(repo):
 
     f.write("- [" + name + "](" + repo["html_url"] + ") - " + description + "\n")
 
-foreach_repo(readme)
+foreach_repo(readme, args.repos)
 
 f.close()

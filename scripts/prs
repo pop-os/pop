@@ -8,6 +8,7 @@ import sys
 from lib import foreach_repo, github
 
 parser = argparse.ArgumentParser(description="View PRs on all Pop!_OS repositories")
+parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def prs(repo):
@@ -21,4 +22,4 @@ def prs(repo):
         if pr["state"] == "open":
             print(str(pr["number"]) + ": " + pr["title"] + ": " + pr["html_url"])
 
-foreach_repo(prs)
+foreach_repo(prs, args.repos)

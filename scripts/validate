@@ -7,6 +7,7 @@ import sys
 from lib import foreach_repo
 
 parser = argparse.ArgumentParser(description="Validate all Pop!_OS repositories")
+parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def clone(repo):
@@ -27,4 +28,4 @@ def clone(repo):
     else:
         print("does not exist")
 
-foreach_repo(clone)
+foreach_repo(clone, args.repos)

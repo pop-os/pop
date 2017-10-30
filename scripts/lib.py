@@ -21,13 +21,13 @@ def github(url):
     response = urllib.request.urlopen(url)
     return json.loads(response.read())
 
-def foreach_repo(fn):
+def foreach_repo(fn, selected=[]):
     repos = github("https://api.github.com/orgs/pop-os/repos")
 
     repos.sort(key=lambda repo: repo["name"])
 
     for repo in repos:
-        if repo["name"] != "pop":
+        if repo["name"] != "pop" and (len(selected) == 0 or repo["name"] in selected):
             fn(repo)
 
 # Escaping is done according to https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
