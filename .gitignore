@@ -8,6 +8,8 @@
 /*.tar
 /*.tar.*
 /*.upload
+/dpkg/
+
 /code-of-conduct/
 /default-settings/
 /desktop/
