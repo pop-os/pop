@@ -22,9 +22,12 @@ You must install the following packages to use this repository:
 
 This repository contains the following commands:
 
-- `scripts/clone` - clone Pop!\_OS source code
+- `scripts/clone` - clone source code
+- `scripts/debversion` - show version of debian package
 - `scripts/ignore` - generate `.gitignore`
+- `scripts/issues` - show issues
 - `scripts/launchpad` - show PPA packages
-- `scripts/pull` - update Pop!\_OS source code
+- `scripts/prs` - show pull requests
+- `scripts/pull` - update source code
 - `scripts/readme` - generate `REPOS.md`
 - `scripts/validate` - validate Pop!\_OS source code for presence of `LICENSE`, `README`, and `TESTING` documentation
