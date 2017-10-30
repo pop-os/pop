@@ -22,6 +22,8 @@ def github(url):
     return json.loads(response.read())
 
 def foreach_repo(fn, selected=[]):
+    selected = [item.rstrip('/') for item in selected]
+
     repos = github("https://api.github.com/orgs/pop-os/repos")
 
     repos.sort(key=lambda repo: repo["name"])

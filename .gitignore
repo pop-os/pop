@@ -3,6 +3,7 @@
 /*.build
 /*.buildinfo
 /*.changes
+/*.deb
 /*.dsc
 /*.tar
 /*.tar.*
