@@ -15,6 +15,10 @@ args = parser.parse_args(sys.argv[1:])
 def clone(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
+    if repo["name"] == "pop":
+        print("skipping")
+        return
+
     if args.ssh:
         url = repo["ssh_url"]
     else:
