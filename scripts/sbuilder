@@ -28,7 +28,7 @@ if os.path.exists("dpkg"):
 
                 changes = parts[0] + "_amd64.changes"
                 if os.path.exists(os.path.join(root, changes)):
-                    print(changes + " already built")
+                    print(entry + " already built by " + changes)
                 else:
                     print("building with sbuild")
                     subprocess.run([

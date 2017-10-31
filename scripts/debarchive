@@ -27,6 +27,7 @@ force_remove("dpkg/Packages.gz")
 force_remove("dpkg/Release")
 force_remove("dpkg/Release.gpg")
 force_remove("dpkg/InRelease")
+force_remove("dpkg/Key.gpg")
 
 source = check_output(["apt-ftparchive", "-qq", "sources", "."], cwd="dpkg").decode("utf-8")
 
@@ -68,5 +69,5 @@ check_call([
     "--local-user", email,
     "--batch", "--yes",
     "--digest-algo", "sha512",
-    "-o", "dpkg/Release.asc"
+    "-o", "dpkg/Key.gpg"
 ])
