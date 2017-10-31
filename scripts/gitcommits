@@ -1,61 +1,183 @@
 #!/usr/bin/env python3
 
+import argparse
+import sys
+import os
+from os import path
+import shutil
 from subprocess import check_call, check_output
 from collections import namedtuple
 
-Source = namedtuple('Source', 'id branch version codename')
+from lib import foreach_repo
 
+Series = namedtuple('Series', 'codename version')
 
-build_versions = {
-    '17.10': 'artful',
-    '18.04': 'bionic',
+parser = argparse.ArgumentParser(description="Source package all Pop!_OS repositories")
+parser.add_argument("repos", nargs="*", default=[])
+args = parser.parse_args(sys.argv[1:])
+
+POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+BUILD_DIR = path.join(POP_DIR, '_build')
+SOURCE_DIR = path.join(BUILD_DIR, 'deb_source')
+
+build_series = {
+    'artful': '17.10',
+    'bionic': '18.04',
 }
 
+CHANGELOG = """{name} ({version}) {codename}; urgency=low
 
-def git_stuff_we_need():
-    check_call(['git', 'fetch', 'origin'])
-    o = check_output(['git', 'ls-remote', '--heads', 'origin'])
-    p = 'refs/heads/'
-    result = []
+  * Auto Build
+
+ -- {maintainer}  {datetime}
+"""
+
+
+def iprint(level, value):
+    indent = ' ' * (level * 4)
+    print('>>> ' + indent + str(value))
+
+
+def git_ids_and_branches(cwd):
+    """
+    Returns a `dict` mapping each commit ID to a list of branches.
+
+    `git ls-remote` will return something like::
+
+        f73e8fc2c5bb5756032c35b6be1fcd84106413b1	refs/heads/overhaul
+        ffb788cccfe0cd7feedcfe8f0b8e9154097a46ca	refs/heads/master
+        f73e8fc2c5bb5756032c35b6be1fcd84106413b1	refs/heads/test_bionic
+
+    For which this function would return::
+
+        {
+            'f73e8fc2c5bb5756032c35b6be1fcd84106413b1': ['overhaul', 'test_bionic'],
+            'ffb788cccfe0cd7feedcfe8f0b8e9154097a46ca':	['master'],
+        }
+    """
+    check_call(['git', 'fetch', 'origin'], cwd=cwd)
+    o = check_output(['git', 'ls-remote', '--heads', 'origin'], cwd=cwd)
+    prefix = 'refs/heads/'
+    result = {}
     for line in o.decode().splitlines():
-        (_id, b) = line.split('\t')
-        assert b.startswith(p)
-        result.append((_id, b[len(p):]))
+        (_id, rawbranch) = line.split('\t')
+        assert rawbranch.startswith(prefix)
+        branch = rawbranch[len(prefix):]
+        if _id not in result:
+            result[_id] = []
+        result[_id].append(branch)
     return result
 
 
-def parse_branch(rawbranch):
-    parts = rawbranch.split('_')
+def git_clean(cwd):
+    check_call(['git', 'clean', '-xfd'], cwd=cwd)
+
+
+def git_checkout_id(cwd, _id):
+    check_call(['git', 'checkout', '--force', '--detach', _id], cwd=cwd)
+    check_call(['git', 'submodule', 'sync', '--recursive'], cwd=cwd)
+    check_call(['git', 'submodule', 'update', '--init', '--recursive'], cwd=cwd)
+    git_clean(cwd)
+
+
+def parse_branch(branch):
+    parts = branch.split('_')
     assert len(parts) <= 2
-    version = (None if len(parts) < 2 else parts[1])
-    return (parts[0], version)
+    pocket = parts[0]
+    codename = (None if len(parts) < 2 else parts[1])
+    return (pocket, codename)
 
 
-def iter_version_expansion(pairs):
-    for (_id, rawbranch) in pairs:
-        (branch, version) = parse_branch(rawbranch)
-        if version is None:
-            for (version, codename) in sorted(build_versions.items()):
-                yield Source(_id, branch, version, codename)
+def iter_series(branches):
+    for b in branches:
+        (pocket, codename) = parse_branch(b)
+        if codename is None:
+            for (codename, version) in build_series.items():
+                yield (Series(codename, version), pocket)
         else:
-            yield Source(_id, branch, version, build_versions[version])
+            yield (Series(codename, build_series[codename]), pocket)
 
 
-builds = set()
-for s in iter_version_expansion(git_stuff_we_need()):
-    print(s)
-    builds.add('{}+{}'.format(s.id, s.version))
-for b in sorted(builds):
-    print(b)
+def expand_series(branches):
+    result = {}
+    for (series, pocket) in iter_series(branches):
+        if series not in result:
+            result[series] = set()
+        result[series].add(pocket)
+    return result
 
 
+def read_source_package_name(cwd):
+    control = path.join(cwd, 'debian', 'control')
+    with open(control, 'r') as fp:
+        (key, value) = fp.readline().rstrip().split(': ')
+        assert key == 'Source'
+        return value
 
-"""
-git submodule update --init --recursive
-git checkout --detach
-git reset --hard origin/master
-git clean -xfd
-git reset --hard origin/bionic
-git fetch origin
-"""
+
+def mk_changelog(cwd, _id, series):
+    return CHANGELOG.format(
+        name=read_source_package_name(cwd),
+        version='~'.join(['0', _id, series.version]),
+        codename=series.codename,
+        maintainer='Jason Gerard DeRose <jason@system76.com>',
+        datetime='Thu, 22 Sep 2016 14:58:02 -0600',
+    )
+
+
+def write_changelog(cwd, _id, series):
+    changelog = mk_changelog(cwd, _id, series)
+    print(changelog)
+    with open(path.join(cwd, 'debian', 'changelog'), 'w') as fp:
+        fp.write(changelog)
+
+
+def build_stuff_we_need(cwd):
+    name = path.basename(cwd)
+    os.mkdir(path.join(SOURCE_DIR, name))
+    print('')
+    iprint(0, cwd)
+    ids = git_ids_and_branches(cwd)
+    for (_id, branches) in sorted(ids.items()):
+        iprint(1, _id)
+        git_checkout_id(cwd, _id)
+        if not path.isdir(path.join(cwd, 'debian')):
+            print('No debian/ dir: {!r}'.format(cwd))
+            continue
+        os.mkdir(path.join(SOURCE_DIR, name, _id))
+        expanded = expand_series(branches)
+        for (series, pockets) in sorted(expanded.items()):
+            iprint(2, series)
+            dst = path.join(SOURCE_DIR, name, _id, series.codename)
+            os.mkdir(dst)
+            git_clean(cwd)
+            write_changelog(cwd, _id, series)
+            check_call(['dpkg-source', '--build', cwd], cwd=dst)
+            for p in sorted(pockets):
+                iprint(3, p)
+
+
+def callback(repo):
+    name =  repo['name']
+    if name in ('shop', 'icon-theme', 'gnome-control-center', 'gnome-initial-setup'):
+        print('skipping {!r}'.format(name))
+        return
+    cwd = path.join(POP_DIR, name)
+    if path.exists(cwd):
+        build_stuff_we_need(cwd)
+
+
+def recreate_dir(d):
+    if path.isdir(d):
+        shutil.rmtree(d)
+    os.mkdir(d)
+
+
+def build_sources():
+    recreate_dir(BUILD_DIR)
+    os.mkdir(SOURCE_DIR)
+    foreach_repo(callback, args.repos)
+
+
+build_sources()
 
