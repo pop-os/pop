@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+from subprocess import check_call, check_output
+from collections import namedtuple
+
+Source = namedtuple('Source', 'id branch version codename')
+
+
+build_versions = {
+    '17.10': 'artful',
+    '18.04': 'bionic',
+}
+
+
+def git_stuff_we_need():
+    check_call(['git', 'fetch', 'origin'])
+    o = check_output(['git', 'ls-remote', '--heads', 'origin'])
+    p = 'refs/heads/'
+    result = []
+    for line in o.decode().splitlines():
+        (_id, b) = line.split('\t')
+        assert b.startswith(p)
+        result.append((_id, b[len(p):]))
+    return result
+
+
+def parse_branch(rawbranch):
+    parts = rawbranch.split('_')
+    assert len(parts) <= 2
+    version = (None if len(parts) < 2 else parts[1])
+    return (parts[0], version)
+
+
+def iter_version_expansion(pairs):
+    for (_id, rawbranch) in pairs:
+        (branch, version) = parse_branch(rawbranch)
+        if version is None:
+            for (version, codename) in sorted(build_versions.items()):
+                yield Source(_id, branch, version, codename)
+        else:
+            yield Source(_id, branch, version, build_versions[version])
+
+
+builds = set()
+for s in iter_version_expansion(git_stuff_we_need()):
+    print(s)
+    builds.add('{}+{}'.format(s.id, s.version))
+for b in sorted(builds):
+    print(b)
+
+
+
+"""
+git submodule update --init --recursive
+git checkout --detach
+git reset --hard origin/master
+git clean -xfd
+git reset --hard origin/bionic
+git fetch origin
+"""
+
