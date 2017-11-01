@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import argparse
+from collections import namedtuple
 import sys
 import os
 from os import path
 import shutil
 from subprocess import check_call, check_output
-from collections import namedtuple
+import tempfile
 
 from lib import foreach_repo
 
@@ -18,14 +19,16 @@ args = parser.parse_args(sys.argv[1:])
 
 POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 BUILD_DIR = path.join(POP_DIR, '_build')
-SOURCE_DIR = path.join(BUILD_DIR, 'deb_source')
+GIT_DIR = path.join(BUILD_DIR, 'git')
+SOURCE_DIR = path.join(BUILD_DIR, 'source')
+BINARY_DIR = path.join(BUILD_DIR, 'binary')
 
 build_series = {
     'artful': '17.10',
     'bionic': '18.04',
 }
 
-CHANGELOG = """{name} ({version}) {codename}; urgency=low
+CHANGELOG = """{name} ({version}) {codename}; urgency=medium
 
   * Auto Build
 
@@ -80,13 +83,18 @@ def git_checkout_id(cwd, _id):
     git_clean(cwd)
 
 
-def git_datetime_id(cwd, _id):
-    o = check_output(["git", "log", "-1", "--pretty=format:%cd", _id], cwd=cwd)
+def git_timestamp_id(cwd, _id):
+    o = check_output(["git", "log", "-1", "--pretty=format:%ct", _id], cwd=cwd)
     return o.decode().strip()
 
 
-def git_archive_id(cwd, _id):
-    return check_output(["git", "archive", "--format", "tar", _id], cwd=cwd)
+def git_datetime_id(cwd, _id):
+    o = check_output(["git", "log", "-1", "--pretty=format:%cD", _id], cwd=cwd)
+    return o.decode().strip()
+
+
+def git_archive_id(cwd, _id, archive):
+    return check_output(["git", "archive", "--format", "tar", "-o", archive, _id], cwd=cwd)
 
 
 def parse_branch(branch):
@@ -124,67 +132,76 @@ def read_source_package_name(cwd):
         return value
 
 
-def mk_changelog(cwd, _id, series, datetime):
-    return CHANGELOG.format(
-        name=read_source_package_name(cwd),
-        version='~'.join(['0', _id, series.version]),
-        codename=series.codename,
-        maintainer='Pop Launchpad <pop.launchpad@system76.com>',
-        datetime=datetime,
-    )
+GitTar = namedtuple('GitTar', 'id timestamp datetime archive')
+
+def git_tar(cwd, _id):
+    timestamp = git_timestamp_id(cwd, _id)
+    datetime = git_datetime_id(cwd, _id)
+    archive = path.join(GIT_DIR, _id)
+    git_archive_id(cwd, _id, archive)
+    return GitTar(_id, timestamp, datetime, archive)
 
 
-def write_changelog(cwd, _id, series, datetime):
-    changelog = mk_changelog(cwd, _id, series, datetime)
-    print(changelog)
-    with open(path.join(cwd, 'debian', 'changelog'), 'w') as fp:
-        fp.write(changelog)
+def dpkg_source(name, git, series):
+    prefix = name + "_" + git.id + "_" + series.codename + "_"
+    with tempfile.TemporaryDirectory(prefix=prefix) as tempdir:
+        print(tempdir)
+
+        check_call(['tar', 'xf', git.archive], cwd=tempdir)
+
+        if not path.isdir(path.join(tempdir, 'debian')):
+             print('no debian dir: {!r}'.format(tempdir))
+             return
+
+        source_name = read_source_package_name(tempdir)
+        version = '~'.join(['0', git.timestamp, series.version, git.id])
+
+        changelog = CHANGELOG.format(
+            name=source_name,
+            version=version,
+            codename=series.codename,
+            maintainer='Pop Launchpad <pop.launchpad@system76.com>',
+            datetime=git.datetime,
+        )
+
+        print(changelog)
+
+        with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
+            fp.write(changelog)
+
+        env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
+        check_call(['dpkg-source', '--build', tempdir], cwd=SOURCE_DIR, env=env)
 
 
-def build_stuff_we_need(cwd):
-    name = path.basename(cwd)
+def build_stuff_we_need(name):
+    cwd = path.join(POP_DIR, name)
 
     print('')
-    iprint(0, cwd)
+    iprint(0, name + ": " + cwd)
 
-    name_dir = path.join(SOURCE_DIR, name)
-    os.mkdir(name_dir)
+    if not path.exists(cwd):
+        print('did not find: {!r}'.format(cwd))
+        return
 
     ids = git_ids_and_branches(cwd)
     for (_id, branches) in sorted(ids.items()):
-        iprint(1, _id)
+        git = git_tar(cwd, _id)
 
-        id_dir = path.join(name_dir, _id)
-        os.mkdir(id_dir)
-
-        datetime = git_datetime_id(cwd, _id)
-        archive = git_archive_id(cwd, _id)
+        iprint(1, git.id + ": " + git.datetime)
 
         expanded = expand_series(branches)
-        for (series, pockets) in sorted(expanded.items()):
+        for (series, pocket) in sorted(expanded.items()):
             iprint(2, series)
 
-            series_dir = path.join(id_dir, series.codename)
-            os.mkdir(series_dir)
+            dpkg_source(name, git, series)
 
-            source_dir = path.join(series_dir, "source")
-            os.mkdir(source_dir)
-            check_output(["tar", "x"], input=archive, cwd=source_dir)
-
-            if not path.isdir(path.join(source_dir, 'debian')):
-                 print('No debian/ dir: {!r}'.format(source_dir))
-                 continue
-
-            write_changelog(source_dir, _id, series, datetime)
-
-            check_call(['dpkg-source', '--build', source_dir], cwd=series_dir)
-
-            for p in sorted(pockets):
-                iprint(3, p)
+            for pocket in sorted(pocket):
+                iprint(3, pocket)
 
 
-def callback(repo):
+def build_sources_callback(repo):
     name =  repo['name']
+
     if name in (
         'code-of-conduct',
         'docs',
@@ -197,9 +214,8 @@ def callback(repo):
     ):
         print('skipping {!r}'.format(name))
         return
-    cwd = path.join(POP_DIR, name)
-    if path.exists(cwd):
-        build_stuff_we_need(cwd)
+
+    build_stuff_we_need(name)
 
 
 def recreate_dir(d):
@@ -210,9 +226,9 @@ def recreate_dir(d):
 
 def build_sources():
     recreate_dir(BUILD_DIR)
-    #if not path.exists(SOURCE_DIR):
+    os.mkdir(GIT_DIR)
     os.mkdir(SOURCE_DIR)
-    foreach_repo(callback, args.repos)
+    foreach_repo(build_sources_callback, args.repos)
 
 
 build_sources()
