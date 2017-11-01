@@ -10,6 +10,7 @@
 /*.upload
 /dpkg/
 
+/appstream-data/
 /code-of-conduct/
 /default-settings/
 /desktop/
@@ -31,6 +32,7 @@
 /libparted-sys/
 /muff/
 /plymouth-theme/
+/pop/
 /session/
 /shop/
 /theme/
