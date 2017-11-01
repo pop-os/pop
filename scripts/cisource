@@ -80,6 +80,15 @@ def git_checkout_id(cwd, _id):
     git_clean(cwd)
 
 
+def git_datetime_id(cwd, _id):
+    o = check_output(["git", "log", "-1", "--pretty=format:%cd", _id], cwd=cwd)
+    return o.decode().strip()
+
+
+def git_archive_id(cwd, _id):
+    return check_output(["git", "archive", "--format", "tar", _id], cwd=cwd)
+
+
 def parse_branch(branch):
     parts = branch.split('_')
     assert len(parts) <= 2
@@ -115,18 +124,18 @@ def read_source_package_name(cwd):
         return value
 
 
-def mk_changelog(cwd, _id, series):
+def mk_changelog(cwd, _id, series, datetime):
     return CHANGELOG.format(
         name=read_source_package_name(cwd),
         version='~'.join(['0', _id, series.version]),
         codename=series.codename,
-        maintainer='Jason Gerard DeRose <jason@system76.com>',
-        datetime='Thu, 22 Sep 2016 14:58:02 -0600',
+        maintainer='Pop Launchpad <pop.launchpad@system76.com>',
+        datetime=datetime,
     )
 
 
-def write_changelog(cwd, _id, series):
-    changelog = mk_changelog(cwd, _id, series)
+def write_changelog(cwd, _id, series, datetime):
+    changelog = mk_changelog(cwd, _id, series, datetime)
     print(changelog)
     with open(path.join(cwd, 'debian', 'changelog'), 'w') as fp:
         fp.write(changelog)
@@ -134,32 +143,58 @@ def write_changelog(cwd, _id, series):
 
 def build_stuff_we_need(cwd):
     name = path.basename(cwd)
-    os.mkdir(path.join(SOURCE_DIR, name))
+
     print('')
     iprint(0, cwd)
+
+    name_dir = path.join(SOURCE_DIR, name)
+    os.mkdir(name_dir)
+
     ids = git_ids_and_branches(cwd)
     for (_id, branches) in sorted(ids.items()):
         iprint(1, _id)
-        git_checkout_id(cwd, _id)
-        if not path.isdir(path.join(cwd, 'debian')):
-            print('No debian/ dir: {!r}'.format(cwd))
-            continue
-        os.mkdir(path.join(SOURCE_DIR, name, _id))
+
+        id_dir = path.join(name_dir, _id)
+        os.mkdir(id_dir)
+
+        datetime = git_datetime_id(cwd, _id)
+        archive = git_archive_id(cwd, _id)
+
         expanded = expand_series(branches)
         for (series, pockets) in sorted(expanded.items()):
             iprint(2, series)
-            dst = path.join(SOURCE_DIR, name, _id, series.codename)
-            os.mkdir(dst)
-            git_clean(cwd)
-            write_changelog(cwd, _id, series)
-            check_call(['dpkg-source', '--build', cwd], cwd=dst)
+
+            series_dir = path.join(id_dir, series.codename)
+            os.mkdir(series_dir)
+
+            source_dir = path.join(series_dir, "source")
+            os.mkdir(source_dir)
+            check_output(["tar", "x"], input=archive, cwd=source_dir)
+
+            if not path.isdir(path.join(source_dir, 'debian')):
+                 print('No debian/ dir: {!r}'.format(source_dir))
+                 continue
+
+            write_changelog(source_dir, _id, series, datetime)
+
+            check_call(['dpkg-source', '--build', source_dir], cwd=series_dir)
+
             for p in sorted(pockets):
                 iprint(3, p)
 
 
 def callback(repo):
     name =  repo['name']
-    if name in ('shop', 'icon-theme', 'gnome-control-center', 'gnome-initial-setup'):
+    if name in (
+        'code-of-conduct',
+        'docs',
+        'gnome-control-center',
+        'gnome-initial-setup',
+        'iso',
+        'icon-theme',
+        'shop',
+        'wallpapers'
+    ):
         print('skipping {!r}'.format(name))
         return
     cwd = path.join(POP_DIR, name)
@@ -175,9 +210,9 @@ def recreate_dir(d):
 
 def build_sources():
     recreate_dir(BUILD_DIR)
+    #if not path.exists(SOURCE_DIR):
     os.mkdir(SOURCE_DIR)
     foreach_repo(callback, args.repos)
 
 
 build_sources()
-

@@ -19,8 +19,8 @@ import sys
 parser = argparse.ArgumentParser(description="Build source packages")
 args = parser.parse_args(sys.argv[1:])
 
-if os.path.exists("dpkg"):
-    for root, dirs, files in os.walk("dpkg"):
+if os.path.exists("_build/deb_source"):
+    for root, dirs, files in os.walk("_build/deb_source"):
         for entry in files:
             parts = os.path.splitext(entry)
             if parts[1] == ".dsc":
