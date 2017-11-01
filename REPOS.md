@@ -2,6 +2,7 @@
 This is an automatically generated file. See `scripts/readme`
 
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
+- [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage

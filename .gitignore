@@ -8,9 +8,10 @@
 /*.tar
 /*.tar.*
 /*.upload
-/dpkg/
+/_build/
 
 /appstream-data/
+/buildchain/
 /code-of-conduct/
 /default-settings/
 /desktop/
