@@ -196,21 +196,23 @@ def build_stuff_we_need(name):
             iprint(2, series)
 
             dsc = dpkg_source(name, git, series)
-            check_call([
-                "sbuild",
-                "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu artful main",
-                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
-                dsc
-            ], cwd=BINARY_DIR)
+            if dsc:
+                check_call([
+                    "sbuild",
+                    "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu artful main",
+                    "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
+                    dsc
+                ], cwd=BINARY_DIR)
 
-            for pocket in sorted(pocket):
-                iprint(3, pocket)
+                for pocket in sorted(pocket):
+                    iprint(3, pocket)
 
 
 def build_sources_callback(repo):
     name =  repo['name']
 
     if name in (
+        'appstream-data',
         'code-of-conduct',
         'docs',
         'fonts',
