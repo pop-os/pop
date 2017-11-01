@@ -172,6 +172,8 @@ def dpkg_source(name, git, series):
         env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
         check_call(['dpkg-source', '--build', tempdir], cwd=SOURCE_DIR, env=env)
 
+        return path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
+
 
 def build_stuff_we_need(name):
     cwd = path.join(POP_DIR, name)
@@ -193,7 +195,13 @@ def build_stuff_we_need(name):
         for (series, pocket) in sorted(expanded.items()):
             iprint(2, series)
 
-            dpkg_source(name, git, series)
+            dsc = dpkg_source(name, git, series)
+            check_call([
+                "sbuild",
+                "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu artful main",
+                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
+                dsc
+            ], cwd=BINARY_DIR)
 
             for pocket in sorted(pocket):
                 iprint(3, pocket)
@@ -205,6 +213,7 @@ def build_sources_callback(repo):
     if name in (
         'code-of-conduct',
         'docs',
+        'fonts',
         'gnome-control-center',
         'gnome-initial-setup',
         'iso',
@@ -228,6 +237,7 @@ def build_sources():
     recreate_dir(BUILD_DIR)
     os.mkdir(GIT_DIR)
     os.mkdir(SOURCE_DIR)
+    os.mkdir(BINARY_DIR)
     foreach_repo(build_sources_callback, args.repos)
 
 
