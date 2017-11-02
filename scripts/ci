@@ -276,10 +276,8 @@ def callback(repo):
     ):
         print('skipping {!r}'.format(name))
         return {}
-    elif name == "default-settings":
-        return build_stuff_we_need(name)
     else:
-        return {}
+        return build_stuff_we_need(name)
 
 
 def recreate_dir(d):
