@@ -28,9 +28,12 @@ def foreach_repo(fn, selected=[]):
 
     repos.sort(key=lambda repo: repo["name"])
 
+    ret = {}
     for repo in repos:
         if len(selected) == 0 or repo["name"] in selected:
-            fn(repo)
+            ret[repo["name"]] = fn(repo)
+
+    return ret
 
 # Escaping is done according to https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 # This may need to be improved. Always check the output of generated files
