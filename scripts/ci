@@ -34,8 +34,9 @@ BUILD_DIR = path.join(POP_DIR, '_build')
 GIT_DIR = path.join(BUILD_DIR, 'git')
 SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
-POOL_DIR = path.join(BUILD_DIR, 'pool')
-DISTS_DIR = path.join(BUILD_DIR, 'dists')
+REPO_DIR = path.join(BUILD_DIR, 'repo')
+POOL_DIR = path.join(REPO_DIR, 'pool')
+DISTS_DIR = path.join(REPO_DIR, 'dists')
 
 build_series = {
     'artful': '17.10',
@@ -263,8 +264,8 @@ def callback(repo):
     ):
         print('skipping {!r}'.format(name))
         return
-    else:
-        build_stuff_we_need(name)
+
+    build_stuff_we_need(name)
 
 
 def recreate_dir(d):
@@ -292,7 +293,7 @@ def create_dists(email):
         source = check_output([
             "apt-ftparchive", "-qq",
             "sources", "pool/" + codename
-        ], cwd=BUILD_DIR).decode("utf-8")
+        ], cwd=REPO_DIR).decode("utf-8")
 
         with open(path.join(source_dir, "Sources"), "w") as f:
             f.write(source)
@@ -312,7 +313,7 @@ def create_dists(email):
         packages = check_output([
             "apt-ftparchive",
             "packages", "pool/" + codename
-        ], cwd=BUILD_DIR).decode("utf-8")
+        ], cwd=REPO_DIR).decode("utf-8")
 
         with open(path.join(binary_dir, "Packages"), "w") as f:
             f.write(packages)
@@ -380,6 +381,7 @@ def ci():
     os.mkdir(GIT_DIR)
     os.mkdir(SOURCE_DIR)
     os.mkdir(BINARY_DIR)
+    os.mkdir(REPO_DIR)
     os.mkdir(POOL_DIR)
     os.mkdir(DISTS_DIR)
 
