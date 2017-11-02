@@ -1,12 +1,24 @@
 #!/usr/bin/env python3
 
+# Setting up sbuild requires the following commands:
+#     sudo apt install sbuild
+#     sudo sbuild-adduser "$USER"
+#     newgrp sbuild
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse artful /srv/chroot/artful-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse bionic /srv/chroot/bionic-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#
+# Put the following in ~/.sbuildrc:
+#     $build_arch_all = 1;
+
 import argparse
 from collections import namedtuple
-import sys
+from debian.changelog import Changelog, Version
+from debian.deb822 import Dsc, Deb822
 import os
 from os import path
 import shutil
 from subprocess import check_call, check_output
+import sys
 import tempfile
 
 from lib import foreach_repo
@@ -22,18 +34,13 @@ BUILD_DIR = path.join(POP_DIR, '_build')
 GIT_DIR = path.join(BUILD_DIR, 'git')
 SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
+POOL_DIR = path.join(BUILD_DIR, 'pool')
+DISTS_DIR = path.join(BUILD_DIR, 'dists')
 
 build_series = {
     'artful': '17.10',
     'bionic': '18.04',
 }
-
-CHANGELOG = """{name} ({version}) {codename}; urgency=medium
-
-  * Auto Build
-
- -- {maintainer}  {datetime}
-"""
 
 
 def iprint(level, value):
@@ -123,21 +130,12 @@ def expand_series(branches):
         result[series].add(pocket)
     return result
 
-
-def read_source_package_name(cwd):
-    control = path.join(cwd, 'debian', 'control')
-    with open(control, 'r') as fp:
-        (key, value) = fp.readline().rstrip().split(': ')
-        assert key == 'Source'
-        return value
-
-
 GitTar = namedtuple('GitTar', 'id timestamp datetime archive')
 
 def git_tar(cwd, _id):
     timestamp = git_timestamp_id(cwd, _id)
     datetime = git_datetime_id(cwd, _id)
-    archive = path.join(GIT_DIR, _id)
+    archive = path.join(GIT_DIR, _id + ".tar")
     git_archive_id(cwd, _id, archive)
     return GitTar(_id, timestamp, datetime, archive)
 
@@ -153,27 +151,65 @@ def dpkg_source(name, git, series):
              print('no debian dir: {!r}'.format(tempdir))
              return
 
-        source_name = read_source_package_name(tempdir)
+        with open(path.join(tempdir, "debian", "control"), "r") as fp:
+            control = Deb822(fp)
+
+        source_name = control.get("Source")
         version = '~'.join(['0', git.timestamp, series.version, git.id])
 
-        changelog = CHANGELOG.format(
-            name=source_name,
-            version=version,
-            codename=series.codename,
-            maintainer='Pop Launchpad <pop.launchpad@system76.com>',
-            datetime=git.datetime,
+        changelog = Changelog()
+
+        changelog.new_block(
+            package=source_name,
+            version=Version(version),
+            distributions=series.codename,
+            author='Pop Launchpad <pop.launchpad@system76.com>',
+            date=git.datetime
         )
 
-        print(changelog)
+        changelog.add_change('')
+        changelog.add_change('  * Auto Build')
+        changelog.add_change('')
 
         with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
-            fp.write(changelog)
+            changelog.write_to_open_file(fp)
 
         env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
-        check_call(['dpkg-source', '--build', tempdir], cwd=SOURCE_DIR, env=env)
+        check_call([
+            'dpkg-source', '--build', tempdir
+        ], cwd=SOURCE_DIR, env=env)
 
-        return path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
+        return \
+            path.join(SOURCE_DIR, source_name + "_" + version + ".dsc"), \
+            path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
 
+
+def dpkg_build(dsc_path, series):
+    with open(dsc_path, "r") as fp:
+        dsc = Dsc(fp)
+
+    binaries = dsc.get("Binary")
+    version = dsc.get("Version")
+    arch = dsc.get("Architecture")
+
+    if arch != "all":
+        print("Setting arch to amd64")
+        arch = "amd64"
+
+    check_call([
+        "sbuild",
+        "--dist=" + series.codename,
+        "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
+        "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
+        dsc_path
+    ], cwd=BINARY_DIR)
+
+    debs = []
+
+    for binary in binaries.split(", "):
+        debs.append(path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb"))
+
+    return debs
 
 def build_stuff_we_need(name):
     cwd = path.join(POP_DIR, name)
@@ -195,20 +231,22 @@ def build_stuff_we_need(name):
         for (series, pocket) in sorted(expanded.items()):
             iprint(2, series)
 
-            dsc = dpkg_source(name, git, series)
-            if dsc:
-                check_call([
-                    "sbuild",
-                    "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu artful main",
-                    "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
-                    dsc
-                ], cwd=BINARY_DIR)
+            dsc_path, tar_path = dpkg_source(name, git, series)
+            if dsc_path:
+                deb_paths = dpkg_build(dsc_path, series)
 
                 for pocket in sorted(pocket):
                     iprint(3, pocket)
 
+                    for deb_path in deb_paths:
+                        iprint(4, path.basename(deb_path))
 
-def build_sources_callback(repo):
+                        shutil.copy2(dsc_path, path.join(POOL_DIR, series.codename, path.basename(dsc_path)))
+                        shutil.copy2(tar_path, path.join(POOL_DIR, series.codename, path.basename(tar_path)))
+                        shutil.copy2(deb_path, path.join(POOL_DIR, series.codename, path.basename(deb_path)))
+
+
+def callback(repo):
     name =  repo['name']
 
     if name in (
@@ -225,8 +263,8 @@ def build_sources_callback(repo):
     ):
         print('skipping {!r}'.format(name))
         return
-
-    build_stuff_we_need(name)
+    else:
+        build_stuff_we_need(name)
 
 
 def recreate_dir(d):
@@ -235,12 +273,123 @@ def recreate_dir(d):
     os.mkdir(d)
 
 
-def build_sources():
+def create_dists(email):
+    for codename in build_series:
+        version = build_series[codename]
+
+        dist_dir = path.join(DISTS_DIR, codename)
+
+        comp_dir = path.join(dist_dir, "main")
+        os.mkdir(comp_dir)
+
+        source_dir = path.join(comp_dir, "source")
+        os.mkdir(source_dir)
+
+        binary_dir = path.join(comp_dir, "binary-amd64")
+        os.mkdir(binary_dir)
+
+        # Generate source directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/
+        source = check_output([
+            "apt-ftparchive", "-qq",
+            "sources", "pool/" + codename
+        ], cwd=BUILD_DIR).decode("utf-8")
+
+        with open(path.join(source_dir, "Sources"), "w") as f:
+            f.write(source)
+
+        check_call(["gzip", "--keep", path.join(source_dir, "Sources")])
+
+        # Example source release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/Release
+        with open(path.join(source_dir, "Release"), "w") as f:
+            f.write("Archive: " + codename + "\n")
+            f.write("Version: " + version + "\n")
+            f.write("Component: main\n")
+            f.write("Origin: pop-os-staging\n")
+            f.write("Label: Pop!_OS Staging\n")
+            f.write("Architecture: source\n")
+
+        # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
+        packages = check_output([
+            "apt-ftparchive",
+            "packages", "pool/" + codename
+        ], cwd=BUILD_DIR).decode("utf-8")
+
+        with open(path.join(binary_dir, "Packages"), "w") as f:
+            f.write(packages)
+
+        check_call(["gzip", "--keep", path.join(binary_dir, "Packages")])
+
+        # Example binary release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/Release
+        with open(path.join(binary_dir, "Release"), "w") as f:
+            f.write("Archive: " + codename + "\n")
+            f.write("Version: " + version + "\n")
+            f.write("Component: main\n")
+            f.write("Origin: pop-os-staging\n")
+            f.write("Label: Pop!_OS Staging\n")
+            f.write("Architecture: amd64\n")
+
+        # Example dists release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/Release
+        release = check_output([
+            "apt-ftparchive",
+    		"-o", "APT::FTPArchive::Release::Origin=pop-os-staging",
+    		"-o", "APT::FTPArchive::Release::Label=Pop!_OS Staging",
+    		"-o", "APT::FTPArchive::Release::Suite=" + codename,
+    		"-o", "APT::FTPArchive::Release::Version=" + version,
+    		"-o", "APT::FTPArchive::Release::Codename=" + codename,
+    		"-o", "APT::FTPArchive::Release::Architectures=amd64",
+    		"-o", "APT::FTPArchive::Release::Components=main",
+    		"-o", "APT::FTPArchive::Release::Description=Pop!_OS Staging " + codename + " " + version,
+            "release", "."
+        ], cwd=dist_dir).decode("utf-8")
+
+        with open(path.join(dist_dir, "Release"), "w") as f:
+            f.write(release)
+
+        check_call([
+            "gpg", "--clearsign",
+            "--local-user", email,
+            "--batch", "--yes",
+            "--digest-algo", "sha512",
+            "-o", path.join(dist_dir, "InRelease"), path.join(dist_dir, "Release")
+        ])
+
+        check_call([
+            "gpg", "-abs",
+            "--local-user", email,
+            "--batch", "--yes",
+            "--digest-algo", "sha512",
+            "-o", path.join(dist_dir, "Release.gpg"), path.join(dist_dir, "Release")
+        ])
+
+        check_call([
+            "gpg", "--export", "--armor",
+            "--local-user", email,
+            "--batch", "--yes",
+            "--digest-algo", "sha512",
+            "-o", path.join(dist_dir, "Key.gpg")
+        ])
+
+
+def ci():
+    email = os.environ.get("DEBEMAIL")
+    if email is None:
+        raise Exception("DEBEMAIL is not set")
+
     recreate_dir(BUILD_DIR)
+
     os.mkdir(GIT_DIR)
     os.mkdir(SOURCE_DIR)
     os.mkdir(BINARY_DIR)
-    foreach_repo(build_sources_callback, args.repos)
+    os.mkdir(POOL_DIR)
+    os.mkdir(DISTS_DIR)
+
+    for codename in build_series:
+        os.mkdir(path.join(POOL_DIR, codename))
+        os.mkdir(path.join(DISTS_DIR, codename))
+
+    foreach_repo(callback, args.repos)
+
+    create_dists(email)
 
 
-build_sources()
+ci()
