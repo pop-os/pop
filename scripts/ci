@@ -303,7 +303,7 @@ def create_dists(email, pocket_series):
             source = check_output([
                 "apt-ftparchive", "-qq",
                 "sources", path.join("pool", series.codename)
-            ], cwd=pocket_dir).decode("utf-8")
+            ], cwd=pocket_dir).decode()
 
             with open(path.join(source_dir, "Sources"), "w") as f:
                 f.write(source)
@@ -323,7 +323,7 @@ def create_dists(email, pocket_series):
             packages = check_output([
                 "apt-ftparchive",
                 "packages", path.join("pool", series.codename)
-            ], cwd=pocket_dir).decode("utf-8")
+            ], cwd=pocket_dir).decode()
 
             with open(path.join(binary_dir, "Packages"), "w") as f:
                 f.write(packages)
@@ -351,7 +351,7 @@ def create_dists(email, pocket_series):
         		"-o", "APT::FTPArchive::Release::Components=main",
         		"-o", "APT::FTPArchive::Release::Description=Pop!_OS Staging " + series.codename + " " + series.version + " " + pocket,
                 "release", "."
-            ], cwd=dist_dir).decode("utf-8")
+            ], cwd=dist_dir).decode()
 
             with open(path.join(dist_dir, "Release"), "w") as f:
                 f.write(release)

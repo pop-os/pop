@@ -19,7 +19,7 @@ def github(url):
         f.close()
 
     response = urllib.request.urlopen(url)
-    return json.loads(response.read())
+    return json.loads(response.read().decode())
 
 def foreach_repo(fn, selected=[]):
     selected = [item.rstrip('/') for item in selected]
