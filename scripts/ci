@@ -135,7 +135,10 @@ def git_tar(cwd, _id):
     timestamp = git_timestamp_id(cwd, _id)
     datetime = git_datetime_id(cwd, _id)
     archive = path.join(GIT_DIR, _id + ".tar")
-    git_archive_id(cwd, _id, archive)
+    if path.exists(archive):
+        print("Git already built for {!r} id {!r}".format(cwd, _id))
+    else:
+        git_archive_id(cwd, _id, archive)
     return GitTar(_id, timestamp, datetime, archive)
 
 
@@ -148,7 +151,7 @@ def dpkg_source(name, git, series):
 
         if not path.isdir(path.join(tempdir, 'debian')):
              print('no debian dir: {!r}'.format(tempdir))
-             return
+             return None, None
 
         with open(path.join(tempdir, "debian", "control"), "r") as fp:
             control = Deb822(fp)
@@ -156,37 +159,44 @@ def dpkg_source(name, git, series):
         source_name = control.get("Source")
         version = '~'.join(['0', git.timestamp, series.version, git.id])
 
-        changelog = Changelog()
+        dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
+        tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
 
-        changelog.new_block(
-            package=source_name,
-            version=Version(version),
-            distributions=series.codename,
-            author='Pop Launchpad <pop.launchpad@system76.com>',
-            date=git.datetime
-        )
+        if path.exists(dsc_path) and path.exists(tar_path):
+            print("Source already built for {!r} on {!r}".format(source_name, series))
+        else:
+            changelog = Changelog()
 
-        changelog.add_change('')
-        changelog.add_change('  * Auto Build')
-        changelog.add_change('')
+            changelog.new_block(
+                package=source_name,
+                version=Version(version),
+                distributions=series.codename,
+                author='Pop Launchpad <pop.launchpad@system76.com>',
+                date=git.datetime
+            )
 
-        with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
-            changelog.write_to_open_file(fp)
+            changelog.add_change('')
+            changelog.add_change('  * Auto Build')
+            changelog.add_change('')
 
-        env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
-        check_call([
-            'dpkg-source', '--build', tempdir
-        ], cwd=SOURCE_DIR, env=env)
+            with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
+                changelog.write_to_open_file(fp)
 
-        return \
-            path.join(SOURCE_DIR, source_name + "_" + version + ".dsc"), \
-            path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
+            env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
+            check_call([
+                'dpkg-source',
+                '--compression=xz',
+                '--build', tempdir
+            ], cwd=SOURCE_DIR, env=env)
+
+        return dsc_path, tar_path
 
 
 def dpkg_build(dsc_path, series):
     with open(dsc_path, "r") as fp:
         dsc = Dsc(fp)
 
+    source_name = dsc.get("Source")
     binaries = dsc.get("Binary")
     version = dsc.get("Version")
     arch = dsc.get("Architecture")
@@ -195,22 +205,31 @@ def dpkg_build(dsc_path, series):
         print("Setting arch to amd64")
         arch = "amd64"
 
-    check_call([
-        "sbuild",
-        "--dist=" + series.codename,
-        "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
-        "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
-        dsc_path
-    ], cwd=BINARY_DIR)
+    build = False
 
     debs = []
 
     for binary in binaries.split(", "):
-        debs.append(path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb"))
+        deb_path = path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb")
+        debs.append(deb_path)
+        if not path.exists(deb_path):
+            build = True
+
+    if build:
+        check_call([
+            "sbuild",
+            "--dist=" + series.codename,
+            "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
+            "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
+            dsc_path
+        ], cwd=BINARY_DIR)
+    else:
+        print("Binaries already built for {!r} on {!r}".format(source_name, series))
 
     return debs
 
-def build_stuff_we_need(name):
+
+def build_packages(name):
     cwd = path.join(POP_DIR, name)
 
     print('')
@@ -257,33 +276,6 @@ def build_stuff_we_need(name):
                         shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
-
-
-def callback(repo):
-    name =  repo['name']
-
-    if name in (
-        'appstream-data',
-        'code-of-conduct',
-        'docs',
-        'fonts',
-        'gnome-control-center',
-        'gnome-initial-setup',
-        'iso',
-        'icon-theme',
-        'shop',
-        'wallpapers'
-    ):
-        print('skipping {!r}'.format(name))
-        return {}
-    else:
-        return build_stuff_we_need(name)
-
-
-def recreate_dir(d):
-    if path.isdir(d):
-        shutil.rmtree(d)
-    os.mkdir(d)
 
 
 def create_dists(email, pocket_series):
@@ -389,17 +381,49 @@ def create_dists(email, pocket_series):
             ])
 
 
+def callback(repo):
+    name =  repo['name']
+
+    if name in (
+        'appstream-data',
+        'code-of-conduct',
+        'docs',
+        'fonts',
+        'gnome-control-center',
+        'gnome-initial-setup',
+        'iso',
+        'icon-theme',
+        'shop',
+        'wallpapers'
+    ):
+        print('skipping {!r}'.format(name))
+        return {}
+    else:
+        return build_packages(name)
+
+
+def create_dir(d):
+    if not path.isdir(d):
+        os.mkdir(d)
+
+
+def recreate_dir(d):
+    if path.isdir(d):
+        shutil.rmtree(d)
+        os.mkdir(d)
+
+
 def ci():
     email = os.environ.get("DEBEMAIL")
     if email is None:
         raise Exception("DEBEMAIL is not set")
 
-    recreate_dir(BUILD_DIR)
+    create_dir(BUILD_DIR)
 
-    os.mkdir(GIT_DIR)
-    os.mkdir(SOURCE_DIR)
-    os.mkdir(BINARY_DIR)
-    os.mkdir(REPO_DIR)
+    create_dir(GIT_DIR)
+    create_dir(SOURCE_DIR)
+    create_dir(BINARY_DIR)
+    recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
     for repo_name, pocket_series in foreach_repo(callback, args.repos).items():
