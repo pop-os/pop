@@ -325,8 +325,8 @@ def create_dists(email, pocket_series):
                 f.write("Archive: " + series.codename + "\n")
                 f.write("Version: " + series.version + "\n")
                 f.write("Component: main\n")
-                f.write("Origin: pop-os-staging\n")
-                f.write("Label: Pop!_OS Staging\n")
+                f.write("Origin: pop-os-staging-" + pocket + "\n")
+                f.write("Label: Pop!_OS Staging " + pocket + "\n")
                 f.write("Architecture: source\n")
 
             # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
@@ -345,15 +345,15 @@ def create_dists(email, pocket_series):
                 f.write("Archive: " + series.codename + "\n")
                 f.write("Version: " + series.version + "\n")
                 f.write("Component: main\n")
-                f.write("Origin: pop-os-staging\n")
-                f.write("Label: Pop!_OS Staging\n")
+                f.write("Origin: pop-os-staging-" + pocket + "\n")
+                f.write("Label: Pop!_OS Staging " + pocket + "\n")
                 f.write("Architecture: amd64\n")
 
             # Example dists release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/Release
             release = check_output([
                 "apt-ftparchive",
-        		"-o", "APT::FTPArchive::Release::Origin=pop-os-staging",
-        		"-o", "APT::FTPArchive::Release::Label=Pop!_OS Staging",
+        		"-o", "APT::FTPArchive::Release::Origin=pop-os-staging-" + pocket,
+        		"-o", "APT::FTPArchive::Release::Label=Pop!_OS Staging " + pocket,
         		"-o", "APT::FTPArchive::Release::Suite=" + series.codename,
         		"-o", "APT::FTPArchive::Release::Version=" + series.version,
         		"-o", "APT::FTPArchive::Release::Codename=" + series.codename,
