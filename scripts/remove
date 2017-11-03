@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description="Remove all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
-if input("Are you sure you want to remove all repos? (y/N)") != "y":
+if input("Are you sure you want to remove all repos? (y/N) ") != "y":
     print("Exiting without removing repositories")
     exit(1)
 

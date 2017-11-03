@@ -21,6 +21,21 @@ def github(url):
     response = urllib.request.urlopen(url)
     return json.loads(response.read().decode())
 
+def github_post(url, data):
+    if os.path.exists("scripts/.github_token"):
+        f = open("scripts/.github_token")
+        url += "?access_token=" + f.read().strip()
+        f.close()
+
+    request = urllib.request.Request(
+        url,
+        json.dumps(data).encode(),
+        {"Content-Type": "application/json"}
+    )
+
+    response = urllib.request.urlopen(request)
+    return json.loads(response.read().decode())
+
 def foreach_repo(fn, selected=[]):
     selected = [item.rstrip('/') for item in selected]
 

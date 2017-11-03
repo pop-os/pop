@@ -142,6 +142,25 @@ def git_tar(cwd, _id):
     return GitTar(_id, timestamp, datetime, archive)
 
 
+def github_status(name, _id, context, state):
+    target_url = os.environ.get("BUILD_URL")
+    if target_url is None:
+        return
+
+    url = "https://api.github.com/repos/pop-os/" + name + "/statuses/" + _id
+
+    data = {
+        "context": "pop-os-staging/" + context,
+        "description": "Pop!_OS Staging " + context,
+        "state": state,
+        "target_url": target_url
+    }
+
+    response = github_post(url, data)
+    print(response)
+    return response
+
+
 def dpkg_source(name, git, series):
     prefix = name + "_" + git.id + "_" + series.codename + "_"
     with tempfile.TemporaryDirectory(prefix=prefix) as tempdir:
@@ -254,9 +273,22 @@ def build_packages(name):
         for (series, pockets) in sorted(expanded.items()):
             iprint(2, series)
 
-            dsc_path, tar_path = dpkg_source(name, git, series)
+            try:
+                github_status(name, _id, "source", "pending")
+                dsc_path, tar_path = dpkg_source(name, git, series)
+                github_status(name, _id, "source", "success")
+            except:
+                github_status(name, _id, "source", "failure")
+                raise
+
             if dsc_path:
-                deb_paths = dpkg_build(dsc_path, series)
+                try:
+                    github_status(name, _id, series.codename, "pending")
+                    deb_paths = dpkg_build(dsc_path, series)
+                    github_status(name, _id, series.codename, "success")
+                except:
+                    github_status(name, _id, series.codename, "failure")
+                    raise
 
                 for pocket in sorted(pockets):
                     iprint(3, pocket)

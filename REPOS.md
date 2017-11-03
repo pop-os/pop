@@ -9,6 +9,7 @@ This is an automatically generated file. See `scripts/readme`
 - [distinst](https://github.com/pop-os/distinst) - WIP Installer Backend
 - [docs](https://github.com/pop-os/docs) - Documentation minisite for Pop\!\_OS and related projects
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
+- [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - gnome\-control\-center
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup

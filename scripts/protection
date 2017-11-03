@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+import argparse
+import os.path
+import sys
+
+from lib import foreach_repo, github
+
+parser = argparse.ArgumentParser(description="Check protection of all Pop!_OS repositories")
+parser.add_argument("repos", nargs="*", default=[])
+args = parser.parse_args(sys.argv[1:])
+
+def callback(repo):
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
+    master = github(repo["branches_url"].replace("{/branch}", "/master"))
+    print(master["protection"])
+
+foreach_repo(callback, args.repos)
