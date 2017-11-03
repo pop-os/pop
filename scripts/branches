@@ -2,11 +2,12 @@
 
 import argparse
 import os.path
+import subprocess
 import sys
 
 from lib import foreach_repo, github
 
-parser = argparse.ArgumentParser(description="Check protection of all Pop!_OS repositories")
+parser = argparse.ArgumentParser(description="Pull all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
@@ -14,9 +15,6 @@ def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     for branch in github(repo["branches_url"].replace("{/branch}", "")):
-        info = github(repo["branches_url"].replace("{/branch}", "/" + branch["name"]))
-
-        print(branch["name"] + ":", "https://github.com/pop-os/" + repo["name"] + "/settings/branches/" + branch["name"]),
-        print(info["protection"])
+        print(branch["name"])
 
 foreach_repo(callback, args.repos)
