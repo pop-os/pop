@@ -14,7 +14,7 @@ f = open("REPOS.md", "w")
 f.write("# Repositories\n")
 f.write("This is an automatically generated file. See `scripts/readme`\n\n")
 
-def readme(repo):
+def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     name = markdown_escape(repo["name"])
@@ -22,6 +22,6 @@ def readme(repo):
 
     f.write("- [" + name + "](" + repo["html_url"] + ") - " + description + "\n")
 
-foreach_repo(readme, args.repos)
+foreach_repo(callback, args.repos)
 
 f.close()

@@ -15,8 +15,7 @@ def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if os.path.exists(repo["name"]):
-        subprocess.run(["git", "-C", repo["name"], "pull"], check=True)
-        subprocess.run(["git", "-C", repo["name"], "submodule", "update", "--init", "--recursive"], check=True)
+        subprocess.run(["git", "-C", repo["name"], "diff", "--name-status"], check=True)
     else:
         print("does not exist")
 

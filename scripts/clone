@@ -12,7 +12,7 @@ parser.add_argument("--ssh", action="store_true")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
-def clone(repo):
+def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if repo["name"] == "pop":
@@ -29,4 +29,4 @@ def clone(repo):
     else:
         subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
 
-foreach_repo(clone, args.repos)
+foreach_repo(callback, args.repos)

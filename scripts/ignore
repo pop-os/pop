@@ -24,11 +24,11 @@ f.write("/*.upload\n")
 f.write("/_build/\n")
 f.write("\n")
 
-def ignore(repo):
+def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     f.write("/" + repo["name"] + "/\n")
 
-foreach_repo(ignore, args.repos)
+foreach_repo(callback, args.repos)
 
 f.close()

@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description="Build all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
-def build(repo):
+def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if os.path.exists(repo["name"]):
@@ -27,4 +27,4 @@ def build(repo):
     else:
         print("does not exist")
 
-foreach_repo(build, args.repos)
+foreach_repo(callback, args.repos)

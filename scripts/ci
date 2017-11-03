@@ -392,7 +392,6 @@ def callback(repo):
         'docs',
         'gnome-control-center',
         'gnome-initial-setup',
-        'icon-theme',
         'iso',
         'shop',
     ):
