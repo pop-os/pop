@@ -207,6 +207,10 @@ def dpkg_source(name, git, series):
             with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
                 changelog.write_to_open_file(fp)
 
+            check_call([
+                "dh", "clean"
+            ], cwd=SOURCE_DIR)
+
             env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
             check_call([
                 'dpkg-source',
