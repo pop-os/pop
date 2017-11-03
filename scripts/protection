@@ -13,6 +13,7 @@ args = parser.parse_args(sys.argv[1:])
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
+    print("https://github.com/pop-os/" + repo["name"] + "/settings/branches/master")
     master = github(repo["branches_url"].replace("{/branch}", "/master"))
     print(master["protection"])
 
