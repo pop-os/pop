@@ -21,7 +21,7 @@ from subprocess import check_call, check_output
 import sys
 import tempfile
 
-from lib import foreach_repo
+from lib import foreach_repo, github_post
 
 Series = namedtuple('Series', 'codename version')
 
