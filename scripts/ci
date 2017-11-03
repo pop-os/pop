@@ -145,7 +145,10 @@ def git_tar(cwd, _id):
 def github_status(name, _id, context, state):
     target_url = os.environ.get("BUILD_URL")
     if target_url is None:
+        print("Not setting github status for {!r} {!r}".format(name, _id))
         return
+    else:
+        print("Setting github status for {!r} {!r}".format(name, _id))
 
     url = "https://api.github.com/repos/pop-os/" + name + "/statuses/" + _id
 
@@ -251,6 +254,33 @@ def dpkg_build(dsc_path, series):
     return debs
 
 
+def build_series_packages(name, git, series, pockets, pocket_series):
+    dsc_path, tar_path = dpkg_source(name, git, series)
+
+    if dsc_path:
+        deb_paths = dpkg_build(dsc_path, series)
+
+        for pocket in sorted(pockets):
+            iprint(3, pocket)
+
+            if not pocket in pocket_series:
+                pocket_series[pocket] = []
+
+            if not series in pocket_series[pocket]:
+                pocket_series[pocket].append(series)
+
+            # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
+            pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
+            os.makedirs(pool_dir)
+
+            for deb_path in deb_paths:
+                iprint(4, path.basename(deb_path))
+
+                shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
+                shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
+                shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
+
+
 def build_packages(name):
     cwd = path.join(POP_DIR, name)
 
@@ -275,40 +305,11 @@ def build_packages(name):
 
             try:
                 github_status(name, _id, "source", "pending")
-                dsc_path, tar_path = dpkg_source(name, git, series)
+                build_series_packages(name, git, series, pockets, pocket_series)
                 github_status(name, _id, "source", "success")
             except:
                 github_status(name, _id, "source", "failure")
                 raise
-
-            if dsc_path:
-                try:
-                    github_status(name, _id, series.codename, "pending")
-                    deb_paths = dpkg_build(dsc_path, series)
-                    github_status(name, _id, series.codename, "success")
-                except:
-                    github_status(name, _id, series.codename, "failure")
-                    raise
-
-                for pocket in sorted(pockets):
-                    iprint(3, pocket)
-
-                    if not pocket in pocket_series:
-                        pocket_series[pocket] = []
-
-                    if not series in pocket_series[pocket]:
-                        pocket_series[pocket].append(series)
-
-                    # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
-                    pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
-                    os.makedirs(pool_dir)
-
-                    for deb_path in deb_paths:
-                        iprint(4, path.basename(deb_path))
-
-                        shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
-                        shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
-                        shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
 
