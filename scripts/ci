@@ -209,7 +209,7 @@ def dpkg_source(name, git, series):
 
             check_call([
                 "dh", "clean"
-            ], cwd=SOURCE_DIR)
+            ], cwd=tempdir)
 
             env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
             check_call([
