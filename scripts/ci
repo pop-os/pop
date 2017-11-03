@@ -178,8 +178,11 @@ def dpkg_source(name, git, series):
         with open(path.join(tempdir, "debian", "control"), "r") as fp:
             control = Deb822(fp)
 
+        o = check_output(["dpkg-parsechangelog", "--show-field", "Version"], cwd=tempdir)
+        changelog_version = o.decode().strip()
+
         source_name = control.get("Source")
-        version = '~'.join(['0', git.timestamp, series.version, git.id])
+        version = '~'.join([changelog_version, git.timestamp, series.version, git.id])
 
         dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
         tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
