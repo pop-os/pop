@@ -304,11 +304,11 @@ def build_packages(name):
             iprint(2, series)
 
             try:
-                github_status(name, _id, "source", "pending")
+                github_status(name, _id, series.codename, "pending")
                 build_series_packages(name, git, series, pockets, pocket_series)
-                github_status(name, _id, "source", "success")
+                github_status(name, _id, series.codename, "success")
             except:
-                github_status(name, _id, "source", "failure")
+                github_status(name, _id, series.codename, "failure")
                 raise
 
     return pocket_series
