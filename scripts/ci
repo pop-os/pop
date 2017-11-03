@@ -218,6 +218,9 @@ def dpkg_build(dsc_path, series):
     if build:
         check_call([
             "sbuild",
+            "--verbose",
+            "--arch-all",
+            "--batch",
             "--dist=" + series.codename,
             "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
             "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
@@ -385,16 +388,13 @@ def callback(repo):
     name =  repo['name']
 
     if name in (
-        'appstream-data',
         'code-of-conduct',
         'docs',
-        'fonts',
         'gnome-control-center',
         'gnome-initial-setup',
-        'iso',
         'icon-theme',
+        'iso',
         'shop',
-        'wallpapers'
     ):
         print('skipping {!r}'.format(name))
         return {}
