@@ -1,0 +1,32 @@
+{
+    "name": "pop-os-staging",
+    "base": "ubuntu:16.04",
+    "privileged": true,
+    "prepare": [
+        ["apt-get", "update"],
+        [
+            "apt-get", "install", "-y",
+                "cargo",
+                "cmake",
+                "debhelper",
+                "libssl-dev",
+                "pkg-config",
+                "sbuild"
+        ],
+        ["cargo", "install", "--vers", "0.1.12", "cargo-vendor"],
+        [
+            "sbuild-createchroot",
+                "--include=eatmydata,ccache,gnupg",
+                "--components=main,restricted,universe,multiverse",
+                "artful",
+                "/srv/chroot/artful-amd64-sbuild",
+                "http://archive.ubuntu.com/ubuntu"
+        ]
+    ],
+    "build": [
+        ["bash", "-c", "cd source && dh clean && sbuild --dist artful --arch-all && ls -la . .."]
+    ],
+    "publish": [
+        ["bash", "-c", "mv *.deb artifacts"]
+    ]
+}

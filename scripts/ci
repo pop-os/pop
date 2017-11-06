@@ -25,7 +25,7 @@ from lib import foreach_repo, github_post
 
 Series = namedtuple('Series', 'codename version')
 
-parser = argparse.ArgumentParser(description="Source package all Pop!_OS repositories")
+parser = argparse.ArgumentParser(description="Package and deploy all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
