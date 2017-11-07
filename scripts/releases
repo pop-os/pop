@@ -7,14 +7,14 @@ import sys
 
 from lib import foreach_repo, github
 
-parser = argparse.ArgumentParser(description="Show branches of Pop!_OS repositories")
+parser = argparse.ArgumentParser(description="Show tags of Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
-    for branch in github(repo["branches_url"].replace("{/branch}", "")):
-        print(branch["name"])
+    for release in github(repo["releases_url"].replace("{/id}", "")):
+        print(release["tag_name"] + ": " + release["name"])
 
 foreach_repo(callback, args.repos)

@@ -6,9 +6,6 @@
 #     newgrp sbuild
 #     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse artful /srv/chroot/artful-amd64-sbuild http://archive.ubuntu.com/ubuntu
 #     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse bionic /srv/chroot/bionic-amd64-sbuild http://archive.ubuntu.com/ubuntu
-#
-# Put the following in ~/.sbuildrc:
-#     $build_arch_all = 1;
 
 import argparse
 from collections import namedtuple
@@ -182,7 +179,7 @@ def dpkg_source(name, git, series):
         changelog_version = o.decode().strip()
 
         source_name = control.get("Source")
-        version = '~'.join([changelog_version, git.timestamp, series.version, git.id])
+        version = '+'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
 
         dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
         tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
