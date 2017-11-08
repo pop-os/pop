@@ -156,8 +156,14 @@ def github_status(name, _id, context, state):
         "target_url": target_url
     }
 
+    print('URL:', url)
+
+    print('Data:', data)
+
     response = github_post(url, data)
-    print(response)
+
+    print('Response:', response)
+
     return response
 
 
