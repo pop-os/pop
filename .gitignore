@@ -29,6 +29,7 @@
 /grub-theme/
 /gtk-theme/
 /icon-theme/
+/installer/
 /iso/
 /libparted/
 /libparted-sys/
@@ -37,6 +38,7 @@
 /pop/
 /session/
 /shop/
+/system76-driver/
 /theme/
 /ubiquity-slideshow-pop/
 /wallpapers/

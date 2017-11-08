@@ -20,6 +20,7 @@ This is an automatically generated file. See `scripts/readme`
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
+- [installer](https://github.com/pop-os/installer) - Installer for elementary OS & other Linux\-based OSes
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libparted\-sys](https://github.com/pop-os/libparted-sys) - Rust bindings to libparted
@@ -28,6 +29,7 @@ This is an automatically generated file. See `scripts/readme`
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
+- [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS

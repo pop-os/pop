@@ -12,14 +12,23 @@ def launchpad_anon():
     return Launchpad.login_anonymously("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
 def github(url):
-    # Put a token in scripts/.github_token to increase rate limit
-    if os.path.exists("scripts/.github_token"):
-        f = open("scripts/.github_token")
-        url += "?access_token=" + f.read().strip()
-        f.close()
+    data = []
+    page = 0
+    while(1):
+        page += 1
+        page_url = url + "?page=" + str(page) + "&per_page=100"
 
-    response = urllib.request.urlopen(url)
-    return json.loads(response.read().decode())
+        # Put a token in scripts/.github_token to increase rate limit
+        if os.path.exists("scripts/.github_token"):
+            f = open("scripts/.github_token")
+            page_url += "&access_token=" + f.read().strip()
+            f.close()
+
+        response = urllib.request.urlopen(page_url)
+        page_data = json.loads(response.read().decode())
+        data.extend(page_data)
+        if len(page_data) == 0:
+            return data
 
 def github_post(url, data):
     if os.path.exists("scripts/.github_token"):
