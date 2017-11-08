@@ -14,9 +14,10 @@ def launchpad_anon():
 def github(url):
     data = []
     page = 0
+    per_page = 100
     while(1):
         page += 1
-        page_url = url + "?page=" + str(page) + "&per_page=100"
+        page_url = url + "?page=" + str(page) + "&per_page=" + str(per_page)
 
         # Put a token in scripts/.github_token to increase rate limit
         if os.path.exists("scripts/.github_token"):
@@ -27,7 +28,7 @@ def github(url):
         response = urllib.request.urlopen(page_url)
         page_data = json.loads(response.read().decode())
         data.extend(page_data)
-        if len(page_data) == 0:
+        if len(page_data) < per_page:
             return data
 
 def github_post(url, data):
