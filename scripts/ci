@@ -194,7 +194,7 @@ def dpkg_source(name, git, series):
 
         if build:
             try:
-                github_status(name, git.id, series.codename, "source", "pending")
+                github_status(name, git.id, series.codename + "/source", "pending")
 
                 changelog = Changelog()
 
