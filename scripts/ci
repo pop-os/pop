@@ -266,6 +266,7 @@ def dpkg_binary(dsc_path, series):
                 "--verbose",
                 "--arch-all",
                 "--batch",
+                "--run-autopkgtest",
                 "--dist=" + series.codename,
                 "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
