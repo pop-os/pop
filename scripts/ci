@@ -446,7 +446,6 @@ def callback(repo):
         'gnome-desktop',
         'gnome-initial-setup',
         'iso',
-        'shop',
     ):
         print('skipping {!r}'.format(name))
         return {}
