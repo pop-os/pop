@@ -443,6 +443,7 @@ def callback(repo):
         'code-of-conduct',
         'docs',
         'gnome-control-center',
+        'gnome-desktop',
         'gnome-initial-setup',
         'iso',
         'shop',
