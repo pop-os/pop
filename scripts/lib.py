@@ -31,6 +31,15 @@ def github(url):
         if len(page_data) < per_page:
             return data
 
+def github_no_pages(url):
+    if os.path.exists("scripts/.github_token"):
+        f = open("scripts/.github_token")
+        url += "?access_token=" + f.read().strip()
+        f.close()
+
+    response = urllib.request.urlopen(url)
+    return json.loads(response.read().decode())
+
 def github_post(url, data):
     if os.path.exists("scripts/.github_token"):
         f = open("scripts/.github_token")
