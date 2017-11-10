@@ -18,7 +18,7 @@ from subprocess import check_call, check_output
 import sys
 import tempfile
 
-from lib import foreach_repo, github_post
+from lib import foreach_repo_parallel, github_post
 
 Series = namedtuple('Series', 'codename version')
 
@@ -133,7 +133,7 @@ def git_tar(cwd, _id):
     datetime = git_datetime_id(cwd, _id)
     archive = path.join(GIT_DIR, _id + ".tar")
     if path.exists(archive):
-        print("Git already built for {!r} id {!r}".format(cwd, _id))
+        print("{} commit {}: git already built".format(path.basename(cwd), _id))
     else:
         git_archive_id(cwd, _id, archive)
     return GitTar(_id, timestamp, datetime, archive)
@@ -142,10 +142,10 @@ def git_tar(cwd, _id):
 def github_status(name, _id, context, state):
     target_url = os.environ.get("BUILD_URL")
     if target_url is None:
-        print("Not setting github status for {!r} {!r}".format(name, _id))
+        print("{} commit {}: not setting github status of {} to {}".format(name, _id, context, state))
         return
     else:
-        print("Setting github status for {!r} {!r}".format(name, _id))
+        print("{} commit {}: setting github status of {} to {}".format(name, _id, context, state))
 
     url = "https://api.github.com/repos/pop-os/" + name + "/statuses/" + _id
 
@@ -156,13 +156,7 @@ def github_status(name, _id, context, state):
         "target_url": target_url
     }
 
-    print('URL:', url)
-
-    print('Data:', data)
-
     response = github_post(url, data)
-
-    print('Response:', response)
 
     return response
 
@@ -170,12 +164,10 @@ def github_status(name, _id, context, state):
 def dpkg_source(name, git, series):
     prefix = name + "_" + git.id + "_" + series.codename + "_"
     with tempfile.TemporaryDirectory(prefix=prefix) as tempdir:
-        print(tempdir)
-
         check_call(['tar', 'xf', git.archive], cwd=tempdir)
 
         if not path.isdir(path.join(tempdir, 'debian')):
-             print('no debian dir: {!r}'.format(tempdir))
+             print('{} on {}: no debian dir'.format(name, series.codename))
              return None, None
 
         with open(path.join(tempdir, "debian", "control"), "r") as fp:
@@ -193,6 +185,7 @@ def dpkg_source(name, git, series):
         build = not path.exists(dsc_path) or not path.exists(tar_path)
 
         if build:
+            print("{} on {}: building source".format(source_name, series.codename))
             try:
                 github_status(name, git.id, series.codename + "/source", "pending")
 
@@ -229,7 +222,7 @@ def dpkg_source(name, git, series):
                 github_status(name, git.id, series.codename + "/source", "failure")
                 raise
         else:
-            print("Source already built for {!r} on {!r}".format(source_name, series))
+            print("{} on {}: source already built".format(source_name, series.codename))
 
         return dsc_path, tar_path
 
@@ -244,7 +237,7 @@ def dpkg_binary(dsc_path, name, git, series):
     arch = dsc.get("Architecture")
 
     if arch != "all":
-        print("Setting arch to amd64")
+        print("{} on {}: setting arch to amd64".format(source_name, series.codename))
         arch = "amd64"
 
     build = False
@@ -258,12 +251,13 @@ def dpkg_binary(dsc_path, name, git, series):
             build = True
 
     if build:
+        print("{} on {}: building binaries".format(source_name, series.codename))
         try:
             github_status(name, git.id, series.codename + "/binary", "pending")
 
             check_call([
                 "sbuild",
-                "--verbose",
+                "--quiet",
                 "--arch-all",
                 "--batch",
                 "--run-autopkgtest",
@@ -278,16 +272,13 @@ def dpkg_binary(dsc_path, name, git, series):
             github_status(name, git.id, series.codename + "/binary", "failure")
             raise
     else:
-        print("Binaries already built for {!r} on {!r}".format(source_name, series))
+        print("{} on {}: binaries already built".format(source_name, series.codename))
 
     return debs
 
 
 def build_packages(name):
     cwd = path.join(POP_DIR, name)
-
-    print('')
-    iprint(0, name + ": " + cwd)
 
     if not path.exists(cwd):
         print('did not find: {!r}'.format(cwd))
@@ -299,20 +290,14 @@ def build_packages(name):
     for (_id, branches) in sorted(ids.items()):
         git = git_tar(cwd, _id)
 
-        iprint(1, git.id + ": " + git.datetime)
-
         expanded = expand_series(branches)
         for (series, pockets) in sorted(expanded.items()):
-            iprint(2, series)
-
             dsc_path, tar_path = dpkg_source(name, git, series)
 
             if dsc_path and tar_path:
                 deb_paths = dpkg_binary(dsc_path, name, git, series)
 
                 for pocket in sorted(pockets):
-                    iprint(3, pocket)
-
                     if not pocket in pocket_series:
                         pocket_series[pocket] = []
 
@@ -324,8 +309,6 @@ def build_packages(name):
                     os.makedirs(pool_dir)
 
                     for deb_path in deb_paths:
-                        iprint(4, path.basename(deb_path))
-
                         shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
                         shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
                         shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
@@ -333,107 +316,112 @@ def build_packages(name):
     return pocket_series
 
 
+def create_dist(email, pocket, series):
+    pocket_dir = path.join(REPO_DIR, pocket)
+    
+    dist_dir = path.join(pocket_dir, "dists", series.codename)
+    os.makedirs(dist_dir)
+
+    comp_dir = path.join(dist_dir, "main")
+    os.mkdir(comp_dir)
+
+    source_dir = path.join(comp_dir, "source")
+    os.mkdir(source_dir)
+
+    binary_dir = path.join(comp_dir, "binary-amd64")
+    os.mkdir(binary_dir)
+
+    # Generate source directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/
+    source = check_output([
+        "apt-ftparchive", "-qq",
+        "sources", path.join("pool", series.codename)
+    ], cwd=pocket_dir).decode()
+
+    with open(path.join(source_dir, "Sources"), "w") as f:
+        f.write(source)
+
+    check_call(["gzip", "--keep", path.join(source_dir, "Sources")])
+
+    # Example source release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/Release
+    with open(path.join(source_dir, "Release"), "w") as f:
+        f.write("Archive: " + series.codename + "\n")
+        f.write("Version: " + series.version + "\n")
+        f.write("Component: main\n")
+        f.write("Origin: pop-os-staging-" + pocket + "\n")
+        f.write("Label: Pop!_OS Staging " + pocket + "\n")
+        f.write("Architecture: source\n")
+
+    # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
+    packages = check_output([
+        "apt-ftparchive",
+        "packages", path.join("pool", series.codename)
+    ], cwd=pocket_dir).decode()
+
+    with open(path.join(binary_dir, "Packages"), "w") as f:
+        f.write(packages)
+
+    check_call(["gzip", "--keep", path.join(binary_dir, "Packages")])
+
+    # Example binary release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/Release
+    with open(path.join(binary_dir, "Release"), "w") as f:
+        f.write("Archive: " + series.codename + "\n")
+        f.write("Version: " + series.version + "\n")
+        f.write("Component: main\n")
+        f.write("Origin: pop-os-staging-" + pocket + "\n")
+        f.write("Label: Pop!_OS Staging " + pocket + "\n")
+        f.write("Architecture: amd64\n")
+
+    # Example dists release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/Release
+    release = check_output([
+        "apt-ftparchive",
+        "-o", "APT::FTPArchive::Release::Origin=pop-os-staging-" + pocket,
+        "-o", "APT::FTPArchive::Release::Label=Pop!_OS Staging " + pocket,
+        "-o", "APT::FTPArchive::Release::Suite=" + series.codename,
+        "-o", "APT::FTPArchive::Release::Version=" + series.version,
+        "-o", "APT::FTPArchive::Release::Codename=" + series.codename,
+        "-o", "APT::FTPArchive::Release::Architectures=amd64",
+        "-o", "APT::FTPArchive::Release::Components=main",
+        "-o", "APT::FTPArchive::Release::Description=Pop!_OS Staging " + series.codename + " " + series.version + " " + pocket,
+        "release", "."
+    ], cwd=dist_dir).decode()
+
+    with open(path.join(dist_dir, "Release"), "w") as f:
+        f.write(release)
+
+    check_call([
+        "gpg", "--clearsign",
+        "--local-user", email,
+        "--batch", "--yes",
+        "--digest-algo", "sha512",
+        "-o", path.join(dist_dir, "InRelease"), path.join(dist_dir, "Release")
+    ])
+
+    check_call([
+        "gpg", "-abs",
+        "--local-user", email,
+        "--batch", "--yes",
+        "--digest-algo", "sha512",
+        "-o", path.join(dist_dir, "Release.gpg"), path.join(dist_dir, "Release")
+    ])
+
+    check_call([
+        "gpg", "--export", "--armor",
+        "--local-user", email,
+        "--batch", "--yes",
+        "--digest-algo", "sha512",
+        "-o", path.join(dist_dir, "Key.gpg")
+    ])
+
+
 def create_dists(email, pocket_series):
     for pocket in pocket_series:
         iprint(0, pocket)
 
-        pocket_dir = path.join(REPO_DIR, pocket)
-
         for series in pocket_series[pocket]:
             iprint(1, series)
 
-            dist_dir = path.join(pocket_dir, "dists", series.codename)
-            os.makedirs(dist_dir)
-
-            comp_dir = path.join(dist_dir, "main")
-            os.mkdir(comp_dir)
-
-            source_dir = path.join(comp_dir, "source")
-            os.mkdir(source_dir)
-
-            binary_dir = path.join(comp_dir, "binary-amd64")
-            os.mkdir(binary_dir)
-
-            # Generate source directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/
-            source = check_output([
-                "apt-ftparchive", "-qq",
-                "sources", path.join("pool", series.codename)
-            ], cwd=pocket_dir).decode()
-
-            with open(path.join(source_dir, "Sources"), "w") as f:
-                f.write(source)
-
-            check_call(["gzip", "--keep", path.join(source_dir, "Sources")])
-
-            # Example source release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/Release
-            with open(path.join(source_dir, "Release"), "w") as f:
-                f.write("Archive: " + series.codename + "\n")
-                f.write("Version: " + series.version + "\n")
-                f.write("Component: main\n")
-                f.write("Origin: pop-os-staging-" + pocket + "\n")
-                f.write("Label: Pop!_OS Staging " + pocket + "\n")
-                f.write("Architecture: source\n")
-
-            # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
-            packages = check_output([
-                "apt-ftparchive",
-                "packages", path.join("pool", series.codename)
-            ], cwd=pocket_dir).decode()
-
-            with open(path.join(binary_dir, "Packages"), "w") as f:
-                f.write(packages)
-
-            check_call(["gzip", "--keep", path.join(binary_dir, "Packages")])
-
-            # Example binary release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/Release
-            with open(path.join(binary_dir, "Release"), "w") as f:
-                f.write("Archive: " + series.codename + "\n")
-                f.write("Version: " + series.version + "\n")
-                f.write("Component: main\n")
-                f.write("Origin: pop-os-staging-" + pocket + "\n")
-                f.write("Label: Pop!_OS Staging " + pocket + "\n")
-                f.write("Architecture: amd64\n")
-
-            # Example dists release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/Release
-            release = check_output([
-                "apt-ftparchive",
-        		"-o", "APT::FTPArchive::Release::Origin=pop-os-staging-" + pocket,
-        		"-o", "APT::FTPArchive::Release::Label=Pop!_OS Staging " + pocket,
-        		"-o", "APT::FTPArchive::Release::Suite=" + series.codename,
-        		"-o", "APT::FTPArchive::Release::Version=" + series.version,
-        		"-o", "APT::FTPArchive::Release::Codename=" + series.codename,
-        		"-o", "APT::FTPArchive::Release::Architectures=amd64",
-        		"-o", "APT::FTPArchive::Release::Components=main",
-        		"-o", "APT::FTPArchive::Release::Description=Pop!_OS Staging " + series.codename + " " + series.version + " " + pocket,
-                "release", "."
-            ], cwd=dist_dir).decode()
-
-            with open(path.join(dist_dir, "Release"), "w") as f:
-                f.write(release)
-
-            check_call([
-                "gpg", "--clearsign",
-                "--local-user", email,
-                "--batch", "--yes",
-                "--digest-algo", "sha512",
-                "-o", path.join(dist_dir, "InRelease"), path.join(dist_dir, "Release")
-            ])
-
-            check_call([
-                "gpg", "-abs",
-                "--local-user", email,
-                "--batch", "--yes",
-                "--digest-algo", "sha512",
-                "-o", path.join(dist_dir, "Release.gpg"), path.join(dist_dir, "Release")
-            ])
-
-            check_call([
-                "gpg", "--export", "--armor",
-                "--local-user", email,
-                "--batch", "--yes",
-                "--digest-algo", "sha512",
-                "-o", path.join(dist_dir, "Key.gpg")
-            ])
+            create_dist(email, pocket, series)
+            
 
 
 def callback(repo):
@@ -447,7 +435,7 @@ def callback(repo):
         'gnome-initial-setup',
         'iso',
     ):
-        print('skipping {!r}'.format(name))
+        print('{}: skipping'.format(name))
         return {}
     else:
         return build_packages(name)
@@ -477,7 +465,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo(callback, args.repos).items():
+    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:

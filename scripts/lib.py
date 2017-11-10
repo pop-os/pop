@@ -1,4 +1,5 @@
 import json
+import multiprocessing
 import os.path
 import urllib.request
 
@@ -68,6 +69,28 @@ def foreach_repo(fn, selected=[]):
             ret[repo["name"]] = fn(repo)
 
     return ret
+
+def foreach_repo_parallel(fn, selected=[]):
+    selected = [item.rstrip('/') for item in selected]
+
+    repos = github("https://api.github.com/orgs/pop-os/repos")
+
+    repos.sort(key=lambda repo: repo["name"])
+    
+    args = []
+    keys = []
+    for repo in repos:
+        if len(selected) == 0 or repo["name"] in selected:
+            args.append(repo)
+            keys.append(repo["name"])
+
+    pool = multiprocessing.Pool()
+    values = pool.map(fn, args)
+    pool.close()
+    pool.join()
+    
+    return dict(zip(keys, values))
+    
 
 # Escaping is done according to https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 # This may need to be improved. Always check the output of generated files
