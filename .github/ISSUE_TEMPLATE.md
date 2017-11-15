@@ -16,7 +16,7 @@ If this is a bug, please use the template below. If this is a question, or a gen
 
 
 
-**Expected behaviour**
+**Expected behavior**
 
 
 
