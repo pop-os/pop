@@ -1,16 +1,67 @@
 #!/usr/bin/env python3
 
-from lib import launchpad_anon
+import argparse
+from debian.deb822 import Deb822, Dsc, Sources
+from os import path
+import sys
+
+from lib import foreach_repo, github, launchpad_anon
+
+parser = argparse.ArgumentParser(description="Upload packages to proposed")
+parser.add_argument("repos", nargs="*", default=[])
+args = parser.parse_args(sys.argv[1:])
+
+codenames = ["artful", "bionic"]
+
+local = {}
+for codename in codenames:
+    sources_path = path.join("_build/repos/master/dists", codename, "main/source/Sources")
+    local[codename] = []
+    for pkg in Sources.iter_paragraphs(open(sources_path)):
+        local[codename].append(pkg)
 
 lp = launchpad_anon()
 owner = lp.people["system76"]
 archive = owner.getPPAByName(name="pop")
 
-series = "https://api.launchpad.net/devel/ubuntu/artful"
-arch_series = series + "/amd64"
-for source in archive.getPublishedSources(status="Published", distro_series=series):
-    print("\x1B[1m" + source.source_package_name + "\x1B[0m")
+remote = {}
+for codename in codenames:
+    series = "https://api.launchpad.net/devel/ubuntu/" + codename
+    remote[codename] = archive.getPublishedSources(distro_series=series, status="Published")
 
-    for binary in source.getPublishedBinaries():
-        if binary.distro_arch_series_link == arch_series:
-            print(binary.binary_package_name + ": " + str(binary.getDownloadCount()))
+def find_local(source_name, codename):
+    for pkg in local[codename]:
+        if pkg['package'] == source_name:
+            return pkg['version']
+    return None
+
+def find_remote(source_name, codename):
+    for pkg in remote[codename]:
+        if pkg.source_package_name == source_name:
+            return pkg.source_package_version
+    return None
+
+def callback(repo):
+    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+
+    control_path = path.join(repo["name"], "debian", "control")
+    if path.isfile(control_path):
+        with open(control_path, "r") as fp:
+            control = Deb822(fp)
+
+        source_name = control.get("Source")
+
+        print("local")
+        for codename in codenames:
+            version = find_local(source_name, codename)
+            if version:
+                print("  " + source_name, codename, version)
+
+        print("remote")
+        for codename in codenames:
+            version = find_remote(source_name, codename)
+            if version:
+                print("  " + source_name, codename, version)
+
+
+foreach_repo(callback, args.repos)
