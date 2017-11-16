@@ -163,8 +163,13 @@ def dpkg_source(name, git, series):
             with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
                 changelog.write_to_open_file(f)
 
-            env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
-            check_call(['debuild', '-S', '-d'], cwd=extract_dir, env=env)
+            check_call([
+                'debuild',
+                '-S',
+                '-d',
+                '--preserve-envvar', 'PATH',
+                '--set-envvar', 'SOURCE_DATE_EPOCH=' + str(git.timestamp)
+            ], cwd=extract_dir)
 
             print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename))
 
