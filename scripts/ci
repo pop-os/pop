@@ -142,8 +142,10 @@ def dpkg_source(name, git, series):
         try:
             github_status(name, git.id, series.codename + "/source", "pending")
 
-            with open(path.join(extract_dir, 'debian', 'changelog'), 'r') as f:
-                changelog = Changelog(f.read())
+            changelog = Changelog()
+
+            # with open(path.join(extract_dir, 'debian', 'changelog'), 'r') as f:
+            #     changelog = Changelog(f.read())
 
             changelog.new_block(
                 package=source_name,
