@@ -196,8 +196,8 @@ def dpkg_binary(dsc_path, name, git, series):
 
     build = False
 
-    build_file = source_name + "_" + version + "_amd64.build"
-    if not path.exists(build_file):
+    build_log = source_name + "_" + version + "_amd64.build"
+    if not path.exists(build_log):
         print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename))
 
         try:
@@ -219,11 +219,11 @@ def dpkg_binary(dsc_path, name, git, series):
 
             github_status(name, git.id, series.codename + "/binary", "success")
         except Exception as ex:
-            with open(path.join(BINARY_DIR, build_file), 'r') as f:
-                build_log = f.read()
+            message = "\x1B[1m{} commit {} on {}: failed to build binaries: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex)
+            with open(path.join(BINARY_DIR, build_log), 'r') as f:
+                message += f.read()
 
-            print("\x1B[1m{} commit {} on {}: failed to build binaries: {!r}\x1B[0m".format(source_name, git.id, series.codename, ex))
-            print(build_log)
+            print(message)
 
             github_status(name, git.id, series.codename + "/binary", "failure")
 
