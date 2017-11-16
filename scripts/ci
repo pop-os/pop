@@ -196,15 +196,8 @@ def dpkg_binary(dsc_path, name, git, series):
 
     build = False
 
-    debs = []
-
-    for binary in binaries.split(", "):
-        deb_path = path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb")
-        debs.append(deb_path)
-        if not path.exists(deb_path):
-            build = True
-
-    if build:
+    build_file = source_name + "_" + version + "_amd64.build"
+    if not path.exists(build_file):
         print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename))
 
         try:
@@ -226,7 +219,6 @@ def dpkg_binary(dsc_path, name, git, series):
 
             github_status(name, git.id, series.codename + "/binary", "success")
         except Exception as ex:
-            build_file = source_name + "_" + version + "_amd64.build"
             with open(path.join(BINARY_DIR, build_file), 'r') as f:
                 build_log = f.read()
 
@@ -238,6 +230,15 @@ def dpkg_binary(dsc_path, name, git, series):
             return None
     else:
         print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename))
+
+    debs = []
+
+    for binary in binaries.split(", "):
+        deb_path = path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb")
+        if not path.exists(deb_path):
+            print("\x1B[1m{} commit {} on {}: missing binary {}\x1B[0m".format(source_name, git.id, series.codename, binary))
+            return None
+        debs.append(deb_path)
 
     return debs
 
