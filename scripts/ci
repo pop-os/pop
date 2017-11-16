@@ -167,9 +167,12 @@ def dpkg_source(name, git, series):
                 ], cwd=SOURCE_DIR, env=env)
 
                 github_status(name, git.id, series.codename + "/source", "success")
-            except:
+            except Exception as ex:
+                print("{} on {}: failed to build source: {!r}".format(source_name, series.codename, ex))
+
                 github_status(name, git.id, series.codename + "/source", "failure")
-                raise
+
+                return None, None
         else:
             print("{} on {}: source already built".format(source_name, series.codename))
 
@@ -217,9 +220,12 @@ def dpkg_binary(dsc_path, name, git, series):
             ], cwd=BINARY_DIR)
 
             github_status(name, git.id, series.codename + "/binary", "success")
-        except:
+        except Exception as ex:
+            print("{} on {}: failed to build binaries: {!r}".format(source_name, series.codename, ex))
+
             github_status(name, git.id, series.codename + "/binary", "failure")
-            raise
+
+            return None
     else:
         print("{} on {}: binaries already built".format(source_name, series.codename))
 
@@ -246,21 +252,22 @@ def build_packages(name):
             if dsc_path and tar_path:
                 deb_paths = dpkg_binary(dsc_path, name, git, series)
 
-                for pocket in sorted(pockets):
-                    if not pocket in pocket_series:
-                        pocket_series[pocket] = []
+                if deb_paths:
+                    for pocket in sorted(pockets):
+                        if not pocket in pocket_series:
+                            pocket_series[pocket] = []
 
-                    if not series in pocket_series[pocket]:
-                        pocket_series[pocket].append(series)
+                        if not series in pocket_series[pocket]:
+                            pocket_series[pocket].append(series)
 
-                    # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
-                    pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
-                    os.makedirs(pool_dir)
+                        # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
+                        pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
+                        os.makedirs(pool_dir)
 
-                    for deb_path in deb_paths:
-                        shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
-                        shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
-                        shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
+                        for deb_path in deb_paths:
+                            shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
+                            shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
+                            shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
 
