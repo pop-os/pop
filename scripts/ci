@@ -82,7 +82,7 @@ def git_tar(cwd, _id):
     datetime = git_datetime_id(cwd, _id)
     archive = path.join(GIT_DIR, _id + ".tar")
     if path.exists(archive):
-        print("{} commit {}: git already built".format(path.basename(cwd), _id))
+        print("\x1B[1m{} commit {}: git already built\x1B[0m".format(path.basename(cwd), _id))
     else:
         git_archive_id(cwd, _id, archive)
     return GitTar(_id, timestamp, datetime, archive)
@@ -93,7 +93,7 @@ def github_status(name, _id, context, state):
     if target_url is None:
         return
     else:
-        print("{} commit {}: setting github status of {} to {}".format(name, _id, context, state))
+        print("\x1B[1m{} commit {}: setting github status of {} to {}\x1B[0m".format(name, _id, context, state))
 
     url = "https://api.github.com/repos/pop-os/" + name + "/statuses/" + _id
 
@@ -115,7 +115,7 @@ def dpkg_source(name, git, series):
         check_call(['tar', 'xf', git.archive], cwd=tempdir)
 
         if not path.isdir(path.join(tempdir, 'debian')):
-             print('{} commit {} on {}: no debian dir'.format(name, git.id, series.codename))
+             print("\x1B[1m{} commit {} on {}: no debian dir\x1B[0m".format(name, git.id, series.codename))
              return None, None
 
         with open(path.join(tempdir, "debian", "control"), "r") as fp:
@@ -133,7 +133,8 @@ def dpkg_source(name, git, series):
         build = not path.exists(dsc_path) or not path.exists(tar_path)
 
         if build:
-            print("{} commit {} on {}: building source".format(source_name, git.id, series.codename))
+            print("\x1B[1m{} commit {} on {}: building source\x1B[0m".format(source_name, git.id, series.codename))
+
             try:
                 github_status(name, git.id, series.codename + "/source", "pending")
 
@@ -165,15 +166,17 @@ def dpkg_source(name, git, series):
                     '--build', tempdir
                 ], cwd=SOURCE_DIR, env=env)
 
+                print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename))
+
                 github_status(name, git.id, series.codename + "/source", "success")
             except Exception as ex:
-                print("{} commit {} on {}: failed to build source: {!r}".format(source_name, git.id, series.codename, ex))
+                print("\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m".format(source_name, git.id, series.codename, ex))
 
                 github_status(name, git.id, series.codename + "/source", "failure")
 
                 return None, None
         else:
-            print("{} commit {} on {}: source already built".format(source_name, git.id, series.codename))
+            print("\x1B[1m{} commit {} on {}: source already built\x1B[0m".format(source_name, git.id, series.codename))
 
         return dsc_path, tar_path
 
@@ -188,7 +191,7 @@ def dpkg_binary(dsc_path, name, git, series):
     arch = dsc.get("Architecture")
 
     if arch != "all":
-        print("{} commit {} on {}: setting arch to amd64".format(source_name, git.id, series.codename))
+        print("\x1B[1m{} commit {} on {}: setting arch to amd64\x1B[0m".format(source_name, git.id, series.codename))
         arch = "amd64"
 
     build = False
@@ -202,7 +205,8 @@ def dpkg_binary(dsc_path, name, git, series):
             build = True
 
     if build:
-        print("{} commit {} on {}: building binaries".format(source_name, git.id, series.codename))
+        print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename))
+
         try:
             github_status(name, git.id, series.codename + "/binary", "pending")
 
@@ -218,15 +222,22 @@ def dpkg_binary(dsc_path, name, git, series):
                 dsc_path
             ], cwd=BINARY_DIR)
 
+            print("\x1B[1m{} commit {} on {}: finished building binaries\x1B[0m".format(source_name, git.id, series.codename))
+
             github_status(name, git.id, series.codename + "/binary", "success")
         except Exception as ex:
-            print("{} commit {} on {}: failed to build binaries: {!r}".format(source_name, git.id, series.codename, ex))
+            build_file = source_name + "_" + version + "_amd64.build"
+            with open(path.join(BINARY_DIR, build_file), 'r') as f:
+                build_log = f.read()
+
+            print("\x1B[1m{} commit {} on {}: failed to build binaries: {!r}\x1B[0m".format(source_name, git.id, series.codename, ex))
+            print(build_log)
 
             github_status(name, git.id, series.codename + "/binary", "failure")
 
             return None
     else:
-        print("{} commit {} on {}: binaries already built".format(source_name, git.id, series.codename))
+        print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename))
 
     return debs
 
@@ -235,7 +246,7 @@ def build_packages(name):
     cwd = path.join(POP_DIR, name)
 
     if not path.exists(cwd):
-        print('did not find: {!r}'.format(cwd))
+        print('\x1B[1m{}: did not find {!r}\x1B[0m'.format(name, cwd))
         return {}
 
     pocket_series = {}
@@ -390,7 +401,7 @@ def callback(repo):
         'gnome-initial-setup',
         'iso',
     ):
-        print('{}: skipping'.format(name))
+        print('\x1B[1m{}: skipping\x1B[0m'.format(name))
         return {}
     else:
         return build_packages(name)
