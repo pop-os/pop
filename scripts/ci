@@ -17,7 +17,6 @@ from os import path
 import shutil
 from subprocess import check_call, check_output
 import sys
-import tempfile
 
 from lib import foreach_repo_parallel, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
@@ -110,75 +109,76 @@ def github_status(name, _id, context, state):
 
 
 def dpkg_source(name, git, series):
-    prefix = name + "_" + git.id + "_" + series.codename + "_"
-    with tempfile.TemporaryDirectory(prefix=prefix) as tempdir:
-        check_call(['tar', 'xf', git.archive], cwd=tempdir)
+    extract_dir = path.join(SOURCE_DIR, git.id + "_" + series.codename)
 
-        if not path.isdir(path.join(tempdir, 'debian')):
-             print("\x1B[1m{} commit {} on {}: no debian dir\x1B[0m".format(name, git.id, series.codename))
-             return None, None
+    if path.isdir(extract_dir):
+        shutil.rmtree(extract_dir)
 
-        with open(path.join(tempdir, "debian", "control"), "r") as fp:
-            control = Deb822(fp)
+    os.mkdir(extract_dir)
 
-        o = check_output(["dpkg-parsechangelog", "--show-field", "Version"], cwd=tempdir)
-        changelog_version = o.decode().strip()
+    check_call(['tar', 'xf', git.archive], cwd=extract_dir)
 
-        source_name = control.get("Source")
-        version = '+'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
+    if not path.isdir(path.join(extract_dir, 'debian')):
+         print("\x1B[1m{} commit {} on {}: no debian dir\x1B[0m".format(name, git.id, series.codename))
+         return None, None
 
-        dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
-        tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
+    with open(path.join(extract_dir, "debian", "control"), "r") as fp:
+        control = Deb822(fp)
 
-        build = not path.exists(dsc_path) or not path.exists(tar_path)
+    o = check_output(["dpkg-parsechangelog", "--show-field", "Version"], cwd=extract_dir)
+    changelog_version = o.decode().strip()
 
-        if build:
-            print("\x1B[1m{} commit {} on {}: building source\x1B[0m".format(source_name, git.id, series.codename))
+    source_name = control.get("Source")
+    version = '+'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
 
-            try:
-                github_status(name, git.id, series.codename + "/source", "pending")
+    dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
+    tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
 
-                changelog = Changelog()
+    build = not path.exists(dsc_path) or not path.exists(tar_path)
 
-                changelog.new_block(
-                    package=source_name,
-                    version=Version(version),
-                    distributions=series.codename,
-                    author='Pop Launchpad <pop.launchpad@system76.com>',
-                    date=git.datetime
-                )
+    if build:
+        print("\x1B[1m{} commit {} on {}: building source\x1B[0m".format(source_name, git.id, series.codename))
 
-                changelog.add_change('')
-                changelog.add_change('  * Auto Build')
-                changelog.add_change('')
+        try:
+            github_status(name, git.id, series.codename + "/source", "pending")
 
-                with open(path.join(tempdir, 'debian', 'changelog'), 'w') as fp:
-                    changelog.write_to_open_file(fp)
+            with open(path.join(extract_dir, 'debian', 'changelog'), 'r') as f:
+                changelog = Changelog(f.read())
 
-                check_call([
-                    "dh", "clean"
-                ], cwd=tempdir)
+            changelog.new_block(
+                package=source_name,
+                version=Version(version),
+                distributions=series.codename,
+                urgency="medium",
+                author=os.environ["DEBFULLNAME"] + " <" + os.environ["DEBEMAIL"] + ">",
+                date=git.datetime
+            )
 
-                env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
-                check_call([
-                    'dpkg-source',
-                    '--compression=xz',
-                    '--build', tempdir
-                ], cwd=SOURCE_DIR, env=env)
+            changelog.add_change('')
+            changelog.add_change('  * Auto Build')
+            changelog.add_change('')
 
-                print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename))
+            with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
+                changelog.write_to_open_file(f)
 
-                github_status(name, git.id, series.codename + "/source", "success")
-            except Exception as ex:
-                print("\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m".format(source_name, git.id, series.codename, ex))
+            print(open(path.join(extract_dir, 'debian', 'changelog')).read())
 
-                github_status(name, git.id, series.codename + "/source", "failure")
+            env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
+            check_call(['debuild', '-S'], cwd=extract_dir, env=env)
 
-                return None, None
-        else:
-            print("\x1B[1m{} commit {} on {}: source already built\x1B[0m".format(source_name, git.id, series.codename))
+            print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename))
 
-        return dsc_path, tar_path
+            github_status(name, git.id, series.codename + "/source", "success")
+        except Exception as ex:
+            print("\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m".format(source_name, git.id, series.codename, ex))
+
+            github_status(name, git.id, series.codename + "/source", "failure")
+
+            return None, None
+    else:
+        print("\x1B[1m{} commit {} on {}: source already built\x1B[0m".format(source_name, git.id, series.codename))
+
+    return dsc_path, tar_path
 
 
 def dpkg_binary(dsc_path, name, git, series):
@@ -194,8 +194,6 @@ def dpkg_binary(dsc_path, name, git, series):
         print("\x1B[1m{} commit {} on {}: setting arch to amd64\x1B[0m".format(source_name, git.id, series.codename))
         arch = "amd64"
 
-    build = False
-
     build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
     if not path.exists(build_log):
         print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename))
@@ -205,10 +203,10 @@ def dpkg_binary(dsc_path, name, git, series):
 
             check_call([
                 "sbuild",
-                "--quiet",
                 "--arch-all",
-                "--run-autopkgtest",
                 "--dist=" + series.codename,
+                "--quiet",
+                "--run-autopkgtest",
                 "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
                 dsc_path
@@ -370,14 +368,6 @@ def create_dist(email, pocket, series):
         "-o", path.join(dist_dir, "Release.gpg"), path.join(dist_dir, "Release")
     ])
 
-    check_call([
-        "gpg", "--export", "--armor",
-        "--local-user", email,
-        "--batch", "--yes",
-        "--digest-algo", "sha512",
-        "-o", path.join(dist_dir, "Key.gpg")
-    ])
-
 
 def create_dists(email, pocket_series):
     for pocket in pocket_series:
@@ -422,6 +412,10 @@ def ci():
     email = os.environ.get("DEBEMAIL")
     if email is None:
         raise Exception("DEBEMAIL is not set")
+
+    full_name = os.environ.get("DEBFULLNAME")
+    if full_name is None:
+        raise Exception("DEBFULLNAME is not set")
 
     create_dir(BUILD_DIR)
 
