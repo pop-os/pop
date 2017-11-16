@@ -4,6 +4,7 @@
 #     sudo apt install sbuild
 #     sudo sbuild-adduser "$USER"
 #     newgrp sbuild
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse xenial /srv/chroot/xenial-amd64-sbuild http://archive.ubuntu.com/ubuntu
 #     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse artful /srv/chroot/artful-amd64-sbuild http://archive.ubuntu.com/ubuntu
 #     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse bionic /srv/chroot/bionic-amd64-sbuild http://archive.ubuntu.com/ubuntu
 
@@ -35,8 +36,9 @@ BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
 build_series = {
-    'artful': '17.10',
-    'bionic': '18.04',
+    'xenial': ('16.04', False),
+    'artful': ('17.10', True),
+    'bionic': ('18.04', True),
 }
 
 
@@ -57,10 +59,12 @@ def iter_series(branches):
     for b in branches:
         (pocket, codename) = parse_branch(b)
         if codename is None:
-            for (codename, version) in build_series.items():
-                yield (Series(codename, version), pocket)
+            for (codename, (version, wildcard)) in build_series.items():
+                if wildcard:
+                    yield (Series(codename, version), pocket)
         else:
-            yield (Series(codename, build_series[codename]), pocket)
+            version, wildcard = build_series[codename]
+            yield (Series(codename, version), pocket)
 
 
 def expand_series(branches):
