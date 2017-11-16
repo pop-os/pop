@@ -161,8 +161,6 @@ def dpkg_source(name, git, series):
             with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
                 changelog.write_to_open_file(f)
 
-            print(open(path.join(extract_dir, 'debian', 'changelog')).read())
-
             env = {"SOURCE_DATE_EPOCH": str(git.timestamp)}
             check_call(['debuild', '-S'], cwd=extract_dir, env=env)
 
