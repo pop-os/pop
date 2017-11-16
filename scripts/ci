@@ -91,7 +91,6 @@ def git_tar(cwd, _id):
 def github_status(name, _id, context, state):
     target_url = os.environ.get("BUILD_URL")
     if target_url is None:
-        print("{} commit {}: not setting github status of {} to {}".format(name, _id, context, state))
         return
     else:
         print("{} commit {}: setting github status of {} to {}".format(name, _id, context, state))
@@ -116,7 +115,7 @@ def dpkg_source(name, git, series):
         check_call(['tar', 'xf', git.archive], cwd=tempdir)
 
         if not path.isdir(path.join(tempdir, 'debian')):
-             print('{} on {}: no debian dir'.format(name, series.codename))
+             print('{} commit {} on {}: no debian dir'.format(name, git.id, series.codename))
              return None, None
 
         with open(path.join(tempdir, "debian", "control"), "r") as fp:
@@ -134,7 +133,7 @@ def dpkg_source(name, git, series):
         build = not path.exists(dsc_path) or not path.exists(tar_path)
 
         if build:
-            print("{} on {}: building source".format(source_name, series.codename))
+            print("{} commit {} on {}: building source".format(source_name, git.id, series.codename))
             try:
                 github_status(name, git.id, series.codename + "/source", "pending")
 
@@ -168,13 +167,13 @@ def dpkg_source(name, git, series):
 
                 github_status(name, git.id, series.codename + "/source", "success")
             except Exception as ex:
-                print("{} on {}: failed to build source: {!r}".format(source_name, series.codename, ex))
+                print("{} commit {} on {}: failed to build source: {!r}".format(source_name, git.id, series.codename, ex))
 
                 github_status(name, git.id, series.codename + "/source", "failure")
 
                 return None, None
         else:
-            print("{} on {}: source already built".format(source_name, series.codename))
+            print("{} commit {} on {}: source already built".format(source_name, git.id, series.codename))
 
         return dsc_path, tar_path
 
@@ -189,7 +188,7 @@ def dpkg_binary(dsc_path, name, git, series):
     arch = dsc.get("Architecture")
 
     if arch != "all":
-        print("{} on {}: setting arch to amd64".format(source_name, series.codename))
+        print("{} commit {} on {}: setting arch to amd64".format(source_name, git.id, series.codename))
         arch = "amd64"
 
     build = False
@@ -203,7 +202,7 @@ def dpkg_binary(dsc_path, name, git, series):
             build = True
 
     if build:
-        print("{} on {}: building binaries".format(source_name, series.codename))
+        print("{} commit {} on {}: building binaries".format(source_name, git.id, series.codename))
         try:
             github_status(name, git.id, series.codename + "/binary", "pending")
 
@@ -221,13 +220,13 @@ def dpkg_binary(dsc_path, name, git, series):
 
             github_status(name, git.id, series.codename + "/binary", "success")
         except Exception as ex:
-            print("{} on {}: failed to build binaries: {!r}".format(source_name, series.codename, ex))
+            print("{} commit {} on {}: failed to build binaries: {!r}".format(source_name, git.id, series.codename, ex))
 
             github_status(name, git.id, series.codename + "/binary", "failure")
 
             return None
     else:
-        print("{} on {}: binaries already built".format(source_name, series.codename))
+        print("{} commit {} on {}: binaries already built".format(source_name, git.id, series.codename))
 
     return debs
 
