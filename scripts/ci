@@ -17,6 +17,7 @@ from os import path
 import shutil
 from subprocess import check_call, check_output
 import sys
+from threading import Lock
 
 from lib import foreach_repo_parallel, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
@@ -107,6 +108,7 @@ def github_status(name, _id, context, state):
 
     return response
 
+debuild_lock = Lock()
 
 def dpkg_source(name, git, series):
     extract_dir = path.join(SOURCE_DIR, git.id + "_" + series.codename)
@@ -161,14 +163,15 @@ def dpkg_source(name, git, series):
             with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
                 changelog.write_to_open_file(f)
 
-            with open(os.devnull, 'w') as null:
-                check_call([
-                    'debuild',
-                    '--preserve-envvar', 'PATH',
-                    '--set-envvar', 'SOURCE_DATE_EPOCH=' + str(git.timestamp),
-                    '-d',
-                    '-S',
-                ], stdout=null, stderr=null, cwd=extract_dir)
+            with debuild_lock:
+                with open(os.devnull, 'w') as null:
+                    check_call([
+                        'debuild',
+                        '--preserve-envvar', 'PATH',
+                        '--set-envvar', 'SOURCE_DATE_EPOCH=' + str(git.timestamp),
+                        '-d',
+                        '-S',
+                    ], stdout=null, stderr=null, cwd=extract_dir)
 
             print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
