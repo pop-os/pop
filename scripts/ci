@@ -453,7 +453,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos).items():
+    for repo_name, pocket_series in foreach_repo(callback, args.repos).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:
