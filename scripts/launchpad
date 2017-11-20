@@ -28,12 +28,16 @@ owner = lp.people["system76"]
 release_archive = owner.getPPAByName(name="pop")
 proposed_archive = owner.getPPAByName(name="proposed")
 
-proposed = {}
-release = {}
+proposed_pending = {}
+proposed_published = {}
+release_pending = {}
+release_published = {}
 for codename in codenames:
     series = "https://api.launchpad.net/devel/ubuntu/" + codename
-    proposed[codename] = proposed_archive.getPublishedSources(distro_series=series, status="Published")
-    release[codename] = release_archive.getPublishedSources(distro_series=series, status="Published")
+    proposed_pending[codename] = proposed_archive.getPublishedSources(distro_series=series, status="Pending")
+    proposed_published[codename] = proposed_archive.getPublishedSources(distro_series=series, status="Published")
+    release_pending[codename] = release_archive.getPublishedSources(distro_series=series, status="Pending")
+    release_published[codename] = release_archive.getPublishedSources(distro_series=series, status="Published")
 
 def find_staging(source_name, codename):
     for pkg in staging[codename]:
@@ -42,13 +46,19 @@ def find_staging(source_name, codename):
     return None
 
 def find_proposed(source_name, codename):
-    for pkg in proposed[codename]:
+    for pkg in proposed_pending[codename]:
+        if pkg.source_package_name == source_name:
+            return pkg.source_package_version
+    for pkg in proposed_published[codename]:
         if pkg.source_package_name == source_name:
             return pkg.source_package_version
     return None
 
 def find_release(source_name, codename):
-    for pkg in release[codename]:
+    for pkg in release_pending[codename]:
+        if pkg.source_package_name == source_name:
+            return pkg.source_package_version
+    for pkg in release_published[codename]:
         if pkg.source_package_name == source_name:
             return pkg.source_package_version
     return None
