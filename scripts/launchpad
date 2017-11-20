@@ -64,7 +64,7 @@ def find_release(source_name, codename):
     return None
 
 def callback(repo):
-    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+    print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
     control_path = path.join(repo["name"], "debian", "control")
     if path.isfile(control_path):
@@ -74,15 +74,15 @@ def callback(repo):
         source_name = control.get("Source")
 
         for codename in codenames:
-            print("  " + codename)
+            print("  " + codename, flush=True)
 
             staging_version = find_staging(source_name, codename)
             proposed_version = find_proposed(source_name, codename)
             release_version = find_release(source_name, codename)
 
-            print("    staging:", staging_version)
-            print("    proposed:", proposed_version)
-            print("    release:", release_version)
+            print("    staging:", staging_version, flush=True)
+            print("    proposed:", proposed_version, flush=True)
+            print("    release:", release_version, flush=True)
 
             proposed_upload = False
             release_upload = False
@@ -92,42 +92,42 @@ def callback(repo):
                 if proposed_version:
                     pv = Version(proposed_version)
                     if sv == pv:
-                        print("    staging and proposed versions are equal")
+                        print("    staging and proposed versions are equal", flush=True)
                     elif sv > pv:
-                        print("    staging version is newer")
+                        print("    staging version is newer", flush=True)
                         proposed_upload = True
                     elif sv < pv:
-                        print("    proposed version is newer")
+                        print("    proposed version is newer", flush=True)
                     if release_version:
                         rv = Version(release_version)
                         if pv == rv:
-                            print("    proposed and release versions are equal")
+                            print("    proposed and release versions are equal", flush=True)
                         elif pv > rv:
-                            print("    proposed version is newer")
+                            print("    proposed version is newer", flush=True)
                             release_upload = True
                         elif pv < rv:
-                            print("    release version is newer")
+                            print("    release version is newer", flush=True)
                     else:
-                        print("    release version not found")
+                        print("    release version not found", flush=True)
                         release_upload = True
                 else:
-                    print("    proposed version not found")
+                    print("    proposed version not found", flush=True)
                     proposed_upload = True
             else:
-                print("    staging version not found")
+                print("    staging version not found", flush=True)
 
             if proposed_upload:
                 changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
                 ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.ppa.upload")
                 if not path.exists(changes_path):
-                    print("      Changes file not found {!r}!!!".format(changes_path))
+                    print("      Changes file not found {!r}!!!".format(changes_path), flush=True)
                 elif path.exists(ppa_upload_path):
-                    print("      Already uploaded changes to proposed")
+                    print("      Already uploaded changes to proposed", flush=True)
                 elif args.yes or input("      Upload proposed version (y/N)? ") == "y":
-                    print("      Uploading to proposed")
+                    print("      Uploading to proposed", flush=True)
                     check_call(["dput", "ppa:system76/proposed", changes_path])
                 else:
-                    print("      Did not upload to proposed")
+                    print("      Did not upload to proposed", flush=True)
 
             if release_upload:
                 pass
