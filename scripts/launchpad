@@ -2,42 +2,53 @@
 
 import argparse
 from debian.changelog import Version
-from debian.deb822 import Deb822, Dsc, Sources
+from debian.deb822 import Deb822, Sources
 from os import path
+from subprocess import check_call
 import sys
 
-from lib import foreach_repo, github, launchpad_anon
+from lib import foreach_repo, launchpad_anon
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
+parser.add_argument("--yes", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
 codenames = ["artful", "bionic"]
 
-local = {}
+staging = {}
 for codename in codenames:
     sources_path = path.join("_build", "repos", "master", "dists", codename, "main", "source", "Sources")
-    local[codename] = []
+    staging[codename] = []
     for pkg in Sources.iter_paragraphs(open(sources_path)):
-        local[codename].append(pkg)
+        staging[codename].append(pkg)
 
 lp = launchpad_anon()
 owner = lp.people["system76"]
-archive = owner.getPPAByName(name="pop")
+release_archive = owner.getPPAByName(name="pop")
+proposed_archive = owner.getPPAByName(name="proposed")
 
-remote = {}
+proposed = {}
+release = {}
 for codename in codenames:
     series = "https://api.launchpad.net/devel/ubuntu/" + codename
-    remote[codename] = archive.getPublishedSources(distro_series=series, status="Published")
+    proposed[codename] = proposed_archive.getPublishedSources(distro_series=series, status="Published")
+    release[codename] = release_archive.getPublishedSources(distro_series=series, status="Published")
 
-def find_local(source_name, codename):
-    for pkg in local[codename]:
+def find_staging(source_name, codename):
+    for pkg in staging[codename]:
         if pkg['package'] == source_name:
             return pkg['version']
     return None
 
-def find_remote(source_name, codename):
-    for pkg in remote[codename]:
+def find_proposed(source_name, codename):
+    for pkg in proposed[codename]:
+        if pkg.source_package_name == source_name:
+            return pkg.source_package_version
+    return None
+
+def find_release(source_name, codename):
+    for pkg in release[codename]:
         if pkg.source_package_name == source_name:
             return pkg.source_package_version
     return None
@@ -55,26 +66,60 @@ def callback(repo):
         for codename in codenames:
             print("  " + codename)
 
-            local_version = find_local(source_name, codename)
-            remote_version = find_remote(source_name, codename)
+            staging_version = find_staging(source_name, codename)
+            proposed_version = find_proposed(source_name, codename)
+            release_version = find_release(source_name, codename)
 
-            print("    local:", local_version)
-            print("    remote:", remote_version)
+            print("    staging:", staging_version)
+            print("    proposed:", proposed_version)
+            print("    release:", release_version)
 
-            # if local_version:
-            #     changes_path = path.join("_build", "source", source_name + "_" + local_version + "_source.changes")
+            proposed_upload = False
+            release_upload = False
 
-            if local_version and remote_version:
-                lv = Version(local_version)
-                rv = Version(remote_version)
-                if lv == rv:
-                    print("    versions are equal")
-                elif lv > rv:
-                    print("    local version is newer")
-                elif rv > lv:
-                    print("    remote version is newer")
+            if staging_version:
+                sv = Version(staging_version)
+                if proposed_version:
+                    pv = Version(proposed_version)
+                    if sv == pv:
+                        print("    staging and proposed versions are equal")
+                    elif sv > pv:
+                        print("    staging version is newer")
+                        proposed_upload = True
+                    elif sv < pv:
+                        print("    proposed version is newer")
+                    if release_version:
+                        rv = Version(release_version)
+                        if pv == rv:
+                            print("    proposed and release versions are equal")
+                        elif pv > rv:
+                            print("    proposed version is newer")
+                            release_upload = True
+                        elif pv < rv:
+                            print("    release version is newer")
+                    else:
+                        print("    release version not found")
+                        release_upload = True
                 else:
-                    print("    failed to compare versions")
+                    print("    proposed version not found")
+                    proposed_upload = True
+            else:
+                print("    staging version not found")
 
+            if proposed_upload:
+                changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
+                ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.ppa.upload")
+                if not path.exists(changes_path):
+                    print("      Changes file not found {!r}!!!".format(changes_path))
+                elif path.exists(ppa_upload_path):
+                    print("      Already uploaded changes to proposed")
+                elif args.yes or input("      Upload proposed version (y/N)? ") == "y":
+                    print("      Uploading to proposed")
+                    check_call(["dput", "ppa:system76/proposed", changes_path])
+                else:
+                    print("      Did not upload to proposed")
+
+            if release_upload:
+                pass
 
 foreach_repo(callback, args.repos)
