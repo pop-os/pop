@@ -417,7 +417,6 @@ def callback(repo):
         'docs',
         'gnome-control-center',
         'gnome-desktop',
-        'gnome-initial-setup',
         'iso',
         'pop',
     ):
