@@ -12,7 +12,7 @@ case "$1" in
 
 		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 artful main"
 
-		sudo tee "/etc/apt/preferences.d/pop-staging-$2" > /dev/null <<-EOF
+		sudo tee "/etc/apt/preferences.d/pop-os-staging-$2" > /dev/null <<-EOF
 			Package: *
 			Pin: release o=pop-os-staging-$2
 			Pin-Priority: 1001
@@ -27,7 +27,7 @@ case "$1" in
 
 		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 artful main"
 
-		sudo rm -f "/etc/apt/preferences.d/pop-staging-$2"
+		sudo rm -f "/etc/apt/preferences.d/pop-os-staging-$2"
 		;;
 	local)
 		grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
