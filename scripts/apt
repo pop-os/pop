@@ -3,37 +3,45 @@
 REPOS="ftp://10.17.75.74/repos/"
 
 case "$1" in
-    add)
-        if [ -z "$2" ]
-        then
-            echo "$0 $1 [repo]"
-            exit 1
-        fi
+	add)
+		if [ -z "$2" ]
+		then
+			echo "$0 $1 [repo]"
+			exit 1
+		fi
 
-        sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 artful main"
-        ;;
-    remove)
-        if [ -z "$2" ]
-        then
-            echo "$0 $1 [repo]"
-            exit 1
-        fi
+		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 artful main"
 
-        sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 artful main"
-        ;;
-    local)
-        grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
-            cut -d " " -f3 |
-            cut -d "/" -f5
-        ;;
-    remote)
-        curl -l --user anonymous:anonymous "${REPOS}"
-        ;;
-    *)
-        echo "$0 add [repo] - add a repository"
-        echo "$0 remove [repo] - remove a repository"
-        echo "$0 local - show locally added repositories"
-        echo "$0 remote - show remote available repositories"
-        exit 1
-        ;;
+		sudo tee "/etc/apt/preferences.d/pop-staging-$2" > /dev/null <<-EOF
+			Package: *
+			Pin: release o=pop-os-staging-$2
+			Pin-Priority: 1001
+		EOF
+		;;
+	remove)
+		if [ -z "$2" ]
+		then
+			echo "$0 $1 [repo]"
+			exit 1
+		fi
+
+		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 artful main"
+
+		sudo rm -f "/etc/apt/preferences.d/pop-staging-$2"
+		;;
+	local)
+		grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
+			cut -d " " -f3 |
+			cut -d "/" -f5
+		;;
+	remote)
+		curl -l --user anonymous:anonymous "${REPOS}"
+		;;
+	*)
+		echo "$0 add [repo] - add a repository"
+		echo "$0 remove [repo] - remove a repository"
+		echo "$0 local - show locally added repositories"
+		echo "$0 remote - show remote available repositories"
+		exit 1
+		;;
 esac
