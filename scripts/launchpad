@@ -7,7 +7,7 @@ from os import path
 from subprocess import check_call
 import sys
 
-from lib import foreach_repo, launchpad
+from lib import foreach_repo, launchpad, launchpad_anon
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
@@ -24,7 +24,11 @@ for codename in codenames:
     for pkg in Sources.iter_paragraphs(open(sources_path)):
         staging[codename].append(pkg)
 
-lp = launchpad()
+if args.release:
+    lp = launchpad()
+else:
+    lp = launchpad_anon()
+
 owner = lp.people["system76"]
 release_archive = owner.getPPAByName(name="pop")
 proposed_archive = owner.getPPAByName(name="proposed")
