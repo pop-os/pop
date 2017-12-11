@@ -17,7 +17,7 @@ def callback(repo):
 
     if os.path.exists(repo["name"]):
         if os.path.exists(os.path.join(repo["name"], "debian")):
-            dpkg = os.path.join("dpkg", repo["name"])
+            dpkg = os.path.join("_build", "debsource", repo["name"])
             if not os.path.exists(dpkg):
                 os.makedirs(dpkg)
 

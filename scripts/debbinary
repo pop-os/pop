@@ -2,8 +2,8 @@
 
 import argparse
 import os
-import os.path
-import subprocess
+from os import path
+from subprocess import check_call
 import sys
 
 from lib import foreach_repo
@@ -12,16 +12,27 @@ parser = argparse.ArgumentParser(description="Build all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
+POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
-    if os.path.exists(repo["name"]):
-        if os.path.exists(os.path.join(repo["name"], "debian")):
-            dpkg = os.path.join("dpkg", repo["name"])
-            if not os.path.exists(dpkg):
+    if path.exists(repo["name"]):
+        if path.exists(path.join(repo["name"], "debian")):
+            dpkg = os.path.join("_build", "debbinary", repo["name"])
+            if not path.exists(dpkg):
                 os.makedirs(dpkg)
 
-            subprocess.run(["sbuild", os.path.abspath(repo["name"])], check=True, cwd=dpkg)
+            codename = "artful"
+
+            check_call([
+                "sbuild",
+                "--arch-all",
+                "--dist=" + codename,
+                "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + codename + " main",
+                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
+                path.abspath(repo["name"])
+            ], cwd=dpkg)
         else:
             print("debian directory not found")
     else:
