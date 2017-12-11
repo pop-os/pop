@@ -4,6 +4,7 @@
 /*.buildinfo
 /*.changes
 /*.deb
+/*.ddeb
 /*.dsc
 /*.tar
 /*.tar.*
