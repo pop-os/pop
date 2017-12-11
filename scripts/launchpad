@@ -7,10 +7,11 @@ from os import path
 from subprocess import check_call
 import sys
 
-from lib import foreach_repo, launchpad_anon
+from lib import foreach_repo, launchpad
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
+parser.add_argument("--release", action="store_true")
 parser.add_argument("--yes", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
@@ -23,7 +24,7 @@ for codename in codenames:
     for pkg in Sources.iter_paragraphs(open(sources_path)):
         staging[codename].append(pkg)
 
-lp = launchpad_anon()
+lp = launchpad()
 owner = lp.people["system76"]
 release_archive = owner.getPPAByName(name="pop")
 proposed_archive = owner.getPPAByName(name="proposed")
@@ -43,6 +44,12 @@ def find_staging(source_name, codename):
     for pkg in staging[codename]:
         if pkg['package'] == source_name:
             return pkg['version']
+    return None
+
+def find_proposed_published(source_name, codename):
+    for pkg in proposed_published[codename]:
+        if pkg.source_package_name == source_name:
+            return pkg
     return None
 
 def find_proposed(source_name, codename):
@@ -116,7 +123,7 @@ def callback(repo):
             else:
                 print("    staging version not found", flush=True)
 
-            if proposed_upload:
+            if proposed_upload and not args.release:
                 changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
                 ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.ppa.upload")
                 if not path.exists(changes_path):
@@ -129,7 +136,20 @@ def callback(repo):
                 else:
                     print("      Did not upload to proposed", flush=True)
 
-            if release_upload:
-                pass
+            if release_upload and args.release:
+                proposed_package = find_proposed_published(source_name, codename)
+                if not proposed_package:
+                    print("      Package not published in proposed!!!", flush=True)
+                elif args.yes or input("      Upload release version (y/N)? ") == "y":
+                    print("      Uploading to release", flush=True)
+                    release_archive.copyPackage(
+                        from_archive = proposed_archive,
+                        include_binaries = True,
+                        source_name = proposed_package.source_package_name,
+                        to_pocket = proposed_package.pocket,
+                        version = proposed_package.source_package_version
+                    )
+                else:
+                    print("      Did not upload to release", flush=True)
 
 foreach_repo(callback, args.repos)
