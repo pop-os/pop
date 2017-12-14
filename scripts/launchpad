@@ -77,6 +77,10 @@ def find_release(source_name, codename):
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
+    if repo["name"] in ("system76-driver"):
+        print("  skipping", flush=True)
+        return
+
     control_path = path.join(repo["name"], "debian", "control")
     if path.isfile(control_path):
         with open(control_path, "r") as fp:
