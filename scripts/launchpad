@@ -21,8 +21,9 @@ staging = {}
 for codename in codenames:
     sources_path = path.join("_build", "repos", "master", "dists", codename, "main", "source", "Sources")
     staging[codename] = []
-    for pkg in Sources.iter_paragraphs(open(sources_path)):
-        staging[codename].append(pkg)
+    if path.exists(sources_path):
+        for pkg in Sources.iter_paragraphs(open(sources_path)):
+            staging[codename].append(pkg)
 
 if args.release:
     lp = launchpad()
@@ -104,32 +105,37 @@ def callback(repo):
 
             if staging_version:
                 sv = Version(staging_version)
-                if proposed_version:
-                    pv = Version(proposed_version)
-                    if sv == pv:
-                        print("    staging and proposed versions are equal", flush=True)
-                    elif sv > pv:
-                        print("    staging version is newer than proposed", flush=True)
-                        proposed_upload = True
-                    elif sv < pv:
-                        print("    proposed version is newer than staging", flush=True)
-                    if release_version:
-                        rv = Version(release_version)
-                        if pv == rv:
-                            print("    proposed and release versions are equal", flush=True)
-                        elif pv > rv:
-                            print("    proposed version is newer than release", flush=True)
-                            release_upload = True
-                        elif pv < rv:
-                            print("    release version is newer than proposed", flush=True)
-                    else:
-                        print("    release version not found", flush=True)
-                        release_upload = True
-                else:
-                    print("    proposed version not found", flush=True)
-                    proposed_upload = True
             else:
                 print("    staging version not found", flush=True)
+                sv = Version("0")
+
+            if proposed_version:
+                pv = Version(proposed_version)
+            else:
+                print("    proposed version not found", flush=True)
+                pv = Version("0")
+
+            if release_version:
+                rv = Version(release_version)
+            else:
+                print("    release version not found", flush=True)
+                rv = Version("0")
+
+            if sv == pv:
+                print("    staging and proposed versions are equal", flush=True)
+            elif sv > pv:
+                print("    staging version is newer than proposed", flush=True)
+                proposed_upload = True
+            elif sv < pv:
+                print("    proposed version is newer than staging", flush=True)
+
+            if pv == rv:
+                print("    proposed and release versions are equal", flush=True)
+            elif pv > rv:
+                print("    proposed version is newer than release", flush=True)
+                release_upload = True
+            elif pv < rv:
+                print("    release version is newer than proposed", flush=True)
 
             if proposed_upload and not args.release:
                 changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
