@@ -413,6 +413,7 @@ def callback(repo):
     name =  repo['name']
 
     if name in (
+        'accountsservice',
         'code-of-conduct',
         'docs',
         'gnome-control-center',
