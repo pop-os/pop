@@ -250,7 +250,7 @@ def dpkg_binary(dsc_path, name, git, series):
 
             build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
             with open(build_log, 'r') as f:
-                message += f.read()
+                message += f.read().decode('utf8')
 
             print(message, flush=True)
 
