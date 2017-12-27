@@ -249,7 +249,7 @@ def dpkg_binary(dsc_path, name, git, series):
             message = "\x1B[1m{} commit {} on {}: failed to build binaries: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex)
 
             build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
-            with open(build_log, 'r') as f:
+            with open(build_log, 'rb') as f:
                 message += f.read().decode('utf8')
 
             print(message, flush=True)
