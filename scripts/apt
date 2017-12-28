@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set -e
+
+source /etc/os-release
+
+POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 REPOS="ftp://10.17.75.74/repos/"
 
 case "$1" in
@@ -10,7 +15,9 @@ case "$1" in
 			exit 1
 		fi
 
-		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 artful main"
+		sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
+		
+		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
 
 		sudo tee "/etc/apt/preferences.d/pop-os-staging-$2" > /dev/null <<-EOF
 			Package: *
@@ -25,7 +32,7 @@ case "$1" in
 			exit 1
 		fi
 
-		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 artful main"
+		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
 
 		sudo rm -f "/etc/apt/preferences.d/pop-os-staging-$2"
 		;;
