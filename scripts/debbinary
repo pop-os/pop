@@ -30,6 +30,7 @@ def callback(repo):
                 "--arch-all",
                 "--dist=" + codename,
                 "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + codename + " main",
+                "--extra-repository=deb http://ppa.launchpad.net/system76/proposed/ubuntu " + codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
                 path.abspath(repo["name"])
             ], cwd=dpkg)
