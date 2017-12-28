@@ -15,15 +15,18 @@ case "$1" in
 			exit 1
 		fi
 
-		sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
-		
-		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
-
+		echo "Adding preference"
 		sudo tee "/etc/apt/preferences.d/pop-os-staging-$2" > /dev/null <<-EOF
 			Package: *
 			Pin: release o=pop-os-staging-$2
 			Pin-Priority: 1001
 		EOF
+
+		echo "Adding key"
+		sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
+
+		echo "Adding repository"
+		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
 		;;
 	remove)
 		if [ -z "$2" ]
@@ -32,8 +35,10 @@ case "$1" in
 			exit 1
 		fi
 
+		echo "Removing repository"
 		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
 
+		echo "Removing preference"
 		sudo rm -f "/etc/apt/preferences.d/pop-os-staging-$2"
 		;;
 	local)
