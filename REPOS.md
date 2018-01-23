@@ -4,6 +4,7 @@ This is an automatically generated file. See `scripts/readme`
 - [accountsservice](https://github.com/pop-os/accountsservice) - Fork of accountsservice with support for encrypted home
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
+- [code](https://github.com/pop-os/code) - Code editor designed for elementary OS
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
@@ -29,6 +30,7 @@ This is an automatically generated file. See `scripts/readme`
 - [muff](https://github.com/pop-os/muff) - Multiple USB File Flasher
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
