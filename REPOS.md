@@ -25,8 +25,8 @@ This is an automatically generated file. See `scripts/readme`
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [installer](https://github.com/pop-os/installer) - Installer for elementary OS & other Linux\-based OSes
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
+- [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
-- [libparted\-sys](https://github.com/pop-os/libparted-sys) - Rust bindings to libparted
 - [muff](https://github.com/pop-os/muff) - Multiple USB File Flasher
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
