@@ -131,7 +131,12 @@ def dpkg_source(name, git, series):
     changelog_version = o.decode().strip()
 
     source_name = control.get("Source")
-    version = '+'.join([changelog_version, git.timestamp, series.version]) + "~" + git.id[:7]
+    if series.codename in ('xenial', 'artful'):
+        # Old format, caused issues when adding debian versions like 0.2.8 -> 0.2.8-1
+        version = '+'.join([changelog_version, git.timestamp, series.version]) + "~" + git.id[:7]
+    else:
+        # New format, will allow debian versions to be added
+        version = '~'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
 
     dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
     tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
