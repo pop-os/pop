@@ -37,7 +37,6 @@
 /iso/
 /kernelstub/
 /libparted/
-/libparted-sys/
 /muff/
 /plymouth-theme/
 /pop/
@@ -46,6 +45,7 @@
 /shop/
 /system76-dkms/
 /system76-driver/
+/system76-firmtool/
 /theme/
 /ubiquity-slideshow-pop/
 /wallpapers/

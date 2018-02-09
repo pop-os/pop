@@ -27,7 +27,6 @@ This is an automatically generated file. See `scripts/readme`
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
-- [libparted\-sys](https://github.com/pop-os/libparted-sys) - Libparted low level bindings
 - [muff](https://github.com/pop-os/muff) - Multiple USB File Flasher
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
@@ -36,6 +35,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
+- [system76\-firmtool](https://github.com/pop-os/system76-firmtool) - A self\-contained firmware update tool for System76 machines
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
