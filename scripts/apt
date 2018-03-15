@@ -5,7 +5,7 @@ set -e
 source /etc/os-release
 
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-REPOS="ftp://10.17.75.74/repos/"
+REPOS="ftp://209.212.58.90/repos/"
 
 case "$1" in
 	add)
