@@ -20,6 +20,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
+- [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
