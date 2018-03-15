@@ -19,7 +19,7 @@ from subprocess import check_call, check_output
 import sys
 from threading import Lock
 
-from lib import foreach_repo, github_post
+from lib import foreach_repo_parallel, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
 
 Series = namedtuple('Series', 'codename version')
@@ -458,7 +458,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo(callback, args.repos).items():
+    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:
