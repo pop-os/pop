@@ -177,6 +177,7 @@ def dpkg_source(name, git, series):
                         '--no-tgz-check',
                         '-d',
                         '-S',
+                        '--source-option=--tar-ignore=.git',
                     ], stdout=null, stderr=null, cwd=extract_dir)
 
             print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(source_name, git.id, series.codename), flush=True)
