@@ -19,9 +19,9 @@ def callback(repo):
         branch = repo["default_branch"]
         subprocess.run(["git", "-C", repo["name"], "fetch", "origin"], check=True)
         if args.force:
-            subprocess.run(["git", "-C", repo["name"], "checkout", "-B", branch, "origin/" + branch], check=True)
-        else:
             subprocess.run(["git", "-C", repo["name"], "checkout", "--force", "-B", branch, "origin/" + branch], check=True)
+        else:
+            subprocess.run(["git", "-C", repo["name"], "checkout", "-B", branch, "origin/" + branch], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "sync", "--recursive"], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "update", "--init", "--recursive"], check=True)
     else:
