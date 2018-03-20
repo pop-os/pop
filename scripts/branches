@@ -15,6 +15,9 @@ def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     for branch in github(repo["branches_url"].replace("{/branch}", "")):
-        print(branch["name"])
+        if branch["name"] == repo["default_branch"]:
+            print(" * " + branch["name"])
+        else:
+            print("   " + branch["name"])
 
 foreach_repo(callback, args.repos)
