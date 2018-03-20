@@ -28,9 +28,9 @@ This is an automatically generated file. See `scripts/readme`
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
-- [muff](https://github.com/pop-os/muff) - Multiple USB File Flasher
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop

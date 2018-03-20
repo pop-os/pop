@@ -7,7 +7,8 @@ import sys
 
 from lib import foreach_repo
 
-parser = argparse.ArgumentParser(description="Pull all Pop!_OS repositories")
+parser = argparse.ArgumentParser(description="Reset all Pop!_OS repositories to default branch of origin")
+parser.add_argument("--force", action="store_true")
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
@@ -15,7 +16,12 @@ def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     if os.path.exists(repo["name"]):
-        subprocess.run(["git", "-C", repo["name"], "pull"], check=True)
+        branch = repo["default_branch"]
+        subprocess.run(["git", "-C", repo["name"], "fetch", "origin"], check=True)
+        if args.force:
+            subprocess.run(["git", "-C", repo["name"], "checkout", "-B", branch, "origin/" + branch], check=True)
+        else:
+            subprocess.run(["git", "-C", repo["name"], "checkout", "--force", "-B", branch, "origin/" + branch], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "sync", "--recursive"], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "update", "--init", "--recursive"], check=True)
     else:
