@@ -4,7 +4,6 @@ This is an automatically generated file. See `scripts/readme`
 - [accountsservice](https://github.com/pop-os/accountsservice) - Fork of accountsservice with support for encrypted home
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
-- [code](https://github.com/pop-os/code) - Code editor designed for elementary OS
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
@@ -41,3 +40,4 @@ This is an automatically generated file. See `scripts/readme`
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
+- [wheatley](https://github.com/pop-os/wheatley) - Pop\!\_OS web API server
