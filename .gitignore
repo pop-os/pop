@@ -14,7 +14,6 @@
 /accountsservice/
 /appstream-data/
 /buildchain/
-/code/
 /code-of-conduct/
 /default-settings/
 /desktop/
@@ -28,6 +27,8 @@
 /gnome-initial-setup/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
+/gnome-shell-extension-do-not-disturb/
+/gnome-shell-extension-pop-battery-icon-fix/
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
@@ -46,8 +47,9 @@
 /shop/
 /system76-dkms/
 /system76-driver/
-/system76-firmtool/
+/system76-firmware-daemon/
 /system76-power/
 /theme/
 /ubiquity-slideshow-pop/
 /wallpapers/
+/wheatley/
