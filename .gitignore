@@ -23,7 +23,6 @@
 /firefox-css-extension/
 /fonts/
 /gnome-control-center/
-/gnome-desktop/
 /gnome-initial-setup/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
@@ -34,6 +33,7 @@
 /gnome-shell-extension-system76-power/
 /grub-theme/
 /gtk-theme/
+/hidpi-daemon/
 /icon-theme/
 /installer/
 /iso/

@@ -13,7 +13,6 @@ This is an automatically generated file. See `scripts/readme`
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - gnome\-control\-center
-- [gnome\-desktop](https://github.com/pop-os/gnome-desktop) - GNOME Desktop Library
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
@@ -24,6 +23,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
+- [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [installer](https://github.com/pop-os/installer) - Installer for elementary OS & other Linux\-based OSes
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
