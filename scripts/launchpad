@@ -9,13 +9,20 @@ import sys
 
 from lib import foreach_repo, launchpad, launchpad_anon
 
+# Packages to release either in system76-dev or system76
+any_packages = ("hidpi-daemon")
+
+# Packages to release only in system76-dev
+dev_packages = ("system76-dkms", "system76-driver", "system76-firmware-daemon")
+
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
+parser.add_argument("--dev", action="store_true")
 parser.add_argument("--release", action="store_true")
 parser.add_argument("--yes", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
-codenames = ["artful", "bionic"]
+codenames = ("xenial", "artful", "bionic")
 
 staging = {}
 for codename in codenames:
@@ -30,9 +37,14 @@ if args.release:
 else:
     lp = launchpad_anon()
 
-owner = lp.people["system76"]
-release_archive = owner.getPPAByName(name="pop")
-proposed_archive = owner.getPPAByName(name="proposed")
+if args.dev:
+    owner = lp.people["system76-dev"]
+    release_archive = owner.getPPAByName(name="stable")
+    proposed_archive = owner.getPPAByName(name="pre-stable")
+else:
+    owner = lp.people["system76"]
+    release_archive = owner.getPPAByName(name="pop")
+    proposed_archive = owner.getPPAByName(name="proposed")
 
 proposed_pending = {}
 proposed_published = {}
@@ -78,9 +90,16 @@ def find_release(source_name, codename):
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
-    if repo["name"] in ("system76-driver"):
-        print("  skipping", flush=True)
-        return
+    in_any = repo["name"] in any_packages
+    in_dev = repo["name"] in dev_packages
+    if args.dev:
+        if not in_any and not in_dev:
+            print("  skipping, only released to system76", flush=True)
+            return
+    else:
+        if in_dev:
+            print("  skipping, only released to system76-dev", flush=True)
+            return
 
     control_path = path.join(repo["name"], "debian", "control")
     if path.isfile(control_path):
