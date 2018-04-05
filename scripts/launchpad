@@ -4,6 +4,7 @@ import argparse
 from debian.changelog import Version
 from debian.deb822 import Deb822, Sources
 from os import path
+import shutil
 from subprocess import check_call
 import sys
 
