@@ -17,6 +17,7 @@ dev_packages = ("system76-dkms", "system76-driver", "system76-firmware-daemon")
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
+parser.add_argument("--check", action="store_true")
 parser.add_argument("--dev", action="store_true")
 parser.add_argument("--release", action="store_true")
 parser.add_argument("--yes", action="store_true")
@@ -156,7 +157,7 @@ def callback(repo):
             elif pv < rv:
                 print("    release version is newer than proposed", flush=True)
 
-            if proposed_upload and not args.release:
+            if proposed_upload and not args.check and not args.release:
                 changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
                 ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.ppa.upload")
                 if not path.exists(changes_path):
@@ -172,7 +173,7 @@ def callback(repo):
                 else:
                     print("      Did not upload to proposed", flush=True)
 
-            if release_upload and args.release:
+            if release_upload and not args.check and args.release:
                 proposed_package = find_proposed_published(source_name, codename)
                 if not proposed_package:
                     print("      Package not published in proposed!!!", flush=True)
@@ -188,4 +189,28 @@ def callback(repo):
                 else:
                     print("      Did not upload to release", flush=True)
 
-foreach_repo(callback, args.repos)
+        return source_name
+
+results = foreach_repo(callback, args.repos)
+
+if args.check:
+    print("\x1B[1mChecking published packages\x1B[0m")
+    for codename in codenames:
+        print("  " + codename, flush=True)
+
+        if args.release:
+            published = release_published[codename]
+        else:
+            published = proposed_published[codename]
+
+        for pkg in published:
+            repo_name = None
+            for result in results:
+                if pkg.source_package_name == results[result]:
+                    repo_name = result
+                    break
+
+            if repo_name:
+                print("    " + pkg.source_package_name + ": " + repo_name)
+            else:
+                print("    \x1B[1m" + pkg.source_package_name + "\x1B[0m")
