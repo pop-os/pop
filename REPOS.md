@@ -40,6 +40,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware\-daemon](https://github.com/pop-os/system76-firmware-daemon) - System76 Firmware Daemon
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
+- [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
