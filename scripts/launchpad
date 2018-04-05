@@ -164,11 +164,9 @@ def callback(repo):
 
                 if args.dev:
                     changes_path_dev = path.join("_build", "source", source_name + "_" + staging_version + "_dev_source.changes")
-                    ppa_upload_path_dev = path.join("_build", "source", source_name + "_" + staging_version + "_dev_source.ppa.upload")
                     shutil.copyfile(changes_path, changes_path_dev)
-                    shutil.copyfile(ppa_upload_path, ppa_upload_path_dev)
                     changes_path = changes_path_dev
-                    ppa_upload_path = ppa_upload_path_dev
+                    ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_dev_source.ppa.upload")
 
                 if not path.exists(changes_path):
                     print("      Changes file not found {!r}!!!".format(changes_path), flush=True)
