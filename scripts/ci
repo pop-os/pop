@@ -62,7 +62,7 @@ def iter_series(branches):
             for (codename, (version, wildcard)) in build_series.items():
                 if wildcard:
                     yield (Series(codename, version), pocket)
-        else:
+        elif codename in build_series:
             version, wildcard = build_series[codename]
             yield (Series(codename, version), pocket)
 
