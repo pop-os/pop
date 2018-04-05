@@ -165,7 +165,10 @@ def callback(repo):
                     print("      Already uploaded changes to proposed", flush=True)
                 elif args.yes or input("      Upload proposed version (y/N)? ") == "y":
                     print("      Uploading to proposed", flush=True)
-                    check_call(["dput", "ppa:system76/proposed", changes_path])
+                    if args.dev:
+                        check_call(["dput", "ppa:system76-dev/pre-stable", changes_path])
+                    else:
+                        check_call(["dput", "ppa:system76/proposed", changes_path])
                 else:
                     print("      Did not upload to proposed", flush=True)
 
