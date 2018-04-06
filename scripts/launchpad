@@ -146,7 +146,10 @@ def callback(repo):
                 print("    staging and proposed versions are equal", flush=True)
             elif sv > pv:
                 print("    staging version is newer than proposed", flush=True)
-                proposed_upload = True
+                if "~~" in staging_version:
+                    print("    staging version not ready to be released", flush=True)
+                else:
+                    proposed_upload = True
             elif sv < pv:
                 print("    proposed version is newer than staging", flush=True)
 
@@ -154,7 +157,10 @@ def callback(repo):
                 print("    proposed and release versions are equal", flush=True)
             elif pv > rv:
                 print("    proposed version is newer than release", flush=True)
-                release_upload = True
+                if "~~" in proposed_version:
+                    print("    proposed version not ready to be released", flush=True)
+                else:
+                    release_upload = True
             elif pv < rv:
                 print("    release version is newer than proposed", flush=True)
 
