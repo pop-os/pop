@@ -5,6 +5,7 @@ This is an automatically generated file. See `scripts/readme`
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
+- [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
 - [distinst](https://github.com/pop-os/distinst) - WIP Installer Backend
@@ -38,7 +39,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
-- [system76\-firmware\-daemon](https://github.com/pop-os/system76-firmware-daemon) - System76 Firmware Daemon
+- [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme

@@ -15,6 +15,7 @@
 /appstream-data/
 /buildchain/
 /code-of-conduct/
+/deckard/
 /default-settings/
 /desktop/
 /distinst/
@@ -48,7 +49,7 @@
 /shop/
 /system76-dkms/
 /system76-driver/
-/system76-firmware-daemon/
+/system76-firmware/
 /system76-power/
 /system76-wallpapers/
 /theme/
