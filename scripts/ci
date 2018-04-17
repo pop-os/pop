@@ -37,7 +37,7 @@ REPO_DIR = path.join(BUILD_DIR, 'repos')
 
 build_series = {
     'xenial': ('16.04', False),
-    'artful': ('17.10', True),
+    'artful': ('17.10', False),
     'bionic': ('18.04', True),
 }
 
