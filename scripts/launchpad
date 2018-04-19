@@ -11,10 +11,10 @@ import sys
 from lib import foreach_repo, launchpad, launchpad_anon
 
 # Packages to release either in system76-dev or system76
-any_packages = ("hidpi-daemon")
+any_packages = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
 
 # Packages to release only in system76-dev
-dev_packages = ("system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
+dev_packages = ()
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
