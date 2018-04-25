@@ -15,6 +15,7 @@
 /appstream-data/
 /buildchain/
 /code-of-conduct/
+/debrepbuild/
 /deckard/
 /default-settings/
 /desktop/
@@ -23,7 +24,6 @@
 /eddy/
 /firefox-css-extension/
 /fonts/
-/gnome-control-center/
 /gnome-initial-setup/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
@@ -55,4 +55,3 @@
 /theme/
 /ubiquity-slideshow-pop/
 /wallpapers/
-/wheatley/
