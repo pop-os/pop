@@ -227,4 +227,4 @@ if args.check:
             if repo_name:
                 print("    " + pkg.source_package_name + ": " + repo_name)
             else:
-                print("    \x1B[1m" + pkg.source_package_name + "\x1B[0m")
+                print("    \x1B[1m" + pkg.source_package_name + ": " + pkg.source_package_version + "\x1B[0m")
