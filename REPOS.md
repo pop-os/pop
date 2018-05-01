@@ -5,6 +5,8 @@ This is an automatically generated file. See `scripts/readme`
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
+- [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
+- [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
@@ -13,7 +15,6 @@ This is an automatically generated file. See `scripts/readme`
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
-- [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - gnome\-control\-center
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
@@ -45,4 +46,3 @@ This is an automatically generated file. See `scripts/readme`
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
-- [wheatley](https://github.com/pop-os/wheatley) - Pop\!\_OS web API server
