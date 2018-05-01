@@ -22,7 +22,7 @@ case "$1" in
 		sudo tee "/etc/apt/preferences.d/pop-os-staging-$2" > /dev/null <<-EOF
 			Package: *
 			Pin: release o=pop-os-staging-$2
-			Pin-Priority: 1001
+			Pin-Priority: 1002
 		EOF
 
 		echo "Adding repository"
