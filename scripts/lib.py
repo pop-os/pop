@@ -6,6 +6,12 @@ import urllib.request
 # Documentation can be found here: https://launchpad.net/+apidoc/devel.html
 from launchpadlib.launchpad import Launchpad
 
+# Packages to release either in system76-dev or system76
+ANY_PACKAGES = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
+
+# Packages to release only in system76-dev
+DEV_PACKAGES = ()
+
 def launchpad():
     return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
