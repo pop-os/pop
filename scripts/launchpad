@@ -8,7 +8,7 @@ import shutil
 from subprocess import check_call
 import sys
 
-from lib import foreach_repo, launchpad, launchpad_anon, ANY_PACKAGES, DEV_PACKAGES
+from lib import foreach_repo, launchpad, launchpad_anon
 
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
@@ -85,17 +85,6 @@ def find_release(source_name, codename):
 
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
-
-    in_any = repo["name"] in ANY_PACKAGES
-    in_dev = repo["name"] in DEV_PACKAGES
-    if args.dev:
-        if not in_any and not in_dev:
-            print("  skipping, only released to system76", flush=True)
-            return
-    else:
-        if in_dev:
-            print("  skipping, only released to system76-dev", flush=True)
-            return
 
     control_path = path.join(repo["name"], "debian", "control")
     if path.isfile(control_path):
@@ -199,7 +188,7 @@ def callback(repo):
 
         return source_name
 
-results = foreach_repo(callback, args.repos)
+results = foreach_repo(callback, args.repos, args.dev)
 
 if args.check:
     print("\x1B[1mChecking published packages\x1B[0m")

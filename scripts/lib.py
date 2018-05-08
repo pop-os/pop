@@ -6,11 +6,8 @@ import urllib.request
 # Documentation can be found here: https://launchpad.net/+apidoc/devel.html
 from launchpadlib.launchpad import Launchpad
 
-# Packages to release either in system76-dev or system76
-ANY_PACKAGES = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
-
-# Packages to release only in system76-dev
-DEV_PACKAGES = ()
+# Packages to release in system76-dev
+DEV_REPOS = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
 
 def launchpad():
     return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
@@ -62,7 +59,7 @@ def github_post(url, data):
     response = urllib.request.urlopen(request)
     return json.loads(response.read().decode())
 
-def foreach_repo(fn, selected=[]):
+def foreach_repo(fn, selected=[], dev=False):
     selected = [item.rstrip('/') for item in selected]
 
     repos = github("https://api.github.com/orgs/pop-os/repos")
@@ -71,12 +68,12 @@ def foreach_repo(fn, selected=[]):
 
     ret = {}
     for repo in repos:
-        if len(selected) == 0 or repo["name"] in selected:
+        if (len(selected) == 0 or repo["name"] in selected) and (not dev or repo["name"] in DEV_REPOS):
             ret[repo["name"]] = fn(repo)
 
     return ret
 
-def foreach_repo_parallel(fn, selected=[]):
+def foreach_repo_parallel(fn, selected=[], dev=False):
     selected = [item.rstrip('/') for item in selected]
 
     repos = github("https://api.github.com/orgs/pop-os/repos")
@@ -86,7 +83,7 @@ def foreach_repo_parallel(fn, selected=[]):
     args = []
     keys = []
     for repo in repos:
-        if len(selected) == 0 or repo["name"] in selected:
+        if (len(selected) == 0 or repo["name"] in selected) and (not dev or repo["name"] in DEV_REPOS):
             args.append(repo)
             keys.append(repo["name"])
 
