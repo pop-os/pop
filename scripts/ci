@@ -192,7 +192,10 @@ def dpkg_source(name, git, series):
 
             print(message, flush=True)
 
-            github_status(name, git.id, series.codename + "/source", "failure")
+            try:
+                github_status(name, git.id, series.codename + "/source", "failure")
+            except Exception as ex:
+                print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex))
 
             return None, None
     else:
