@@ -262,7 +262,10 @@ def dpkg_binary(dsc_path, name, git, series):
 
             github_status(name, git.id, series.codename + "/binary", "success")
         except Exception as ex:
-            github_status(name, git.id, series.codename + "/binary", "failure")
+            try:
+                github_status(name, git.id, series.codename + "/binary", "failure")
+            except Exception as ex:
+                print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex))
 
             build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
             with open(build_log, 'rb') as f:
