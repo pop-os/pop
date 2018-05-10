@@ -10,12 +10,6 @@ import sys
 
 from lib import foreach_repo, launchpad, launchpad_anon
 
-# Packages to release either in system76-dev or system76
-any_packages = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
-
-# Packages to release only in system76-dev
-dev_packages = ()
-
 parser = argparse.ArgumentParser(description="Upload packages to proposed")
 parser.add_argument("repos", nargs="*", default=[])
 parser.add_argument("--check", action="store_true")
@@ -24,11 +18,21 @@ parser.add_argument("--release", action="store_true")
 parser.add_argument("--yes", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
+POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+if args.dev:
+    BUILD_DIR = path.join(POP_DIR, '_build', 'dev')
+else:
+    BUILD_DIR = path.join(POP_DIR, '_build')
+GIT_DIR = path.join(BUILD_DIR, 'git')
+SOURCE_DIR = path.join(BUILD_DIR, 'source')
+BINARY_DIR = path.join(BUILD_DIR, 'binary')
+REPO_DIR = path.join(BUILD_DIR, 'repos')
+
 codenames = ("xenial", "artful", "bionic")
 
 staging = {}
 for codename in codenames:
-    sources_path = path.join("_build", "repos", "master", "dists", codename, "main", "source", "Sources")
+    sources_path = path.join(REPO_DIR, "master", "dists", codename, "main", "source", "Sources")
     staging[codename] = []
     if path.exists(sources_path):
         for pkg in Sources.iter_paragraphs(open(sources_path)):
@@ -92,17 +96,6 @@ def find_release(source_name, codename):
 def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
-    in_any = repo["name"] in any_packages
-    in_dev = repo["name"] in dev_packages
-    if args.dev:
-        if not in_any and not in_dev:
-            print("  skipping, only released to system76", flush=True)
-            return
-    else:
-        if in_dev:
-            print("  skipping, only released to system76-dev", flush=True)
-            return
-
     control_path = path.join(repo["name"], "debian", "control")
     if path.isfile(control_path):
         with open(control_path, "r") as fp:
@@ -165,14 +158,8 @@ def callback(repo):
                 print("    release version is newer than proposed", flush=True)
 
             if proposed_upload and not args.check and not args.release:
-                changes_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.changes")
-                ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_source.ppa.upload")
-
-                if args.dev:
-                    changes_path_dev = path.join("_build", "source", source_name + "_" + staging_version + "_dev_source.changes")
-                    shutil.copyfile(changes_path, changes_path_dev)
-                    changes_path = changes_path_dev
-                    ppa_upload_path = path.join("_build", "source", source_name + "_" + staging_version + "_dev_source.ppa.upload")
+                changes_path = path.join(SOURCE_DIR, source_name + "_" + staging_version + "_source.changes")
+                ppa_upload_path = path.join(SOURCE_DIR, source_name + "_" + staging_version + "_source.ppa.upload")
 
                 if not path.exists(changes_path):
                     print("      Changes file not found {!r}!!!".format(changes_path), flush=True)
@@ -205,7 +192,7 @@ def callback(repo):
 
         return source_name
 
-results = foreach_repo(callback, args.repos)
+results = foreach_repo(callback, args.repos, args.dev)
 
 if args.check:
     print("\x1B[1mChecking published packages\x1B[0m")

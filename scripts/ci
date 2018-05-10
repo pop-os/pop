@@ -26,10 +26,14 @@ Series = namedtuple('Series', 'codename version')
 
 parser = argparse.ArgumentParser(description="Package and deploy all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
+parser.add_argument("--dev", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
 POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
-BUILD_DIR = path.join(POP_DIR, '_build')
+if args.dev:
+    BUILD_DIR = path.join(POP_DIR, '_build', 'dev')
+else:
+    BUILD_DIR = path.join(POP_DIR, '_build')
 GIT_DIR = path.join(BUILD_DIR, 'git')
 SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
@@ -134,6 +138,9 @@ def dpkg_source(name, git, series):
     if series.codename in ('xenial', 'artful'):
         # Old format, caused issues when adding debian versions like 0.2.8 -> 0.2.8-1
         version = '+'.join([changelog_version, git.timestamp, series.version]) + "~" + git.id[:7]
+    elif args.dev:
+        # New format, will allow debian versions to be added
+        version = '~'.join([changelog_version, git.timestamp, series.version, git.id[:7], "dev"])
     else:
         # New format, will allow debian versions to be added
         version = '~'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
@@ -421,10 +428,6 @@ def callback(repo):
 
     if name in (
         'accountsservice',
-        'code-of-conduct',
-        'docs',
-        'gnome-control-center',
-        'gnome-desktop',
         'iso',
         'pop',
     ):
@@ -462,7 +465,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo(callback, args.repos).items():
+    for repo_name, pocket_series in foreach_repo(callback, args.repos, args.dev).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:
