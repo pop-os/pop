@@ -15,6 +15,24 @@ def launchpad():
 def launchpad_anon():
     return Launchpad.login_anonymously("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
+def github_inner(url, data=None):
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    
+    if data:
+        request_data = json.dumps(data).encode()
+        headers["Content-Type"] = "application/json"
+    else:
+        request_data = None
+    
+    request = urllib.request.Request(
+        url,
+        request_data,
+        headers
+    )
+
+    response = urllib.request.urlopen(request)
+    return json.loads(response.read().decode())
+
 def github(url):
     data = []
     page = 0
@@ -29,8 +47,7 @@ def github(url):
             page_url += "&access_token=" + f.read().strip()
             f.close()
 
-        response = urllib.request.urlopen(page_url)
-        page_data = json.loads(response.read().decode())
+        page_data = github_inner(page_url)
         data.extend(page_data)
         if len(page_data) < per_page:
             return data
@@ -40,9 +57,8 @@ def github_no_pages(url):
         f = open("scripts/.github_token")
         url += "?access_token=" + f.read().strip()
         f.close()
-
-    response = urllib.request.urlopen(url)
-    return json.loads(response.read().decode())
+        
+    return github_inner(url)
 
 def github_post(url, data):
     if os.path.exists("scripts/.github_token"):
@@ -50,14 +66,7 @@ def github_post(url, data):
         url += "?access_token=" + f.read().strip()
         f.close()
 
-    request = urllib.request.Request(
-        url,
-        json.dumps(data).encode(),
-        {"Content-Type": "application/json"}
-    )
-
-    response = urllib.request.urlopen(request)
-    return json.loads(response.read().decode())
+    return github_inner(url, data)
 
 def foreach_repo(fn, selected=[], dev=False):
     selected = [item.rstrip('/') for item in selected]
