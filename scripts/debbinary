@@ -23,7 +23,7 @@ def callback(repo):
             if not path.exists(dpkg):
                 os.makedirs(dpkg)
 
-            codename = "artful"
+            codename = "bionic"
 
             check_call([
                 "sbuild",
