@@ -7,6 +7,14 @@ source /etc/os-release
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 REPOS="ftp://209.212.58.90/repos/"
 
+for opt in "$@"
+do
+	if [ "$opt" == "--dev" ]
+	then
+		REPOS="ftp://209.212.58.90/dev/repos/"
+	fi
+done
+
 case "$1" in
 	add)
 		if [ -z "$2" ]
@@ -50,10 +58,10 @@ case "$1" in
 		curl -l --user anonymous:anonymous "${REPOS}"
 		;;
 	*)
-		echo "$0 add [repo] - add a repository"
-		echo "$0 remove [repo] - remove a repository"
-		echo "$0 local - show locally added repositories"
-		echo "$0 remote - show remote available repositories"
+		echo "$0 add [repo] <--dev> - add a repository"
+		echo "$0 remove [repo] <--dev> - remove a repository"
+		echo "$0 local <--dev> - show locally added repositories"
+		echo "$0 remote <--dev> - show remote available repositories"
 		exit 1
 		;;
 esac
