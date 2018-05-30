@@ -7,7 +7,7 @@ import urllib.request
 from launchpadlib.launchpad import Launchpad
 
 # Packages to release in system76-dev
-DEV_REPOS = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-wallpapers")
+DEV_REPOS = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-power", "system76-wallpapers")
 
 def launchpad():
     return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
