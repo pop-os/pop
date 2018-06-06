@@ -7,9 +7,18 @@ import urllib.request
 from launchpadlib.launchpad import Launchpad
 
 # Packages to release in system76-dev
-DEV_REPOS = ("hidpi-daemon", "system76-dkms", "system76-driver", "system76-firmware", "system76-power", "system76-wallpapers")
+DEV_REPOS = (
+    "hidpi-daemon",
+    "system76-dkms",
+    "system76-driver",
+    "system76-firmware",
+    "system76-power",
+    "gnome-shell-extension-system76-power",
+    "system76-wallpapers"
+)
 
-def launchpad():
+def
+launchpad():
     return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
 def launchpad_anon():
@@ -17,13 +26,13 @@ def launchpad_anon():
 
 def github_inner(url, data=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
-    
+
     if data:
         request_data = json.dumps(data).encode()
         headers["Content-Type"] = "application/json"
     else:
         request_data = None
-    
+
     request = urllib.request.Request(
         url,
         request_data,
@@ -57,7 +66,7 @@ def github_no_pages(url):
         f = open("scripts/.github_token")
         url += "?access_token=" + f.read().strip()
         f.close()
-        
+
     return github_inner(url)
 
 def github_post(url, data):
@@ -88,7 +97,7 @@ def foreach_repo_parallel(fn, selected=[], dev=False):
     repos = github("https://api.github.com/orgs/pop-os/repos")
 
     repos.sort(key=lambda repo: repo["name"])
-    
+
     args = []
     keys = []
     for repo in repos:
@@ -100,9 +109,9 @@ def foreach_repo_parallel(fn, selected=[], dev=False):
     values = pool.map(fn, args)
     pool.close()
     pool.join()
-    
+
     return dict(zip(keys, values))
-    
+
 
 # Escaping is done according to https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 # This may need to be improved. Always check the output of generated files
