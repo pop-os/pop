@@ -17,8 +17,7 @@ DEV_REPOS = (
     "system76-wallpapers"
 )
 
-def
-launchpad():
+def launchpad():
     return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
 def launchpad_anon():
