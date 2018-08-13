@@ -8,6 +8,7 @@ from launchpadlib.launchpad import Launchpad
 
 # Packages to release in system76-dev
 DEV_REPOS = (
+    "distinst",
     "hidpi-daemon",
     "system76-dkms",
     "system76-driver",
