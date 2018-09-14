@@ -10,14 +10,78 @@ parser = argparse.ArgumentParser(description="Check protection of all Pop!_OS re
 parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
+def get_branch_serieses(repo, branch):
+    if os.path.exists(os.path.join(repo["name"], "debian")):
+        parts = branch["name"].split("_")
+        if len(parts) > 1:
+            series = [parts[len(parts) - 1]]
+        else:
+            series = ["bionic", "cosmic"]
+    else:
+        series = []
+
+    return series
+
+def get_context_series(context):
+    if context.startswith("pop-os/staging/"):
+        parts = context.split("/")
+        if len(parts) > 2:
+            series = parts[2]
+        else:
+            series = None
+    else:
+        series = None
+
+    return series
+
+bold = "\x1B[1m"
+reset = "\x1B[0m"
+
 def callback(repo):
-    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+    print(bold + repo["name"] + reset)
 
     for branch in github(repo["branches_url"].replace("{/branch}", "")):
         if branch["name"].startswith("master"):
-            info = github_no_pages(repo["branches_url"].replace("{/branch}", "/" + branch["name"]))
-
             print(branch["name"] + ":", "https://github.com/pop-os/" + repo["name"] + "/settings/branches/" + branch["name"]),
-            print(info["protection"])
+
+            info = github_no_pages(repo["branches_url"].replace("{/branch}", "/" + branch["name"]))
+            protection = info["protection"]
+
+            print(protection)
+
+            enabled = protection["enabled"]
+            print("    Enabled: " + str(enabled))
+            if not enabled:
+                print(bold + "    Missing Enabled: True" + reset)
+
+            checks = protection["required_status_checks"]
+
+            enforcement_level = checks["enforcement_level"]
+            print("    Enforcement: " + enforcement_level)
+            if enforcement_level != "everyone":
+                print(bold + "    Missing Enforcement: everyone" + reset)
+
+            branch_serieses = get_branch_serieses(repo, branch)
+
+            contexts = checks["contexts"]
+
+            for branch_series in branch_serieses:
+                print("    Series: " + branch_series)
+
+                source_context = "pop-os/staging/" + branch_series + "/source"
+                if not source_context in contexts:
+                    print(bold + "    Missing Context: " + source_context + reset)
+
+                binary_context = "pop-os/staging/" + branch_series + "/binary"
+                if not binary_context in contexts:
+                    print(bold + "    Missing Context: " + binary_context + reset)
+
+            for context in contexts:
+                context_series = get_context_series(context)
+                print("    Context: " + context)
+                if not context_series in branch_serieses:
+                    print(bold + "    Invalid Context: " + context + reset)
+
+
 
 foreach_repo(callback, args.repos)
