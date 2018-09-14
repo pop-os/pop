@@ -47,8 +47,6 @@ def callback(repo):
             info = github_no_pages(repo["branches_url"].replace("{/branch}", "/" + branch["name"]))
             protection = info["protection"]
 
-            print(protection)
-
             enabled = protection["enabled"]
             print("    Enabled: " + str(enabled))
             if not enabled:
