@@ -42,7 +42,7 @@ def callback(repo):
 
     for branch in github(repo["branches_url"].replace("{/branch}", "")):
         if branch["name"].startswith("master"):
-            print(branch["name"] + ":", "https://github.com/pop-os/" + repo["name"] + "/settings/branches/" + branch["name"]),
+            print(branch["name"] + ":", "https://github.com/pop-os/" + repo["name"] + "/settings/branches/"),
 
             info = github_no_pages(repo["branches_url"].replace("{/branch}", "/" + branch["name"]))
             protection = info["protection"]
