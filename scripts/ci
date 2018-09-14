@@ -27,6 +27,7 @@ Series = namedtuple('Series', 'codename version')
 parser = argparse.ArgumentParser(description="Package and deploy all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 parser.add_argument("--dev", action="store_true")
+parser.add_argument("--retry", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
 POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
@@ -233,16 +234,19 @@ def dpkg_binary(dsc_path, name, git, series):
         print("\x1B[1m{} commit {} on {}: setting arch to amd64\x1B[0m".format(source_name, git.id, series.codename), flush=True)
         arch = "amd64"
 
-    build = False
-
+    found_binaries = True
     debs = []
     for binary in binaries.split(", "):
         deb_path = path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb")
         debs.append(deb_path)
         if not path.exists(deb_path):
-            build = True
+            found_binaries = False
 
-    if build:
+    build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
+
+    if found_binaries:
+        print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+    elif not path.exists(build_log) or args.retry:
         print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
         try:
@@ -268,15 +272,17 @@ def dpkg_binary(dsc_path, name, git, series):
             except Exception as ex_s:
                 print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex_s))
 
-            build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
-            with open(build_log, 'rb') as f:
-                sys.stdout.buffer.write(f.read())
+            if path.exists(build_log):
+                with open(build_log, 'rb') as f:
+                    sys.stdout.buffer.write(f.read())
+            else:
+                print("\x1B[1m{} commit {} on {}: failed to find build log: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, build_log))
 
             print("\x1B[1m{} commit {} on {}: failed to build binaries: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex), flush=True)
 
             return None
     else:
-        print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+        print("\x1B[1m{} commit {} on {}: binaries already failed to build\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
 
     for deb_path in debs:
