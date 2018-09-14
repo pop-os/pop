@@ -43,6 +43,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
+- [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
