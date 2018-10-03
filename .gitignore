@@ -17,6 +17,7 @@
 /bus-writer/
 /code-of-conduct/
 /connectivity/
+/dbus-udisks2/
 /debrepbuild/
 /deckard/
 /default-settings/
@@ -42,14 +43,18 @@
 /installer/
 /iso/
 /kernelstub/
+/kit/
 /libparted/
+/packaging-natron/
 /plymouth-theme/
 /pop/
+/pop-recovery/
 /popsicle/
 /repo-proprietary/
 /repoman/
 /session/
 /shop/
+/sys-mount/
 /system76-dkms/
 /system76-driver/
 /system76-firmware/

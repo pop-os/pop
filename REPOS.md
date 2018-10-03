@@ -7,6 +7,7 @@ This is an automatically generated file. See `scripts/readme`
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
+- [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
@@ -32,14 +33,18 @@ This is an automatically generated file. See `scripts/readme`
 - [installer](https://github.com/pop-os/installer) - Installer for elementary OS & other Linux\-based OSes
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
+- [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
+- [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [pop\-recovery](https://github.com/pop-os/pop-recovery) - WIP utility for managing the recovery partition on Pop\! installs\.
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
+- [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon

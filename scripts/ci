@@ -436,11 +436,7 @@ def create_dists(email, pocket_series):
 def callback(repo):
     name =  repo['name']
 
-    if name in (
-        'accountsservice',
-        'iso',
-        'pop',
-    ):
+    if name.startswith("packaging-"):
         print('\x1B[1m{}: skipping\x1B[0m'.format(name), flush=True)
         return {}
     else:
