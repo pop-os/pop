@@ -194,24 +194,40 @@ def callback(repo):
 
 results = foreach_repo(callback, args.repos, args.dev)
 
+bold = "\x1B[1m"
+reset = "\x1B[0m"
+
 if args.check:
-    print("\x1B[1mChecking published packages\x1B[0m")
+    print(bold + "Checking published packages" + reset)
     for codename in codenames:
         print("  " + codename, flush=True)
 
         if args.release:
-            published = release_published[codename]
+            pkgs = proposed_published[codename]
         else:
-            published = proposed_published[codename]
+            pkgs = release_published[codename]
 
-        for pkg in published:
+        for pkg in pkgs:
             repo_name = None
             for result in results:
                 if pkg.source_package_name == results[result]:
                     repo_name = result
                     break
 
-            if repo_name:
-                print("    " + pkg.source_package_name + ": " + repo_name)
+            if args.release:
+                other_version = find_release(pkg.source_package_name, codename)
             else:
-                print("    \x1B[1m" + pkg.source_package_name + ": " + pkg.source_package_version + "\x1B[0m")
+                other_version = find_proposed(pkg.source_package_name, codename)
+
+            if repo_name:
+                print("    " + pkg.source_package_name + " " + pkg.source_package_version)
+            else:
+                print("    " + bold + pkg.source_package_name + " " + pkg.source_package_version + reset)
+
+            if not other_version:
+                if args.release:
+                    print("      " + bold + "not released" + reset)
+                else:
+                    print("      " + bold + "not proposed" + reset)
+            elif other_version != pkg.source_package_version:
+                print("      " + bold + release_version + reset)
