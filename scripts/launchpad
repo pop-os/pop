@@ -230,4 +230,4 @@ if args.check:
                 else:
                     print("      " + bold + "not proposed" + reset)
             elif other_version != pkg.source_package_version:
-                print("      " + bold + release_version + reset)
+                print("      " + bold + other_version + reset)
