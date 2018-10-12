@@ -11,13 +11,14 @@
 /*.upload
 /_build/
 
-/accountsservice/
 /appstream-data/
+/apt-repo-crawler/
 /buildchain/
 /bus-writer/
 /code-of-conduct/
 /connectivity/
 /dbus-udisks2/
+/debarchive/
 /debrepbuild/
 /deckard/
 /default-settings/
@@ -46,10 +47,13 @@
 /kit/
 /libparted/
 /packaging-natron/
+/parallel-getter/
 /plymouth-theme/
 /pop/
 /pop-recovery/
 /popsicle/
+/progress-streams/
+/repo-curated-free/
 /repo-proprietary/
 /repoman/
 /session/
@@ -63,4 +67,6 @@
 /system76-wallpapers/
 /theme/
 /ubiquity-slideshow-pop/
+/url-crawler/
+/url-scraper/
 /wallpapers/
