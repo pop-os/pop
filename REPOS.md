@@ -38,9 +38,10 @@ This is an automatically generated file. See `scripts/readme`
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
 - [parallel\-getter](https://github.com/pop-os/parallel-getter) - Rust crate to GET a file with parallel GET requests
+- [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
-- [pop\-recovery](https://github.com/pop-os/pop-recovery) - WIP utility for managing the recovery partition on Pop\! installs\.
+- [pop\-recovery](https://github.com/pop-os/pop-recovery) - Utility for managing the recovery partition on Pop\! installs\.
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
