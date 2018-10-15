@@ -257,6 +257,7 @@ def dpkg_binary(dsc_path, name, git, series):
                 "--arch-all",
                 "--dist=" + series.codename,
                 "--quiet",
+                "--extra-repository=deb http://apt.pop-os.org/proprietary " + series.codename + " main",
                 "--extra-repository=deb http://ppa.launchpad.net/system76/pop/ubuntu " + series.codename + " main",
                 "--extra-repository=deb http://ppa.launchpad.net/system76/proposed/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".ppa.asc"),
