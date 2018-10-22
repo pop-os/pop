@@ -103,12 +103,20 @@ def github_status(name, _id, context, state):
 
     url = "https://api.github.com/repos/pop-os/" + name + "/statuses/" + _id
 
-    data = {
-        "context": "pop-os/staging/" + context,
-        "description": "Pop!_OS Staging " + context,
-        "state": state,
-        "target_url": target_url
-    }
+    if args.dev:
+        data = {
+            "context": "ubuntu/staging/" + context,
+            "description": "Ubuntu Staging " + context,
+            "state": state,
+            "target_url": target_url
+        }
+    else:
+        data = {
+            "context": "pop-os/staging/" + context,
+            "description": "Pop!_OS Staging " + context,
+            "state": state,
+            "target_url": target_url
+        }
 
     response = github_post(url, data)
 
