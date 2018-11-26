@@ -13,6 +13,7 @@ DEV_REPOS = (
     "system76-dkms",
     "system76-driver",
     "system76-firmware",
+    "system76-io-dkms",
     "system76-power",
     "gnome-shell-extension-system76-power",
     "system76-wallpapers"
