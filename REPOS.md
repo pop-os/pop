@@ -2,12 +2,17 @@
 This is an automatically generated file. See `scripts/readme`
 
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
+- [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous \(via tokio\) fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
+- [apt\-keyring](https://github.com/pop-os/apt-keyring) - Rust crate for loading all available apt keyrings into an in\-memory keyring\.
 - [apt\-repo\-crawler](https://github.com/pop-os/apt-repo-crawler) - Rust crate for crawling through files in an apt repo
+- [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
+- [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
+- [deb\-release\-file](https://github.com/pop-os/deb-release-file) - Rust crate for serializing / deserializing apt dist release files, which contain a listing of paths to other dist files in a repo\.
 - [debarchive](https://github.com/pop-os/debarchive) - Rust crate which provides direct access to files within a Debian archive
 - [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
@@ -16,6 +21,7 @@ This is an automatically generated file. See `scripts/readme`
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
 - [docs](https://github.com/pop-os/docs) - Documentation minisite for Pop\!\_OS and related projects
+- [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times

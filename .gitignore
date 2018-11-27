@@ -12,12 +12,17 @@
 /_build/
 
 /appstream-data/
+/apt-fetcher/
+/apt-keyring/
 /apt-repo-crawler/
+/apt-sources-lists/
 /buildchain/
 /bus-writer/
 /code-of-conduct/
 /connectivity/
 /dbus-udisks2/
+/deb-architectures/
+/deb-release-file/
 /debarchive/
 /debrepbuild/
 /deckard/
@@ -26,6 +31,7 @@
 /disk-types/
 /distinst/
 /docs/
+/ecs-disk-manager/
 /eddy/
 /envfile/
 /firefox-css-extension/
