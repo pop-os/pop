@@ -16,6 +16,7 @@
 /apt-keyring/
 /apt-repo-crawler/
 /apt-sources-lists/
+/async-fetcher/
 /buildchain/
 /bus-writer/
 /code-of-conduct/
