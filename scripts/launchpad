@@ -170,7 +170,7 @@ def callback(repo):
                     if args.dev:
                         check_call(["dput", "ppa:system76-dev/pre-stable", changes_path])
                     else:
-                        check_call(["dput", "ppa:system76/proposed", changes_path])
+                        check_call(["dput", "ppa:system76/pre-proposed", changes_path])
                 else:
                     print("      Did not upload to proposed", flush=True)
 
