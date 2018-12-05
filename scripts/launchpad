@@ -50,7 +50,7 @@ if args.dev:
 else:
     owner = lp.people["system76"]
     release_archive = owner.getPPAByName(name="pop")
-    proposed_archive = owner.getPPAByName(name="pre-proposed")
+    proposed_archive = owner.getPPAByName(name="proposed")
 
 proposed_pending = {}
 proposed_published = {}
@@ -170,7 +170,7 @@ def callback(repo):
                     if args.dev:
                         check_call(["dput", "ppa:system76-dev/pre-stable", changes_path])
                     else:
-                        check_call(["dput", "ppa:system76/pre-proposed", changes_path])
+                        check_call(["dput", "ppa:system76/proposed", changes_path])
                 else:
                     print("      Did not upload to proposed", flush=True)
 
