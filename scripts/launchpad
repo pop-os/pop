@@ -50,7 +50,7 @@ if args.dev:
 else:
     owner = lp.people["system76"]
     release_archive = owner.getPPAByName(name="pop")
-    proposed_archive = owner.getPPAByName(name="proposed")
+    proposed_archive = owner.getPPAByName(name="pre-proposed")
 
 proposed_pending = {}
 proposed_published = {}
