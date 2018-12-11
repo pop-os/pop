@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-
 set -e
 
 source /etc/os-release
 
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 REPOS="ftp://209.212.58.90/repos/"
+ARGV=("$@")
 
 for opt in "$@"
 do
@@ -26,15 +26,18 @@ case "$1" in
 		echo "Adding key"
 		sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
 
-		echo "Adding preference"
-		sudo tee "/etc/apt/preferences.d/pop-os-staging-$2" > /dev/null <<-EOF
-			Package: *
-			Pin: release o=pop-os-staging-$2
-			Pin-Priority: 1002
-		EOF
+		for newrepo in "${ARGV[@]:1}"
+		do
+			echo "Adding preference for '$newrepo'"
+			sudo tee "/etc/apt/preferences.d/pop-os-staging-$newrepo" > /dev/null <<-EOF
+				Package: *
+				Pin: release o=pop-os-staging-$newrepo
+				Pin-Priority: 1002
+			EOF
 
-		echo "Adding repository"
-		sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
+			echo "Adding repository for '$newrepo'"
+			sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+		done
 		;;
 	remove)
 		if [ -z "$2" ]
