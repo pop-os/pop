@@ -274,9 +274,11 @@ def dpkg_binary(dsc_path, name, git, series):
                 "--arch-all",
                 "--dist=" + series.codename,
                 "--quiet",
-                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ppa_key),
+                "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + series.codename + "-updates main restricted universe multiverse",
+                "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + series.codename + "-security main restricted universe multiverse",
                 "--extra-repository=deb http://ppa.launchpad.net/" + ppa_release + "/ubuntu " + series.codename + " main",
                 "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
+                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ppa_key),
                 dsc_path
             ], cwd=BINARY_DIR)
 
