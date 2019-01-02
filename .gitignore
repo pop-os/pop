@@ -14,6 +14,7 @@
 /appstream-data/
 /apt-fetcher/
 /apt-keyring/
+/apt-release-file/
 /apt-repo-crawler/
 /apt-sources-lists/
 /async-fetcher/
@@ -23,7 +24,6 @@
 /connectivity/
 /dbus-udisks2/
 /deb-architectures/
-/deb-release-file/
 /debarchive/
 /debrepbuild/
 /deckard/
@@ -54,6 +54,7 @@
 /hostname-validator/
 /icon-theme/
 /installer/
+/intel-pstate/
 /iso/
 /kernelstub/
 /kit/
