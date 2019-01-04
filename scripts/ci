@@ -43,7 +43,7 @@ REPO_DIR = path.join(BUILD_DIR, 'repos')
 build_series = {
     'bionic': ('18.04', True),
     'cosmic': ('18.10', True),
-    'disco': ('18.10', True),
+    'disco': ('19.04', True),
 }
 
 
