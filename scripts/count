@@ -15,7 +15,7 @@ parser.add_argument("repos", nargs="*", default=[])
 parser.add_argument("--dev", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
-codenames = ("xenial", "artful", "bionic", "cosmic")
+codenames = ("bionic", "cosmic", "disco")
 
 lp = launchpad_anon()
 

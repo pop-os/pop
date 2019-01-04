@@ -4,9 +4,9 @@
 #     sudo apt install sbuild
 #     sudo sbuild-adduser "$USER"
 #     newgrp sbuild
-#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse xenial /srv/chroot/xenial-amd64-sbuild http://archive.ubuntu.com/ubuntu
-#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse artful /srv/chroot/artful-amd64-sbuild http://archive.ubuntu.com/ubuntu
 #     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse bionic /srv/chroot/bionic-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse cosmic /srv/chroot/cosmic-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse disco /srv/chroot/disco-amd64-sbuild http://archive.ubuntu.com/ubuntu
 
 import argparse
 from collections import namedtuple
@@ -41,10 +41,9 @@ BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
 build_series = {
-    'xenial': ('16.04', False),
-    'artful': ('17.10', False),
     'bionic': ('18.04', True),
     'cosmic': ('18.10', True),
+    'disco': ('18.10', True),
 }
 
 
