@@ -29,7 +29,7 @@ case "$1" in
 		for newrepo in "${ARGV[@]:1}"
 		do
 			echo "Adding preference for '$newrepo'"
-			sudo tee "/etc/apt/preferences.d/pop-os-staging-$newrepo" > /dev/null <<-EOF
+			sudo tee "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}" > /dev/null <<-EOF
 				Package: *
 				Pin: release o=pop-os-staging-$newrepo
 				Pin-Priority: 1002
@@ -46,11 +46,14 @@ case "$1" in
 			exit 1
 		fi
 
-		echo "Removing repository"
-		sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$2 ${UBUNTU_CODENAME} main"
+		for newrepo in "${ARGV[@]:1}"
+		do
+			echo "Removing repository for '$newrepo'"
+			sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 
-		echo "Removing preference"
-		sudo rm -f "/etc/apt/preferences.d/pop-os-staging-$2"
+			echo "Removing preference for '$newrepo'"
+			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
+		done
 		;;
 	local)
 		grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
