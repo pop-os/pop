@@ -62,6 +62,8 @@ def parse_branch(branch):
 
 def iter_series(branches):
     for b in branches:
+        if '/' in b:
+            continue
         (pocket, codename) = parse_branch(b)
         if codename is None:
             for (codename, (version, wildcard)) in build_series.items():
