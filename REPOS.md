@@ -28,6 +28,7 @@ This is an automatically generated file. See `scripts/readme`
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [fstab\-generate](https://github.com/pop-os/fstab-generate) - Rust crate to aid with generating fstab entries\.
+- [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
@@ -43,11 +44,12 @@ This is an automatically generated file. See `scripts/readme`
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
 - [hostname\-validator](https://github.com/pop-os/hostname-validator) - Rust crate for validating hostnames according to the IETF RFC 1123
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
-- [installer](https://github.com/pop-os/installer) - Installer for elementary OS & other Linux\-based OSes
+- [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
+- [libdevmapper\-sys](https://github.com/pop-os/libdevmapper-sys) - Rust crate with external FFI bindings to libdevmapper
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
@@ -64,6 +66,7 @@ This is an automatically generated file. See `scripts/readme`
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
+- [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
@@ -75,9 +78,12 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
+- [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
+- [upgrade](https://github.com/pop-os/upgrade) - Pop utility for performing recovery and release upgrades \-\- equiv to Canonical's do\-release\-upgrade
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
+- [zio\-sendfile](https://github.com/pop-os/zio-sendfile) - Rust crate for zero\-copy I/O on Linux \(supporting stable Rust\)

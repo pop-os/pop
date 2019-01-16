@@ -38,6 +38,7 @@
 /firefox-css-extension/
 /fonts/
 /fstab-generate/
+/gnome-control-center/
 /gnome-initial-setup/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
@@ -58,6 +59,7 @@
 /iso/
 /kernelstub/
 /kit/
+/libdevmapper-sys/
 /libparted/
 /logind-dbus/
 /os-detect/
@@ -74,6 +76,7 @@
 /progress-streams/
 /repo-curated-free/
 /repo-proprietary/
+/repo-ubuntu-mirror/
 /repoman/
 /session/
 /shop/
@@ -85,9 +88,12 @@
 /system76-io-dkms/
 /system76-power/
 /system76-wallpapers/
+/systemd-boot-conf/
 /theme/
 /token_expander/
 /ubiquity-slideshow-pop/
+/upgrade/
 /url-crawler/
 /url-scraper/
 /wallpapers/
+/zio-sendfile/

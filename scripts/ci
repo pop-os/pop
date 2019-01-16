@@ -156,8 +156,10 @@ def dpkg_source(name, git, series):
         # New format, will allow debian versions to be added
         version = '~'.join([changelog_version, git.timestamp, series.version, git.id[:7]])
 
-    dsc_path = path.join(SOURCE_DIR, source_name + "_" + version + ".dsc")
-    tar_path = path.join(SOURCE_DIR, source_name + "_" + version + ".tar.xz")
+    path_version = version.split(":", 1)[-1]
+
+    dsc_path = path.join(SOURCE_DIR, source_name + "_" + path_version + ".dsc")
+    tar_path = path.join(SOURCE_DIR, source_name + "_" + path_version + ".tar.xz")
 
     if not os.path.exists(dsc_path) or not os.path.exists(tar_path):
         print("\x1B[1m{} commit {} on {}: building source\x1B[0m".format(source_name, git.id, series.codename), flush=True)
@@ -186,6 +188,18 @@ def dpkg_source(name, git, series):
             with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
                 changelog.write_to_open_file(f)
 
+            if os.path.exists(path.join(extract_dir, 'debian', 'patches')):
+                print("\x1B[1m{} commit {} on {}: applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+
+                with open(os.devnull, 'w') as null:
+                    check_call([
+                        'quilt',
+                        'push',
+                        '-a',
+                    ], stdout=null, cwd=extract_dir, env={"QUILT_PATCHES": "debian/patches"})
+
+                print("\x1B[1m{} commit {} on {}: finished applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+
             with debuild_lock:
                 with open(os.devnull, 'w') as null:
                     check_call([
@@ -204,7 +218,7 @@ def dpkg_source(name, git, series):
         except Exception as ex:
             message = "\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex)
 
-            build_log = path.join(SOURCE_DIR, source_name + "_" + version + "_source.build")
+            build_log = path.join(SOURCE_DIR, source_name + "_" + path_version + "_source.build")
             with open(build_log, 'r') as f:
                 message += f.read()
 
@@ -239,6 +253,8 @@ def dpkg_binary(dsc_path, name, git, series):
     version = dsc.get("Version")
     arch = dsc.get("Architecture")
 
+    path_version = version.split(":", 1)[-1]
+
     if arch != "all":
         print("\x1B[1m{} commit {} on {}: setting arch to amd64\x1B[0m".format(source_name, git.id, series.codename), flush=True)
         arch = "amd64"
@@ -246,12 +262,12 @@ def dpkg_binary(dsc_path, name, git, series):
     found_binaries = True
     debs = []
     for binary in binaries.split(", "):
-        deb_path = path.join(BINARY_DIR, binary + "_" + version + "_" + arch + ".deb")
+        deb_path = path.join(BINARY_DIR, binary + "_" + path_version + "_" + arch + ".deb")
         debs.append(deb_path)
         if not path.exists(deb_path):
             found_binaries = False
 
-    build_log = path.join(BINARY_DIR, source_name + "_" + version + "_amd64.build")
+    build_log = path.join(BINARY_DIR, source_name + "_" + path_version + "_amd64.build")
 
     if found_binaries:
         print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename), flush=True)
