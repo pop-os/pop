@@ -249,19 +249,20 @@ def dpkg_binary(dsc_path, name, git, series):
         dsc = Dsc(fp)
 
     source_name = dsc.get("Source")
-    binaries = dsc.get("Binary")
     version = dsc.get("Version")
-    arch = dsc.get("Architecture")
+    package_list = dsc.get("Package-List")
 
     path_version = version.split(":", 1)[-1]
 
-    if arch != "all":
-        print("\x1B[1m{} commit {} on {}: setting arch to amd64\x1B[0m".format(source_name, git.id, series.codename), flush=True)
-        arch = "amd64"
-
     found_binaries = True
     debs = []
-    for binary in binaries.split(", "):
+    for package_line in package_list.strip().split("\n"):
+        parts = package_line.strip().split(" ")
+        binary = parts[0]
+        if parts[4] == "arch=all":
+            arch = "all"
+        else:
+            arch = "amd64"
         deb_path = path.join(BINARY_DIR, binary + "_" + path_version + "_" + arch + ".deb")
         debs.append(deb_path)
         if not path.exists(deb_path):
