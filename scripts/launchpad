@@ -158,8 +158,9 @@ def callback(repo):
                 print("    release version is newer than proposed", flush=True)
 
             if proposed_upload and not args.check and not args.release:
-                changes_path = path.join(SOURCE_DIR, source_name + "_" + staging_version + "_source.changes")
-                ppa_upload_path = path.join(SOURCE_DIR, source_name + "_" + staging_version + "_source.ppa.upload")
+                path_version = staging_version.split(":", 1)[-1]
+                changes_path = path.join(SOURCE_DIR, source_name + "_" + path_version + "_source.changes")
+                ppa_upload_path = path.join(SOURCE_DIR, source_name + "_" + path_version + "_source.ppa.upload")
 
                 if not path.exists(changes_path):
                     print("      Changes file not found {!r}!!!".format(changes_path), flush=True)
