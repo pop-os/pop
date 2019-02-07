@@ -52,6 +52,7 @@ This is an automatically generated file. See `scripts/readme`
 - [libdevmapper\-sys](https://github.com/pop-os/libdevmapper-sys) - Rust crate with external FFI bindings to libdevmapper
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [mutter](https://github.com/pop-os/mutter) - Window and compositing manager based on Clutter
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
@@ -59,7 +60,6 @@ This is an automatically generated file. See `scripts/readme`
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
-- [pop\-recovery](https://github.com/pop-os/pop-recovery) - Utility for managing the recovery partition on Pop\! installs\.
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
@@ -82,7 +82,7 @@ This is an automatically generated file. See `scripts/readme`
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
-- [upgrade](https://github.com/pop-os/upgrade) - Pop utility for performing recovery and release upgrades \-\- equiv to Canonical's do\-release\-upgrade
+- [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS

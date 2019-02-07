@@ -62,6 +62,7 @@
 /libdevmapper-sys/
 /libparted/
 /logind-dbus/
+/mutter/
 /os-detect/
 /os-release/
 /packaging-natron/
@@ -69,7 +70,6 @@
 /partition-identity/
 /plymouth-theme/
 /pop/
-/pop-recovery/
 /popsicle/
 /proc-modules/
 /proc-mounts/
