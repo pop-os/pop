@@ -160,6 +160,7 @@ def dpkg_source(name, git, series):
 
     dsc_path = path.join(SOURCE_DIR, source_name + "_" + path_version + ".dsc")
     tar_path = path.join(SOURCE_DIR, source_name + "_" + path_version + ".tar.xz")
+    orig_tar_path = path.join(SOURCE_DIR, source_name + "_" + path_version + ".orig.tar.xz")
 
     if not os.path.exists(dsc_path) or not os.path.exists(tar_path):
         print("\x1B[1m{} commit {} on {}: building source\x1B[0m".format(source_name, git.id, series.codename), flush=True)
@@ -189,6 +190,22 @@ def dpkg_source(name, git, series):
                 changelog.write_to_open_file(f)
 
             if os.path.exists(path.join(extract_dir, 'debian', 'patches')):
+                # Build the upstream orig tar if it does not exist.
+                if not os.path.exists(orig_tar_path):
+                    # The latest development release is considered "master"
+                    if series.codename == "disco":
+                        upstream_codename = "master"
+                    else:
+                        upstream_codename = series.codename
+
+                    # gbp will build an orig tarball from the specified upstream branch
+                    check_call([
+                        'gbp',
+                        'export-orig',
+                        '--upstream-branch=ubuntu/' + upstream_codename,
+                        '--no-pristine-tar',
+                    ], stdout=null, cwd=extract_dir)
+
                 print("\x1B[1m{} commit {} on {}: applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
                 with open(os.devnull, 'w') as null:
