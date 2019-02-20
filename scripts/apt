@@ -61,7 +61,7 @@ case "$1" in
 			cut -d "/" -f5
 		;;
 	remote)
-		curl -l --user anonymous:anonymous "${REPOS}"
+		curl -ls --user anonymous:anonymous "${REPOS}" | sort
 		;;
 	*)
 		echo "$0 add [repo] <--dev> - add a repository"
