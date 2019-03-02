@@ -10,6 +10,7 @@ from launchpadlib.launchpad import Launchpad
 DEV_REPOS = (
     "distinst",
     "hidpi-daemon",
+    "system76-coreboot-dkms",
     "system76-dkms",
     "system76-driver",
     "system76-firmware",
