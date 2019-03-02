@@ -82,6 +82,7 @@
 /shop/
 /sys-mount/
 /sysfs-class/
+/system76-coreboot-dkms/
 /system76-dkms/
 /system76-driver/
 /system76-firmware/
@@ -92,6 +93,7 @@
 /theme/
 /token_expander/
 /ubiquity-slideshow-pop/
+/ubuntu-version/
 /upgrade/
 /url-crawler/
 /url-scraper/

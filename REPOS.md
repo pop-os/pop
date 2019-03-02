@@ -72,6 +72,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
+- [system76\-coreboot\-dkms](https://github.com/pop-os/system76-coreboot-dkms) - System76 Coreboot DKMS Driver
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
@@ -82,6 +83,7 @@ This is an automatically generated file. See `scripts/readme`
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
+- [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
