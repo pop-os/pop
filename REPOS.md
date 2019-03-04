@@ -52,7 +52,6 @@ This is an automatically generated file. See `scripts/readme`
 - [libdevmapper\-sys](https://github.com/pop-os/libdevmapper-sys) - Rust crate with external FFI bindings to libdevmapper
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
-- [mutter](https://github.com/pop-os/mutter) - Window and compositing manager based on Clutter
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
