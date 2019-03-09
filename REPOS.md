@@ -2,12 +2,14 @@
 This is an automatically generated file. See `scripts/readme`
 
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
+- [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
 - [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous and parallel fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
 - [apt\-keyring](https://github.com/pop-os/apt-keyring) - Rust crate for loading all available apt keyrings into an in\-memory keyring\.
 - [apt\-release\-file](https://github.com/pop-os/apt-release-file) - Rust crate for serializing / deserializing apt dist release files, which contain a listing of paths to other dist files in a repo\.
 - [apt\-repo\-crawler](https://github.com/pop-os/apt-repo-crawler) - Rust crate for crawling through files in an apt repo
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
+- [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
@@ -25,10 +27,13 @@ This is an automatically generated file. See `scripts/readme`
 - [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
+- [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [fstab\-generate](https://github.com/pop-os/fstab-generate) - Rust crate to aid with generating fstab entries\.
+- [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
+- [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview

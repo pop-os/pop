@@ -12,12 +12,14 @@
 /_build/
 
 /appstream-data/
+/apt-cli-wrappers/
 /apt-fetcher/
 /apt-keyring/
 /apt-release-file/
 /apt-repo-crawler/
 /apt-sources-lists/
 /async-fetcher/
+/blkid/
 /buildchain/
 /bus-writer/
 /code-of-conduct/
@@ -35,10 +37,13 @@
 /ecs-disk-manager/
 /eddy/
 /envfile/
+/exit-status-ext/
 /firefox-css-extension/
 /fonts/
 /fstab-generate/
+/gdm3/
 /gnome-control-center/
+/gnome-desktop3/
 /gnome-initial-setup/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
