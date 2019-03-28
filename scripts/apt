@@ -60,7 +60,7 @@ case "$1" in
 	local)
 		grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
 			cut -d " " -f3 |
-			cut -d "/" -f5
+			sed -s "s#${REPOS}##"
 		;;
 	remote)
 		curl -ls --user anonymous:anonymous "${REPOS}" | sort
