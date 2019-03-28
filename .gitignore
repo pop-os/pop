@@ -45,6 +45,7 @@
 /gnome-control-center/
 /gnome-desktop3/
 /gnome-initial-setup/
+/gnome-online-accounts/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
 /gnome-shell-extension-do-not-disturb/
@@ -85,6 +86,7 @@
 /repoman/
 /session/
 /shop/
+/steam/
 /sys-mount/
 /sysfs-class/
 /system76-coreboot-dkms/
