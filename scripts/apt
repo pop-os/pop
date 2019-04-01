@@ -4,14 +4,14 @@ set -e
 source /etc/os-release
 
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-REPOS="ftp://209.212.58.90/repos/"
+REPOS="http://apt.pop-os.org/staging/"
 ARGV=()
 
 for opt in "$@"
 do
 	if [ "$opt" == "--dev" ]
 	then
-		REPOS="ftp://209.212.58.90/dev/repos/"
+		REPOS="http://apt.pop-os.org/staging-ubuntu/"
 	else
 		ARGV+=("$opt")
 	fi
