@@ -86,6 +86,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
+- [system76\-r8125\-dkms](https://github.com/pop-os/system76-r8125-dkms) - System76 Realtek 8125 DKMS driver
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
