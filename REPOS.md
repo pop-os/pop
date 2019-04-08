@@ -8,6 +8,7 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-release\-file](https://github.com/pop-os/apt-release-file) - Rust crate for serializing / deserializing apt dist release files, which contain a listing of paths to other dist files in a repo\.
 - [apt\-repo\-crawler](https://github.com/pop-os/apt-repo-crawler) - Rust crate for crawling through files in an apt repo
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
+- [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
