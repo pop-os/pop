@@ -1,7 +1,9 @@
 # Repositories
 This is an automatically generated file. See `scripts/readme`
 
+- [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
+- [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
 - [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
 - [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous and parallel fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
 - [apt\-keyring](https://github.com/pop-os/apt-keyring) - Rust crate for loading all available apt keyrings into an in\-memory keyring\.
@@ -37,6 +39,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
+- [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
 - [gnome\-shell\-extension\-do\-not\-disturb](https://github.com/pop-os/gnome-shell-extension-do-not-disturb) - Enable or disable do not disturb mode\.
@@ -48,6 +51,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-theme](https://github.com/pop-os/gnome-shell-theme) - The GNOME Shell theme for Pop\!\_OS
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
+- [happiness](https://github.com/pop-os/happiness) - Send random quotes about happiness to your desktop
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
 - [hostname\-validator](https://github.com/pop-os/hostname-validator) - Rust crate for validating hostnames according to the IETF RFC 1123
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux

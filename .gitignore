@@ -11,7 +11,9 @@
 /*.upload
 /_build/
 
+/alacritty/
 /appstream-data/
+/appstream2dep11/
 /apt-cli-wrappers/
 /apt-fetcher/
 /apt-keyring/
@@ -47,6 +49,7 @@
 /gnome-desktop3/
 /gnome-initial-setup/
 /gnome-online-accounts/
+/gnome-shell/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
 /gnome-shell-extension-do-not-disturb/
@@ -58,6 +61,7 @@
 /gnome-shell-theme/
 /grub-theme/
 /gtk-theme/
+/happiness/
 /hidpi-daemon/
 /hostname-validator/
 /icon-theme/
