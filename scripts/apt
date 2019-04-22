@@ -63,7 +63,11 @@ case "$1" in
 			sed -s "s#${REPOS}##"
 		;;
 	remote)
-		curl -ls --user anonymous:anonymous "${REPOS}" | sort
+		curl -s "${REPOS}" | \
+			grep '^<a href="' | \
+			cut -d '"' -f 2 | \
+			cut -d / -f 1 | \
+			sort
 		;;
 	*)
 		echo "$0 add [repo] <--dev> - add a repository"
