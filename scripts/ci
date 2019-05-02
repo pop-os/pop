@@ -4,9 +4,7 @@
 #     sudo apt install sbuild
 #     sudo sbuild-adduser "$USER"
 #     newgrp sbuild
-#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse bionic /srv/chroot/bionic-amd64-sbuild http://archive.ubuntu.com/ubuntu
-#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse cosmic /srv/chroot/cosmic-amd64-sbuild http://archive.ubuntu.com/ubuntu
-#     sudo sbuild-createchroot --include=eatmydata,ccache,gnupg --components=main,restricted,universe,multiverse disco /srv/chroot/disco-amd64-sbuild http://archive.ubuntu.com/ubuntu
+#     ./scripts/schroot
 
 import argparse
 from collections import namedtuple
@@ -44,6 +42,7 @@ build_series = {
     'bionic': ('18.04', True),
     'cosmic': ('18.10', True),
     'disco': ('19.04', True),
+    'eoan': ('19.10', True),
 }
 
 

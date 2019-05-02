@@ -2,7 +2,7 @@
 
 set -e
 
-for codename in bionic cosmic disco
+for codename in bionic cosmic disco eoan
 do
     CHROOT="/srv/chroot/${codename}-amd64-sbuild"
     test -e "${CHROOT}" >/dev/null || sudo sbuild-createchroot \
@@ -11,7 +11,7 @@ do
         "${codename}" \
         "${CHROOT}" \
         "http://archive.ubuntu.com/ubuntu"
-        
+
     sudo sbuild-update \
         --update \
         --dist-upgrade \

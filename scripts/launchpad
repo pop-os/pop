@@ -28,7 +28,7 @@ SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
-codenames = ("xenial", "bionic", "cosmic", "disco")
+codenames = ("xenial", "bionic", "cosmic", "disco", "eoan")
 
 staging = {}
 for codename in codenames:
