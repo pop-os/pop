@@ -2,7 +2,14 @@
 
 set -e
 
-for codename in bionic cosmic disco eoan
+codenames=(
+    bionic
+    cosmic
+    disco
+    #eoan
+)
+
+for codename in "${codenames[@]}"
 do
     CHROOT="/srv/chroot/${codename}-amd64-sbuild"
     test -e "${CHROOT}" >/dev/null || sudo sbuild-createchroot \
