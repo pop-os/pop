@@ -38,6 +38,12 @@ SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
+# Architectures to build for
+build_archs = {
+    'amd64': True,
+    'i386': False,
+}
+
 build_series = {
     'bionic': ('18.04', True),
     'cosmic': ('18.10', True),
@@ -243,7 +249,7 @@ def dpkg_source(name, git, series):
     return dsc_path, tar_path
 
 
-def dpkg_binary(dsc_path, name, git, series):
+def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
     with open(dsc_path, "r") as fp:
         dsc = Dsc(fp)
 
@@ -258,21 +264,26 @@ def dpkg_binary(dsc_path, name, git, series):
     for package_line in package_list.strip().split("\n"):
         parts = package_line.strip().split(" ")
         binary = parts[0]
-        if parts[4] == "arch=all":
-            arch = "all"
-        else:
-            arch = "amd64"
-        deb_path = path.join(BINARY_DIR, binary + "_" + path_version + "_" + arch + ".deb")
-        debs.append(deb_path)
-        if not path.exists(deb_path):
-            found_binaries = False
+        for arch in parts[4].replace("arch=", "").split(","):
+            if arch == "any" or arch == build_arch:
+                deb_arch = build_arch
+            elif arch == "all" and build_all:
+                deb_arch = "all"
+            else:
+                continue
+            deb_path = path.join(BINARY_DIR, binary + "_" + path_version + "_" + deb_arch + ".deb")
+            debs.append(deb_path)
+            if not path.exists(deb_path):
+                found_binaries = False
+    if not debs:
+        return None
 
-    build_log = path.join(BINARY_DIR, source_name + "_" + path_version + "_amd64.build")
+    build_log = path.join(BINARY_DIR, source_name + "_" + path_version + "_" + build_arch + ".build")
 
     if found_binaries:
-        print("\x1B[1m{} commit {} on {}: binaries already built\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+        print("\x1B[1m{} commit {} on {}: binaries for {} already built\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
     elif not path.exists(build_log) or args.retry:
-        print("\x1B[1m{} commit {} on {}: building binaries\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+        print("\x1B[1m{} commit {} on {}: building binaries for {}\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
 
         try:
             github_status(name, git.id, series.codename + "/binary", "pending")
@@ -286,9 +297,9 @@ def dpkg_binary(dsc_path, name, git, series):
                 ppa_release = "system76/pop"
                 ppa_proposed = "system76/proposed"
 
-            check_call([
+            sbuild = [
                 "sbuild",
-                "--arch-all",
+                "--arch=" + build_arch,
                 "--dist=" + series.codename,
                 "--quiet",
                 "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + series.codename + "-updates main restricted universe multiverse",
@@ -300,8 +311,14 @@ def dpkg_binary(dsc_path, name, git, series):
                 "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ppa_key),
-                dsc_path
-            ], cwd=BINARY_DIR)
+            ]
+
+            if build_all:
+                sbuild.append("--arch-all")
+
+            sbuild.append(dsc_path)
+
+            check_call(sbuild, cwd=BINARY_DIR)
 
             print("\x1B[1m{} commit {} on {}: finished building binaries\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
@@ -351,24 +368,26 @@ def build_packages(name):
             dsc_path, tar_path = dpkg_source(name, git, series)
 
             if dsc_path and tar_path:
-                deb_paths = dpkg_binary(dsc_path, name, git, series)
+                for build_arch in build_archs:
+                    build_all = build_archs[build_arch]
+                    deb_paths = dpkg_binary(dsc_path, name, git, series, build_arch, build_all)
 
-                if deb_paths:
-                    for pocket in sorted(pockets):
-                        if not pocket in pocket_series:
-                            pocket_series[pocket] = []
+                    if deb_paths:
+                        for pocket in sorted(pockets):
+                            if not pocket in pocket_series:
+                                pocket_series[pocket] = []
 
-                        if not series in pocket_series[pocket]:
-                            pocket_series[pocket].append(series)
+                            if not series in pocket_series[pocket]:
+                                pocket_series[pocket].append(series)
 
-                        # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
-                        pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
-                        os.makedirs(pool_dir)
+                            # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
+                            pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name, build_arch)
+                            os.makedirs(pool_dir)
 
-                        for deb_path in deb_paths:
-                            shutil.copy2(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
-                            shutil.copy2(tar_path, path.join(pool_dir, path.basename(tar_path)))
-                            shutil.copy2(deb_path, path.join(pool_dir, path.basename(deb_path)))
+                            os.link(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
+                            os.link(tar_path, path.join(pool_dir, path.basename(tar_path)))
+                            for deb_path in deb_paths:
+                                os.link(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
 
@@ -384,9 +403,6 @@ def create_dist(email, pocket, series):
 
     source_dir = path.join(comp_dir, "source")
     os.mkdir(source_dir)
-
-    binary_dir = path.join(comp_dir, "binary-amd64")
-    os.mkdir(binary_dir)
 
     # Generate source directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/source/
     source = check_output([
@@ -408,25 +424,30 @@ def create_dist(email, pocket, series):
         f.write("Label: Pop!_OS Staging " + pocket + "\n")
         f.write("Architecture: source\n")
 
-    # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
-    packages = check_output([
-        "apt-ftparchive",
-        "packages", path.join("pool", series.codename)
-    ], cwd=pocket_dir).decode()
+    for build_arch in build_archs:
+        binary_dir = path.join(comp_dir, "binary-" + build_arch)
+        os.mkdir(binary_dir)
 
-    with open(path.join(binary_dir, "Packages"), "w") as f:
-        f.write(packages)
+        # Generate binary directory: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/
+        packages = check_output([
+            "apt-ftparchive",
+            "--arch", build_arch,
+            "packages", path.join("pool", series.codename)
+        ], cwd=pocket_dir).decode()
 
-    check_call(["gzip", "--keep", path.join(binary_dir, "Packages")])
+        with open(path.join(binary_dir, "Packages"), "w") as f:
+            f.write(packages)
 
-    # Example binary release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/Release
-    with open(path.join(binary_dir, "Release"), "w") as f:
-        f.write("Archive: " + series.codename + "\n")
-        f.write("Version: " + series.version + "\n")
-        f.write("Component: main\n")
-        f.write("Origin: pop-os-staging-" + pocket + "\n")
-        f.write("Label: Pop!_OS Staging " + pocket + "\n")
-        f.write("Architecture: amd64\n")
+        check_call(["gzip", "--keep", path.join(binary_dir, "Packages")])
+
+        # Example binary release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/main/binary-amd64/Release
+        with open(path.join(binary_dir, "Release"), "w") as f:
+            f.write("Archive: " + series.codename + "\n")
+            f.write("Version: " + series.version + "\n")
+            f.write("Component: main\n")
+            f.write("Origin: pop-os-staging-" + pocket + "\n")
+            f.write("Label: Pop!_OS Staging " + pocket + "\n")
+            f.write("Architecture: " + build_arch + "\n")
 
     # Example dists release file: http://ppa.launchpad.net/system76/pop/ubuntu/dists/artful/Release
     release = check_output([
@@ -436,7 +457,7 @@ def create_dist(email, pocket, series):
         "-o", "APT::FTPArchive::Release::Suite=" + series.codename,
         "-o", "APT::FTPArchive::Release::Version=" + series.version,
         "-o", "APT::FTPArchive::Release::Codename=" + series.codename,
-        "-o", "APT::FTPArchive::Release::Architectures=amd64",
+        "-o", "APT::FTPArchive::Release::Architectures=" + " ".join(build_archs.keys()),
         "-o", "APT::FTPArchive::Release::Components=main",
         "-o", "APT::FTPArchive::Release::Description=Pop!_OS Staging " + series.codename + " " + series.version + " " + pocket,
         "release", "."

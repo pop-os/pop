@@ -9,12 +9,20 @@ codenames=(
     #eoan
 )
 
+archs=(
+    amd64
+    i386
+)
+
 for codename in "${codenames[@]}"
 do
-    CHROOT="/srv/chroot/${codename}-amd64-sbuild"
+  for arch in "${archs[@]}"
+  do
+    CHROOT="/srv/chroot/${codename}-${arch}-sbuild"
     test -e "${CHROOT}" >/dev/null || sudo sbuild-createchroot \
         --include=eatmydata,ccache,gnupg \
         --components=main,restricted,universe,multiverse \
+        --arch="${arch}" \
         "${codename}" \
         "${CHROOT}" \
         "http://archive.ubuntu.com/ubuntu"
@@ -25,5 +33,7 @@ do
         --clean \
         --autoclean \
         --autoremove \
+        --arch="${arch}" \
         "$codename"
+  done
 done
