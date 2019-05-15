@@ -286,7 +286,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
         print("\x1B[1m{} commit {} on {}: building binaries for {}\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
 
         try:
-            github_status(name, git.id, series.codename + "/binary", "pending")
+            github_status(name, git.id, series.codename + "/binary-" + build_arch, "pending")
 
             if args.dev:
                 ppa_key = ".ppa-dev.asc"
@@ -322,10 +322,10 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
 
             print("\x1B[1m{} commit {} on {}: finished building binaries\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
-            github_status(name, git.id, series.codename + "/binary", "success")
+            github_status(name, git.id, series.codename + "/binary-" + build_arch, "success")
         except Exception as ex:
             try:
-                github_status(name, git.id, series.codename + "/binary", "failure")
+                github_status(name, git.id, series.codename + "/binary-" + build_arch, "failure")
             except Exception as ex_s:
                 print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex_s))
 
