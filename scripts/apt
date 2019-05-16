@@ -59,7 +59,7 @@ case "$1" in
 		;;
 	local)
 		grep "^deb ${REPOS}" /etc/apt/sources.list | \
-			cut -d " " -f3 |
+			cut -d " " -f2 |
 			sed -s "s#${REPOS}##"
 		;;
 	remote)
