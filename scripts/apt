@@ -38,7 +38,7 @@ case "$1" in
 			EOF
 
 			echo "Adding repository for '$newrepo'"
-			sudo add-apt-repository -s "deb [arch=amd64] ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+			sudo add-apt-repository -s "deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 		done
 		;;
 	remove)
@@ -51,14 +51,14 @@ case "$1" in
 		for newrepo in "${ARGV[@]:1}"
 		do
 			echo "Removing repository for '$newrepo'"
-			sudo add-apt-repository -r -s "deb [arch=amd64] ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+			sudo add-apt-repository -r -s "deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 
 			echo "Removing preference for '$newrepo'"
 			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
 		done
 		;;
 	local)
-		grep "^deb \\[arch=amd64\\] ${REPOS}" /etc/apt/sources.list | \
+		grep "^deb ${REPOS}" /etc/apt/sources.list | \
 			cut -d " " -f3 |
 			sed -s "s#${REPOS}##"
 		;;
