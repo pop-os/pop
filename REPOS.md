@@ -7,6 +7,7 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
 - [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous and parallel fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
 - [apt\-keyring](https://github.com/pop-os/apt-keyring) - Rust crate for loading all available apt keyrings into an in\-memory keyring\.
+- [apt\-mirror](https://github.com/pop-os/apt-mirror) - Official apt\-mirror source\.
 - [apt\-release\-file](https://github.com/pop-os/apt-release-file) - Rust crate for serializing / deserializing apt dist release files, which contain a listing of paths to other dist files in a repo\.
 - [apt\-repo\-crawler](https://github.com/pop-os/apt-repo-crawler) - Rust crate for crawling through files in an apt repo
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
@@ -32,13 +33,18 @@ This is an automatically generated file. See `scripts/readme`
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
+- [firmware\-manager](https://github.com/pop-os/firmware-manager) - GTK UI for firmware updates using system76\-firmware and fwupd, written in Rust\.
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
+- [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
 - [fstab\-generate](https://github.com/pop-os/fstab-generate) - Rust crate to aid with generating fstab entries\.
+- [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
+- [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
+- [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
 - [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
@@ -60,9 +66,9 @@ This is an automatically generated file. See `scripts/readme`
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
-- [libdevmapper\-sys](https://github.com/pop-os/libdevmapper-sys) - Rust crate with external FFI bindings to libdevmapper
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [mutter](https://github.com/pop-os/mutter) - Mirrored from https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
@@ -76,9 +82,11 @@ This is an automatically generated file. See `scripts/readme`
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
+- [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
 - [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
+- [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
