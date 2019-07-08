@@ -265,7 +265,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
         parts = package_line.strip().split(" ")
         binary = parts[0]
         for arch in parts[4].replace("arch=", "").split(","):
-            if arch == "any" or arch == build_arch:
+            if arch == "any" or arch == "linux-any" or arch == build_arch:
                 deb_arch = build_arch
             elif arch == "all" and build_all:
                 deb_arch = "all"
