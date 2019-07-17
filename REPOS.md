@@ -18,6 +18,7 @@ This is an automatically generated file. See `scripts/readme`
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
+- [curl](https://github.com/pop-os/curl) - Mirror of https://salsa\.debian\.org/debian/curl
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [debarchive](https://github.com/pop-os/debarchive) - Rust crate which provides direct access to files within a Debian archive
@@ -97,6 +98,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
+- [system76\-oled](https://github.com/pop-os/system76-oled) - Control brightness on OLED displays
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
 - [system76\-r8125\-dkms](https://github.com/pop-os/system76-r8125-dkms) - System76 Realtek 8125 DKMS driver
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
