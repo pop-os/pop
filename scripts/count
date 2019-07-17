@@ -19,7 +19,7 @@ codenames = (
     "bionic",
     "cosmic",
     "disco",
-    #"eoan"
+    "eoan"
 )
 
 lp = launchpad_anon()

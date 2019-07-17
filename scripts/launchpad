@@ -33,7 +33,7 @@ codenames = (
     "bionic",
     "cosmic",
     "disco",
-    #"eoan"
+    "eoan"
 )
 
 staging = {}

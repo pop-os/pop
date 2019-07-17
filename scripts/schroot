@@ -6,7 +6,7 @@ codenames=(
     bionic
     cosmic
     disco
-    #eoan
+    eoan
 )
 
 archs=(
