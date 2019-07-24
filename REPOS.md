@@ -34,7 +34,7 @@ This is an automatically generated file. See `scripts/readme`
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
-- [firmware\-manager](https://github.com/pop-os/firmware-manager) - GTK UI for firmware updates using system76\-firmware and fwupd, written in Rust\.
+- [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
 - [fstab\-generate](https://github.com/pop-os/fstab-generate) - Rust crate to aid with generating fstab entries\.
@@ -46,6 +46,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
 - [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
+- [gnome\-settings\-daemon](https://github.com/pop-os/gnome-settings-daemon) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-settings\-daemon
 - [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
