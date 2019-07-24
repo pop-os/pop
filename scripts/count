@@ -17,7 +17,6 @@ args = parser.parse_args(sys.argv[1:])
 
 codenames = (
     "bionic",
-    "cosmic",
     "disco",
     "eoan"
 )

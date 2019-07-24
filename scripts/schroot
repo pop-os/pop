@@ -4,7 +4,6 @@ set -e
 
 codenames=(
     bionic
-    cosmic
     disco
     eoan
 )
