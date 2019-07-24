@@ -9,8 +9,10 @@ from launchpadlib.launchpad import Launchpad
 # Packages to release in system76-dev
 DEV_REPOS = (
     "distinst",
+    "fwupd",
     "gdm3",
     "gnome-desktop3",
+    "gnome-settings-daemon",
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "nvidia-graphics-drivers",
