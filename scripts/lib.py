@@ -9,6 +9,7 @@ from launchpadlib.launchpad import Launchpad
 # Packages to release in system76-dev
 DEV_REPOS = (
     "distinst",
+    "firmware-manager",
     "fwupd",
     "gdm3",
     "gnome-desktop3",
