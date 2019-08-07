@@ -18,7 +18,7 @@ from subprocess import check_call, check_output
 import sys
 from threading import Lock
 
-from lib import foreach_repo, github_post
+from lib import foreach_repo_parallel, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
 
 Series = namedtuple('Series', 'codename version')
@@ -52,11 +52,9 @@ build_series = {
     'eoan': ('19.10', True),
 }
 
-
 def iprint(level, value):
     indent = ' ' * (level * 4)
     print('>>> ' + indent + str(value), flush=True)
-
 
 def parse_branch(branch):
     parts = branch.split('_')
@@ -64,7 +62,6 @@ def parse_branch(branch):
     pocket = parts[0]
     codename = (None if len(parts) < 2 else parts[1])
     return (pocket, codename)
-
 
 def iter_series(branches):
     for b in branches:
@@ -78,7 +75,6 @@ def iter_series(branches):
         elif codename in build_series:
             version, wildcard = build_series[codename]
             yield (Series(codename, version), (pocket, False))
-
 
 def expand_series(branches):
     result = {}
@@ -99,7 +95,6 @@ def git_tar(cwd, _id):
     else:
         git_archive_id(cwd, _id, archive)
     return GitTar(_id, timestamp, datetime, archive)
-
 
 def github_status(name, _id, context, state):
     target_url = os.environ.get("BUILD_URL")
@@ -249,7 +244,6 @@ def dpkg_source(name, git, series):
 
     return dsc_path, tar_path
 
-
 def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
     with open(dsc_path, "r") as fp:
         dsc = Dsc(fp)
@@ -349,21 +343,15 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
 
     return debs
 
-def build_packages_source(args):
+def build_packages_thread(args):
     name, git, series, pockets = args
     dsc_path, tar_path = dpkg_source(name, git, series)
-    return (name, git, series, pockets, dsc_path, tar_path)
-
-def build_packages_binary(args):
-    name, git, series, pockets, dsc_path, tar_path = args
     deb_paths = []
     if dsc_path and tar_path:
         for build_arch in build_archs:
             build_all = build_archs[build_arch]
             deb_paths += dpkg_binary(dsc_path, name, git, series, build_arch, build_all)
     return (name, git, series, pockets, dsc_path, tar_path, deb_paths)
-
-mp_pool = multiprocessing.Pool()
 
 def build_packages(name):
     cwd = path.join(POP_DIR, name)
@@ -384,7 +372,7 @@ def build_packages(name):
                 if not wildcard or not series in pocket_series_ids[pocket]:
                     pocket_series_ids[pocket][series] = _id
 
-    gits = []
+    sources = []
     ids = git_ids_and_branches(cwd)
     for (_id, branches) in sorted(ids.items()):
         git = git_tar(cwd, _id)
@@ -396,10 +384,12 @@ def build_packages(name):
                     skip = False
             if skip:
                 continue
-            gits.append((name, git, series, pockets))
+            sources.append((name, git, series, pockets))
 
-    sources = mp_pool.map(build_packages_source, gits)
-    binaries = mp_pool.map(build_packages_binary, sources)
+    mp_pool = multiprocessing.pool.ThreadPool()
+    binaries = mp_pool.map(build_packages_thread, sources)
+    mp_pool.close()
+    mp_pool.join()
 
     pocket_series = {}
     for _name, _git, series, pockets, dsc_path, tar_path, deb_paths in binaries:
@@ -421,7 +411,6 @@ def build_packages(name):
                     os.link(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
-
 
 def create_dist(email, pocket, series):
     pocket_dir = path.join(REPO_DIR, pocket)
@@ -513,7 +502,6 @@ def create_dist(email, pocket, series):
         "-o", path.join(dist_dir, "Release.gpg"), path.join(dist_dir, "Release")
     ])
 
-
 def create_dists(email, pocket_series):
     for pocket in pocket_series:
         iprint(0, pocket)
@@ -522,8 +510,6 @@ def create_dists(email, pocket_series):
             iprint(1, series)
 
             create_dist(email, pocket, series)
-
-
 
 def callback(repo):
     name =  repo['name']
@@ -534,17 +520,14 @@ def callback(repo):
     else:
         return build_packages(name)
 
-
 def create_dir(d):
     if not path.isdir(d):
         os.mkdir(d)
-
 
 def recreate_dir(d):
     if path.isdir(d):
         shutil.rmtree(d)
         os.mkdir(d)
-
 
 def ci():
     email = os.environ.get("DEBEMAIL")
@@ -563,7 +546,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo(callback, args.repos, args.dev).items():
+    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos, args.dev).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:
@@ -573,6 +556,5 @@ def ci():
                     all_pocket_series[pocket].append(series)
 
     create_dists(email, all_pocket_series)
-
 
 ci()
