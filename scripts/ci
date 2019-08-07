@@ -10,6 +10,7 @@ import argparse
 from collections import namedtuple
 from debian.changelog import Changelog, Version
 from debian.deb822 import Dsc, Deb822
+import multiprocessing
 import os
 from os import path
 import shutil
@@ -17,7 +18,7 @@ from subprocess import check_call, check_output
 import sys
 from threading import Lock
 
-from lib import foreach_repo_parallel, github_post
+from lib import foreach_repo, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
 
 Series = namedtuple('Series', 'codename version')
@@ -348,6 +349,21 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
 
     return debs
 
+def build_packages_source(args):
+    name, git, series, pockets = args
+    dsc_path, tar_path = dpkg_source(name, git, series)
+    return (name, git, series, pockets, dsc_path, tar_path)
+
+def build_packages_binary(args):
+    name, git, series, pockets, dsc_path, tar_path = args
+    deb_paths = []
+    if dsc_path and tar_path:
+        for build_arch in build_archs:
+            build_all = build_archs[build_arch]
+            deb_paths += dpkg_binary(dsc_path, name, git, series, build_arch, build_all)
+    return (name, git, series, pockets, dsc_path, tar_path, deb_paths)
+
+mp_pool = multiprocessing.Pool()
 
 def build_packages(name):
     cwd = path.join(POP_DIR, name)
@@ -368,12 +384,10 @@ def build_packages(name):
                 if not wildcard or not series in pocket_series_ids[pocket]:
                     pocket_series_ids[pocket][series] = _id
 
-    pocket_series = {}
-
+    gits = []
     ids = git_ids_and_branches(cwd)
     for (_id, branches) in sorted(ids.items()):
         git = git_tar(cwd, _id)
-
         expanded = expand_series(branches)
         for (series, pockets) in sorted(expanded.items()):
             skip = True
@@ -382,30 +396,29 @@ def build_packages(name):
                     skip = False
             if skip:
                 continue
+            gits.append((name, git, series, pockets))
 
-            dsc_path, tar_path = dpkg_source(name, git, series)
+    sources = mp_pool.map(build_packages_source, gits)
+    binaries = mp_pool.map(build_packages_binary, sources)
 
-            if dsc_path and tar_path:
-                deb_paths = []
-                for build_arch in build_archs:
-                    build_all = build_archs[build_arch]
-                    deb_paths += dpkg_binary(dsc_path, name, git, series, build_arch, build_all)
-                if deb_paths:
-                    for (pocket, wildcard) in sorted(pockets):
-                        if not pocket in pocket_series:
-                            pocket_series[pocket] = []
+    pocket_series = {}
+    for _name, _git, series, pockets, dsc_path, tar_path, deb_paths in binaries:
+        if dsc_path and tar_path and deb_paths:
+            for (pocket, wildcard) in sorted(pockets):
+                if not pocket in pocket_series:
+                    pocket_series[pocket] = []
 
-                        if not series in pocket_series[pocket]:
-                            pocket_series[pocket].append(series)
+                if not series in pocket_series[pocket]:
+                    pocket_series[pocket].append(series)
 
-                        # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
-                        pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
-                        os.makedirs(pool_dir)
+                # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
+                pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
+                os.makedirs(pool_dir)
 
-                        os.link(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
-                        os.link(tar_path, path.join(pool_dir, path.basename(tar_path)))
-                        for deb_path in deb_paths:
-                            os.link(deb_path, path.join(pool_dir, path.basename(deb_path)))
+                os.link(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
+                os.link(tar_path, path.join(pool_dir, path.basename(tar_path)))
+                for deb_path in deb_paths:
+                    os.link(deb_path, path.join(pool_dir, path.basename(deb_path)))
 
     return pocket_series
 
@@ -550,7 +563,7 @@ def ci():
     recreate_dir(REPO_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos, args.dev).items():
+    for repo_name, pocket_series in foreach_repo(callback, args.repos, args.dev).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:
