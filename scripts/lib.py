@@ -18,7 +18,7 @@ DEV_REPOS = (
     "hidpi-daemon",
     "libxmlb",
     "nvidia-graphics-drivers",
-    "system76-coreboot-dkms",
+    "system76-acpi-dkms",
     "system76-dkms",
     "system76-driver",
     "system76-firmware",
