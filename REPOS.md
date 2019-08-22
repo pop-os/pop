@@ -68,7 +68,9 @@ This is an automatically generated file. See `scripts/readme`
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
+- [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging mirror of https://github\.com/NVIDIA/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
+- [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [mutter](https://github.com/pop-os/mutter) - Mirrored from https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
@@ -104,6 +106,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-r8125\-dkms](https://github.com/pop-os/system76-r8125-dkms) - System76 Realtek 8125 DKMS driver
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
+- [tensorman](https://github.com/pop-os/tensorman) - Utility for easy management of Tensorflow containers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow

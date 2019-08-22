@@ -78,7 +78,9 @@
 /iso/
 /kernelstub/
 /kit/
+/libnvidia-container/
 /libparted/
+/libxmlb/
 /logind-dbus/
 /mutter/
 /nvidia-graphics-drivers/
@@ -114,6 +116,7 @@
 /system76-r8125-dkms/
 /system76-wallpapers/
 /systemd-boot-conf/
+/tensorman/
 /theme/
 /token_expander/
 /ubiquity-slideshow-pop/
