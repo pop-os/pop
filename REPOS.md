@@ -96,7 +96,7 @@ This is an automatically generated file. See `scripts/readme`
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
-- [system76\-coreboot\-dkms](https://github.com/pop-os/system76-coreboot-dkms) - System76 Coreboot DKMS Driver
+- [system76\-acpi\-dkms](https://github.com/pop-os/system76-acpi-dkms) - System76 ACPI Driver \(DKMS\)
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS
 - [system76\-firmware](https://github.com/pop-os/system76-firmware) - System76 Firmware Tool and Daemon
