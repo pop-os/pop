@@ -68,7 +68,6 @@ This is an automatically generated file. See `scripts/readme`
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
-- [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging mirror of https://github\.com/NVIDIA/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
