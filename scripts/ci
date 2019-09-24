@@ -406,10 +406,18 @@ def build_packages(name):
                 pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
                 pathlib.Path(pool_dir).mkdir(parents=True, exist_ok=True)
 
-                os.link(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
-                os.link(tar_path, path.join(pool_dir, path.basename(tar_path)))
+                dsc_dst = path.join(pool_dir, path.basename(dsc_path))
+                if not path.exists(dsc_dst):
+                    os.link(dsc_path, dsc_dst)
+
+                tar_dst = path.join(pool_dir, path.basename(tar_path))
+                if not path.exists(tar_dst):
+                    os.link(tar_path, tar_dst)
+
                 for deb_path in deb_paths:
-                    os.link(deb_path, path.join(pool_dir, path.basename(deb_path)))
+                    deb_dst = path.join(pool_dir, path.basename(deb_path))
+                    if not path.exists(deb_dst):
+                        os.link(deb_path, deb_dst)
 
     return pocket_series
 
