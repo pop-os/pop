@@ -13,6 +13,7 @@ from debian.deb822 import Dsc, Deb822
 import multiprocessing
 import os
 from os import path
+import pathlib
 import shutil
 from subprocess import check_call, check_output
 import sys
@@ -403,7 +404,7 @@ def build_packages(name):
 
                 # Produce pool: http://ppa.launchpad.net/system76/pop/ubuntu/pool/
                 pool_dir = path.join(REPO_DIR, pocket, "pool", series.codename, name)
-                os.makedirs(pool_dir)
+                pathlib.Path(pool_dir).mkdir(parents=True, exist_ok=True)
 
                 os.link(dsc_path, path.join(pool_dir, path.basename(dsc_path)))
                 os.link(tar_path, path.join(pool_dir, path.basename(tar_path)))
