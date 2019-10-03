@@ -68,9 +68,11 @@
 /gnome-shell-extension-system76-power/
 /gnome-shell-theme/
 /grub-theme/
+/gtk-extras/
 /gtk-theme/
 /happiness/
 /hidpi-daemon/
+/hidpi-widget/
 /hostname-validator/
 /icon-theme/
 /installer/
@@ -78,10 +80,13 @@
 /iso/
 /kernelstub/
 /kit/
+/libnvidia-container/
 /libparted/
 /libxmlb/
 /logind-dbus/
 /mutter/
+/nvidia-container-runtime/
+/nvidia-container-toolkit/
 /nvidia-graphics-drivers/
 /os-detect/
 /os-release/
@@ -117,6 +122,7 @@
 /systemd-boot-conf/
 /tensorman/
 /theme/
+/theme-switcher/
 /token_expander/
 /ubiquity-slideshow-pop/
 /ubuntu-version/
