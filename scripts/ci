@@ -43,7 +43,9 @@ REPO_DIR = path.join(BUILD_DIR, 'repos')
 
 # Repositories to use special linux packaging rules
 linux_repos = [
-    "linux"
+    "linux",
+    "linux-meta",
+    "linux-signed"
 ]
 
 # Architectures to build for
@@ -158,7 +160,10 @@ def dpkg_source(name, git, series):
     changelog_version = o.decode().strip()
 
     source_name = control.get("Source")
-    if series.codename in ('xenial', 'artful'):
+    if name in linux_repos:
+        # Do not mangle Linux packages
+        version = changelog_version
+    elif series.codename in ('xenial', 'artful'):
         # Old format, caused issues when adding debian versions like 0.2.8 -> 0.2.8-1
         version = '+'.join([changelog_version, git.timestamp, series.version]) + "~" + git.id[:7]
     elif args.dev:
@@ -179,14 +184,19 @@ def dpkg_source(name, git, series):
         try:
             github_status(name, git.id, series.codename + "/source", "pending")
 
-            if name in linux_repos:
-                # If building Linux, we need to copy the current changelog
+            if name == "linux":
+                # If building Linux, we need to use the master changelog
                 changelog_path = path.join(extract_dir, 'debian.master', 'changelog')
+                changelog_clean = True
+            else:
+                changelog_path = path.join(debian_path, 'changelog')
+                changelog_clean = False
+
+            if name in linux_repos:
+                # If building Linux packages, copy current changelog
                 with open(changelog_path, 'r') as f:
                      changelog = Changelog(f.read())
             else:
-                # Create a new changelog with an empty block
-                changelog_path = path.join(debian_path, 'changelog')
                 changelog = Changelog()
                 changelog.new_block()
 
@@ -205,8 +215,8 @@ def dpkg_source(name, git, series):
             with open(changelog_path, 'w') as f:
                 changelog.write_to_open_file(f)
 
-            if name in linux_repos:
-                # If building Linux, clean to update the changelog
+            if changelog_clean:
+                # Clean to update the changelog if required
                 check_call(["fakeroot", "debian/rules", "clean"], cwd=extract_dir)
 
             if os.path.exists(path.join(debian_path, 'patches')):
@@ -286,7 +296,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 deb_arch = "all"
             else:
                 continue
-            if name in linux_repos and (
+            if name == "linux" (
                 binary.endswith("-dbgsym") or
                 (binary.startswith("linux-modules-extra-") and binary.endswith("-lowlatency")) or
                 binary.startswith("linux-udebs-")
