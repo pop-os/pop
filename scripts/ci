@@ -150,9 +150,6 @@ def dpkg_source(name, git, series):
          return None, None
 
     control_path = path.join(debian_path, "control")
-    if not path.isfile(control_path):
-        # Clean to create the control file
-        check_call(["fakeroot", "debian/rules", "clean"], cwd=extract_dir)
     with open(control_path, "r") as fp:
         control = Deb822(fp)
 
@@ -184,14 +181,7 @@ def dpkg_source(name, git, series):
         try:
             github_status(name, git.id, series.codename + "/source", "pending")
 
-            if name == "linux":
-                # If building Linux, we need to use the master changelog
-                changelog_path = path.join(extract_dir, 'debian.master', 'changelog')
-                changelog_clean = True
-            else:
-                changelog_path = path.join(debian_path, 'changelog')
-                changelog_clean = False
-
+            changelog_path = path.join(debian_path, 'changelog')
             if name in linux_repos:
                 # If building Linux packages, copy current changelog
                 with open(changelog_path, 'r') as f:
@@ -214,10 +204,6 @@ def dpkg_source(name, git, series):
             # Save updated changelog
             with open(changelog_path, 'w') as f:
                 changelog.write_to_open_file(f)
-
-            if changelog_clean:
-                # Clean to update the changelog if required
-                check_call(["fakeroot", "debian/rules", "clean"], cwd=extract_dir)
 
             if os.path.exists(path.join(debian_path, 'patches')):
                 print("\x1B[1m{} commit {} on {}: applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
