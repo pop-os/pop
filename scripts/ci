@@ -296,7 +296,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 deb_arch = "all"
             else:
                 continue
-            if name == "linux" (
+            if name == "linux" and (
                 binary.endswith("-dbgsym") or
                 (binary.startswith("linux-modules-extra-") and binary.endswith("-lowlatency")) or
                 binary.startswith("linux-udebs-")
