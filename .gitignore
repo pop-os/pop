@@ -83,6 +83,9 @@
 /libnvidia-container/
 /libparted/
 /libxmlb/
+/linux/
+/linux-meta/
+/linux-signed/
 /logind-dbus/
 /mutter/
 /nvidia-container-runtime/
@@ -107,6 +110,7 @@
 /scheduler/
 /session/
 /shop/
+/srmw/
 /steam/
 /sys-mount/
 /sysfs-class/
