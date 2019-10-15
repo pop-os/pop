@@ -137,11 +137,16 @@ def dpkg_source(name, git, series):
 
     check_call(['tar', 'xf', git.archive], cwd=extract_dir)
 
-    if not path.isdir(path.join(extract_dir, 'debian')):
+    debian_path = path.join(extract_dir, 'debian')
+    if not path.isdir(debian_path):
          print("\x1B[1m{} commit {} on {}: no debian dir\x1B[0m".format(name, git.id, series.codename), flush=True)
          return None, None
 
-    with open(path.join(extract_dir, "debian", "control"), "r") as fp:
+    control_path = path.join(debian_path, "control")
+    if not path.isfile(control_path):
+        # Clean to create the control file
+        check_call(["fakeroot", "debian/rules", "clean"], cwd=extract_dir)
+    with open(control_path, "r") as fp:
         control = Deb822(fp)
 
     o = check_output(["dpkg-parsechangelog", "--show-field", "Version"], cwd=extract_dir)
@@ -190,7 +195,7 @@ def dpkg_source(name, git, series):
             with open(path.join(extract_dir, 'debian', 'changelog'), 'w') as f:
                 changelog.write_to_open_file(f)
 
-            if os.path.exists(path.join(extract_dir, 'debian', 'patches')):
+            if os.path.exists(path.join(debian_path, 'patches')):
                 print("\x1B[1m{} commit {} on {}: applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
                 with open(os.devnull, 'w') as null:
