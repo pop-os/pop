@@ -41,13 +41,6 @@ SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
-# Repositories to use special linux packaging rules
-linux_repos = [
-    "linux",
-    "linux-meta",
-    "linux-signed"
-]
-
 # Architectures to build for
 build_archs = {
     'amd64': True,
@@ -157,10 +150,7 @@ def dpkg_source(name, git, series):
     changelog_version = o.decode().strip()
 
     source_name = control.get("Source")
-    if name in linux_repos:
-        # Do not mangle Linux packages
-        version = changelog_version
-    elif series.codename in ('xenial', 'artful'):
+    if series.codename in ('xenial', 'artful'):
         # Old format, caused issues when adding debian versions like 0.2.8 -> 0.2.8-1
         version = '+'.join([changelog_version, git.timestamp, series.version]) + "~" + git.id[:7]
     elif args.dev:
@@ -181,12 +171,13 @@ def dpkg_source(name, git, series):
         try:
             github_status(name, git.id, series.codename + "/source", "pending")
 
-            changelog_path = path.join(debian_path, 'changelog')
-            if name in linux_repos:
-                # If building Linux packages, copy current changelog
+            if name == "linux":
+                # If building Linux, copy debian.master changelog
+                changelog_path = path.join(extract_dir, 'debian.master', 'changelog')
                 with open(changelog_path, 'r') as f:
                      changelog = Changelog(f.read())
             else:
+                changelog_path = path.join(debian_path, 'changelog')
                 changelog = Changelog()
                 changelog.new_block()
 
@@ -284,7 +275,6 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 continue
             if name == "linux" and (
                 binary.endswith("-dbgsym") or
-                (binary.startswith("linux-modules-extra-") and binary.endswith("-lowlatency")) or
                 binary.startswith("linux-udebs-")
             ):
                 # If building Linux, some packages that are not required
@@ -545,7 +535,7 @@ def create_dists(email, pocket_series):
 def callback(repo):
     name =  repo['name']
 
-    if name.startswith("packaging-"):
+    if name.startswith("packaging-") or name == "linux":
         print('\x1B[1m{}: skipping\x1B[0m'.format(name), flush=True)
         return {}
     else:
