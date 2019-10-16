@@ -3,19 +3,36 @@ set -e
 
 source /etc/os-release
 
-POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-REPOS="http://apt.pop-os.org/staging/"
+DEV="0"
+LOCAL="0"
 ARGV=()
-
 for opt in "$@"
 do
 	if [ "$opt" == "--dev" ]
 	then
-		REPOS="http://apt.pop-os.org/staging-ubuntu/"
+        DEV="1"
+    elif [ "$opt" == "--local" ]
+    then
+        LOCAL="1"
 	else
 		ARGV+=("$opt")
 	fi
 done
+
+POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+REPOS="http://apt.pop-os.org/staging/"
+if [ "$DEV" == "1" ]
+then
+    if [ "$LOCAL" == "1" ]
+    then
+        REPOS="file://${POP_DIR}/_build/repos/dev/"
+    else
+        REPOS="http://apt.pop-os.org/staging-ubuntu/"
+    fi
+elif [ "$LOCAL" == "1" ]
+then
+    REPOS="file://${POP_DIR}/_build/repos/"
+fi
 
 case "$1" in
 	add)
@@ -70,10 +87,10 @@ case "$1" in
 			sort
 		;;
 	*)
-		echo "$0 add [repo] <--dev> - add a repository"
-		echo "$0 remove [repo] <--dev> - remove a repository"
-		echo "$0 local <--dev> - show locally added repositories"
-		echo "$0 remote <--dev> - show remote available repositories"
+		echo "$0 add [repo] <--dev> <--local> - add a repository"
+		echo "$0 remove [repo] <--dev> <--local> - remove a repository"
+		echo "$0 local <--dev> <--local> - show locally added repositories"
+		echo "$0 remote <--dev> <--local> - show remote available repositories"
 		exit 1
 		;;
 esac
