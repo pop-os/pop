@@ -208,6 +208,17 @@ def dpkg_source(name, git, series):
 
                 print("\x1B[1m{} commit {} on {}: finished applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
+            if name == "linux":
+                print("\x1B[1m{} commit {} on {}: updating changelog\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+
+                check_call([
+                    "fakeroot",
+                    "debian/rules",
+                    "clean"
+                ], stdout=null, cwd=extract_dir)
+
+                print("\x1B[1m{} commit {} on {}: finished updating changelog\x1B[0m".format(source_name, git.id, series.codename), flush=True)
+
             with debuild_lock:
                 with open(os.devnull, 'w') as null:
                     check_call([
