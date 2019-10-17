@@ -291,6 +291,9 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
             ):
                 # If building Linux, some packages that are not required
                 continue
+            if name == "systemd" and binary.endswith("-udeb"):
+                # If building systemd, some packages are not required
+                continue
             deb_path = path.join(BINARY_DIR, binary + "_" + path_version + "_" + deb_arch + ".deb")
             debs.append(deb_path)
             if not path.exists(deb_path):
