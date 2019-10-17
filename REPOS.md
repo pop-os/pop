@@ -75,8 +75,6 @@ This is an automatically generated file. See `scripts/readme`
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Linux kernel source tree
-- [linux\-meta](https://github.com/pop-os/linux-meta) - Complete linux kernel image and headers
-- [linux\-signed](https://github.com/pop-os/linux-signed) - Signed linux kernel package
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [mutter](https://github.com/pop-os/mutter) - Mirrored from https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
@@ -114,6 +112,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
 - [system76\-r8125\-dkms](https://github.com/pop-os/system76-r8125-dkms) - System76 Realtek 8125 DKMS driver
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
+- [systemd](https://github.com/pop-os/systemd) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-core\-dev/ubuntu/\+source/systemd
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
 - [tensorman](https://github.com/pop-os/tensorman) - Utility for easy management of Tensorflow containers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme

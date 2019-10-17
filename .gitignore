@@ -8,7 +8,6 @@
 /*.dsc
 /*.tar
 /*.tar.*
-/*.udeb
 /*.upload
 /_build/
 
@@ -86,8 +85,6 @@
 /libparted/
 /libxmlb/
 /linux/
-/linux-meta/
-/linux-signed/
 /logind-dbus/
 /mutter/
 /nvidia-container-runtime/
@@ -125,6 +122,7 @@
 /system76-power/
 /system76-r8125-dkms/
 /system76-wallpapers/
+/systemd/
 /systemd-boot-conf/
 /tensorman/
 /theme/
