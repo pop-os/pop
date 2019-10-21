@@ -8,6 +8,7 @@
 /*.dsc
 /*.tar
 /*.tar.*
+/*.udeb
 /*.upload
 /_build/
 
@@ -85,6 +86,7 @@
 /libparted/
 /libxmlb/
 /linux/
+/linux-firmware/
 /logind-dbus/
 /mutter/
 /nvidia-container-runtime/

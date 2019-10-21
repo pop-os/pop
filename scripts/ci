@@ -278,6 +278,10 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
     for package_line in package_list.strip().split("\n"):
         parts = package_line.strip().split(" ")
         binary = parts[0]
+        kind = parts[1]
+        if kind in ["udeb"]:
+            # Ignore udebs
+            continue
         for arch in parts[4].replace("arch=", "").split(","):
             if arch == "any" or arch == "linux-any" or arch == build_arch:
                 deb_arch = build_arch
