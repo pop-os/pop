@@ -17,6 +17,7 @@ DEV_REPOS = (
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libxmlb",
+    "linux",
     "nvidia-graphics-drivers",
     "system76-acpi-dkms",
     "system76-dkms",
