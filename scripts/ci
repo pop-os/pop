@@ -239,8 +239,9 @@ def dpkg_source(name, git, series):
             message = "\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex)
 
             build_log = path.join(SOURCE_DIR, source_name + "_" + path_version + "_source.build")
-            with open(build_log, 'r') as f:
-                message += f.read()
+            if path.exists(build_log):
+                with open(build_log, 'r') as f:
+                    message += f.read()
 
             print(message, flush=True)
 

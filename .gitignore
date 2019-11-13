@@ -33,6 +33,7 @@
 /dbus-udisks2/
 /deb-architectures/
 /debarchive/
+/debian-changelog/
 /debrepbuild/
 /deckard/
 /default-settings/
@@ -44,6 +45,7 @@
 /eddy/
 /envfile/
 /exit-status-ext/
+/ffmpeg/
 /firefox-css-extension/
 /firmware-manager/
 /fonts/
@@ -92,8 +94,10 @@
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
+/nvidia-video-codec/
 /os-detect/
 /os-release/
+/packaging-ci/
 /packaging-natron/
 /parallel-getter/
 /partition-identity/

@@ -22,6 +22,7 @@ This is an automatically generated file. See `scripts/readme`
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [debarchive](https://github.com/pop-os/debarchive) - Rust crate which provides direct access to files within a Debian archive
+- [debian\-changelog](https://github.com/pop-os/debian-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
 - [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
@@ -33,6 +34,7 @@ This is an automatically generated file. See `scripts/readme`
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
+- [ffmpeg](https://github.com/pop-os/ffmpeg) - ffmpeg with NVENC support enabled
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
@@ -81,8 +83,10 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/toolkit
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
+- [nvidia\-video\-codec](https://github.com/pop-os/nvidia-video-codec) - NVIDIA Video Codec SDK \(https://developer\.nvidia\.com/nvidia\-video\-codec\-sdk\)
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
+- [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
 - [parallel\-getter](https://github.com/pop-os/parallel-getter) - Rust crate to GET a file with parallel GET requests
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
