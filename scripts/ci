@@ -94,7 +94,9 @@ def git_tar(cwd, _id):
     if path.exists(archive):
         print("\x1B[1m{} commit {}: git already built\x1B[0m".format(path.basename(cwd), _id), flush=True)
     else:
+        print("\x1B[1m{} commit {}: building git\x1B[0m".format(path.basename(cwd), _id), flush=True)
         git_archive_id(cwd, _id, archive)
+        print("\x1B[1m{} commit {}: finished building git\x1B[0m".format(path.basename(cwd), _id), flush=True)
     return GitTar(_id, timestamp, datetime, archive)
 
 def github_status(name, _id, context, state):
