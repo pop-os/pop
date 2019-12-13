@@ -12,10 +12,12 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-repo\-crawler](https://github.com/pop-os/apt-repo-crawler) - Rust crate for crawling through files in an apt repo
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
+- [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
+- [chromium](https://github.com/pop-os/chromium) - Fork of https://salsa\.debian\.org/chromium\-team/chromium
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [curl](https://github.com/pop-os/curl) - Mirror of https://salsa\.debian\.org/debian/curl
@@ -34,6 +36,7 @@ This is an automatically generated file. See `scripts/readme`
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
+- [fd\-reactor](https://github.com/pop-os/fd-reactor) - A Rust crate which provides an async reactor for handling file descriptors in a background thread
 - [ffmpeg](https://github.com/pop-os/ffmpeg) - ffmpeg with NVENC support enabled
 - [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
@@ -90,6 +93,7 @@ This is an automatically generated file. See `scripts/readme`
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
 - [parallel\-getter](https://github.com/pop-os/parallel-getter) - Rust crate to GET a file with parallel GET requests
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
+- [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
@@ -103,9 +107,11 @@ This is an automatically generated file. See `scripts/readme`
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
+- [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell \- WIP
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
+- [support](https://github.com/pop-os/support) - Support utilities and libraries
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
 - [system76\-acpi\-dkms](https://github.com/pop-os/system76-acpi-dkms) - System76 ACPI Driver \(DKMS\)
@@ -124,9 +130,11 @@ This is an automatically generated file. See `scripts/readme`
 - [theme\-switcher](https://github.com/pop-os/theme-switcher) - Pop\!\_OS GTK widget library / app for switching themes
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
+- [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
+- [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [zio\-sendfile](https://github.com/pop-os/zio-sendfile) - Rust crate for zero\-copy I/O on Linux \(supporting stable Rust\)

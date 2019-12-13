@@ -23,10 +23,12 @@
 /apt-repo-crawler/
 /apt-sources-lists/
 /apt.pop-os.org/
+/as-result/
 /async-fetcher/
 /blkid/
 /buildchain/
 /bus-writer/
+/chromium/
 /code-of-conduct/
 /connectivity/
 /curl/
@@ -45,6 +47,7 @@
 /eddy/
 /envfile/
 /exit-status-ext/
+/fd-reactor/
 /ffmpeg/
 /firefox-css-extension/
 /firmware-manager/
@@ -101,6 +104,7 @@
 /packaging-natron/
 /parallel-getter/
 /partition-identity/
+/pidfd/
 /plymouth-theme/
 /pop/
 /popsicle/
@@ -114,9 +118,11 @@
 /repoman/
 /scheduler/
 /session/
+/shell/
 /shop/
 /srmw/
 /steam/
+/support/
 /sys-mount/
 /sysfs-class/
 /system76-acpi-dkms/
@@ -135,9 +141,11 @@
 /theme-switcher/
 /token_expander/
 /ubiquity-slideshow-pop/
+/ubuntu-drivers-common/
 /ubuntu-version/
 /upgrade/
 /url-crawler/
 /url-scraper/
+/usb-disk-probe/
 /wallpapers/
 /zio-sendfile/
