@@ -6,6 +6,7 @@ codenames=(
     bionic
     disco
     eoan
+    focal
 )
 
 archs=(

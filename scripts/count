@@ -18,7 +18,8 @@ args = parser.parse_args(sys.argv[1:])
 codenames = (
     "bionic",
     "disco",
-    "eoan"
+    "eoan",
+    "focal",
 )
 
 lp = launchpad_anon()

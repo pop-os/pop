@@ -32,7 +32,8 @@ codenames = (
     "xenial",
     "bionic",
     "disco",
-    "eoan"
+    "eoan",
+    "focal",
 )
 
 staging = {}
