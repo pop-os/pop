@@ -20,7 +20,7 @@ do
   do
     CHROOT="/srv/chroot/${codename}-${arch}-sbuild"
     test -e "${CHROOT}" >/dev/null || sudo sbuild-createchroot \
-        --include=eatmydata,gnupg \
+        --include=gnupg \
         --components=main,restricted,universe,multiverse \
         --arch="${arch}" \
         "${codename}" \
