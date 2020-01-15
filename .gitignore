@@ -25,17 +25,21 @@
 /apt.pop-os.org/
 /as-result/
 /async-fetcher/
+/base-files/
 /blkid/
 /buildchain/
 /bus-writer/
+/cargo-make/
 /chromium/
 /code-of-conduct/
 /connectivity/
 /curl/
 /dbus-udisks2/
 /deb-architectures/
+/deb-changelog/
+/deb-control/
+/deb-diversion/
 /debarchive/
-/debian-changelog/
 /debrepbuild/
 /deckard/
 /default-settings/
@@ -49,7 +53,6 @@
 /exit-status-ext/
 /fd-reactor/
 /ffmpeg/
-/firefox-css-extension/
 /firmware-manager/
 /fonts/
 /freedesktop-desktop-entry/
@@ -111,6 +114,7 @@
 /proc-modules/
 /proc-mounts/
 /progress-streams/
+/pyflatpak/
 /repo-curated-free/
 /repo-multiarch/
 /repo-proprietary/
@@ -123,6 +127,7 @@
 /srmw/
 /steam/
 /support/
+/switcheroo-control/
 /sys-mount/
 /sysfs-class/
 /system76-acpi-dkms/

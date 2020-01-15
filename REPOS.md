@@ -14,17 +14,21 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
 - [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
+- [base\-files](https://github.com/pop-os/base-files) - Pop\!\_OS packaging of the base\-files debian package
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
+- [cargo\-make](https://github.com/pop-os/cargo-make) - Rust task runner and build tool\.
 - [chromium](https://github.com/pop-os/chromium) - Fork of https://salsa\.debian\.org/chromium\-team/chromium
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [curl](https://github.com/pop-os/curl) - Mirror of https://salsa\.debian\.org/debian/curl
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
+- [deb\-changelog](https://github.com/pop-os/deb-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
+- [deb\-control](https://github.com/pop-os/deb-control) - Zero\-copy parser & futures codec for Debian control files
+- [deb\-diversion](https://github.com/pop-os/deb-diversion) - Futures codec for Debian's dpkg diversion file
 - [debarchive](https://github.com/pop-os/debarchive) - Rust crate which provides direct access to files within a Debian archive
-- [debian\-changelog](https://github.com/pop-os/debian-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
 - [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
@@ -38,7 +42,6 @@ This is an automatically generated file. See `scripts/readme`
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [fd\-reactor](https://github.com/pop-os/fd-reactor) - A Rust crate which provides an async reactor for handling file descriptors in a background thread
 - [ffmpeg](https://github.com/pop-os/ffmpeg) - ffmpeg with NVENC support enabled
-- [firefox\-css\-extension](https://github.com/pop-os/firefox-css-extension) - A Firefox Extension for Pop OS that ensures CSS is visible at all times
 - [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
@@ -100,6 +103,7 @@ This is an automatically generated file. See `scripts/readme`
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
+- [pyflatpak](https://github.com/pop-os/pyflatpak) - A simple Python wrapper around flatpak commands
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
 - [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
@@ -112,6 +116,7 @@ This is an automatically generated file. See `scripts/readme`
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
 - [support](https://github.com/pop-os/support) - Support utilities and libraries
+- [switcheroo\-control](https://github.com/pop-os/switcheroo-control) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/switcheroo\-control
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
 - [system76\-acpi\-dkms](https://github.com/pop-os/system76-acpi-dkms) - System76 ACPI Driver \(DKMS\)
