@@ -49,7 +49,6 @@ build_archs = {
 
 build_series = {
     'bionic': ('18.04', True),
-    'disco': ('19.04', True),
     'eoan': ('19.10', True),
     'focal': ('20.04', True),
 }
