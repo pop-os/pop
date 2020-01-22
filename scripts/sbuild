@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+from os import path
+from subprocess import check_call
+import sys
+
+parser = argparse.ArgumentParser(description="Run Pop!_OS build process")
+parser.add_argument("--dev", action="store_true")
+parser.add_argument("--dist", default="eoan")
+parser.add_argument("repo")
+args = parser.parse_args(sys.argv[1:])
+
+if args.dev:
+    os.environ["S76_DEV"] = "1"
+    ppa_key = ".ppa-dev.asc"
+    ppa_release = "system76-dev/stable"
+    ppa_proposed = "system76-dev/pre-stable"
+else:
+    ppa_key = ".ppa.asc"
+    ppa_release = "system76/pop"
+    ppa_proposed = "system76/proposed"
+
+sbuild = [
+    "sbuild",
+    "--dist=" + args.dist,
+    "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-updates main restricted universe multiverse",
+    "--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-updates main restricted universe multiverse",
+    "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-security main restricted universe multiverse",
+    "--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-security main restricted universe multiverse",
+    "--extra-repository=deb http://ppa.launchpad.net/" + ppa_release + "/ubuntu " + args.dist + " main",
+    "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_release + "/ubuntu " + args.dist + " main",
+    "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
+    "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
+    "--extra-repository-key=" + path.join(os.getcwd(), "scripts", ppa_key),
+]
+
+check_call(sbuild, cwd=args.repo)
