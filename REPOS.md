@@ -2,6 +2,7 @@
 This is an automatically generated file. See `scripts/readme`
 
 - [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
+- [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
 - [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
