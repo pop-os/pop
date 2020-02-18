@@ -42,6 +42,13 @@ def github_inner(url, data=None):
 
     if data:
         request_data = json.dumps(data).encode()
+
+        # Put a token in scripts/.github_token to increase rate limit
+        if os.path.exists("scripts/.github_token"):
+            f = open("scripts/.github_token")
+            headers["Authorization"] = "token " + f.read().strip()
+            f.close()
+
         headers["Content-Type"] = "application/json"
     else:
         request_data = None
@@ -62,32 +69,15 @@ def github(url):
     while(1):
         page += 1
         page_url = url + "?page=" + str(page) + "&per_page=" + str(per_page)
-
-        # Put a token in scripts/.github_token to increase rate limit
-        if os.path.exists("scripts/.github_token"):
-            f = open("scripts/.github_token")
-            page_url += "&access_token=" + f.read().strip()
-            f.close()
-
         page_data = github_inner(page_url)
         data.extend(page_data)
         if len(page_data) < per_page:
             return data
 
 def github_no_pages(url):
-    if os.path.exists("scripts/.github_token"):
-        f = open("scripts/.github_token")
-        url += "?access_token=" + f.read().strip()
-        f.close()
-
     return github_inner(url)
 
 def github_post(url, data):
-    if os.path.exists("scripts/.github_token"):
-        f = open("scripts/.github_token")
-        url += "?access_token=" + f.read().strip()
-        f.close()
-
     return github_inner(url, data)
 
 def foreach_repo(fn, selected=[], dev=False):
