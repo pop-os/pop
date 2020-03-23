@@ -83,9 +83,10 @@ This is an automatically generated file. See `scripts/readme`
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
-- [linux](https://github.com/pop-os/linux) - Linux kernel source tree
+- [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mutter](https://github.com/pop-os/mutter) - Mirrored from https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/toolkit
@@ -113,6 +114,7 @@ This is an automatically generated file. See `scripts/readme`
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell \- WIP
+- [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop

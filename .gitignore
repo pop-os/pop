@@ -97,6 +97,7 @@
 /linux/
 /linux-firmware/
 /logind-dbus/
+/meta-python/
 /mutter/
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
@@ -124,6 +125,7 @@
 /scheduler/
 /session/
 /shell/
+/shell-shortcuts/
 /shop/
 /srmw/
 /steam/
