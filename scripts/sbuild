@@ -10,6 +10,7 @@ import sys
 parser = argparse.ArgumentParser(description="Run Pop!_OS build process")
 parser.add_argument("--dev", action="store_true")
 parser.add_argument("--dist", default=distro.codename())
+parser.add_argument("--arch", default="amd64")
 parser.add_argument("repo")
 args = parser.parse_args(sys.argv[1:])
 
@@ -26,6 +27,7 @@ else:
 sbuild = [
     "sbuild",
     "--dist=" + args.dist,
+    "--arch=" + args.arch,
     "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-updates main restricted universe multiverse",
     "--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-updates main restricted universe multiverse",
     "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-security main restricted universe multiverse",
