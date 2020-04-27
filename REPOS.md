@@ -16,6 +16,7 @@ This is an automatically generated file. See `scripts/readme`
 - [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [base\-files](https://github.com/pop-os/base-files) - Pop\!\_OS packaging of the base\-files debian package
+- [beta](https://github.com/pop-os/beta) - Pop\!\_OS 20\.04 Beta
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
@@ -53,7 +54,7 @@ This is an automatically generated file. See `scripts/readme`
 - [geary](https://github.com/pop-os/geary) - Pop\!\_OS Fork of https://salsa\.debian\.org/gnome\-team/geary\.git
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
-- [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - GNOME Initial Setup
+- [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
 - [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
 - [gnome\-settings\-daemon](https://github.com/pop-os/gnome-settings-daemon) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-settings\-daemon
@@ -106,6 +107,7 @@ This is an automatically generated file. See `scripts/readme`
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
 - [pyflatpak](https://github.com/pop-os/pyflatpak) - A simple Python wrapper around flatpak commands
+- [python\-apt](https://github.com/pop-os/python-apt) - Pop\!\_OS fork of https://salsa\.debian\.org/apt\-team/python\-apt
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
 - [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
@@ -116,6 +118,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell \- WIP
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
+- [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
 - [support](https://github.com/pop-os/support) - Support utilities and libraries
@@ -145,4 +148,5 @@ This is an automatically generated file. See `scripts/readme`
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
+- [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [zio\-sendfile](https://github.com/pop-os/zio-sendfile) - Rust crate for zero\-copy I/O on Linux \(supporting stable Rust\)

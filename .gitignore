@@ -27,6 +27,7 @@
 /as-result/
 /async-fetcher/
 /base-files/
+/beta/
 /blkid/
 /buildchain/
 /bus-writer/
@@ -117,6 +118,7 @@
 /proc-mounts/
 /progress-streams/
 /pyflatpak/
+/python-apt/
 /repo-curated-free/
 /repo-multiarch/
 /repo-proprietary/
@@ -127,6 +129,7 @@
 /shell/
 /shell-shortcuts/
 /shop/
+/sponsors/
 /srmw/
 /steam/
 /support/
@@ -156,4 +159,5 @@
 /url-scraper/
 /usb-disk-probe/
 /wallpapers/
+/website/
 /zio-sendfile/
