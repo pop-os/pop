@@ -115,7 +115,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
-- [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell \- WIP
+- [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
@@ -132,7 +132,6 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-oled](https://github.com/pop-os/system76-oled) - Control brightness on OLED displays
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
-- [system76\-r8125\-dkms](https://github.com/pop-os/system76-r8125-dkms) - System76 Realtek 8125 DKMS driver
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd](https://github.com/pop-os/systemd) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-core\-dev/ubuntu/\+source/systemd
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
@@ -140,6 +139,7 @@ This is an automatically generated file. See `scripts/readme`
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [theme\-switcher](https://github.com/pop-os/theme-switcher) - Pop\!\_OS GTK widget library / app for switching themes
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
+- [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak
 - [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.

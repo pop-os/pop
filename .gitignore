@@ -143,7 +143,6 @@
 /system76-io-dkms/
 /system76-oled/
 /system76-power/
-/system76-r8125-dkms/
 /system76-wallpapers/
 /systemd/
 /systemd-boot-conf/
@@ -151,6 +150,7 @@
 /theme/
 /theme-switcher/
 /token_expander/
+/transition/
 /ubiquity-slideshow-pop/
 /ubuntu-drivers-common/
 /ubuntu-version/
