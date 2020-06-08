@@ -8,6 +8,7 @@ from launchpadlib.launchpad import Launchpad
 
 # Packages to release in system76-dev
 DEV_REPOS = (
+    "amd-ppt-bin",
     "distinst",
     "firmware-manager",
     "fwupd",
