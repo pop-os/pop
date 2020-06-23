@@ -40,6 +40,7 @@ GIT_DIR = path.join(BUILD_DIR, 'git')
 SOURCE_DIR = path.join(BUILD_DIR, 'source')
 BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
+FAILURES_DIR = path.join(BUILD_DIR, 'failures')
 
 # Architectures to build for
 build_archs = {
@@ -240,8 +241,12 @@ def dpkg_source(name, git, series):
         except Exception as ex:
             message = "\x1B[1m{} commit {} on {}: failed to build source: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex)
 
-            build_log = path.join(SOURCE_DIR, source_name + "_" + path_version + "_source.build")
+            build_log_filename = source_name + "_" + path_version + "_source.build"
+            build_log = path.join(SOURCE_DIR, build_log_filename)
+            failure_build_log = path.join(FAILURES_DIR, build_log_filename)
             if path.exists(build_log):
+                shutil.copyfile(build_log, failure_build_log)
+
                 with open(build_log, 'r') as f:
                     message += f.read()
 
@@ -315,7 +320,9 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
     if not debs:
         return []
 
-    build_log = path.join(BINARY_DIR, source_name + "_" + path_version + "_" + build_arch + ".build")
+    build_log_filename = source_name + "_" + path_version + "_" + build_arch + ".build"
+    build_log = path.join(BINARY_DIR, build_log_filename)
+    failure_build_log = path.join(FAILURES_DIR, build_log_filename)
 
     if found_binaries:
         print("\x1B[1m{} commit {} on {}: binaries for {} already built\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
@@ -367,6 +374,8 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(source_name, git.id, series.codename, ex_s))
 
             if path.exists(build_log):
+                shutil.copyfile(build_log, failure_build_log)
+
                 with open(build_log, 'rb') as f:
                     sys.stdout.buffer.write(f.read())
             else:
@@ -376,6 +385,9 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
 
             return []
     else:
+        if path.exists(build_log):
+            shutil.copyfile(build_log, failure_build_log)
+
         print("\x1B[1m{} commit {} on {}: binaries already failed to build\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
     for deb_path in debs:
@@ -594,6 +606,10 @@ def ci():
     create_dir(SOURCE_DIR)
     create_dir(BINARY_DIR)
     recreate_dir(REPO_DIR)
+
+    if path.isdir(FAILURES_DIR):
+        shutil.rmtree(FAILURES_DIR)
+    os.mkdir(FAILURES_DIR)
 
     all_pocket_series = {}
     for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos, args.dev).items():
