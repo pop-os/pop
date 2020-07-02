@@ -28,7 +28,8 @@ DEV_REPOS = (
     "system76-io-dkms",
     "system76-oled",
     "system76-power",
-    "system76-wallpapers"
+    "system76-wallpapers",
+    "ubuntu-drivers-common",
 )
 
 def launchpad():

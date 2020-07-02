@@ -13,6 +13,7 @@
 /_build/
 
 /alacritty/
+/amd-ppt-bin/
 /api/
 /appstream-data/
 /appstream2dep11/
@@ -48,7 +49,6 @@
 /desktop/
 /disk-types/
 /distinst/
-/docs/
 /ecs-disk-manager/
 /eddy/
 /envfile/
