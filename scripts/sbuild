@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(description="Run Pop!_OS build process")
 parser.add_argument("--dev", action="store_true")
 parser.add_argument("--dist", default=distro.codename())
 parser.add_argument("--arch", default="amd64")
+parser.add_argument("--cpu", default="")
 parser.add_argument("repo")
 args = parser.parse_args(sys.argv[1:])
 
@@ -24,7 +25,24 @@ else:
     ppa_release = "system76/pop"
     ppa_proposed = "system76/proposed"
 
+if args.cpu != "":
+    # TODO: validate CPU
+    sbuild_conf = """
+    $build_environment = {{
+        'DEB_CFLAGS_APPEND' => '-march={}',
+        'RUSTFLAGS' => '--codegen target-cpu={} -v',
+    }};
+    """.format(args.cpu, args.cpu)
+    print(sbuild_conf)
+else:
+    sbuild_conf = ""
+
+with open("sbuild.conf", "w") as f:
+    f.write(sbuild_conf)
+
 sbuild = [
+    "env",
+    "SBUILD_CONFIG=" + path.realpath("sbuild.conf"),
     "sbuild",
     "--dist=" + args.dist,
     "--arch=" + args.arch,
