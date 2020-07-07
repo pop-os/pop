@@ -37,6 +37,7 @@ sbuild = [
     "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
     "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
     "--extra-repository-key=" + path.join(os.getcwd(), "scripts", ppa_key),
+    "--no-apt-distupgrade",
 ]
 
 check_call(sbuild, cwd=args.repo)

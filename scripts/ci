@@ -355,6 +355,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ppa_key),
+                "--no-apt-distupgrade",
             ]
 
             if build_all:
