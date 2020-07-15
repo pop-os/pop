@@ -33,7 +33,6 @@
 /buildchain/
 /bus-writer/
 /cargo-make/
-/chromium/
 /code-of-conduct/
 /connectivity/
 /curl/
@@ -79,6 +78,7 @@
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
 /gnome-shell-theme/
+/gnome-terminal/
 /grub-theme/
 /gtk-extras/
 /gtk-theme/
@@ -104,6 +104,7 @@
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
 /nvidia-video-codec/
+/opt/
 /os-detect/
 /os-release/
 /packaging-ci/
