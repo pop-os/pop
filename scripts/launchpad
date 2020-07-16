@@ -31,7 +31,6 @@ REPO_DIR = path.join(BUILD_DIR, 'repos')
 codenames = (
     "xenial",
     "bionic",
-    "eoan",
     "focal",
 )
 
