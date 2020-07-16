@@ -27,7 +27,6 @@
 /apt.pop-os.org/
 /as-result/
 /async-fetcher/
-/base-files/
 /beta/
 /blkid/
 /buildchain/
@@ -35,7 +34,6 @@
 /cargo-make/
 /code-of-conduct/
 /connectivity/
-/curl/
 /dbus-udisks2/
 /deb-architectures/
 /deb-changelog/
@@ -53,7 +51,6 @@
 /envfile/
 /exit-status-ext/
 /fd-reactor/
-/ffmpeg/
 /firmware-manager/
 /fonts/
 /freedesktop-desktop-entry/
@@ -61,7 +58,6 @@
 /fwupd/
 /fwupd-dbus/
 /gdm3/
-/geary/
 /gnome-control-center/
 /gnome-desktop3/
 /gnome-initial-setup/
@@ -103,7 +99,6 @@
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
-/nvidia-video-codec/
 /opt/
 /os-detect/
 /os-release/
@@ -123,6 +118,7 @@
 /repo-curated-free/
 /repo-multiarch/
 /repo-proprietary/
+/repo-release/
 /repo-ubuntu-mirror/
 /repoman/
 /scheduler/
