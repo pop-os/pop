@@ -18,6 +18,8 @@ import shutil
 from subprocess import check_call, check_output
 import sys
 from threading import Lock
+from urllib.error import HTTPError
+from urllib.request import urlopen
 
 from lib import foreach_repo_parallel, github_post
 from git import git_ids_and_branches, git_timestamp_id, git_datetime_id, git_archive_id
@@ -270,7 +272,7 @@ def dpkg_source(name, git, series):
 
     return dsc_path, tar_path
 
-def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
+def dpkg_binary(dsc_path, name, git, series, build_arch, build_all, pockets):
     with open(dsc_path, "r") as fp:
         dsc = Dsc(fp)
 
@@ -354,8 +356,17 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + series.codename + " main",
                 "--extra-repository-key=" + path.join(POP_DIR, "scripts", ppa_key),
+                "--extra-repository-key=" + path.join(POP_DIR, "scripts", ".pop-os.asc"),
                 "--no-apt-distupgrade",
             ]
+
+            for (repo, _) in pockets:
+                try:
+                    urlopen("http://apt.pop-os.org/staging/{}/dists/{}/Release".format(repo, series.codename))
+                except HTTPError:
+                    pass
+                else:
+                    sbuild.append("--extra-repository=deb http://apt.pop-os.org/staging/{} {} main".format(repo, series.codename))
 
             if build_all:
                 sbuild.append("--arch-all")
@@ -404,7 +415,7 @@ def build_packages_thread(args):
     if dsc_path and tar_path:
         for build_arch in build_archs:
             build_all = build_archs[build_arch]
-            deb_paths += dpkg_binary(dsc_path, name, git, series, build_arch, build_all)
+            deb_paths += dpkg_binary(dsc_path, name, git, series, build_arch, build_all, pockets)
     return (name, git, series, pockets, dsc_path, tar_path, deb_paths)
 
 def build_packages(name):
