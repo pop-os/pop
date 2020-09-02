@@ -5,6 +5,7 @@ set -e
 codenames=(
     bionic
     focal
+    groovy
 )
 
 archs=(
