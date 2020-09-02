@@ -75,7 +75,9 @@ This is an automatically generated file. See `scripts/readme`
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
+- [keyboard\-backlight](https://github.com/pop-os/keyboard-backlight) - Keyboard configuration UI
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
+- [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
@@ -108,6 +110,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
 - [repo\-release](https://github.com/pop-os/repo-release) - Produces Pop release package repositories
 - [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
+- [repolib](https://github.com/pop-os/repolib) - Python library for managing APT sources
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
@@ -136,7 +139,6 @@ This is an automatically generated file. See `scripts/readme`
 - [theme\-switcher](https://github.com/pop-os/theme-switcher) - Pop\!\_OS GTK widget library / app for switching themes
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak
-- [ubiquity\-slideshow\-pop](https://github.com/pop-os/ubiquity-slideshow-pop) - Pop Ubiquity Installation Slideshow
 - [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.

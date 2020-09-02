@@ -86,7 +86,9 @@
 /intel-pstate/
 /iso/
 /kernelstub/
+/keyboard-backlight/
 /kit/
+/libhandy/
 /libnvidia-container/
 /libparted/
 /libxmlb/
@@ -119,6 +121,7 @@
 /repo-proprietary/
 /repo-release/
 /repo-ubuntu-mirror/
+/repolib/
 /repoman/
 /scheduler/
 /session/
@@ -147,7 +150,6 @@
 /theme-switcher/
 /token_expander/
 /transition/
-/ubiquity-slideshow-pop/
 /ubuntu-drivers-common/
 /ubuntu-version/
 /upgrade/
