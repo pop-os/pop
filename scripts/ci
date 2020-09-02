@@ -51,6 +51,7 @@ build_archs = {
 build_series = {
     'bionic': ('18.04', True),
     'focal': ('20.04', True),
+    'groovy': ('20.10', True),
 }
 
 def iprint(level, value):
