@@ -612,7 +612,7 @@ def ci():
     os.mkdir(FAILURES_DIR)
 
     all_pocket_series = {}
-    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos, args.dev).items():
+    for repo_name, pocket_series in foreach_repo_parallel(callback, args.repos, args.dev, 4).items():
         for pocket in pocket_series:
             for series in pocket_series[pocket]:
                 if not pocket in all_pocket_series:

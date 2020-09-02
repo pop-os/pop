@@ -94,7 +94,7 @@ def foreach_repo(fn, selected=[], dev=False):
 
     return ret
 
-def foreach_repo_parallel(fn, selected=[], dev=False):
+def foreach_repo_parallel(fn, selected=[], dev=False, processes=None):
     selected = [item.rstrip('/') for item in selected]
 
     repos = github("https://api.github.com/orgs/pop-os/repos")
@@ -108,7 +108,7 @@ def foreach_repo_parallel(fn, selected=[], dev=False):
             args.append(repo)
             keys.append(repo["name"])
 
-    pool = multiprocessing.Pool()
+    pool = multiprocessing.Pool(processes)
     values = pool.map(fn, args)
     pool.close()
     pool.join()
