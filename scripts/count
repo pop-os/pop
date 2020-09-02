@@ -18,6 +18,7 @@ args = parser.parse_args(sys.argv[1:])
 codenames = (
     "bionic",
     "focal",
+    "groovy",
 )
 
 lp = launchpad_anon()
