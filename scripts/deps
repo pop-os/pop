@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+PACKAGES=(
+	cargo # for rust packages
+	devscripts # for all packages
+	debhelper # for most packages
+	dh-apport # for ubuntu-drivers-common
+	dh-migrations # for gnome-control-center
+	gnome-pkg-tools # for gnome-settings-daemon
+	gobject-introspection # for fwupd and gdm3
+	libdrm-dev # for ubuntu-drivers-common
+	libkmod-dev # for ubuntu-drivers-common
+	libpciaccess-dev # for ubuntu-drivers-common
+	python3-distutils-extra # for sessioninstaller
+	python3-setuptools # for python-apt and ubuntu-drivers-common
+	quilt # for packages that use patches
+)
+
+sudo apt install --yes "${PACKAGES[@]}"
