@@ -114,6 +114,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
+- [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Fork of https://launchpad\.net/sessioninstaller
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
