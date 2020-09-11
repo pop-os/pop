@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+function git_remote {
+    echo -e "\x1B[1m$1: $2 = $3\x1B[0m"
+    if git -C "$1" remote | grep "^$2\$" > /dev/null
+    then
+        git -C "$1" remote set-url "$2" "$3"
+    else
+        git -C "$1" remote add "$2" "$3"
+    fi
+    git -C "$1" remote update "$2"
+    git -C "$1" remote prune "$2"
+}
+
+function debian_gnome {
+    git_remote "$1" debian "https://salsa.debian.org/gnome-team/$1.git"
+}
+
+git_remote gdm3 debian https://salsa.debian.org/gnome-team/gdm.git
+debian_gnome gnome-control-center
+debian_gnome gnome-online-accounts
+debian_gnome gnome-settings-daemon
+debian_gnome gnome-shell
+debian_gnome gnome-terminal
+git_remote libhandy debian https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git
+debian_gnome mutter

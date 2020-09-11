@@ -1,6 +1,7 @@
 # Repositories
 This is an automatically generated file. See `scripts/readme`
 
+- [accountsservice](https://github.com/pop-os/accountsservice) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/accountsservice
 - [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
 - [amd\-ppt\-bin](https://github.com/pop-os/amd-ppt-bin) - AMD PPT binary package
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
@@ -85,7 +86,7 @@ This is an automatically generated file. See `scripts/readme`
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
-- [mutter](https://github.com/pop-os/mutter) - Mirrored from https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
+- [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/toolkit
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
@@ -114,7 +115,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
-- [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Fork of https://launchpad\.net/sessioninstaller
+- [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Pop\!\_OS fork of https://launchpad\.net/sessioninstaller
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop

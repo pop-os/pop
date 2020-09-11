@@ -12,6 +12,7 @@
 /*.upload
 /_build/
 
+/accountsservice/
 /alacritty/
 /amd-ppt-bin/
 /api/
