@@ -75,7 +75,7 @@ case "$1" in
 		done
 		;;
 	local)
-		grep "^deb ${REPOS}" /etc/apt/sources.list | \
+		grep "^deb ${REPOS}" /etc/apt/sources.list{,.d/*} | \
 			cut -d " " -f2 |
 			sed -s "s#${REPOS}##"
 		;;
