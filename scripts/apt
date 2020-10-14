@@ -93,10 +93,6 @@ case "$1" in
 		grep "^deb ${REPOS}" /etc/apt/sources.list{,.d/*} | \
 			cut -d " " -f2 |
 			sed -s "s#${REPOS}##"
-		while read line
-		do
-			printf "%s\n" "$line"
-		done <<< $(bash -c "apt-manage list | grep popdev" 2>$1)
 		;;
 	remote)
 		curl -s "${REPOS}" | \
