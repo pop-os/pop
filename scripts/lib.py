@@ -11,6 +11,7 @@ DEV_REPOS = (
     "accountsservice",
     "amd-ppt-bin",
     "distinst",
+    "dwarves",
     "firmware-manager",
     "fwupd",
     "gdm3",
