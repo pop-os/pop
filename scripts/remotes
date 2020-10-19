@@ -16,11 +16,12 @@ function debian_gnome {
     git_remote "$1" debian "https://salsa.debian.org/gnome-team/$1.git"
 }
 
-git_remote gdm3 debian https://salsa.debian.org/gnome-team/gdm.git
+git_remote gdm3 debian "https://salsa.debian.org/gnome-team/gdm.git"
 debian_gnome gnome-control-center
 debian_gnome gnome-online-accounts
 debian_gnome gnome-settings-daemon
 debian_gnome gnome-shell
 debian_gnome gnome-terminal
-git_remote libhandy debian https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git
+git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 debian_gnome mutter
+git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
