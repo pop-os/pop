@@ -8,6 +8,7 @@ This is an automatically generated file. See `scripts/readme`
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
 - [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
+- [apt\-cmd](https://github.com/pop-os/apt-cmd) - Rust crate for interacting with apt commands
 - [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous and parallel fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
 - [apt\-keyring](https://github.com/pop-os/apt-keyring) - Rust crate for loading all available apt keyrings into an in\-memory keyring\.
 - [apt\-mirror](https://github.com/pop-os/apt-mirror) - Official apt\-mirror source\.
@@ -35,6 +36,7 @@ This is an automatically generated file. See `scripts/readme`
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
+- [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
 - [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
@@ -76,10 +78,10 @@ This is an automatically generated file. See `scripts/readme`
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
-- [keyboard\-backlight](https://github.com/pop-os/keyboard-backlight) - Keyboard configuration UI
+- [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
-- [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of libnvidia\-container
+- [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
@@ -88,14 +90,14 @@ This is an automatically generated file. See `scripts/readme`
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
-- [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/toolkit
+- [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/container\-toolkit
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-detect](https://github.com/pop-os/os-detect) - Rust crate for detecting the existence of an OS from an unmounted device, or path
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
-- [parallel\-getter](https://github.com/pop-os/parallel-getter) - Rust crate to GET a file with parallel GET requests
+- [parallel\-getter](https://github.com/pop-os/parallel-getter) - \*\* Deprecated \*\*
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes

@@ -19,6 +19,7 @@
 /appstream-data/
 /appstream2dep11/
 /apt-cli-wrappers/
+/apt-cmd/
 /apt-fetcher/
 /apt-keyring/
 /apt-mirror/
@@ -46,6 +47,7 @@
 /desktop/
 /disk-types/
 /distinst/
+/dwarves/
 /ecs-disk-manager/
 /eddy/
 /envfile/
@@ -87,7 +89,7 @@
 /intel-pstate/
 /iso/
 /kernelstub/
-/keyboard-backlight/
+/keyboard-configurator/
 /kit/
 /libhandy/
 /libnvidia-container/
