@@ -26,3 +26,4 @@ debian_gnome gnome-terminal
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 debian_gnome mutter
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
+git_remote virtualbox debian "https://salsa.debian.org/pkg-virtualbox-team/virtualbox.git"

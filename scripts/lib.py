@@ -32,6 +32,7 @@ DEV_REPOS = (
     "system76-power",
     "system76-wallpapers",
     "ubuntu-drivers-common",
+    "virtualbox",
 )
 
 def launchpad():

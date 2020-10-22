@@ -149,6 +149,7 @@ This is an automatically generated file. See `scripts/readme`
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
+- [virtualbox](https://github.com/pop-os/virtualbox) - Pop\!\_OS fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\.git
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [zio\-sendfile](https://github.com/pop-os/zio-sendfile) - Rust crate for zero\-copy I/O on Linux \(supporting stable Rust\)
