@@ -67,7 +67,7 @@ case "$1" in
 			sudo apt-manage add "${LINE}" \
 				--source-code \
 				--ident popdev-${LOCALREMOTE}$newrepo${DEVLINE} \
-				--name "Pop Development Branch $newrepo" || \
+				--name "Pop Development Branch $newrepo" &> /dev/null || \
 				sudo add-apt-repository -s "${LINE}"
 		done
 		;;
@@ -82,7 +82,8 @@ case "$1" in
 		do
 			echo "Removing repository for '$newrepo'"
 			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
-			sudo apt-manage remove popdev-${LOCALREMOTE}-$newrepo${DEVLINE} || \
+			sudo apt-manage remove popdev-${LOCALREMOTE}-$newrepo${DEVLINE} \
+				&> /dev/null || \
 				sudo add-apt-repository -r -s "${LINE}"
 
 			echo "Removing preference for '$newrepo'"
