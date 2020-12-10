@@ -92,8 +92,8 @@ case "$1" in
 			done
 			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 			sudo echo # Workaround for not having an assume-yes option in remove
-			sudo apt-manage remove popdev-${LOCALREMOTE}$r_newrepo${DEVLINE} || \
-				# &> /dev/null || \
+			sudo apt-manage remove -y popdev-${LOCALREMOTE}$r_newrepo${DEVLINE} \
+				&> /dev/null || \
 				sudo add-apt-repository -r -s "${LINE}"
 
 			echo "Removing preference for '$newrepo'"
