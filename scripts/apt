@@ -19,10 +19,16 @@ do
 	fi
 done
 
+# We may get some chars translated out of Idents.
+HYPHENS='@ # $ % ^ & * + = .'
+UNDERSCORES='| / < > ,'
+
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 REPOS="http://apt.pop-os.org/staging/"
+DEVLINE=''
 if [ "$DEV" == "1" ]
 then
+	DEVLINE='-dev'
     if [ "$LOCAL" == "1" ]
     then
         REPOS="file://${POP_DIR}/_build/repos/dev/"
@@ -32,6 +38,12 @@ then
 elif [ "$LOCAL" == "1" ]
 then
     REPOS="file://${POP_DIR}/_build/repos/"
+fi
+
+LOCALREMOTE=''
+if [ "$LOCAL" == "1" ]
+then
+	LOCALREMOTE='local-'
 fi
 
 case "$1" in
@@ -55,7 +67,17 @@ case "$1" in
 			EOF
 
 			echo "Adding repository for '$newrepo'"
-			sudo add-apt-repository -s "deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+			if command -v apt-manage
+			then
+				sudo apt-manage add "${LINE}" \
+					--source-code \
+					--ident popdev-${LOCALREMOTE}$newrepo${DEVLINE} \
+					--name "Pop Development Branch $newrepo" 
+				sudo apt-get update
+			else
+				sudo add-apt-repository -s "${LINE}"
+			fi
 		done
 		;;
 	remove)
@@ -68,8 +90,19 @@ case "$1" in
 		for newrepo in "${ARGV[@]:1}"
 		do
 			echo "Removing repository for '$newrepo'"
-			sudo add-apt-repository -r -s "deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
-
+			r_newrepo=${newrepo//+(@#$%^&*+=.)/-}
+			r_newrepo=$newrepo
+			for i in $HYPHENS
+				do r_newrepo=${r_newrepo//$i/-}
+			done
+			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+			if command -v apt-manage > /dev/null
+			then
+				sudo apt-manage remove -y popdev-${LOCALREMOTE}$r_newrepo${DEVLINE} 
+				sudo apt-get update
+			else
+				sudo add-apt-repository -r -s "${LINE}"
+			fi
 			echo "Removing preference for '$newrepo'"
 			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
 		done
