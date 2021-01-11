@@ -22,6 +22,8 @@ debian_gnome gnome-control-center
 debian_gnome gnome-online-accounts
 debian_gnome gnome-settings-daemon
 debian_gnome gnome-shell
+git_remote gnome-shell-extension-dashtodock debian "https://salsa.debian.org/gnome-team/shell-extensions/gnome-shell-extension-dashtodock.git"
+git_remote gnome-shell-extension-multi-monitors debian "https://salsa.debian.org/gnome-team/shell-extensions/gnome-shell-extension-multi-monitors.git"
 debian_gnome gnome-terminal
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 debian_gnome mutter
