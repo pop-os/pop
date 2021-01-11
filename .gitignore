@@ -45,6 +45,7 @@
 /deckard/
 /default-settings/
 /desktop/
+/desktop-icons-ng/
 /disk-types/
 /distinst/
 /dwarves/
@@ -54,6 +55,7 @@
 /exit-status-ext/
 /fd-reactor/
 /firmware-manager/
+/flatpak/
 /fonts/
 /freedesktop-desktop-entry/
 /fstab-generate/
@@ -65,12 +67,15 @@
 /gnome-initial-setup/
 /gnome-online-accounts/
 /gnome-pomodoro/
+/gnome-remote-desktop/
 /gnome-settings-daemon/
 /gnome-shell/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
+/gnome-shell-extension-dashtodock/
 /gnome-shell-extension-do-not-disturb/
 /gnome-shell-extension-gsconnect/
+/gnome-shell-extension-multi-monitors/
 /gnome-shell-extension-pop-battery-icon-fix/
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
@@ -91,6 +96,7 @@
 /kernelstub/
 /keyboard-configurator/
 /kit/
+/libdrm/
 /libhandy/
 /libnvidia-container/
 /libparted/
@@ -98,6 +104,7 @@
 /linux/
 /linux-firmware/
 /logind-dbus/
+/mesa/
 /meta-python/
 /mutter/
 /nvidia-container-runtime/
@@ -132,6 +139,7 @@
 /shell/
 /shell-shortcuts/
 /shop/
+/sideload/
 /sponsors/
 /srmw/
 /steam/

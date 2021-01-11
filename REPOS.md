@@ -34,6 +34,7 @@ This is an automatically generated file. See `scripts/readme`
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
+- [desktop\-icons\-ng](https://github.com/pop-os/desktop-icons-ng) - Packaging of https://gitlab\.com/rastersoft/desktop\-icons\-ng
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
 - [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
@@ -43,6 +44,7 @@ This is an automatically generated file. See `scripts/readme`
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [fd\-reactor](https://github.com/pop-os/fd-reactor) - A Rust crate which provides an async reactor for handling file descriptors in a background thread
 - [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
+- [flatpak](https://github.com/pop-os/flatpak) - Fork of https://salsa\.debian\.org/debian/flatpak
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
 - [fstab\-generate](https://github.com/pop-os/fstab-generate) - Rust crate to aid with generating fstab entries\.
@@ -54,12 +56,15 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
 - [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
+- [gnome\-remote\-desktop](https://github.com/pop-os/gnome-remote-desktop) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-remote\-desktop
 - [gnome\-settings\-daemon](https://github.com/pop-os/gnome-settings-daemon) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-settings\-daemon
 - [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
+- [gnome\-shell\-extension\-dashtodock](https://github.com/pop-os/gnome-shell-extension-dashtodock) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/shell\-extensions/gnome\-shell\-extension\-dashtodock
 - [gnome\-shell\-extension\-do\-not\-disturb](https://github.com/pop-os/gnome-shell-extension-do-not-disturb) - Enable or disable do not disturb mode\.
 - [gnome\-shell\-extension\-gsconnect](https://github.com/pop-os/gnome-shell-extension-gsconnect) - KDE Connect implementation for GNOME
+- [gnome\-shell\-extension\-multi\-monitors](https://github.com/pop-os/gnome-shell-extension-multi-monitors) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/shell\-extensions/gnome\-shell\-extension\-multi\-monitors
 - [gnome\-shell\-extension\-pop\-battery\-icon\-fix](https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix) - Fixes the battery icon in Pop\!\_OS to correctly match the current battery level\.
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
@@ -80,6 +85,7 @@ This is an automatically generated file. See `scripts/readme`
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
+- [libdrm](https://github.com/pop-os/libdrm) - Forked from https://salsa\.debian\.org/xorg\-team/lib/libdrm
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
@@ -87,6 +93,7 @@ This is an automatically generated file. See `scripts/readme`
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/tree/master/runtime
@@ -121,6 +128,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
+- [sideload](https://github.com/pop-os/sideload) - Fork of https://github\.com/elementary/sideload
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
