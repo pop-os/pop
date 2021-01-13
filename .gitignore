@@ -46,6 +46,7 @@
 /default-settings/
 /desktop/
 /desktop-icons-ng/
+/desktop-widget/
 /disk-types/
 /distinst/
 /dwarves/
@@ -72,7 +73,6 @@
 /gnome-shell/
 /gnome-shell-extension-alt-tab-raise-first-window/
 /gnome-shell-extension-always-show-workspaces/
-/gnome-shell-extension-dashtodock/
 /gnome-shell-extension-do-not-disturb/
 /gnome-shell-extension-gsconnect/
 /gnome-shell-extension-multi-monitors/
@@ -80,6 +80,7 @@
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
+/gnome-shell-extension-ubuntu-dock/
 /gnome-shell-theme/
 /gnome-terminal/
 /grub-theme/

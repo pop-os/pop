@@ -35,6 +35,7 @@ This is an automatically generated file. See `scripts/readme`
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
 - [desktop\-icons\-ng](https://github.com/pop-os/desktop-icons-ng) - Packaging of https://gitlab\.com/rastersoft/desktop\-icons\-ng
+- [desktop\-widget](https://github.com/pop-os/desktop-widget) - Pop Desktop Settings Widget
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
 - [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
@@ -61,7 +62,6 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
-- [gnome\-shell\-extension\-dashtodock](https://github.com/pop-os/gnome-shell-extension-dashtodock) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/shell\-extensions/gnome\-shell\-extension\-dashtodock
 - [gnome\-shell\-extension\-do\-not\-disturb](https://github.com/pop-os/gnome-shell-extension-do-not-disturb) - Enable or disable do not disturb mode\.
 - [gnome\-shell\-extension\-gsconnect](https://github.com/pop-os/gnome-shell-extension-gsconnect) - KDE Connect implementation for GNOME
 - [gnome\-shell\-extension\-multi\-monitors](https://github.com/pop-os/gnome-shell-extension-multi-monitors) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/shell\-extensions/gnome\-shell\-extension\-multi\-monitors
@@ -69,6 +69,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
+- [gnome\-shell\-extension\-ubuntu\-dock](https://github.com/pop-os/gnome-shell-extension-ubuntu-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [gnome\-shell\-theme](https://github.com/pop-os/gnome-shell-theme) - The GNOME Shell theme for Pop\!\_OS
 - [gnome\-terminal](https://github.com/pop-os/gnome-terminal) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-terminal\.git
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
