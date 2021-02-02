@@ -24,6 +24,7 @@ This is an automatically generated file. See `scripts/readme`
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
+- [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [deb\-changelog](https://github.com/pop-os/deb-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
@@ -74,6 +75,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-terminal](https://github.com/pop-os/gnome-terminal) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-terminal\.git
 - [grub\-theme](https://github.com/pop-os/grub-theme) - Grub bootloader theme
 - [gtk\-extras](https://github.com/pop-os/gtk-extras) - Rust crate containing an assortment of extra, unofficial GTK patterns, widgets, and traits\.
+- [gtk\-rs](https://github.com/pop-os/gtk-rs) - Fork of gtk\-rs to build with Ubuntu's Rustc version\.
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
 - [happiness](https://github.com/pop-os/happiness) - Send random quotes about happiness to your desktop
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
