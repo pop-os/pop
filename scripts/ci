@@ -27,8 +27,11 @@ Series = namedtuple('Series', 'codename version')
 parser = argparse.ArgumentParser(description="Package and deploy all Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
 parser.add_argument("--dev", action="store_true")
-parser.add_argument("--retry", action="store_true")
+parser.add_argument("--retry", type=lambda s: s.split())
 args = parser.parse_args(sys.argv[1:])
+
+if args.retry is None:
+    args.retry = []
 
 POP_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 if args.dev:
@@ -325,9 +328,22 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
     build_log = path.join(BINARY_DIR, build_log_filename)
     failure_build_log = path.join(FAILURES_DIR, build_log_filename)
 
+    retry_keys = [
+        name,
+        'source:' + source_name,
+        'git:' + git.id,
+        'dist:' + series.codename,
+        'arch:' + build_arch,
+    ]
+
+    retry = False
+    for retry_key in retry_keys:
+        if args.retry.contains(retry_key):
+            retry = True
+
     if found_binaries:
         print("\x1B[1m{} commit {} on {}: binaries for {} already built\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
-    elif not path.exists(build_log) or args.retry:
+    elif not path.exists(build_log) or retry:
         print("\x1B[1m{} commit {} on {}: building binaries for {}\x1B[0m".format(source_name, git.id, series.codename, build_arch), flush=True)
 
         try:
