@@ -338,7 +338,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
 
     retry = False
     for retry_key in retry_keys:
-        if args.retry.contains(retry_key):
+        if retry_key in args.retry:
             retry = True
 
     if found_binaries:
