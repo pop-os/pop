@@ -19,6 +19,7 @@ codenames = (
     "bionic",
     "focal",
     "groovy",
+    "hirsute",
 )
 
 lp = launchpad_anon()

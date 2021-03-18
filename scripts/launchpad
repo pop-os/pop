@@ -32,6 +32,7 @@ codenames = (
     "bionic",
     "focal",
     "groovy",
+    "hirsute",
 )
 
 staging = {}
