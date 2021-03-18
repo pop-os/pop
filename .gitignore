@@ -29,6 +29,7 @@
 /apt.pop-os.org/
 /as-result/
 /async-fetcher/
+/atom-editor/
 /beta/
 /blkid/
 /buildchain/
@@ -60,7 +61,6 @@
 /flatpak/
 /fonts/
 /freedesktop-desktop-entry/
-/fstab-generate/
 /fwupd/
 /fwupd-dbus/
 /gdm3/
@@ -114,7 +114,6 @@
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
 /opt/
-/os-detect/
 /os-release/
 /packaging-ci/
 /packaging-natron/
@@ -171,7 +170,6 @@
 /url-crawler/
 /url-scraper/
 /usb-disk-probe/
-/virtualbox/
+/vscode/
 /wallpapers/
 /website/
-/zio-sendfile/
