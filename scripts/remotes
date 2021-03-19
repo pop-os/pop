@@ -28,6 +28,7 @@ git_remote gnome-shell-extension-dashtodock debian "https://salsa.debian.org/gno
 git_remote gnome-shell-extension-multi-monitors debian "https://salsa.debian.org/gnome-team/shell-extensions/gnome-shell-extension-multi-monitors.git"
 debian_gnome gnome-terminal
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
+git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 debian_gnome mutter
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
 # Not packaged anymore: git_remote virtualbox debian "https://salsa.debian.org/pkg-virtualbox-team/virtualbox.git"
