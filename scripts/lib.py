@@ -22,6 +22,7 @@ DEV_REPOS = (
     "libxmlb",
     "linux",
     "linux-firmware",
+    "mesa",
     "nvidia-graphics-drivers",
     "system76-acpi-dkms",
     "system76-dkms",
