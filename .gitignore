@@ -84,6 +84,7 @@
 /gnome-shell-extension-ubuntu-dock/
 /gnome-shell-theme/
 /gnome-terminal/
+/granite/
 /grub-theme/
 /gtk-extras/
 /gtk-rs/
@@ -170,6 +171,7 @@
 /url-crawler/
 /url-scraper/
 /usb-disk-probe/
+/virtualbox/
 /vscode/
 /wallpapers/
 /website/
