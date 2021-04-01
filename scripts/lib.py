@@ -10,6 +10,7 @@ from launchpadlib.launchpad import Launchpad
 DEV_REPOS = (
     "accountsservice",
     "amd-ppt-bin",
+    "bcmwl",
     "distinst",
     "dwarves",
     "firmware-manager",
