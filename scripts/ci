@@ -203,7 +203,7 @@ def dpkg_source(name, git, series):
             with open(changelog_path, 'w') as f:
                 changelog.write_to_open_file(f)
 
-            if os.path.exists(path.join(debian_path, 'patches')):
+            if os.path.exists(path.join(debian_path, 'patches', 'series')):
                 print("\x1B[1m{} commit {} on {}: applying debian patches\x1B[0m".format(source_name, git.id, series.codename), flush=True)
 
                 with open(os.devnull, 'w') as null:
