@@ -30,6 +30,7 @@ DEV_REPOS = (
     "system76-driver",
     "system76-firmware",
     "system76-io-dkms",
+    "system76-keyboard-configurator",
     "system76-oled",
     "system76-power",
     "system76-wallpapers",
