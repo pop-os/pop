@@ -32,4 +32,5 @@ git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
 debian_gnome mutter
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
+git_remote touchegg upstream "https://github.com/JoseExposito/touchegg.git"
 git_remote virtualbox debian "https://salsa.debian.org/pkg-virtualbox-team/virtualbox.git"
