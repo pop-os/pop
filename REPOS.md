@@ -20,7 +20,7 @@ This is an automatically generated file. See `scripts/readme`
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [atom\-editor](https://github.com/pop-os/atom-editor) - GitHub's Atom Editor
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
-- [beta](https://github.com/pop-os/beta) - Pop\!\_OS 20\.04 Beta
+- [beta](https://github.com/pop-os/beta) - Pop\!\_OS 21\.04 Beta
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
