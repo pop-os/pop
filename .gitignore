@@ -38,6 +38,7 @@
 /code-of-conduct/
 /connectivity/
 /cosmic/
+/cosmic-dock/
 /dbus-udisks2/
 /deb-architectures/
 /deb-changelog/
@@ -82,7 +83,6 @@
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
-/gnome-shell-extension-ubuntu-dock/
 /gnome-shell-theme/
 /gnome-terminal/
 /granite/
@@ -111,6 +111,7 @@
 /logind-dbus/
 /mesa/
 /meta-python/
+/mozc/
 /mutter/
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
@@ -165,6 +166,7 @@
 /theme/
 /theme-switcher/
 /token_expander/
+/touchegg/
 /transition/
 /ubuntu-drivers-common/
 /ubuntu-version/
@@ -176,3 +178,4 @@
 /vscode/
 /wallpapers/
 /website/
+/whitespace-conf/
