@@ -10,7 +10,7 @@ The purpose of this repository is to allow easy management of all Pop!\_OS relat
 
 Binary packages are hosted [on Launchpad](https://launchpad.net/~system76/+archive/ubuntu/pop/+packages). Many packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
 
-To view a list of all included repositores, see [REPOS.md](./REPOS.md)
+To view a list of all included repositories, see [REPOS.md](./REPOS.md)
 
 ### Dependencies
 
