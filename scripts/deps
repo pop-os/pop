@@ -8,6 +8,7 @@ PACKAGES=(
 	debhelper # for most packages
 	dh-apport # for ubuntu-drivers-common
 	dh-migrations # for gnome-control-center
+	dh-python # for hidpi-daemon
 	gnome-pkg-tools # for gnome-settings-daemon
 	gobject-introspection # for fwupd and gdm3
 	libdrm-dev # for ubuntu-drivers-common
