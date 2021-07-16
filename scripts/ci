@@ -132,8 +132,6 @@ def github_status(name, _id, context, state):
 
     return response
 
-debuild_lock = Lock()
-
 def dpkg_source(name, git, series):
     extract_dir = path.join(SOURCE_DIR, git.id + "_" + series.codename)
 
@@ -227,17 +225,16 @@ def dpkg_source(name, git, series):
 
                 print("\x1B[1m{} commit {} on {}: finished updating changelog\x1B[0m".format(name, git.id, series.codename), flush=True)
 
-            with debuild_lock:
-                with open(os.devnull, 'w') as null:
-                    check_call([
-                        'debuild',
-                        '--preserve-envvar', 'PATH',
-                        '--set-envvar', 'SOURCE_DATE_EPOCH=' + str(git.timestamp),
-                        '--no-tgz-check',
-                        '-d',
-                        '-S',
-                        '--source-option=--tar-ignore=.git',
-                    ], stdout=null, stderr=null, cwd=extract_dir)
+            with open(os.devnull, 'w') as null:
+                check_call([
+                    'debuild',
+                    '--preserve-envvar', 'PATH',
+                    '--set-envvar', 'SOURCE_DATE_EPOCH=' + str(git.timestamp),
+                    '--no-tgz-check',
+                    '-d',
+                    '-S',
+                    '--source-option=--tar-ignore=.git',
+                ], stdout=null, stderr=null, cwd=extract_dir)
 
             print("\x1B[1m{} commit {} on {}: finished building source\x1B[0m".format(name, git.id, series.codename), flush=True)
 
