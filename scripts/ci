@@ -599,12 +599,12 @@ def callback(repo):
 
 def create_dir(d):
     if not path.isdir(d):
-        os.mkdir(d)
+        os.makedirs(d)
 
 def recreate_dir(d):
     if path.isdir(d):
         shutil.rmtree(d)
-        os.mkdir(d)
+    create_dir(d)
 
 def ci():
     email = os.environ.get("DEBEMAIL")
