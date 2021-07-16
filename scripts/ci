@@ -442,7 +442,6 @@ def build_packages(name):
                     pocket_series_ids[pocket][series] = _id
 
     sources = []
-    ids = git_ids_and_branches(cwd)
     for (_id, branches) in sorted(ids.items()):
         git = git_tar(cwd, _id)
         expanded = expand_series(branches)
