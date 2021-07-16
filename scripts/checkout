@@ -13,7 +13,7 @@ parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def callback(repo):
-    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+    print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
     if os.path.exists(repo["name"]):
         branch = repo["default_branch"]
@@ -25,6 +25,6 @@ def callback(repo):
         subprocess.run(["git", "-C", repo["name"], "submodule", "sync", "--recursive"], check=True)
         subprocess.run(["git", "-C", repo["name"], "submodule", "update", "--init", "--recursive"], check=True)
     else:
-        print("does not exist")
+        print("does not exist", flush=True)
 
 foreach_repo(callback, args.repos)

@@ -13,10 +13,10 @@ parser.add_argument("repos", nargs="*", default=[])
 args = parser.parse_args(sys.argv[1:])
 
 def callback(repo):
-    print("\x1B[1m" + repo["name"] + "\x1B[0m")
+    print("\x1B[1m" + repo["name"] + "\x1B[0m", flush=True)
 
     if repo["name"] == "pop":
-        print("skipping")
+        print("skipping", flush=True)
         return
 
     if args.ssh:
@@ -25,7 +25,7 @@ def callback(repo):
         url = repo["clone_url"]
 
     if os.path.exists(repo["name"]):
-        print("already exists")
+        print("already exists", flush=True)
     else:
         subprocess.run(["git", "clone", "--recursive", url, repo["name"]], check=True)
 
