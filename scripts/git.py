@@ -1,6 +1,6 @@
 from subprocess import check_call, check_output
 
-def git_ids_and_branches(cwd, fetch=True):
+def git_ids_and_branches(cwd):
     """
     Returns a `dict` mapping each commit ID to a list of branches.
 
@@ -17,8 +17,7 @@ def git_ids_and_branches(cwd, fetch=True):
             'ffb788cccfe0cd7feedcfe8f0b8e9154097a46ca':	['master'],
         }
     """
-    if fetch:
-        check_call(['git', 'fetch', 'origin'], cwd=cwd)
+    check_call(['git', 'fetch', 'origin'], cwd=cwd)
     o = check_output(['git', 'ls-remote', '--heads', 'origin'], cwd=cwd)
     prefix = 'refs/heads/'
     result = {}
