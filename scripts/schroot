@@ -6,6 +6,7 @@ codenames=(
     bionic
     focal
     hirsute
+    impish
 )
 
 archs=(
