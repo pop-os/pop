@@ -3,9 +3,9 @@
 set -e
 
 codenames=(
-    bionic
-    focal
-    hirsute
+#    bionic
+#    focal
+#    hirsute
     impish
 )
 
