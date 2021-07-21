@@ -29,9 +29,9 @@ BINARY_DIR = path.join(BUILD_DIR, 'binary')
 REPO_DIR = path.join(BUILD_DIR, 'repos')
 
 codenames = (
-    "bionic",
-    "focal",
-    "hirsute",
+#    "bionic",
+#    "focal",
+#    "hirsute",
     "impish",
 )
 

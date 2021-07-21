@@ -52,9 +52,9 @@ build_archs = {
 }
 
 build_series = {
-    'bionic': ('18.04', True),
-    'focal': ('20.04', True),
-    'hirsute': ('21.04', True),
+    # 'bionic': ('18.04', True),
+    # 'focal': ('20.04', True),
+    # 'hirsute': ('21.04', True),
     'impish': ('21.10', True),
 }
 
