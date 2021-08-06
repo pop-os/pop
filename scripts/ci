@@ -246,7 +246,7 @@ def dpkg_source(name, git, series):
             build_log = path.join(SOURCE_DIR, build_log_filename)
             failure_build_log = path.join(FAILURES_DIR, build_log_filename)
             if path.exists(build_log):
-                os.link(build_log, failure_build_log)
+                shutil.copyfile(build_log, failure_build_log)
 
                 with open(build_log, 'r') as f:
                     message += f.read()
@@ -389,7 +389,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
                 print("\x1B[1m{} commit {} on {}: failed to report build failure: {!r}\x1B[0m\n".format(name, git.id, series.codename, ex_s))
 
             if path.exists(build_log):
-                os.link(build_log, failure_build_log)
+                shutil.copyfile(build_log, failure_build_log)
 
                 with open(build_log, 'rb') as f:
                     sys.stdout.buffer.write(f.read())
@@ -401,7 +401,7 @@ def dpkg_binary(dsc_path, name, git, series, build_arch, build_all):
             return []
     else:
         if path.exists(build_log):
-            os.link(build_log, failure_build_log)
+            shutil.copyfile(build_log, failure_build_log)
 
         print("\x1B[1m{} commit {} on {}: binaries already failed to build\x1B[0m".format(name, git.id, series.codename), flush=True)
 
