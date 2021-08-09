@@ -5,7 +5,6 @@ set -e
 codenames=(
     bionic
     focal
-    groovy
     hirsute
 )
 
