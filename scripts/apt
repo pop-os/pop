@@ -27,13 +27,13 @@ then
 	DEVLINE='-dev'
     if [ "$LOCAL" == "1" ]
     then
-        REPOS="file://${POP_DIR}/_build/repos/dev/"
+        REPOS="file://${POP_DIR}/_build/ci-dev/apt/"
     else
         REPOS="http://apt.pop-os.org/staging-ubuntu/"
     fi
 elif [ "$LOCAL" == "1" ]
 then
-    REPOS="file://${POP_DIR}/_build/repos/"
+    REPOS="file://${POP_DIR}/_build/ci/apt/"
 fi
 
 LOCALREMOTE=''
