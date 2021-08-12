@@ -461,7 +461,7 @@ fn main() {
     }).expect("failed to open apt cache");
 
     for (pocket, suite_packages) in pocket_packages.iter() {
-        eprintln!("pocket: {}", pocket.id());
+        eprintln!(bold!("pocket: {}"), pocket.id());
 
         let pocket_cache = apt_cache.child(pocket.id(), |name| {
             name == "dists" || name == "pool"
@@ -477,14 +477,14 @@ fn main() {
 
         let mut pool_rebuilt = false;
         for (suite, repo_packages) in suite_packages.iter() {
-            eprintln!("  suite: {} ({})", suite.id(), suite.version());
+            eprintln!(bold!("  suite: {} ({})"), suite.id(), suite.version());
 
             let suite_pool_cache = pool_cache.child(suite.id(), |name| {
                 repo_packages.contains_key(name)
             }).expect("failed to open suite pool cache");
 
             for (repo_name, (commit, package)) in repo_packages.iter() {
-                eprintln!("    repo: {}", repo_name);
+                eprintln!(bold!("    package: {}: {}"), repo_name, commit.id());
 
                 let mut repo_pool_cache = suite_pool_cache.child(repo_name, |name| {
                     name == commit.id()
