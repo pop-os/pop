@@ -477,6 +477,7 @@ fn main() {
                         fs::create_dir(&path)?;
 
                         process::Command::new("sbuild")
+                            .arg("--verbose")
                             .arg(if arch.build_all() { "--arch-all" } else { "--no-arch-all" })
                             .arg(format!("--arch={}", arch.id()))
                             .arg(format!("--dist={}", suite.id()))
