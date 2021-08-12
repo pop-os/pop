@@ -169,8 +169,8 @@ fn main() {
                     // Insert pattern entry if pattern matches
                     pattern == suite.id()
                 } else {
-                    // Do not insert wildcard entry if others are found
-                    pockets.contains_key(&key)
+                    // Only insert wildcard entry if no others are found
+                    !pockets.contains_key(&key)
                 };
                 if insert {
                     // Allow overwrite
