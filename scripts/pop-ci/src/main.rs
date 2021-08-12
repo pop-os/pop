@@ -94,13 +94,14 @@ fn main() {
     }
 
     let cache = Cache::new("_build/ci", |name| {
-        name == "git" || name == "apt"
+        name == "git" || name == "apt" || name == "log"
     }).expect("failed to open build cache");
 
     let git_cache = cache.child("git", |name| {
         repos.contains_key(name)
     }).expect("failed to open git cache");
 
+    let mut logs = BTreeMap::<String, (PathBuf, bool)>::new();
     let mut pocket_packages = BTreeMap::<Pocket, BTreeMap<Suite, BTreeMap<String, (GitCommit, Package)>>>::new();
     for (repo_name, repo_path) in repos.iter() {
         eprintln!(bold!("{}"), repo_name);
@@ -202,6 +203,18 @@ fn main() {
                     name == "source" || all_archs.iter().any(|arch| arch.id() == name)
                 }).expect("failed to open suite cache");
 
+                let source_log_name = format!(
+                    "{}_{}_{}_{}.log",
+                    repo_name, commit.id(), suite.id(), "source"
+                );
+                let source_log_path = cache.path().join("log").join(&source_log_name);
+                if source_log_path.is_file() {
+                    //TODO: rebuild capability
+                    eprintln!(bold!("{}: {}: {}: source already failed"), repo_name, commit_name, suite_name);
+                    assert_eq!(logs.insert(source_log_name, (source_log_path, false)), None);
+                    continue;
+                }
+
                 let source_res = suite_cache.build("source", archive_rebuilt, |path| {
                     eprintln!(bold!("{}: {}: {}: source building"), repo_name, commit_name, suite_name);
                     fs::create_dir(&path)?;
@@ -284,6 +297,20 @@ fn main() {
                     },
                     Err(err) => {
                         eprintln!(bold!("{}: {}: {}: source failed: {}"), repo_name, commit_name, suite_name, err);
+
+                        let partial_source_dir = suite_cache.path().join("partial.source");
+                        if partial_source_dir.is_dir() {
+                            for entry_res in fs::read_dir(&partial_source_dir).expect("failed to read partial source directory") {
+                                let entry = entry_res.expect("failed to read partial source entry");
+                                let file_name = entry.file_name()
+                                    .into_string()
+                                    .expect("partial source filename is not utf-8");
+                                if file_name.ends_with("_source.build") {
+                                    assert_eq!(logs.insert(source_log_name.clone(), (entry.path(), true)), None);
+                                }
+                            }
+                        }
+
                         continue;
                     }
                 };
@@ -332,6 +359,18 @@ fn main() {
                 }
 
                 for arch in package.archs.iter() {
+                    let binary_log_name = format!(
+                        "{}_{}_{}_{}.log",
+                        repo_name, commit.id(), suite.id(), arch.id()
+                    );
+                    let binary_log_path = cache.path().join("log").join(&binary_log_name);
+                    if binary_log_path.is_file() {
+                        //TODO: rebuild capability
+                        eprintln!(bold!("{}: {}: {}: {}: binary already failed"), repo_name, commit_name, suite_name, arch.id());
+                        assert_eq!(logs.insert(binary_log_name, (binary_log_path, false)), None);
+                        continue;
+                    }
+
                     let binary_res = suite_cache.build(arch.id(), source_rebuilt, |path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
                         fs::create_dir(&path)?;
@@ -370,6 +409,20 @@ fn main() {
                         },
                         Err(err) => {
                             eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch.id(), err);
+
+                            let partial_binary_dir = suite_cache.path().join(format!("partial.{}", arch.id()));
+                            if partial_binary_dir.is_dir() {
+                                for entry_res in fs::read_dir(&partial_binary_dir).expect("failed to read partial binary directory") {
+                                    let entry = entry_res.expect("failed to read partial binary entry");
+                                    let file_name = entry.file_name()
+                                        .into_string()
+                                        .expect("partial binary filename is not utf-8");
+                                    if file_name.ends_with(&format!("_{}.build", arch.id())) {
+                                        assert_eq!(logs.insert(binary_log_name.clone(), (entry.path(), true)), None);
+                                    }
+                                }
+                            }
+
                             continue;
                         }
                     };
@@ -586,5 +639,16 @@ fn main() {
                 Ok(())
             }).expect("failed to build suite dists cache");
         }
+    }
+
+    let mut log_cache = cache.child("log", |name| {
+        logs.contains_key(name)
+    }).expect("failed to open log cache");
+
+    for (log_name, (log_path, log_rebuilt)) in logs.iter() {
+        log_cache.build(log_name, *log_rebuilt, |path| {
+            fs::copy(log_path, path)?;
+            Ok(())
+        }).expect("failed to build log cache");
     }
 }
