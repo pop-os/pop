@@ -1,3 +1,4 @@
+use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
     git::{GitCommit, GitRemote, GitRepo},
@@ -50,10 +51,33 @@ async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote
 }
 
 fn main() {
-    //TODO: CLI
-    let dev = false;
-    let upload = false;
-    let retry: Vec<String> = vec![];
+    let matches = App::new("pop-ci")
+        .arg(
+            Arg::with_name("dev")
+                .long("dev")
+                .help("Build for Ubuntu instead of Pop!_OS")
+        )
+        .arg(
+            Arg::with_name("upload")
+                .long("upload")
+                .help("Upload to launchpad after build")
+        )
+        .arg(
+            Arg::with_name("retry")
+                .long("retry")
+                .takes_value(true)
+                .help("Matching builds will be retried")
+        )
+        .get_matches();
+
+    let dev = matches.is_present("dev");
+    let upload = matches.is_present("upload");
+    let mut retry = Vec::new();
+    if let Some(retry_string) = matches.value_of("retry") {
+        for retry_key in retry_string.split(' ') {
+            retry.push(retry_key.to_string());
+        }
+    }
 
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
