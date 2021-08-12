@@ -50,6 +50,10 @@ async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote
 }
 
 fn main() {
+    //TODO: CLI
+    let dev = false;
+    let upload = false;
+
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
@@ -61,6 +65,20 @@ fn main() {
         Arch::new("amd64"),
         Arch::new("i386"),
     ];
+
+    let (ppa_key, ppa_release, ppa_proposed) = if dev {
+        (
+            fs::canonicalize("scripts/.ppa-dev.asc").expect("failed to find PPA key"),
+            "system76-dev/stable",
+            "system76-dev/pre-stable",
+        )
+    } else {
+        (
+            fs::canonicalize("scripts/.ppa.asc").expect("failed to find PPA key"),
+            "system76/pop",
+            "system76/proposed",
+        )
+    };
 
     let mut repos = BTreeMap::new();
     for entry_res in fs::read_dir(".").expect("failed to read directory") {
@@ -93,7 +111,12 @@ fn main() {
         );
     }
 
-    let cache = Cache::new("_build/ci", |name| {
+    let cache_path = if dev {
+        "_build/ci-dev"
+    } else {
+        "_build/ci"
+    };
+    let cache = Cache::new(cache_path, |name| {
         name == "git" || name == "apt" || name == "log"
     }).expect("failed to open build cache");
 
@@ -255,11 +278,12 @@ fn main() {
                     };
 
                     let version = format!(
-                        "{}~{}~{}~{}",
+                        "{}~{}~{}~{}{}",
                         changelog_version,
                         commit_timestamp,
                         suite.version(),
-                        &commit.id()[..7]
+                        &commit.id()[..7],
+                        if dev { "~dev" } else { "" }
                     );
 
                     let mut changelog = String::new();
@@ -316,11 +340,12 @@ fn main() {
                 };
 
                 let mut package = Package {
+                    rebuilt: source_rebuilt,
+                    changes: BTreeMap::new(),
                     dscs: BTreeMap::new(),
                     tars: BTreeMap::new(),
-                    debs: BTreeMap::new(),
                     archs: Vec::new(),
-                    rebuilt: source_rebuilt,
+                    debs: BTreeMap::new(),
                 };
 
                 for entry_res in fs::read_dir(&source).expect("failed to read suite source directory") {
@@ -328,17 +353,27 @@ fn main() {
                     let file_name = entry.file_name()
                         .into_string()
                         .expect("suite source filename is not utf-8");
-                    if file_name.ends_with(".dsc") {
+                    if file_name.ends_with(".changes") {
+                        assert_eq!(package.changes.insert(file_name, entry.path()), None);
+                    } else if file_name.ends_with(".dsc") {
                         assert_eq!(package.dscs.insert(file_name, entry.path()), None);
                     } else if file_name.ends_with(".tar.xz") {
                         assert_eq!(package.tars.insert(file_name, entry.path()), None);
                     }
                 }
+
+                if package.changes.len() != 1 {
+                    eprintln!(bold!("{}: {}: {}: found {} .changes files instead of 1"), repo_name, commit_name, suite_name, package.changes.len());
+                    continue;
+                }
+                let (_changes_name, _changes_path) = package.changes.iter().next().unwrap();
+                //TODO: locate other files using changes file
+
                 if package.dscs.len() != 1 {
                     eprintln!(bold!("{}: {}: {}: found {} .dsc files instead of 1"), repo_name, commit_name, suite_name, package.dscs.len());
                     continue;
                 }
-                let (_, dsc_path) = package.dscs.iter().next().unwrap();
+                let (_dsc_name, dsc_path) = package.dscs.iter().next().unwrap();
 
                 let dsc = fs::read_to_string(&dsc_path).expect("failed to read .dsc file");
                 for line in dsc.lines() {
@@ -374,10 +409,6 @@ fn main() {
                     let binary_res = suite_cache.build(arch.id(), source_rebuilt, |path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
                         fs::create_dir(&path)?;
-
-                        let ppa_key = fs::canonicalize("scripts/.ppa.asc")?;
-                        let ppa_release = "system76/pop";
-                        let ppa_proposed = "system76/proposed";
 
                         process::Command::new("sbuild")
                             .arg(if arch.build_all() { "--arch-all" } else { "--no-arch-all" })
@@ -513,6 +544,38 @@ fn main() {
 
                 if repo_pool_rebuilt {
                     pool_rebuilt = true;
+                }
+
+                if pocket.id() == "master" && upload {
+                    for (changes_name, changes_path) in package.changes.iter() {
+                        if ! changes_name.ends_with("_source.changes") {
+                            // We can only upload source changes
+                            continue;
+                        }
+
+                        let ppa_upload_name = changes_name.replace("_source.changes", "_source.ppa.upload");
+                        let ppa_upload_path = changes_path.parent().unwrap().join(ppa_upload_name);
+                        //TODO: allow reupload
+                        if ppa_upload_path.exists() {
+                            // Skip if already uploaded
+                            continue;
+                        }
+
+                        eprintln!(bold!("      upload to {}"), ppa_proposed);
+                        let dput_res = process::Command::new("dput")
+                            .arg(&format!("ppa:{}", ppa_proposed))
+                            .arg(&changes_path)
+                            .status()
+                            .and_then(check_status);
+                        match dput_res {
+                            Ok(()) => {
+                                eprintln!(bold!("      upload complete"));
+                            },
+                            Err(err) => {
+                                eprintln!(bold!("      upload failed: {}"), err);
+                            },
+                        }
+                    }
                 }
             }
 
