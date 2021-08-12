@@ -346,6 +346,16 @@ fn main() {
                     };
                     fs::write(&changelog_path, changelog)?;
 
+                    if archive.join("debian").join("patches").join("series").exists() {
+                        process::Command::new("quilt")
+                            .arg("push")
+                            .arg("-a")
+                            .current_dir(&archive)
+                            .env("QUILT_PATCHES", "debian/patches")
+                            .status()
+                            .and_then(check_status)?;
+                    }
+
                     process::Command::new("debuild")
                         .arg("--preserve-envvar").arg("PATH")
                         .arg("--set-envvar").arg(format!("SOURCE_DATE_EPOCH={}", commit_timestamp))
