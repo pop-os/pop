@@ -150,6 +150,7 @@ fn main() {
     }).expect("failed to open git cache");
 
     let mut logs = BTreeMap::<String, (PathBuf, bool)>::new();
+    let mut pocket_logs = BTreeMap::<Pocket, BTreeMap<String, (PathBuf, bool)>>::new();
     let mut pocket_packages = BTreeMap::<Pocket, BTreeMap<Suite, BTreeMap<String, (GitCommit, Package)>>>::new();
     for (repo_name, repo_path) in repos.iter() {
         eprintln!(bold!("{}"), repo_name);
@@ -269,7 +270,15 @@ fn main() {
                 let source_log_path = cache.path().join("log").join(&source_log_name);
                 if source_log_path.is_file() && !source_retry {
                     eprintln!(bold!("{}: {}: {}: source already failed"), repo_name, commit_name, suite_name);
-                    assert_eq!(logs.insert(source_log_name, (source_log_path, false)), None);
+                    assert_eq!(logs.insert(source_log_name.clone(), (source_log_path.clone(), false)), None);
+                    for pocket in pockets.iter() {
+                        assert_eq!(
+                            pocket_logs.entry(pocket.clone())
+                                .or_insert(BTreeMap::new())
+                                .insert(source_log_name.clone(), (source_log_path.clone(), false)),
+                            None
+                        );
+                    }
                     continue;
                 }
 
@@ -387,6 +396,14 @@ fn main() {
                                     .expect("partial source filename is not utf-8");
                                 if file_name.ends_with("_source.build") {
                                     assert_eq!(logs.insert(source_log_name.clone(), (entry.path(), true)), None);
+                                    for pocket in pockets.iter() {
+                                        assert_eq!(
+                                            pocket_logs.entry(pocket.clone())
+                                                .or_insert(BTreeMap::new())
+                                                .insert(source_log_name.clone(), (entry.path(), true)),
+                                            None
+                                        );
+                                    }
                                 }
                             }
                         }
@@ -468,7 +485,15 @@ fn main() {
                     if binary_log_path.is_file() && !binary_retry {
                         //TODO: rebuild capability
                         eprintln!(bold!("{}: {}: {}: {}: binary already failed"), repo_name, commit_name, suite_name, arch.id());
-                        assert_eq!(logs.insert(binary_log_name, (binary_log_path, false)), None);
+                        assert_eq!(logs.insert(binary_log_name.clone(), (binary_log_path.clone(), false)), None);
+                        for pocket in pockets.iter() {
+                            assert_eq!(
+                                pocket_logs.entry(pocket.clone())
+                                    .or_insert(BTreeMap::new())
+                                    .insert(binary_log_name.clone(), (binary_log_path.clone(), false)),
+                                None
+                            );
+                        }
                         continue;
                     }
 
@@ -517,6 +542,14 @@ fn main() {
                                         .expect("partial binary filename is not utf-8");
                                     if file_name.ends_with(&format!("_{}.build", arch.id())) {
                                         assert_eq!(logs.insert(binary_log_name.clone(), (entry.path(), true)), None);
+                                        for pocket in pockets.iter() {
+                                            assert_eq!(
+                                                pocket_logs.entry(pocket.clone())
+                                                    .or_insert(BTreeMap::new())
+                                                    .insert(binary_log_name.clone(), (entry.path(), true)),
+                                                None
+                                            );
+                                        }
                                     }
                                 }
                             }
@@ -772,7 +805,7 @@ fn main() {
     }
 
     let mut log_cache = cache.child("log", |name| {
-        logs.contains_key(name)
+        logs.contains_key(name) || pocket_logs.contains_key(&Pocket::new(name))
     }).expect("failed to open log cache");
 
     for (log_name, (log_path, log_rebuilt)) in logs.iter() {
@@ -780,5 +813,18 @@ fn main() {
             fs::copy(log_path, path)?;
             Ok(())
         }).expect("failed to build log cache");
+    }
+
+    for (pocket, logs) in pocket_logs.iter() {
+        let mut pocket_log_cache = log_cache.child(pocket.id(), |name| {
+            logs.contains_key(name)
+        }).expect("failed to open pocket log cache");
+
+        for (log_name, (log_path, log_rebuilt)) in logs.iter() {
+            pocket_log_cache.build(log_name, *log_rebuilt, |path| {
+                fs::copy(log_path, path)?;
+                Ok(())
+            }).expect("failed to build pocket log cache");
+        }
     }
 }
