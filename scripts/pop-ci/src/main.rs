@@ -15,6 +15,10 @@ use std::{
     str,
 };
 
+macro_rules! bold {
+    ($arg:tt) => (concat!("\x1B[1m", $arg, "\x1B[0m"));
+}
+
 //TODO: limit jobs?
 async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote) {
     use futures::stream::StreamExt;
@@ -83,7 +87,7 @@ fn main() {
 
     let remote = GitRemote::origin();
     {
-        println!("Fetching {} repos in parallel", repos.len());
+        eprintln!(bold!("ci: fetching {} repos in parallel"), repos.len());
         async_std::task::block_on(
             async_fetch_repos(&repos, &remote)
         );
@@ -99,15 +103,13 @@ fn main() {
 
     let mut pocket_packages = BTreeMap::<Pocket, BTreeMap<Suite, BTreeMap<String, (GitCommit, Package)>>>::new();
     for (repo_name, repo_path) in repos.iter() {
-        println!("{}", repo_name);
+        eprintln!(bold!("{}"), repo_name);
 
         let repo = GitRepo::new(repo_path).expect("failed to open git repo");
         let heads = repo.heads(&remote).expect("failed to determine git repo heads");
 
         let mut pockets = BTreeMap::<(Pocket, Suite), GitCommit>::new();
         for (branch, commit) in heads.iter() {
-            println!("  {}: {}", branch.id(), commit.id());
-
             let mut parts = branch.id().splitn(2, '_');
             let pocket = Pocket::new(parts.next().unwrap());
             let pattern_opt = parts.next();
@@ -142,7 +144,18 @@ fn main() {
 
         //TODO: this may run multiple times if multiple pockets point to the same commit
         for (commit, (suites, pockets)) in builds.iter() {
-            println!("  {}", commit.id());
+            let commit_name = {
+                let mut join = String::new();
+                for pocket in pockets.iter() {
+                    if ! join.is_empty() {
+                        join.push(' ');
+                    }
+                    join.push_str(pocket.id());
+                }
+                format!("{} ({})", commit.id(), join)
+            };
+
+            eprintln!(bold!("{}: {}"), repo_name, commit_name);
 
             let mut commit_cache = repo_cache.child(commit.id(), |name| {
                 name == "archive.tar.gz" || Suite::new(name).map_or(false, |suite| suites.contains(&suite))
@@ -181,14 +194,16 @@ fn main() {
             };
 
             for suite in suites.iter() {
-                println!("    {} ({})", suite.id(), suite.version());
+                let suite_name = format!("{} ({})", suite.id(), suite.version());
+
+                eprintln!(bold!("{}: {}: {}"), repo_name, commit_name, suite_name);
 
                 let mut suite_cache = commit_cache.child(suite.id(), |name| {
                     name == "source" || all_archs.iter().any(|arch| arch.id() == name)
                 }).expect("failed to open suite cache");
 
-                let (source, source_rebuilt) = suite_cache.build("source", archive_rebuilt, |path| {
-                    println!("################ SOURCE BUILD ################");
+                let source_res = suite_cache.build("source", archive_rebuilt, |path| {
+                    eprintln!(bold!("{}: {}: {}: source building"), repo_name, commit_name, suite_name);
                     fs::create_dir(&path)?;
 
                     let archive = path.join("archive");
@@ -260,7 +275,18 @@ fn main() {
                         .and_then(check_status)?;
 
                     Ok(())
-                }).expect("failed to build suite source");
+                });
+
+                let (source, source_rebuilt) = match source_res {
+                    Ok(ok) => {
+                        eprintln!(bold!("{}: {}: {}: source built"), repo_name, commit_name, suite_name);
+                        ok
+                    },
+                    Err(err) => {
+                        eprintln!(bold!("{}: {}: {}: source failed: {}"), repo_name, commit_name, suite_name, err);
+                        continue;
+                    }
+                };
 
                 let mut package = Package {
                     dscs: BTreeMap::new(),
@@ -282,7 +308,7 @@ fn main() {
                     }
                 }
                 if package.dscs.len() != 1 {
-                    eprintln!("    found {} .dsc files instead of 1", package.dscs.len());
+                    eprintln!(bold!("{}: {}: {}: found {} .dsc files instead of 1"), repo_name, commit_name, suite_name, package.dscs.len());
                     continue;
                 }
                 let (_, dsc_path) = package.dscs.iter().next().unwrap();
@@ -306,8 +332,8 @@ fn main() {
                 }
 
                 for arch in package.archs.iter() {
-                    let (binary, binary_rebuilt) = suite_cache.build(arch.id(), source_rebuilt, |path| {
-                        println!("################ BINARY BUILD ################");
+                    let binary_res = suite_cache.build(arch.id(), source_rebuilt, |path| {
+                        eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
                         fs::create_dir(&path)?;
 
                         let ppa_key = fs::canonicalize("scripts/.ppa.asc")?;
@@ -335,7 +361,18 @@ fn main() {
                             .current_dir(&path)
                             .status()
                             .and_then(check_status)
-                    }).expect("failed to build suite binary");
+                    });
+
+                    let (binary, binary_rebuilt) = match binary_res {
+                        Ok(ok) => {
+                            eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch.id());
+                            ok
+                        },
+                        Err(err) => {
+                            eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch.id(), err);
+                            continue;
+                        }
+                    };
 
                     if binary_rebuilt {
                         package.rebuilt = true;
@@ -371,7 +408,7 @@ fn main() {
     }).expect("failed to open apt cache");
 
     for (pocket, suite_packages) in pocket_packages.iter() {
-        println!("pocket: {}", pocket.id());
+        eprintln!("pocket: {}", pocket.id());
 
         let pocket_cache = apt_cache.child(pocket.id(), |name| {
             name == "dists" || name == "pool"
@@ -387,14 +424,14 @@ fn main() {
 
         let mut pool_rebuilt = false;
         for (suite, repo_packages) in suite_packages.iter() {
-            println!("  suite: {} ({})", suite.id(), suite.version());
+            eprintln!("  suite: {} ({})", suite.id(), suite.version());
 
             let suite_pool_cache = pool_cache.child(suite.id(), |name| {
                 repo_packages.contains_key(name)
             }).expect("failed to open suite pool cache");
 
             for (repo_name, (commit, package)) in repo_packages.iter() {
-                println!("    repo: {}", repo_name);
+                eprintln!("    repo: {}", repo_name);
 
                 let mut repo_pool_cache = suite_pool_cache.child(repo_name, |name| {
                     name == commit.id()
@@ -404,17 +441,17 @@ fn main() {
                     fs::create_dir(&path)?;
 
                     for (dsc_name, dsc_path) in package.dscs.iter() {
-                        println!("      dsc: {}", dsc_name);
+                        eprintln!("      dsc: {}", dsc_name);
                         fs::copy(dsc_path, path.join(dsc_name))?;
                     }
 
                     for (tar_name, tar_path) in package.tars.iter() {
-                        println!("      tar: {}", tar_name);
+                        eprintln!("      tar: {}", tar_name);
                         fs::copy(tar_path, path.join(tar_name))?;
                     }
 
                     for (deb_name, deb_path) in package.debs.iter() {
-                        println!("      deb: {}", deb_name);
+                        eprintln!("      deb: {}", deb_name);
                         fs::copy(deb_path, path.join(deb_name))?;
                     }
 
