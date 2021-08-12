@@ -53,6 +53,7 @@ fn main() {
     //TODO: CLI
     let dev = false;
     let upload = false;
+    let retry: Vec<String> = vec![];
 
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
@@ -166,7 +167,6 @@ fn main() {
             builds.contains_key(&GitCommit::new(name))
         }).expect("failed to open repo cache");
 
-        //TODO: this may run multiple times if multiple pockets point to the same commit
         for (commit, (suites, pockets)) in builds.iter() {
             let commit_name = {
                 let mut join = String::new();
@@ -226,13 +226,24 @@ fn main() {
                     name == "source" || all_archs.iter().any(|arch| arch.id() == name)
                 }).expect("failed to open suite cache");
 
+                let mut source_retry = false;
+                for retry_key in &[
+                    repo_name.clone(),
+                    format!("git:{}", commit.id()),
+                    format!("dist:{}", suite.id()),
+                ] {
+                    if retry.contains(&retry_key) {
+                        source_retry = true;
+                        break;
+                    }
+                }
+
                 let source_log_name = format!(
                     "{}_{}_{}_{}.log",
                     repo_name, commit.id(), suite.id(), "source"
                 );
                 let source_log_path = cache.path().join("log").join(&source_log_name);
-                if source_log_path.is_file() {
-                    //TODO: rebuild capability
+                if source_log_path.is_file() && !source_retry {
                     eprintln!(bold!("{}: {}: {}: source already failed"), repo_name, commit_name, suite_name);
                     assert_eq!(logs.insert(source_log_name, (source_log_path, false)), None);
                     continue;
@@ -299,11 +310,22 @@ fn main() {
                         debfullname, debemail, commit_datetime
                     ).unwrap();
 
-                    fs::write(archive.join("debian").join("changelog"), changelog)?;
+                    let changelog_path = if repo_name == "linux" {
+                        // linux has a different changelog path
+                        let changelog_path = archive.join("debian.master").join("changelog");
+                        // linux needs all entries to be present
+                        changelog.push('\n');
+                        changelog.push_str(&fs::read_to_string(&changelog_path)?);
+                        changelog_path
+                    } else {
+                        archive.join("debian").join("changelog")
+                    };
+                    fs::write(&changelog_path, changelog)?;
 
                     process::Command::new("debuild")
                         .arg("--preserve-envvar").arg("PATH")
                         .arg("--set-envvar").arg(format!("SOURCE_DATE_EPOCH={}", commit_timestamp))
+                        .arg("--no-lintian")
                         .arg("--no-tgz-check")
                         .arg("-d")
                         .arg("-S")
@@ -394,12 +416,22 @@ fn main() {
                 }
 
                 for arch in package.archs.iter() {
+                    let mut binary_retry = source_retry;
+                    for retry_key in &[
+                        format!("arch:{}", suite.id()),
+                    ] {
+                        if retry.contains(&retry_key) {
+                            binary_retry = true;
+                            break;
+                        }
+                    }
+
                     let binary_log_name = format!(
                         "{}_{}_{}_{}.log",
                         repo_name, commit.id(), suite.id(), arch.id()
                     );
                     let binary_log_path = cache.path().join("log").join(&binary_log_name);
-                    if binary_log_path.is_file() {
+                    if binary_log_path.is_file() && !binary_retry {
                         //TODO: rebuild capability
                         eprintln!(bold!("{}: {}: {}: {}: binary already failed"), repo_name, commit_name, suite_name, arch.id());
                         assert_eq!(logs.insert(binary_log_name, (binary_log_path, false)), None);
