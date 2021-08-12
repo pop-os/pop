@@ -72,7 +72,6 @@ impl GitRepo {
         async_std::process::Command::new("git")
             .arg("-C").arg(&self.path())
             .arg("fetch")
-            .arg("--atomic")
             .arg("--prune")
             .arg("--quiet")
             .arg("--")
