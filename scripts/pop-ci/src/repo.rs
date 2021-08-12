@@ -23,11 +23,12 @@ impl Arch {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Package {
+    pub rebuilt: bool,
+    pub changes: BTreeMap<String, PathBuf>,
     pub dscs: BTreeMap<String, PathBuf>,
     pub tars: BTreeMap<String, PathBuf>,
-    pub debs: BTreeMap<String, PathBuf>,
     pub archs: Vec<Arch>,
-    pub rebuilt: bool,
+    pub debs: BTreeMap<String, PathBuf>,
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
