@@ -26,6 +26,7 @@ pub struct Package {
     pub dscs: BTreeMap<String, PathBuf>,
     pub tars: BTreeMap<String, PathBuf>,
     pub debs: BTreeMap<String, PathBuf>,
+    pub archs: Vec<Arch>,
     pub rebuilt: bool,
 }
 
