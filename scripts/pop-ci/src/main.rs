@@ -266,6 +266,7 @@ fn main() {
                     dscs: BTreeMap::new(),
                     tars: BTreeMap::new(),
                     debs: BTreeMap::new(),
+                    archs: Vec::new(),
                     rebuilt: source_rebuilt,
                 };
 
@@ -284,11 +285,27 @@ fn main() {
                     eprintln!("    found {} .dsc files instead of 1", package.dscs.len());
                     continue;
                 }
+                let (_, dsc_path) = package.dscs.iter().next().unwrap();
 
-                //TODO: find archs that are actually used
-                for arch in all_archs.iter() {
-                    let (_, dsc_path) = package.dscs.iter().next().unwrap();
-                    //TODO: force rebuild based on source changes
+                let dsc = fs::read_to_string(&dsc_path).expect("failed to read .dsc file");
+                for line in dsc.lines() {
+                    if line.starts_with("Architecture: ") {
+                        for arch in all_archs.iter() {
+                            for part in line.split(' ') {
+                                if part == arch.id()
+                                || part == "any"
+                                || part == "linux-any"
+                                || (part == "all" && arch.build_all())
+                                {
+                                    package.archs.push(arch.clone());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for arch in package.archs.iter() {
                     let (binary, binary_rebuilt) = suite_cache.build(arch.id(), source_rebuilt, |path| {
                         println!("################ BINARY BUILD ################");
                         fs::create_dir(&path)?;
