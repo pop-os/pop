@@ -469,7 +469,7 @@ fn main() {
                 for arch in package.archs.iter() {
                     let mut binary_retry = source_retry;
                     for retry_key in &[
-                        format!("arch:{}", suite.id()),
+                        format!("arch:{}", arch.id()),
                     ] {
                         if retry.contains(&retry_key) {
                             binary_retry = true;
