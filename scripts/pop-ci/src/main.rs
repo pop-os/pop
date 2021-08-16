@@ -20,6 +20,37 @@ macro_rules! bold {
     ($arg:tt) => (concat!("\x1B[1m", $arg, "\x1B[0m"));
 }
 
+static DEV_REPOS: &'static [&'static str] = &[
+    "accountsservice",
+    "amd-ppt-bin",
+    "bcmwl",
+    "distinst",
+    "dwarves",
+    "firmware-manager",
+    "fwupd",
+    "gdm3",
+    "gnome-desktop3",
+    "gnome-settings-daemon",
+    "gnome-shell-extension-system76-power",
+    "hidpi-daemon",
+    "libxmlb",
+    "linux",
+    "linux-firmware",
+    "mesa",
+    "nvidia-graphics-drivers",
+    "system76-acpi-dkms",
+    "system76-dkms",
+    "system76-driver",
+    "system76-firmware",
+    "system76-io-dkms",
+    "system76-keyboard-configurator",
+    "system76-oled",
+    "system76-power",
+    "system76-wallpapers",
+    "ubuntu-drivers-common",
+    "virtualbox",
+];
+
 //TODO: limit jobs?
 async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote) {
     use futures::stream::StreamExt;
@@ -83,6 +114,8 @@ fn main() {
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
     let all_suites = [
+        Suite::new("focal").unwrap(),
+        Suite::new("hirsute").unwrap(),
         Suite::new("impish").unwrap(),
     ];
 
@@ -124,6 +157,11 @@ fn main() {
         let file_name = entry.file_name()
             .into_string()
             .expect("filename is not utf-8");
+
+        if dev && ! DEV_REPOS.contains(&file_name.as_str()) {
+            // Skip if building dev repos and this is not one of them
+            continue;
+        }
 
         assert_eq!(repos.insert(file_name, path), None);
     }
