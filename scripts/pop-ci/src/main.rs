@@ -114,6 +114,7 @@ fn main() {
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
     let all_suites = [
+        Suite::new("bionic").unwrap(),
         Suite::new("focal").unwrap(),
         Suite::new("hirsute").unwrap(),
         Suite::new("impish").unwrap(),
