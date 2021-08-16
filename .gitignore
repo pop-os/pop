@@ -101,6 +101,7 @@
 /kernelstub/
 /keyboard-configurator/
 /kit/
+/launcher/
 /libdrm/
 /libhandy/
 /libnvidia-container/
@@ -117,10 +118,10 @@
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
 /opt/
+/os-autoinst-distri-pop/
 /os-release/
 /packaging-ci/
 /packaging-natron/
-/parallel-getter/
 /partition-identity/
 /pidfd/
 /plymouth-theme/
@@ -169,13 +170,13 @@
 /touchegg/
 /transition/
 /ubuntu-drivers-common/
+/ubuntu-release-upgrader/
 /ubuntu-version/
 /upgrade/
 /url-crawler/
 /url-scraper/
 /usb-disk-probe/
 /virtualbox/
-/vscode/
 /wallpapers/
 /website/
 /whitespace-conf/

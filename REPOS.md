@@ -90,6 +90,7 @@ This is an automatically generated file. See `scripts/readme`
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
+- [launcher](https://github.com/pop-os/launcher) - Modular IPC\-based desktop launcher service
 - [libdrm](https://github.com/pop-os/libdrm) - Forked from https://salsa\.debian\.org/xorg\-team/lib/libdrm
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
@@ -106,10 +107,10 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/container\-toolkit
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
+- [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
-- [parallel\-getter](https://github.com/pop-os/parallel-getter) - \*\* Deprecated \*\*
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
@@ -158,13 +159,13 @@ This is an automatically generated file. See `scripts/readme`
 - [touchegg](https://github.com/pop-os/touchegg) - Pop\!\_OS fork of https://github\.com/JoseExposito/touchegg
 - [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak
 - [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
+- [ubuntu\-release\-upgrader](https://github.com/pop-os/ubuntu-release-upgrader) - Forked from https://code\.launchpad\.net/ubuntu\-release\-upgrader
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
 - [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
 - [virtualbox](https://github.com/pop-os/virtualbox) - Pop\!\_OS fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\.git
-- [vscode](https://github.com/pop-os/vscode) - Packaging for VS Code
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
