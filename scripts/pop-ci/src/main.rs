@@ -124,6 +124,42 @@ fn main() {
         Arch::new("i386"),
     ];
 
+    for suite in all_suites.iter() {
+        for arch in all_archs.iter() {
+            let chroot = Path::new("/srv").join("chroot").join(format!(
+                "{}-{}-sbuild",
+                suite.id(), arch.id()
+            ));
+
+            if ! chroot.is_dir() {
+                process::Command::new("sudo")
+                    .arg("sbuild-createchroot")
+                    .arg("--include=gnupg")
+                    .arg("--components=main,restricted,universe,multiverse")
+                    .arg(format!("--arch={}", arch.id()))
+                    .arg(suite.id())
+                    .arg(&chroot)
+                    .arg("http://archive.ubuntu.com/ubuntu")
+                    .status()
+                    .and_then(check_status)
+                    .expect("failed to create sbuild chroot");
+            }
+
+            process::Command::new("sudo")
+                .arg("sbuild-update")
+                .arg("--update")
+                .arg("--dist-upgrade")
+                .arg("--clean")
+                .arg("--autoclean")
+                .arg("--autoremove")
+                .arg(format!("--arch={}", arch.id()))
+                .arg(suite.id())
+                .status()
+                .and_then(check_status)
+                .expect("failed to update sbuild chroot");
+        }
+    }
+
     let (ppa_key, ppa_release, ppa_proposed) = if dev {
         (
             fs::canonicalize("scripts/.ppa-dev.asc").expect("failed to find PPA key"),
