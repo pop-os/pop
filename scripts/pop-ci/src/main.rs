@@ -81,6 +81,25 @@ async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote
     }
 }
 
+fn github_status_inner(repo_name: &str, commit: &GitCommit, context: &str, description: &str, state: &str, target_url: &str) -> io::Result<()> {
+    let github_token = fs::read_to_string("scripts/.github_token")?;
+
+    let mut data = BTreeMap::<&str, &str>::new();
+    data.insert("context", context);
+    data.insert("description", description);
+    data.insert("state", state);
+    data.insert("target_url", target_url);
+
+    let url = format!("https://api.github.com/repos/pop-os/{}/statuses/{}", repo_name, commit.id());
+
+    process::Command::new("curl")
+        .arg("--header").arg(format!("Authorization: token {}", github_token))
+        .arg("--data-raw").arg(json::stringify(data))
+        .arg(url)
+        .status()
+        .and_then(check_status)
+}
+
 fn main() {
     let matches = App::new("pop-ci")
         .arg(
@@ -357,8 +376,48 @@ fn main() {
                     continue;
                 }
 
+                let github_status = |step: &str, status: &str| {
+                    let target_url = match env::var("BUILD_URL") {
+                        Ok(some) => some,
+                        Err(_) => return,
+                    };
+
+                    eprintln!(
+                        bold!("{}: {}: {}: {} github status {}"),
+                        repo_name, commit_name, suite_name, step, status
+                    );
+
+                    let (context, description) = if dev {
+                        (
+                            format!("ubuntu/staging/{}", step),
+                            format!("Ubuntu Staging {}", step),
+                        )
+                    } else {
+                        (
+                            format!("pop-os/staging/{}", step),
+                            format!("Pop!_OS Staging {}", step),
+                        )
+                    };
+
+                    match github_status_inner(
+                        repo_name,
+                        commit,
+                        &context,
+                        &description,
+                        status,
+                        &target_url
+                    ) {
+                        Ok(()) => (),
+                        Err(err) => eprintln!(
+                            bold!("{}: {}: {}: {} github status {} failed: {}"),
+                            repo_name, commit_name, suite_name, step, status, err
+                        )
+                    }
+                };
+
                 let source_res = suite_cache.build("source", archive_rebuilt, |path| {
                     eprintln!(bold!("{}: {}: {}: source building"), repo_name, commit_name, suite_name);
+                    github_status("source", "pending");
                     fs::create_dir(&path)?;
 
                     let archive = path.join("archive");
@@ -457,10 +516,14 @@ fn main() {
                 let (source, source_rebuilt) = match source_res {
                     Ok(ok) => {
                         eprintln!(bold!("{}: {}: {}: source built"), repo_name, commit_name, suite_name);
+                        if ok.1 {
+                            github_status("source", "success");
+                        }
                         ok
                     },
                     Err(err) => {
                         eprintln!(bold!("{}: {}: {}: source failed: {}"), repo_name, commit_name, suite_name, err);
+                        github_status("source", "failure");
 
                         let partial_source_dir = suite_cache.path().join("partial.source");
                         if partial_source_dir.is_dir() {
@@ -574,6 +637,7 @@ fn main() {
 
                     let binary_res = suite_cache.build(arch.id(), source_rebuilt, |path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
+                        github_status(&format!("binary-{}", arch.id()), "pending");
                         fs::create_dir(&path)?;
 
                         process::Command::new("sbuild")
@@ -603,10 +667,14 @@ fn main() {
                     let (binary, binary_rebuilt) = match binary_res {
                         Ok(ok) => {
                             eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch.id());
+                            if ok.1 {
+                                github_status(&format!("binary-{}", arch.id()), "success");
+                            }
                             ok
                         },
                         Err(err) => {
                             eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch.id(), err);
+                            github_status(&format!("binary-{}", arch.id()), "failure");
 
                             let partial_binary_dir = suite_cache.path().join(format!("partial.{}", arch.id()));
                             if partial_binary_dir.is_dir() {
