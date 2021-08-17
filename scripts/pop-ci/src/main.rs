@@ -93,6 +93,8 @@ fn github_status_inner(repo_name: &str, commit: &GitCommit, context: &str, descr
     let url = format!("https://api.github.com/repos/pop-os/{}/statuses/{}", repo_name, commit.id());
 
     process::Command::new("curl")
+        .arg("--silent")
+        .arg("--show-error")
         .arg("--header").arg(format!("Authorization: token {}", github_token))
         .arg("--data-raw").arg(json::stringify(data))
         .arg(url)
