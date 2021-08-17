@@ -3,9 +3,6 @@ import multiprocessing
 import os.path
 import urllib.request
 
-# Documentation can be found here: https://launchpad.net/+apidoc/devel.html
-from launchpadlib.launchpad import Launchpad
-
 # Packages to release in system76-dev
 DEV_REPOS = (
     "accountsservice",
@@ -37,12 +34,6 @@ DEV_REPOS = (
     "ubuntu-drivers-common",
     "virtualbox",
 )
-
-def launchpad():
-    return Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
-
-def launchpad_anon():
-    return Launchpad.login_anonymously("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
 
 def github_inner(url, data=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
