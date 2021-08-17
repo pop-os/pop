@@ -1,39 +1,6 @@
 import json
-import multiprocessing
 import os.path
 import urllib.request
-
-# Packages to release in system76-dev
-DEV_REPOS = (
-    "accountsservice",
-    "amd-ppt-bin",
-    "bcmwl",
-    "distinst",
-    "dwarves",
-    "firmware-manager",
-    "fwupd",
-    "gdm3",
-    "gnome-desktop3",
-    "gnome-settings-daemon",
-    "gnome-shell-extension-system76-power",
-    "hidpi-daemon",
-    "libxmlb",
-    "linux",
-    "linux-firmware",
-    "mesa",
-    "nvidia-graphics-drivers",
-    "system76-acpi-dkms",
-    "system76-dkms",
-    "system76-driver",
-    "system76-firmware",
-    "system76-io-dkms",
-    "system76-keyboard-configurator",
-    "system76-oled",
-    "system76-power",
-    "system76-wallpapers",
-    "ubuntu-drivers-common",
-    "virtualbox",
-)
 
 def github_inner(url, data=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
@@ -77,7 +44,7 @@ def github_no_pages(url):
 def github_post(url, data):
     return github_inner(url, data)
 
-def foreach_repo(fn, selected=[], dev=False):
+def foreach_repo(fn, selected=[]):
     selected = [item.rstrip('/') for item in selected]
 
     repos = github("https://api.github.com/orgs/pop-os/repos")
@@ -86,32 +53,10 @@ def foreach_repo(fn, selected=[], dev=False):
 
     ret = {}
     for repo in repos:
-        if (len(selected) == 0 or repo["name"] in selected) and (not dev or repo["name"] in DEV_REPOS):
+        if len(selected) == 0 or repo["name"] in selected:
             ret[repo["name"]] = fn(repo)
 
     return ret
-
-def foreach_repo_parallel(fn, selected=[], dev=False, processes=None):
-    selected = [item.rstrip('/') for item in selected]
-
-    repos = github("https://api.github.com/orgs/pop-os/repos")
-
-    repos.sort(key=lambda repo: repo["name"])
-
-    args = []
-    keys = []
-    for repo in repos:
-        if (len(selected) == 0 or repo["name"] in selected) and (not dev or repo["name"] in DEV_REPOS):
-            args.append(repo)
-            keys.append(repo["name"])
-
-    pool = multiprocessing.Pool(processes)
-    values = pool.map(fn, args)
-    pool.close()
-    pool.join()
-
-    return dict(zip(keys, values))
-
 
 # Escaping is done according to https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 # This may need to be improved. Always check the output of generated files
