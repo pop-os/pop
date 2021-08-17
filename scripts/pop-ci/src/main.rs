@@ -113,6 +113,11 @@ fn main() {
                 .help("Upload to launchpad after build")
         )
         .arg(
+            Arg::with_name("publish")
+                .long("publish")
+                .help("Publish to apt.pop-os.org after build")
+        )
+        .arg(
             Arg::with_name("retry")
                 .long("retry")
                 .takes_value(true)
@@ -122,6 +127,7 @@ fn main() {
 
     let dev = matches.is_present("dev");
     let launchpad = matches.is_present("launchpad");
+    let publish = matches.is_present("publish");
     let mut retry = Vec::new();
     if let Some(retry_string) = matches.value_of("retry") {
         for retry_key in retry_string.split(' ') {
@@ -945,6 +951,47 @@ fn main() {
                 Ok(())
             }).expect("failed to build suite dists cache");
         }
+    }
+
+    if publish {
+        let mut rsync_args = vec![
+            "--recursive",
+            "--times",
+            "--links",
+            "--safe-links",
+            "--hard-links",
+            "--stats",
+        ];
+
+        if dev {
+            rsync_args.push("--rsh=ssh");
+            rsync_args.push("./_build/ci-dev/apt/");
+            rsync_args.push("ubuntu@apt.pop-os.org:/var/www/html/staging-ubuntu/");
+        } else {
+            rsync_args.push("--rsh=ssh");
+            rsync_args.push("./_build/ci/apt/");
+            rsync_args.push("ubuntu@apt.pop-os.org:/var/www/html/staging/");
+        }
+
+        // Publish new package data (without changing release data)
+        process::Command::new("rsync")
+            .arg("--exclude").arg("Packages*")
+            .arg("--exclude").arg("Sources*")
+            .arg("--exclude").arg("Release*")
+            .arg("--exclude").arg("InRelease")
+            .args(&rsync_args)
+            .status()
+            .and_then(check_status)
+            .expect("failed to publish new package data");
+
+        // Publish new release data and delete old package data
+        process::Command::new("rsync")
+            .arg("--delete")
+            .arg("--delete-after")
+            .args(&rsync_args)
+            .status()
+            .and_then(check_status)
+            .expect("failed to publish new release data");
     }
 
     let mut log_cache = cache.child("log", |name| {
