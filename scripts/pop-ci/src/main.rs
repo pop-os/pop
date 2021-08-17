@@ -108,8 +108,8 @@ fn main() {
                 .help("Build for Ubuntu instead of Pop!_OS")
         )
         .arg(
-            Arg::with_name("upload")
-                .long("upload")
+            Arg::with_name("launchpad")
+                .long("launchpad")
                 .help("Upload to launchpad after build")
         )
         .arg(
@@ -121,7 +121,7 @@ fn main() {
         .get_matches();
 
     let dev = matches.is_present("dev");
-    let upload = matches.is_present("upload");
+    let launchpad = matches.is_present("launchpad");
     let mut retry = Vec::new();
     if let Some(retry_string) = matches.value_of("retry") {
         for retry_key in retry_string.split(' ') {
@@ -789,7 +789,7 @@ fn main() {
                     pool_rebuilt = true;
                 }
 
-                if pocket.id() == "master" && upload {
+                if pocket.id() == "master" && launchpad {
                     for (changes_name, changes_path) in package.changes.iter() {
                         if ! changes_name.ends_with("_source.changes") {
                             // We can only upload source changes
@@ -804,7 +804,7 @@ fn main() {
                             continue;
                         }
 
-                        eprintln!(bold!("      upload to {}"), ppa_proposed);
+                        eprintln!(bold!("      launchpad upload to {}"), ppa_proposed);
                         let dput_res = process::Command::new("dput")
                             .arg(&format!("ppa:{}", ppa_proposed))
                             .arg(&changes_path)
@@ -812,10 +812,10 @@ fn main() {
                             .and_then(check_status);
                         match dput_res {
                             Ok(()) => {
-                                eprintln!(bold!("      upload complete"));
+                                eprintln!(bold!("      launchpad upload complete"));
                             },
                             Err(err) => {
-                                eprintln!(bold!("      upload failed: {}"), err);
+                                eprintln!(bold!("      launchpad upload failed: {}"), err);
                             },
                         }
                     }
