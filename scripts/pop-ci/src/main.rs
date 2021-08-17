@@ -95,7 +95,7 @@ fn github_status_inner(repo_name: &str, commit: &GitCommit, context: &str, descr
     process::Command::new("curl")
         .arg("--silent")
         .arg("--show-error")
-        .arg("--header").arg(format!("Authorization: token {}", github_token))
+        .arg("--header").arg(format!("Authorization: token {}", github_token.trim()))
         .arg("--header").arg("Content-Type: application/json")
         .arg("--data-raw").arg(json::stringify(data))
         .arg("--request").arg("POST")
