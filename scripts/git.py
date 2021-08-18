@@ -1,4 +1,5 @@
 from subprocess import check_call, check_output
+import tempfile
 
 def git_ids_and_branches(cwd):
     """
@@ -53,4 +54,10 @@ def git_datetime_id(cwd, _id):
 
 
 def git_archive_id(cwd, _id, archive):
-    return check_output(["git", "archive", "--format", "tar", "-o", archive, _id], cwd=cwd)
+    o = b''
+    with tempfile.TemporaryDirectory(dir=cwd) as d:
+        o += check_output(["git", "worktree", "add", d, _id], cwd=cwd)
+        o += check_output(["git", "submodule", "update", "--recursive"], cwd=d)
+        o += check_output(["tar", "--exclude", ".git", "-caf", archive, "."], cwd=d)
+    o += check_output(["git", "worktree", "remove", d], cwd=cwd)
+    return o
