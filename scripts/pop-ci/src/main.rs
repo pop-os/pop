@@ -399,13 +399,13 @@ fn main() {
 
                     let (context, description) = if dev {
                         (
-                            format!("ubuntu/staging/{}", step),
-                            format!("Ubuntu Staging {}", step),
+                            format!("ubuntu/staging/{}/{}", suite.id(), step),
+                            format!("Ubuntu Staging {} {}", suite.id(), step),
                         )
                     } else {
                         (
-                            format!("pop-os/staging/{}", step),
-                            format!("Pop!_OS Staging {}", step),
+                            format!("pop-os/staging/{}/{}", suite.id(), step),
+                            format!("Pop!_OS Staging {} {}", suite.id(), step),
                         )
                     };
 
