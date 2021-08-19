@@ -310,6 +310,11 @@ fn main() {
 
             eprintln!(bold!("{}: {}"), repo_name, commit_name);
 
+            if ! repo.file_exists(&commit, "debian/changelog").expect("failed to check for debian/changelog") {
+                eprintln!(bold!("{}: {}: no debian changelog"), repo_name, commit_name);
+                continue;
+            }
+
             let mut commit_cache = repo_cache.child(commit.id(), |name| {
                 name == "archive.tar.gz" || Suite::new(name).map_or(false, |suite| suites.contains(&suite))
             }).expect("failed to open commit cache");
