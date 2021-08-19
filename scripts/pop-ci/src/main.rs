@@ -122,6 +122,11 @@ fn main() {
                 .help("Publish to apt.pop-os.org after build")
         )
         .arg(
+            Arg::with_name("sbuild-update")
+                .long("sbuild-update")
+                .help("Update sbuild chroots")
+        )
+        .arg(
             Arg::with_name("retry")
                 .long("retry")
                 .takes_value(true)
@@ -132,6 +137,7 @@ fn main() {
     let dev = matches.is_present("dev");
     let launchpad = matches.is_present("launchpad");
     let publish = matches.is_present("publish");
+    let sbuild_update = matches.is_present("sbuild-update");
     let mut retry = Vec::new();
     if let Some(retry_string) = matches.value_of("retry") {
         for retry_key in retry_string.split(' ') {
@@ -175,18 +181,20 @@ fn main() {
                     .expect("failed to create sbuild chroot");
             }
 
-            process::Command::new("sudo")
-                .arg("sbuild-update")
-                .arg("--update")
-                .arg("--dist-upgrade")
-                .arg("--clean")
-                .arg("--autoclean")
-                .arg("--autoremove")
-                .arg(format!("--arch={}", arch.id()))
-                .arg(suite.id())
-                .status()
-                .and_then(check_status)
-                .expect("failed to update sbuild chroot");
+            if sbuild_update {
+                process::Command::new("sudo")
+                    .arg("sbuild-update")
+                    .arg("--update")
+                    .arg("--dist-upgrade")
+                    .arg("--clean")
+                    .arg("--autoclean")
+                    .arg("--autoremove")
+                    .arg(format!("--arch={}", arch.id()))
+                    .arg(suite.id())
+                    .status()
+                    .and_then(check_status)
+                    .expect("failed to update sbuild chroot");
+            }
         }
     }
 
