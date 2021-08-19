@@ -149,4 +149,13 @@ impl GitRepo {
             .status()
             .and_then(check_status)
     }
+
+    pub fn file_exists(&self, commit: &GitCommit, path: &str) -> io::Result<bool> {
+        let status = self.command()
+            .arg("cat-file")
+            .arg("-e")
+            .arg(format!("{}:{}", commit.id(), path))
+            .status()?;
+        Ok(status.success())
+    }
 }
