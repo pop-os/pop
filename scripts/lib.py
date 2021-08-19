@@ -2,6 +2,38 @@ import json
 import os.path
 import urllib.request
 
+# Packages to release in system76-dev
+DEV_REPOS = (
+    "accountsservice",
+    "amd-ppt-bin",
+    "bcmwl",
+    "distinst",
+    "dwarves",
+    "firmware-manager",
+    "fwupd",
+    "gdm3",
+    "gnome-desktop3",
+    "gnome-settings-daemon",
+    "gnome-shell-extension-system76-power",
+    "hidpi-daemon",
+    "libxmlb",
+    "linux",
+    "linux-firmware",
+    "mesa",
+    "nvidia-graphics-drivers",
+    "system76-acpi-dkms",
+    "system76-dkms",
+    "system76-driver",
+    "system76-firmware",
+    "system76-io-dkms",
+    "system76-keyboard-configurator",
+    "system76-oled",
+    "system76-power",
+    "system76-wallpapers",
+    "ubuntu-drivers-common",
+    "virtualbox",
+)
+
 def github_inner(url, data=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
 
@@ -44,7 +76,7 @@ def github_no_pages(url):
 def github_post(url, data):
     return github_inner(url, data)
 
-def foreach_repo(fn, selected=[]):
+def foreach_repo(fn, selected=[], dev=False):
     selected = [item.rstrip('/') for item in selected]
 
     repos = github("https://api.github.com/orgs/pop-os/repos")
@@ -53,7 +85,7 @@ def foreach_repo(fn, selected=[]):
 
     ret = {}
     for repo in repos:
-        if len(selected) == 0 or repo["name"] in selected:
+        if (len(selected) == 0 or repo["name"] in selected) and (not dev or repo["name"] in DEV_REPOS):
             ret[repo["name"]] = fn(repo)
 
     return ret
