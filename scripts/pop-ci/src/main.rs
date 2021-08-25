@@ -487,29 +487,42 @@ fn main() {
                         if dev { "~dev" } else { "" }
                     );
 
-                    let mut changelog = String::new();
-                    writeln!(changelog,
-                        "{} ({}) {}; urgency=medium",
-                        changelog_source, version, suite.id()
-                    ).unwrap();
-                    writeln!(changelog).unwrap();
-                    writeln!(changelog, "  * Auto Build").unwrap();
-                    writeln!(changelog).unwrap();
-                    writeln!(changelog,
-                        " -- {} <{}>  {}",
-                        debfullname, debemail, commit_datetime
-                    ).unwrap();
-
                     let changelog_path = if repo_name == "linux" {
                         // linux has a different changelog path
-                        let changelog_path = archive.join("debian.master").join("changelog");
-                        // linux needs all entries to be present
-                        changelog.push('\n');
-                        changelog.push_str(&fs::read_to_string(&changelog_path)?);
-                        changelog_path
+                        archive.join("debian.master").join("changelog")
                     } else {
                         archive.join("debian").join("changelog")
                     };
+
+                    let mut changelog = String::new();
+                    let mut replaced_header = false;
+                    let mut replaced_footer = false;
+                    for line in fs::read_to_string(&changelog_path)?.lines() {
+                        // Replace first header using new version and build suite, add new entry
+                        if ! replaced_header && line.starts_with(&changelog_source) {
+                            writeln!(changelog,
+                                "{} ({}) {}; urgency=medium",
+                                changelog_source, version, suite.id()
+                            ).unwrap();
+                            writeln!(changelog).unwrap();
+                            writeln!(changelog, "  * Auto Build").unwrap();
+                            replaced_header = true;
+                            continue;
+                        }
+
+                        // Replace first footer using builder name, email, and the commit time
+                        if ! replaced_footer && line.starts_with(" -- ") {
+                            writeln!(changelog,
+                                " -- {} <{}>  {}",
+                                debfullname, debemail, commit_datetime
+                            ).unwrap();
+                            replaced_footer = true;
+                            continue;
+                        }
+
+                        // Add all other lines
+                        writeln!(changelog, "{}", line).unwrap();
+                    }
                     fs::write(&changelog_path, changelog)?;
 
                     if archive.join("debian").join("patches").join("series").exists() {
