@@ -640,6 +640,7 @@ fn main() {
                     }
                 }
 
+                let mut binaries_failed = false;
                 for arch in package.archs.iter() {
                     let mut binary_retry = source_retry;
                     for retry_key in &[
@@ -733,6 +734,7 @@ fn main() {
                                 }
                             }
 
+                            binaries_failed = true;
                             continue;
                         }
                     };
@@ -750,6 +752,10 @@ fn main() {
                             assert_eq!(package.debs.insert(file_name, entry.path()), None);
                         }
                     }
+                }
+
+                if binaries_failed {
+                    continue;
                 }
 
                 for pocket in pockets.iter() {
