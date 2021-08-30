@@ -55,6 +55,7 @@ This is an automatically generated file. See `scripts/readme`
 - [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
+- [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
@@ -67,7 +68,6 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-always\-show\-workspaces](https://github.com/pop-os/gnome-shell-extension-always-show-workspaces) - Always show workspaces in overview
 - [gnome\-shell\-extension\-do\-not\-disturb](https://github.com/pop-os/gnome-shell-extension-do-not-disturb) - Enable or disable do not disturb mode\.
 - [gnome\-shell\-extension\-gsconnect](https://github.com/pop-os/gnome-shell-extension-gsconnect) - KDE Connect implementation for GNOME
-- [gnome\-shell\-extension\-multi\-monitors](https://github.com/pop-os/gnome-shell-extension-multi-monitors) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/shell\-extensions/gnome\-shell\-extension\-multi\-monitors
 - [gnome\-shell\-extension\-pop\-battery\-icon\-fix](https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix) - Fixes the battery icon in Pop\!\_OS to correctly match the current battery level\.
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
@@ -103,6 +103,8 @@ This is an automatically generated file. See `scripts/readme`
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
+- [mutter\-rs](https://github.com/pop-os/mutter-rs) - Rust wrappers for Mutter and related projects
+- [ninja\-build](https://github.com/pop-os/ninja-build) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/ninja\-build
 - [nvidia\-container\-runtime](https://github.com/pop-os/nvidia-container-runtime) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/nvidia\-container\-runtime/
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/container\-toolkit
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
@@ -155,6 +157,7 @@ This is an automatically generated file. See `scripts/readme`
 - [tensorman](https://github.com/pop-os/tensorman) - Utility for easy management of Tensorflow containers
 - [theme](https://github.com/pop-os/theme) - A metapackage including pop\-fonts, pop\-gtk\-theme, and pop\-icon\-theme
 - [theme\-switcher](https://github.com/pop-os/theme-switcher) - Pop\!\_OS GTK widget library / app for switching themes
+- [tiler](https://github.com/pop-os/tiler) - Generic tiling window manager library in Rust
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [touchegg](https://github.com/pop-os/touchegg) - Pop\!\_OS fork of https://github\.com/JoseExposito/touchegg
 - [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak

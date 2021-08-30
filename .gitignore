@@ -66,6 +66,7 @@
 /fwupd/
 /fwupd-dbus/
 /gdm3/
+/gir/
 /gnome-control-center/
 /gnome-desktop3/
 /gnome-initial-setup/
@@ -78,7 +79,6 @@
 /gnome-shell-extension-always-show-workspaces/
 /gnome-shell-extension-do-not-disturb/
 /gnome-shell-extension-gsconnect/
-/gnome-shell-extension-multi-monitors/
 /gnome-shell-extension-pop-battery-icon-fix/
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
@@ -114,6 +114,8 @@
 /meta-python/
 /mozc/
 /mutter/
+/mutter-rs/
+/ninja-build/
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
 /nvidia-graphics-drivers/
@@ -166,6 +168,7 @@
 /tensorman/
 /theme/
 /theme-switcher/
+/tiler/
 /token_expander/
 /touchegg/
 /transition/
