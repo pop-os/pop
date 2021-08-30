@@ -37,6 +37,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "linux",
     "linux-firmware",
     "mesa",
+    "ninja-build",
     "nvidia-graphics-drivers",
     "system76-acpi-dkms",
     "system76-dkms",
