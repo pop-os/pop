@@ -223,12 +223,6 @@ fn main() {
             continue;
         }
 
-        if ! path.join("debian").is_dir() {
-            // Skip if not a debian package
-            //TODO: do this check on git archives instead?
-            continue;
-        }
-
         let file_name = entry.file_name()
             .into_string()
             .expect("filename is not utf-8");
