@@ -16,6 +16,7 @@ function debian_gnome {
     git_remote "$1" debian "https://salsa.debian.org/gnome-team/$1.git"
 }
 
+git_remote cosmic-dock upstream "https://github.com/micheleg/dash-to-dock.git"
 git_remote dwarves debian "https://salsa.debian.org/debian/dwarves.git"
 git_remote fwupd debian "https://salsa.debian.org/efi-team/fwupd.git"
 git_remote fwupd upstream "https://github.com/fwupd/fwupd.git"
@@ -25,13 +26,13 @@ debian_gnome gnome-initial-setup
 debian_gnome gnome-online-accounts
 debian_gnome gnome-settings-daemon
 debian_gnome gnome-shell
-git_remote gnome-shell-extension-multi-monitors debian "https://salsa.debian.org/gnome-team/shell-extensions/gnome-shell-extension-multi-monitors.git"
-git_remote gnome-shell-extension-ubuntu-dock upstream "https://github.com/micheleg/dash-to-dock.git"
+git_remote gnome-shell-extension-vertical-overview upstream "https://github.com/RensAlthuis/vertical-overview.git"
 debian_gnome gnome-terminal
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
 debian_gnome mutter
+git_remote ninja-build debian "https://salsa.debian.org/debian/ninja-build.git"
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
 git_remote touchegg upstream "https://github.com/JoseExposito/touchegg.git"
 git_remote virtualbox debian "https://salsa.debian.org/pkg-virtualbox-team/virtualbox.git"
