@@ -1,7 +1,7 @@
 use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
-    git::{GitCommit, GitRemote, GitRepo},
+    git::{GitBranch, GitCommit, GitRemote, GitRepo},
     repo::{Arch, Package, Pocket, Suite},
     util::{check_output, check_status},
 };
@@ -271,7 +271,7 @@ fn main() {
         let repo = GitRepo::new(repo_path).expect("failed to open git repo");
         let heads = repo.heads(&remote).expect("failed to determine git repo heads");
 
-        let mut pockets = BTreeMap::<(Pocket, Suite), GitCommit>::new();
+        let mut pockets = BTreeMap::<(Pocket, Suite), (GitCommit, GitBranch)>::new();
         for (branch, commit) in heads.iter() {
             let mut parts = branch.id().splitn(2, '_');
             let pocket = Pocket::new(parts.next().unwrap());
@@ -288,31 +288,39 @@ fn main() {
                 };
                 if insert {
                     // Allow overwrite
-                    pockets.insert(key, commit.clone());
+                    pockets.insert(key, (commit.clone(), branch.clone()));
                 }
             }
         }
 
-        let mut builds = BTreeMap::<GitCommit, (BTreeSet<Suite>, BTreeSet<Pocket>)>::new();
-        for ((pocket, suite), commit) in pockets.iter() {
-            let entry = builds.entry(commit.clone())
-                .or_insert((BTreeSet::new(), BTreeSet::new()));
-            entry.0.insert(suite.clone());
-            entry.1.insert(pocket.clone());
+        #[derive(Default)]
+        struct Build {
+            branches: BTreeSet<GitBranch>,
+            suites: BTreeMap<Suite, BTreeSet<Pocket>>,
+        }
+        let mut builds = BTreeMap::<GitCommit, Build>::new();
+        for ((pocket, suite), (commit, branch)) in pockets.iter() {
+            let build = builds.entry(commit.clone())
+                .or_insert(Build::default());
+            build.branches.insert(branch.clone());
+            build.suites
+                .entry(suite.clone())
+                .or_insert(BTreeSet::new())
+                .insert(pocket.clone());
         }
 
         let repo_cache = git_cache.child(&repo_name, |name| {
             builds.contains_key(&GitCommit::new(name))
         }).expect("failed to open repo cache");
 
-        for (commit, (suites, pockets)) in builds.iter() {
+        for (commit, build) in builds.iter() {
             let commit_name = {
                 let mut join = String::new();
-                for pocket in pockets.iter() {
+                for branch in build.branches.iter() {
                     if ! join.is_empty() {
                         join.push(' ');
                     }
-                    join.push_str(pocket.id());
+                    join.push_str(branch.id());
                 }
                 format!("{} ({})", commit.id(), join)
             };
@@ -325,7 +333,7 @@ fn main() {
             }
 
             let mut commit_cache = repo_cache.child(commit.id(), |name| {
-                name == "archive.tar.gz" || Suite::new(name).map_or(false, |suite| suites.contains(&suite))
+                name == "archive.tar.gz" || Suite::new(name).map_or(false, |suite| build.suites.contains_key(&suite))
             }).expect("failed to open commit cache");
 
             let (archive_tar, archive_rebuilt) = commit_cache.build("archive.tar.gz", false, |path| {
@@ -360,7 +368,7 @@ fn main() {
                 str::from_utf8(&output.stdout).unwrap().trim().to_owned()
             };
 
-            for suite in suites.iter() {
+            for (suite, pockets) in build.suites.iter() {
                 let suite_name = format!("{} ({})", suite.id(), suite.version());
 
                 eprintln!(bold!("{}: {}: {}"), repo_name, commit_name, suite_name);
