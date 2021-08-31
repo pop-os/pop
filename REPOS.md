@@ -28,6 +28,7 @@ This is an automatically generated file. See `scripts/readme`
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
+- [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [deb\-changelog](https://github.com/pop-os/deb-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
@@ -72,6 +73,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
+- [gnome\-shell\-extension\-vertical\-overview](https://github.com/pop-os/gnome-shell-extension-vertical-overview) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [gnome\-shell\-theme](https://github.com/pop-os/gnome-shell-theme) - The GNOME Shell theme for Pop\!\_OS
 - [gnome\-terminal](https://github.com/pop-os/gnome-terminal) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-terminal\.git
 - [granite](https://github.com/pop-os/granite) - Library that extends GTK with common widgets and utilities

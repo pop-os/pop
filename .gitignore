@@ -39,6 +39,7 @@
 /connectivity/
 /cosmic/
 /cosmic-dock/
+/cosmic-panel/
 /dbus-udisks2/
 /deb-architectures/
 /deb-changelog/
@@ -83,6 +84,7 @@
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
+/gnome-shell-extension-vertical-overview/
 /gnome-shell-theme/
 /gnome-terminal/
 /granite/
