@@ -93,6 +93,7 @@ This is an automatically generated file. See `scripts/readme`
 - [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
 - [launcher](https://github.com/pop-os/launcher) - Modular IPC\-based desktop launcher service
+- [libbpf](https://github.com/pop-os/libbpf) - Pop\!\_OS fork of https://github\.com/sudipm\-mukherjee/libbpf
 - [libdrm](https://github.com/pop-os/libdrm) - Forked from https://salsa\.debian\.org/xorg\-team/lib/libdrm
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container

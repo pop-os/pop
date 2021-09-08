@@ -104,6 +104,7 @@
 /keyboard-configurator/
 /kit/
 /launcher/
+/libbpf/
 /libdrm/
 /libhandy/
 /libnvidia-container/
