@@ -31,6 +31,7 @@ debian_gnome gnome-terminal
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
+git_remote mozc debian https://salsa.debian.org/debian/mozc.git
 debian_gnome mutter
 git_remote ninja-build debian "https://salsa.debian.org/debian/ninja-build.git"
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
