@@ -25,13 +25,6 @@ parser.add_argument("--release", action="store_true")
 parser.add_argument("--yes", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
-codenames = (
-    "bionic",
-    "focal",
-    "hirsute",
-    "impish",
-)
-
 if args.release:
     lp = launchpad()
 else:
@@ -41,10 +34,22 @@ if args.dev:
     owner = lp.people["system76-dev"]
     release_archive = owner.getPPAByName(name="stable")
     proposed_archive = owner.getPPAByName(name="pre-stable")
+    codenames = (
+        "bionic",
+        "focal",
+        "hirsute",
+        "impish",
+    )
 else:
     owner = lp.people["system76"]
     release_archive = owner.getPPAByName(name="pop")
     proposed_archive = owner.getPPAByName(name="proposed")
+    # launchpad phased out on 21.10 and later
+    codenames = (
+        "bionic",
+        "focal",
+        "hirsute",
+    )
 
 proposed_pending = {}
 proposed_published = {}
