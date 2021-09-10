@@ -2,7 +2,7 @@ use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
-    repo::{Arch, Package, Pocket, Suite},
+    repo::{Arch, Package, Pocket, RepoInfo, Suite},
     util::{check_output, check_status},
 };
 use std::{
@@ -199,20 +199,6 @@ fn main() {
             }
         }
     }
-
-    let (ppa_key, ppa_release, ppa_proposed) = if dev {
-        (
-            fs::canonicalize("scripts/.ppa-dev.asc").expect("failed to find PPA key"),
-            "system76-dev/stable",
-            "system76-dev/pre-stable",
-        )
-    } else {
-        (
-            fs::canonicalize("scripts/.ppa.asc").expect("failed to find PPA key"),
-            "system76/pop",
-            "system76/proposed",
-        )
-    };
 
     let mut repos = BTreeMap::new();
     for entry_res in fs::read_dir(".").expect("failed to read directory") {
@@ -644,6 +630,8 @@ fn main() {
                     }
                 }
 
+                let repo_info = RepoInfo::new(suite, dev);
+
                 let mut binaries_failed = false;
                 for arch in package.archs.iter() {
                     let mut binary_retry = source_retry;
@@ -687,14 +675,10 @@ fn main() {
                             .arg(format!("--arch={}", arch.id()))
                             .arg(format!("--dist={}", suite.id()))
                             .arg(format!("--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ {}-updates main restricted universe multiverse", suite.id()))
-                            .arg(format!("--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ {}-updates main restricted universe multiverse", suite.id()))
                             .arg(format!("--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ {}-security main restricted universe multiverse", suite.id()))
-                            .arg(format!("--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ {}-security main restricted universe multiverse", suite.id()))
-                            .arg(format!("--extra-repository=deb http://ppa.launchpad.net/{}/ubuntu {} main", ppa_release, suite.id()))
-                            .arg(format!("--extra-repository=deb-src http://ppa.launchpad.net/{}/ubuntu {} main", ppa_release, suite.id()))
-                            .arg(format!("--extra-repository=deb http://ppa.launchpad.net/{}/ubuntu {} main", ppa_proposed, suite.id()))
-                            .arg(format!("--extra-repository=deb-src http://ppa.launchpad.net/{}/ubuntu {} main", ppa_proposed, suite.id()))
-                            .arg(format!("--extra-repository-key={}", ppa_key.display()))
+                            .arg(format!("--extra-repository=deb {} {} main", repo_info.release, suite.id()))
+                            .arg(format!("--extra-repository=deb {} {} main", repo_info.staging, suite.id()))
+                            .arg(format!("--extra-repository-key={}", repo_info.key.display()))
                             .arg("--no-apt-distupgrade")
                             .arg("--no-run-autopkgtest")
                             .arg("--no-run-lintian")
@@ -803,6 +787,8 @@ fn main() {
                 repo_packages.contains_key(name)
             }).expect("failed to open suite pool cache");
 
+            let repo_info = RepoInfo::new(suite, dev);
+
             for (repo_name, (commit, package)) in repo_packages.iter() {
                 eprintln!(bold!("    package: {}: {}"), repo_name, commit.id());
 
@@ -837,6 +823,11 @@ fn main() {
 
                 if pocket.id() == "master" && launchpad {
                     for (changes_name, changes_path) in package.changes.iter() {
+                        let dput = match repo_info.dput {
+                            Some(some) => some,
+                            None => continue,
+                        };
+
                         if ! changes_name.ends_with("_source.changes") {
                             // We can only upload source changes
                             continue;
@@ -850,18 +841,18 @@ fn main() {
                             continue;
                         }
 
-                        eprintln!(bold!("      launchpad upload to {}"), ppa_proposed);
+                        eprintln!(bold!("      launchpad upload to {}"), dput);
                         let dput_res = process::Command::new("dput")
-                            .arg(&format!("ppa:{}", ppa_proposed))
+                            .arg(dput)
                             .arg(&changes_path)
                             .status()
                             .and_then(check_status);
                         match dput_res {
                             Ok(()) => {
-                                eprintln!(bold!("      launchpad upload complete"));
+                                eprintln!(bold!("      launchpad upload to {} complete"), dput);
                             },
                             Err(err) => {
-                                eprintln!(bold!("      launchpad upload failed: {}"), err);
+                                eprintln!(bold!("      launchpad upload to {} failed: {}"), dput, err);
                             },
                         }
                     }

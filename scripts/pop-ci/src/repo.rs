@@ -1,5 +1,6 @@
 use std::{
     collections::BTreeMap,
+    fs,
     path::PathBuf,
 };
 
@@ -44,15 +45,48 @@ impl Pocket {
     }
 }
 
-// This list has every Pop!_OS release
+pub struct RepoInfo {
+    pub key: PathBuf,
+    pub release: &'static str,
+    pub staging: &'static str,
+    pub dput: Option<&'static str>,
+}
+
+impl RepoInfo {
+    pub fn new(suite: &Suite, dev: bool) -> Self {
+        if dev {
+            // Launchpad for all Ubuntu releases
+            return Self {
+                key: fs::canonicalize("scripts/.ppa-dev.asc").expect("failed to find dev PPA key"),
+                release: "http://ppa.launchpad.net/system76-dev/stable/ubuntu",
+                staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
+                dput: Some("ppa:system76-dev/pre-stable"),
+            }
+        }
+
+        match suite.id() {
+            // Launchpad used prior to Pop 21.10
+            "bionic" | "focal" | "hirsute" => Self {
+                key: fs::canonicalize("scripts/.ppa.asc").expect("failed to find PPA key"),
+                release: "http://ppa.launchpad.net/system76/pop/ubuntu",
+                staging: "http://ppa.launchpad.net/system76/proposed/ubuntu",
+                dput: Some("ppa:system76/proposed"),
+            },
+            // apt.pop-os.org for Pop 21.10 and later
+            _ => Self {
+                key: fs::canonicalize("scripts/.iso.asc").expect("failed to find ISO key"),
+                release: "http://apt.pop-os.org/release",
+                staging: "http://apt.pop-os.org/staging/master",
+                dput: None,
+            },
+        }
+    }
+}
+
+// This list has every supported Pop!_OS and Ubuntu release
 static SUITE_VERSIONS: &'static [(&'static str, &'static str)] = &[
-    ("artful", "17.10"),
     ("bionic", "18.04"),
-    ("cosmic", "18.10"),
-    ("disco", "19.04"),
-    ("eoan", "19.10"),
     ("focal", "20.04"),
-    ("groovy", "20.10"),
     ("hirsute", "21.04"),
     ("impish", "21.10"),
 ];
