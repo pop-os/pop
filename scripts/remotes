@@ -17,6 +17,7 @@ function debian_gnome {
 }
 
 git_remote cosmic-dock upstream "https://github.com/micheleg/dash-to-dock.git"
+git_remote desktop-icons-ng upstream "https://gitlab.com/rastersoft/desktop-icons-ng.git"
 git_remote dwarves debian "https://salsa.debian.org/debian/dwarves.git"
 git_remote fwupd debian "https://salsa.debian.org/efi-team/fwupd.git"
 git_remote fwupd upstream "https://github.com/fwupd/fwupd.git"
@@ -34,6 +35,7 @@ git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
 git_remote mozc debian https://salsa.debian.org/debian/mozc.git
 debian_gnome mutter
 git_remote ninja-build debian "https://salsa.debian.org/debian/ninja-build.git"
+git_remote steam debian "https://salsa.debian.org/games-team/steam.git"
 git_remote systemd ubuntu "https://git.launchpad.net/~ubuntu-core-dev/ubuntu/+source/systemd"
 git_remote touchegg upstream "https://github.com/JoseExposito/touchegg.git"
 git_remote virtualbox debian "https://salsa.debian.org/pkg-virtualbox-team/virtualbox.git"
