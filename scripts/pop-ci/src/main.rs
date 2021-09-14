@@ -34,6 +34,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libbpf",
+    "libdrm",
     "libxmlb",
     "linux",
     "linux-firmware",

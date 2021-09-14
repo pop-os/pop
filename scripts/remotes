@@ -29,6 +29,7 @@ debian_gnome gnome-settings-daemon
 debian_gnome gnome-shell
 git_remote gnome-shell-extension-vertical-overview upstream "https://github.com/RensAlthuis/vertical-overview.git"
 debian_gnome gnome-terminal
+git_remote libdrm debian "https://salsa.debian.org/xorg-team/lib/libdrm.git"
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
 git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
