@@ -35,6 +35,7 @@ This is an automatically generated file. See `scripts/readme`
 - [deb\-control](https://github.com/pop-os/deb-control) - Zero\-copy parser & futures codec for Debian control files
 - [deb\-diversion](https://github.com/pop-os/deb-diversion) - Futures codec for Debian's dpkg diversion file
 - [debarchive](https://github.com/pop-os/debarchive) - Rust crate which provides direct access to files within a Debian archive
+- [debconf](https://github.com/pop-os/debconf) - Repackaging of https://code\.launchpad\.net/ubuntu/\+source/debconf
 - [debrepbuild](https://github.com/pop-os/debrepbuild) - A project for automatically generating and maintaining Debian repositories from a TOML spec\. 
 - [deckard](https://github.com/pop-os/deckard) - A Pop\!\_Shop compatible api server
 - [default\-settings](https://github.com/pop-os/default-settings) - Distribution Default Settings

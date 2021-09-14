@@ -46,6 +46,7 @@
 /deb-control/
 /deb-diversion/
 /debarchive/
+/debconf/
 /debrepbuild/
 /deckard/
 /default-settings/
