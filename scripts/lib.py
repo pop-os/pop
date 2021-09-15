@@ -17,6 +17,7 @@ DEV_REPOS = (
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libbpf",
+    "libdrm",
     "libxmlb",
     "linux",
     "linux-firmware",
