@@ -4,7 +4,10 @@ use std::{
     path::{Path, PathBuf},
 };
 
-pub struct Cache(PathBuf);
+pub struct Cache {
+    path: PathBuf,
+    cleaned: bool
+}
 
 impl Cache {
     pub fn new<P: AsRef<Path>, F: Fn(&str) -> bool>(path: P, retain: F) -> io::Result<Self> {
@@ -13,6 +16,7 @@ impl Cache {
             fs::create_dir_all(&path)?;
         }
         let path = fs::canonicalize(path)?;
+        let mut cleaned = false;
         for entry_res in fs::read_dir(&path)? {
             let entry = entry_res?;
             let file_name = entry.file_name().into_string().map_err(|err| io::Error::new(
@@ -28,13 +32,18 @@ impl Cache {
                 } else {
                     fs::remove_file(&entry_path)?;
                 }
+                cleaned = true;
             }
         }
-        Ok(Self(path))
+        Ok(Self{ path, cleaned })
     }
 
     pub fn path(&self) -> &Path {
-        &self.0
+        &self.path
+    }
+
+    pub fn cleaned(&self) -> bool {
+        self.cleaned
     }
 
     pub fn child<F: Fn(&str) -> bool>(&self, name: &str, retain: F) -> io::Result<Self> {

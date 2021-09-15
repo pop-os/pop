@@ -788,6 +788,10 @@ fn main() {
                 repo_packages.contains_key(name)
             }).expect("failed to open suite pool cache");
 
+            if suite_pool_cache.cleaned() {
+                pool_rebuilt = true;
+            }
+
             let repo_info = RepoInfo::new(suite, dev);
 
             for (repo_name, (commit, package)) in repo_packages.iter() {
@@ -796,6 +800,10 @@ fn main() {
                 let mut repo_pool_cache = suite_pool_cache.child(repo_name, |name| {
                     name == commit.id()
                 }).expect("failed to open repo cache");
+
+                if repo_pool_cache.cleaned() {
+                    pool_rebuilt = true;
+                }
 
                 let (_, repo_pool_rebuilt) = repo_pool_cache.build(commit.id(), package.rebuilt, |path| {
                     fs::create_dir(&path)?;
