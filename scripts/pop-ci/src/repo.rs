@@ -8,9 +8,18 @@ use std::{
 pub struct Arch(&'static str);
 
 impl Arch {
-    pub const fn new(id: &'static str) -> Self {
-        Self(id)
-    }
+    // These are the supported architectures on an aarch64 build server
+    #[cfg(target_arch = "aarch64")]
+    pub const ALL: &'static [Self] = &[
+        Self("arm64"),
+    ];
+
+    // These are the supported architectures on a x86_64 build server
+    #[cfg(target_arch = "x86_64")]
+    pub const ALL: &'static [Self] = &[
+        Self("amd64"),
+        Self("i386"),
+    ];
 
     pub fn id(&self) -> &str {
         &self.0
@@ -90,22 +99,22 @@ impl RepoInfo {
     }
 }
 
-// This list has every supported Pop!_OS and Ubuntu release
-static SUITE_VERSIONS: &'static [(&'static str, &'static str)] = &[
-    ("bionic", "18.04"),
-    ("focal", "20.04"),
-    ("hirsute", "21.04"),
-    ("impish", "21.10"),
-];
-
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Suite(&'static str, &'static str);
 
 impl Suite {
+    // This list has every supported Pop!_OS and Ubuntu release
+    pub const ALL: &'static [Self] = &[
+        Self("bionic", "18.04"),
+        Self("focal", "20.04"),
+        Self("hirsute", "21.04"),
+        Self("impish", "21.10"),
+    ];
+
     pub fn new(id: &str) -> Option<Self> {
-        for (codename, version) in SUITE_VERSIONS.iter() {
-            if *codename == id {
-                return Some(Self(codename, version));
+        for suite in Self::ALL.iter() {
+            if suite.id() == id {
+                return Some(suite.clone());
             }
         }
         None

@@ -151,20 +151,8 @@ fn main() {
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
-    let all_suites = [
-        Suite::new("bionic").unwrap(),
-        Suite::new("focal").unwrap(),
-        Suite::new("hirsute").unwrap(),
-        Suite::new("impish").unwrap(),
-    ];
-
-    let all_archs = [
-        Arch::new("amd64"),
-        Arch::new("i386"),
-    ];
-
-    for suite in all_suites.iter() {
-        for arch in all_archs.iter() {
+    for suite in Suite::ALL.iter() {
+        for arch in Arch::ALL.iter() {
             let chroot = Path::new("/srv").join("chroot").join(format!(
                 "{}-{}-sbuild",
                 suite.id(), arch.id()
@@ -264,7 +252,7 @@ fn main() {
             let pocket = Pocket::new(parts.next().unwrap());
             let pattern_opt = parts.next();
 
-            for suite in all_suites.iter() {
+            for suite in Suite::ALL.iter() {
                 let key = (pocket.clone(), suite.clone());
                 let insert = if let Some(pattern) = pattern_opt {
                     // Insert pattern entry if pattern matches
@@ -361,7 +349,7 @@ fn main() {
                 eprintln!(bold!("{}: {}: {}"), repo_name, commit_name, suite_name);
 
                 let mut suite_cache = commit_cache.child(suite.id(), |name| {
-                    name == "source" || all_archs.iter().any(|arch| arch.id() == name)
+                    name == "source" || Arch::ALL.iter().any(|arch| arch.id() == name)
                 }).expect("failed to open suite cache");
 
                 let mut source_retry = false;
@@ -621,7 +609,7 @@ fn main() {
                 let dsc = fs::read_to_string(&dsc_path).expect("failed to read .dsc file");
                 for line in dsc.lines() {
                     if line.starts_with("Architecture: ") {
-                        for arch in all_archs.iter() {
+                        for arch in Arch::ALL.iter() {
                             for part in line.split(' ') {
                                 if part == arch.id()
                                 || part == "any"
@@ -915,7 +903,7 @@ fn main() {
                 }
 
                 let mut archs_string = String::new();
-                for arch in all_archs.iter() {
+                for arch in Arch::ALL.iter() {
                     let binary_dir = main_dir.join(format!("binary-{}", arch.id()));
                     fs::create_dir(&binary_dir)?;
 
