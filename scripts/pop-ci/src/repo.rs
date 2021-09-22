@@ -5,11 +5,11 @@ use std::{
 };
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct Arch(String);
+pub struct Arch(&'static str);
 
 impl Arch {
-    pub fn new(id: &str) -> Self {
-        Self(id.to_owned())
+    pub const fn new(id: &'static str) -> Self {
+        Self(id)
     }
 
     pub fn id(&self) -> &str {
