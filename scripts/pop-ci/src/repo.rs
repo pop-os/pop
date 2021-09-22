@@ -17,8 +17,15 @@ impl Arch {
     }
 
     pub fn build_all(&self) -> bool {
-        //TODO: test if host arch?
         self.id() == "amd64"
+    }
+
+    pub fn ubuntu_mirror(&self) -> &'static str {
+        if self.id() == "amd64" || self.id() == "i386" {
+            "http://archive.ubuntu.com/ubuntu"
+        } else {
+            "http://ports.ubuntu.com/ubuntu-ports"
+        }
     }
 }
 
