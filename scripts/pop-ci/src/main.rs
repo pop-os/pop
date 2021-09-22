@@ -211,6 +211,11 @@ fn main() {
             continue;
         }
 
+        if ! path.join(".git").is_dir() {
+            // Skip if not a git repository
+            continue;
+        }
+
         let file_name = entry.file_name()
             .into_string()
             .expect("filename is not utf-8");
