@@ -23,6 +23,7 @@ git_remote fwupd debian "https://salsa.debian.org/efi-team/fwupd.git"
 git_remote fwupd upstream "https://github.com/fwupd/fwupd.git"
 git_remote gdm3 debian "https://salsa.debian.org/gnome-team/gdm.git"
 debian_gnome gnome-control-center
+debian_gnome gnome-disk-utility
 debian_gnome gnome-initial-setup
 debian_gnome gnome-online-accounts
 debian_gnome gnome-settings-daemon
