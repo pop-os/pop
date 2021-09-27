@@ -60,6 +60,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
+- [gnome\-disk\-utility](https://github.com/pop-os/gnome-disk-utility) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/gnome\-disk\-utility
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
 - [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
@@ -82,6 +83,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gtk\-extras](https://github.com/pop-os/gtk-extras) - Rust crate containing an assortment of extra, unofficial GTK patterns, widgets, and traits\.
 - [gtk\-rs](https://github.com/pop-os/gtk-rs) - Fork of gtk\-rs to build with Ubuntu's Rustc version\.
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
+- [gweather\-rs](https://github.com/pop-os/gweather-rs) - Rust wrapper for gweather
 - [happiness](https://github.com/pop-os/happiness) - Send random quotes about happiness to your desktop
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
 - [hidpi\-widget](https://github.com/pop-os/hidpi-widget) - GTK widget for the System76 HiDPI daemon
@@ -105,6 +107,7 @@ This is an automatically generated file. See `scripts/readme`
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
+- [modemmanager](https://github.com/pop-os/modemmanager) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/modemmanager\.git
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [mutter\-rs](https://github.com/pop-os/mutter-rs) - Rust wrappers for Mutter and related projects
@@ -176,3 +179,4 @@ This is an automatically generated file. See `scripts/readme`
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
+- [xmm7360\-dkms](https://github.com/pop-os/xmm7360-dkms) - Pop\!\_OS fork of https://github\.com/xmm7360/xmm7360\-pci

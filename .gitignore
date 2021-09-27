@@ -71,6 +71,7 @@
 /gir/
 /gnome-control-center/
 /gnome-desktop3/
+/gnome-disk-utility/
 /gnome-initial-setup/
 /gnome-online-accounts/
 /gnome-pomodoro/
@@ -93,6 +94,7 @@
 /gtk-extras/
 /gtk-rs/
 /gtk-theme/
+/gweather-rs/
 /happiness/
 /hidpi-daemon/
 /hidpi-widget/
@@ -116,6 +118,7 @@
 /logind-dbus/
 /mesa/
 /meta-python/
+/modemmanager/
 /mozc/
 /mutter/
 /mutter-rs/
@@ -187,3 +190,4 @@
 /wallpapers/
 /website/
 /whitespace-conf/
+/xmm7360-dkms/
