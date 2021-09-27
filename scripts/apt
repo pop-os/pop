@@ -68,7 +68,7 @@ case "$1" in
 			then
 				sudo apt-manage add "${LINE}" \
 					--source-code \
-					--ident "popdev-${LOCALREMOTE}$newrepo${DEVLINE}" \
+					--ident "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}" \
 					--name "Pop Development Branch $newrepo"
 				sudo apt-get update
 			else
@@ -89,7 +89,7 @@ case "$1" in
 			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 			if command -v apt-manage > /dev/null
 			then
-				sudo apt-manage remove -y "popdev-${LOCALREMOTE}$newrepo${DEVLINE}"
+				sudo apt-manage remove -y "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}"
 				sudo apt-get update
 			else
 				sudo add-apt-repository -r -s "${LINE}"
