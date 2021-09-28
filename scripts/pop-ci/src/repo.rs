@@ -8,17 +8,10 @@ use std::{
 pub struct Arch(&'static str);
 
 impl Arch {
-    // These are the supported architectures on an aarch64 build server
-    #[cfg(target_arch = "aarch64")]
-    pub const ALL: &'static [Self] = &[
-        Self("arm64"),
-    ];
-
-    // These are the supported architectures on a x86_64 build server
-    #[cfg(target_arch = "x86_64")]
     pub const ALL: &'static [Self] = &[
         Self("amd64"),
         Self("i386"),
+        Self("arm64"),
     ];
 
     pub fn id(&self) -> &str {

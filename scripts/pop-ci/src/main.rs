@@ -135,6 +135,12 @@ fn main() {
                 .takes_value(true)
                 .help("Matching builds will be retried")
         )
+        .arg(
+            Arg::with_name("arm64")
+                .long("arm64")
+                .takes_value(true)
+                .help("ARM64 builder")
+        )
         .get_matches();
 
     let dev = matches.is_present("dev");
@@ -147,44 +153,91 @@ fn main() {
             retry.push(retry_key.to_string());
         }
     }
+    let arm64_opt = matches.value_of("arm64");
 
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
     for suite in Suite::ALL.iter() {
         for arch in Arch::ALL.iter() {
-            let chroot = Path::new("/srv").join("chroot").join(format!(
-                "{}-{}-sbuild",
-                suite.id(), arch.id()
-            ));
+            if arch.id() == "arm64" && arm64_opt.is_none() {
+                continue;
+            }
 
-            if ! chroot.is_dir() {
-                process::Command::new("sudo")
-                    .arg("sbuild-createchroot")
-                    .arg("--include=gnupg")
-                    .arg("--components=main,restricted,universe,multiverse")
-                    .arg(format!("--arch={}", arch.id()))
-                    .arg(suite.id())
-                    .arg(&chroot)
-                    .arg(arch.ubuntu_mirror())
-                    .status()
-                    .and_then(check_status)
-                    .expect("failed to create sbuild chroot");
+            {
+                let script = format!(
+r#"#!/usr/bin/env bash
+
+CHROOT="/srv/chroot/{suite}-{arch}-sbuild"
+if [ ! -d "$CHROOT" ]
+then
+    set -ex
+
+    sudo sbuild-createchroot \
+        '--include=gnupg' \
+        '--components=main,restricted,universe,multiverse' \
+        '--arch={arch}' \
+        '{suite}' \
+        '$CHROOT' \
+        '{ubuntu_mirror}'
+fi
+"#,
+                    arch=arch.id(),
+                    suite=suite.id(),
+                    ubuntu_mirror=arch.ubuntu_mirror()
+                );
+
+                if arch.id() == "arm64" {
+                    let arm64 = arm64_opt.unwrap(); // checked above
+                    process::Command::new("ssh")
+                        .arg(arm64)
+                        .arg("--")
+                        .arg(script)
+                        .status()
+                        .and_then(check_status)
+                } else {
+                    process::Command::new("sh")
+                        .arg("-c")
+                        .arg(script)
+                        .status()
+                        .and_then(check_status)
+                }.expect("failed to create sbuild chroot");
             }
 
             if sbuild_update {
-                process::Command::new("sudo")
-                    .arg("sbuild-update")
-                    .arg("--update")
-                    .arg("--dist-upgrade")
-                    .arg("--clean")
-                    .arg("--autoclean")
-                    .arg("--autoremove")
-                    .arg(format!("--arch={}", arch.id()))
-                    .arg(suite.id())
-                    .status()
-                    .and_then(check_status)
-                    .expect("failed to update sbuild chroot");
+                let script = format!(
+r#"#!/usr/bin/env bash
+
+set -ex
+
+sudo sbuild-update \
+    '--update' \
+    '--dist-upgrade' \
+    '--clean' \
+    '--autoclean' \
+    '--autoremove' \
+    '--arch={arch}' \
+    '{suite}' \
+"#,
+                    arch=arch.id(),
+                    suite=suite.id()
+                );
+
+                if arch.id() == "arm64" {
+                    let arm64 = arm64_opt.unwrap(); // checked above
+                    process::Command::new("ssh")
+                        .arg(arm64)
+                        .arg("--")
+                        .arg(script)
+                        .status()
+                        .and_then(check_status)
+                } else {
+                    process::Command::new("sh")
+                        .arg("-c")
+                        .arg(script)
+                        .status()
+                        .and_then(check_status)
+                }.expect("failed to update sbuild chroot");
             }
         }
     }
@@ -628,6 +681,10 @@ fn main() {
 
                 let mut binaries_failed = false;
                 for arch in package.archs.iter() {
+                    if arch.id() == "arm64" && arm64_opt.is_none() {
+                        continue;
+                    }
+
                     let mut binary_retry = source_retry;
                     for retry_key in &[
                         format!("arch:{}", arch.id()),
@@ -663,24 +720,75 @@ fn main() {
                         github_status(&format!("binary-{}", arch.id()), "pending");
                         fs::create_dir(&path)?;
 
-                        process::Command::new("sbuild")
-                            .arg("--verbose")
-                            .arg(if arch.build_all() { "--arch-all" } else { "--no-arch-all" })
-                            .arg(format!("--arch={}", arch.id()))
-                            .arg(format!("--dist={}", suite.id()))
-                            .arg(format!("--extra-repository=deb {} {}-updates main restricted universe multiverse", arch.ubuntu_mirror(), suite.id()))
-                            .arg(format!("--extra-repository=deb {} {}-security main restricted universe multiverse", arch.ubuntu_mirror(), suite.id()))
-                            .arg(format!("--extra-repository=deb {} {} main", repo_info.release, suite.id()))
-                            .arg(format!("--extra-repository=deb {} {} main", repo_info.staging, suite.id()))
-                            .arg(format!("--extra-repository-key={}", repo_info.key.display()))
-                            .arg("--no-apt-distupgrade")
-                            .arg("--no-run-autopkgtest")
-                            .arg("--no-run-lintian")
-                            .arg("--no-run-piuparts")
-                            .arg(&dsc_path)
-                            .current_dir(&path)
-                            .status()
-                            .and_then(check_status)
+                        let script = format!(
+r#"#!/usr/bin/env bash
+
+set -ex
+
+sbuild \
+    '--verbose' \
+    '{arch_all}' \
+    '--arch={arch}' \
+    '--dist={suite}' \
+    '--extra-repository=deb {ubuntu_mirror} {suite}-updates main restricted universe multiverse' \
+    '--extra-repository=deb {ubuntu_mirror} {suite}-security main restricted universe multiverse' \
+    '--extra-repository=deb {release} {suite} main' \
+    '--extra-repository=deb {staging} {suite} main' \
+    '--extra-repository-key={key}' \
+    '--no-apt-distupgrade' \
+    '--no-run-autopkgtest' \
+    '--no-run-lintian' \
+    '--no-run-piuparts' \
+    '--build-dir={path}' \
+    '{dsc}'
+"#,
+                            arch_all=if arch.build_all() { "--arch-all" } else { "--no-arch-all" },
+                            arch=arch.id(),
+                            suite=suite.id(),
+                            ubuntu_mirror=arch.ubuntu_mirror(),
+                            release=repo_info.release,
+                            staging=repo_info.staging,
+                            key=repo_info.key.display(),
+                            path=path.display(),
+                            dsc=dsc_path.display()
+                        );
+
+                        if arch.id() == "arm64" {
+                            let arm64 = arm64_opt.unwrap(); // checked above
+                            //TODO: allow arm64 builder to have different filesystem layout
+                            process::Command::new("rsync")
+                                .arg("--archive")
+                                .arg("--verbose")
+                                .arg("--delete")
+                                .arg(format!("{}/", source.display()))
+                                .arg(format!("{}:{}/", arm64, source.display()))
+                                .status()
+                                .and_then(check_status)?;
+
+                            process::Command::new("ssh")
+                                .arg(arm64)
+                                .arg("--")
+                                .arg(script)
+                                .status()
+                                .and_then(check_status)?;
+
+                            process::Command::new("rsync")
+                                .arg("--archive")
+                                .arg("--verbose")
+                                .arg("--delete")
+                                .arg(format!("{}:{}/", arm64, path.display()))
+                                .arg(format!("{}/", path.display()))
+                                .status()
+                                .and_then(check_status)?;
+                        } else {
+                            process::Command::new("sh")
+                                .arg("-c")
+                                .arg(script)
+                                .status()
+                                .and_then(check_status)?;
+                        }
+
+                        Ok(())
                     });
 
                     let (binary, binary_rebuilt) = match binary_res {
