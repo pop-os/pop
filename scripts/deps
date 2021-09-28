@@ -11,12 +11,16 @@ PACKAGES=(
 	dh-python # for hidpi-daemon
 	gnome-pkg-tools # for gnome-settings-daemon
 	gobject-introspection # for fwupd and gdm3
+	kernel-wedge # for linux
 	libdrm-dev # for ubuntu-drivers-common
 	libkmod-dev # for ubuntu-drivers-common
 	libpciaccess-dev # for ubuntu-drivers-common
+	pkg-config # for mozc
+	po4a # for debconf
 	python3-distutils-extra # for sessioninstaller
 	python3-setuptools # for python-apt and ubuntu-drivers-common
 	quilt # for packages that use patches
+	sphinx-common # for python-apt
 )
 
 sudo apt install --yes "${PACKAGES[@]}"
