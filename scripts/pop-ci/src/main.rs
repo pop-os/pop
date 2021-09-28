@@ -759,6 +759,7 @@ sbuild \
                             //TODO: allow arm64 builder to have different filesystem layout
                             process::Command::new("rsync")
                                 .arg("--archive")
+                                .arg("--mkpath")
                                 .arg("--verbose")
                                 .arg("--delete")
                                 .arg(format!("{}/", source.display()))
