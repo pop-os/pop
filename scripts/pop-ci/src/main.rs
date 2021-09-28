@@ -756,10 +756,18 @@ sbuild \
 
                         if arch.id() == "arm64" {
                             let arm64 = arm64_opt.unwrap(); // checked above
+
+                            //TODO: update rsync to allow use of --mkpath
+                            process::Command::new("ssh")
+                                .arg(arm64)
+                                .arg("--")
+                                .arg(format!("mkdir -p '{}'", source.display()))
+                                .status()
+                                .and_then(check_status)?;
+
                             //TODO: allow arm64 builder to have different filesystem layout
                             process::Command::new("rsync")
                                 .arg("--archive")
-                                .arg("--mkpath")
                                 .arg("--verbose")
                                 .arg("--delete")
                                 .arg(format!("{}/", source.display()))
