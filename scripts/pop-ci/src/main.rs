@@ -2,7 +2,7 @@ use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
-    repo::{Arch, Package, Pocket, RepoInfo, Suite},
+    repo::{Package, Pocket, RepoInfo, Suite},
     util::{check_output, check_status},
 };
 use std::{
@@ -159,7 +159,8 @@ fn main() {
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
 
     for suite in Suite::ALL.iter() {
-        for arch in Arch::ALL.iter() {
+        let repo_info = RepoInfo::new(suite, dev);
+        for arch in repo_info.archs.iter() {
             if arch.id() == "arm64" && arm64_opt.is_none() {
                 continue;
             }
@@ -401,8 +402,10 @@ sudo sbuild-update \
 
                 eprintln!(bold!("{}: {}: {}"), repo_name, commit_name, suite_name);
 
+                let repo_info = RepoInfo::new(suite, dev);
+
                 let mut suite_cache = commit_cache.child(suite.id(), |name| {
-                    name == "source" || Arch::ALL.iter().any(|arch| arch.id() == name)
+                    name == "source" || repo_info.archs.iter().any(|arch| arch.id() == name)
                 }).expect("failed to open suite cache");
 
                 let mut source_retry = false;
@@ -662,7 +665,7 @@ sudo sbuild-update \
                 let dsc = fs::read_to_string(&dsc_path).expect("failed to read .dsc file");
                 for line in dsc.lines() {
                     if line.starts_with("Architecture: ") {
-                        for arch in Arch::ALL.iter() {
+                        for arch in repo_info.archs.iter() {
                             for part in line.split(' ') {
                                 if part == arch.id()
                                 || part == "any"
@@ -676,8 +679,6 @@ sudo sbuild-update \
                         }
                     }
                 }
-
-                let repo_info = RepoInfo::new(suite, dev);
 
                 let mut binaries_failed = false;
                 for arch in package.archs.iter() {
@@ -1011,7 +1012,7 @@ sbuild \
                 }
 
                 let mut archs_string = String::new();
-                for arch in Arch::ALL.iter() {
+                for arch in repo_info.archs.iter() {
                     let binary_dir = main_dir.join(format!("binary-{}", arch.id()));
                     fs::create_dir(&binary_dir)?;
 

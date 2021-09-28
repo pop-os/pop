@@ -8,12 +8,6 @@ use std::{
 pub struct Arch(&'static str);
 
 impl Arch {
-    pub const ALL: &'static [Self] = &[
-        Self("amd64"),
-        Self("i386"),
-        Self("arm64"),
-    ];
-
     pub fn id(&self) -> &str {
         &self.0
     }
@@ -59,10 +53,22 @@ pub struct RepoInfo {
     pub release: &'static str,
     pub staging: &'static str,
     pub dput: Option<&'static str>,
+    pub archs: &'static [Arch],
 }
 
 impl RepoInfo {
     pub fn new(suite: &Suite, dev: bool) -> Self {
+        const ARCHS: &'static [Arch] = &[
+            Arch("amd64"),
+            Arch("i386"),
+            Arch("arm64"),
+        ];
+
+        const DEV_ARCHS: &'static [Arch] = &[
+            Arch("amd64"),
+            Arch("i386"),
+        ];
+
         if dev {
             // Launchpad for all Ubuntu releases
             return Self {
@@ -70,6 +76,7 @@ impl RepoInfo {
                 release: "http://ppa.launchpad.net/system76-dev/stable/ubuntu",
                 staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
                 dput: Some("ppa:system76-dev/pre-stable"),
+                archs: DEV_ARCHS,
             }
         }
 
@@ -80,6 +87,7 @@ impl RepoInfo {
                 release: "http://ppa.launchpad.net/system76/pop/ubuntu",
                 staging: "http://ppa.launchpad.net/system76/proposed/ubuntu",
                 dput: Some("ppa:system76/proposed"),
+                archs: DEV_ARCHS,
             },
             // apt.pop-os.org for Pop 21.10 and later
             _ => Self {
@@ -87,6 +95,7 @@ impl RepoInfo {
                 release: "http://apt.pop-os.org/release",
                 staging: "http://apt.pop-os.org/staging/master",
                 dput: None,
+                archs: ARCHS,
             },
         }
     }
