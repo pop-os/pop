@@ -726,6 +726,8 @@ r#"#!/usr/bin/env bash
 
 set -ex
 
+mkdir -p '{path}'
+cd '{path}'
 sbuild \
     '--verbose' \
     '{arch_all}' \
@@ -740,7 +742,6 @@ sbuild \
     '--no-run-autopkgtest' \
     '--no-run-lintian' \
     '--no-run-piuparts' \
-    '--build-dir={path}' \
     '{dsc}'
 "#,
                             arch_all=if arch.build_all() { "--arch-all" } else { "--no-arch-all" },
@@ -768,8 +769,8 @@ sbuild \
                             //TODO: allow arm64 builder to have different filesystem layout
                             process::Command::new("rsync")
                                 .arg("--archive")
-                                .arg("--verbose")
                                 .arg("--delete")
+                                .arg("--stats")
                                 .arg(format!("{}/", source.display()))
                                 .arg(format!("{}:{}/", arm64, source.display()))
                                 .status()
@@ -784,8 +785,8 @@ sbuild \
 
                             process::Command::new("rsync")
                                 .arg("--archive")
-                                .arg("--verbose")
                                 .arg("--delete")
+                                .arg("--stats")
                                 .arg(format!("{}:{}/", arm64, path.display()))
                                 .arg(format!("{}/", path.display()))
                                 .status()
