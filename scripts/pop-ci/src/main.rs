@@ -669,7 +669,7 @@ sudo sbuild-update \
                             for part in line.split(' ') {
                                 if part == arch.id()
                                 || part == "any"
-                                || part == "linux-any"
+                                || (part == "linux-any" && arch.build_linux_any())
                                 || (part == "all" && arch.build_all())
                                 {
                                     package.archs.push(arch.clone());

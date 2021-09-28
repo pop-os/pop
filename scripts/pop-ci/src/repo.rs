@@ -16,6 +16,10 @@ impl Arch {
         self.id() == "amd64"
     }
 
+    pub fn build_linux_any(&self) -> bool {
+        self.id() == "amd64" || self.id() == "arm64"
+    }
+
     pub fn ubuntu_mirror(&self) -> &'static str {
         if self.id() == "amd64" || self.id() == "i386" {
             "http://archive.ubuntu.com/ubuntu"
