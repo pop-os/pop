@@ -776,12 +776,12 @@ sbuild \
                                 .status()
                                 .and_then(check_status)?;
 
-                            process::Command::new("ssh")
+                            let res = process::Command::new("ssh")
                                 .arg(arm64)
                                 .arg("--")
                                 .arg(script)
                                 .status()
-                                .and_then(check_status)?;
+                                .and_then(check_status);
 
                             process::Command::new("rsync")
                                 .arg("--archive")
@@ -791,15 +791,15 @@ sbuild \
                                 .arg(format!("{}/", path.display()))
                                 .status()
                                 .and_then(check_status)?;
+
+                            res
                         } else {
                             process::Command::new("sh")
                                 .arg("-c")
                                 .arg(script)
                                 .status()
-                                .and_then(check_status)?;
+                                .and_then(check_status)
                         }
-
-                        Ok(())
                     });
 
                     let (binary, binary_rebuilt) = match binary_res {
