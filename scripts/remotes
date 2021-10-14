@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
 function git_remote {
-    echo -e "\x1B[1m$1: $2 = $3\x1B[0m"
-    if git -C "$1" remote | grep "^$2\$" > /dev/null
-    then
-        git -C "$1" remote set-url "$2" "$3"
-    else
-        git -C "$1" remote add "$2" "$3"
-    fi
-    git -C "$1" remote update "$2"
-    git -C "$1" remote prune "$2"
+	if [ -d "$1" ]
+	then
+		echo -e "\x1B[1m$1: $2 = $3\x1B[0m"
+		if git -C "$1" remote | grep "^$2\$" > /dev/null
+		then
+			git -C "$1" remote set-url "$2" "$3"
+		else
+			git -C "$1" remote add "$2" "$3"
+		fi
+		git -C "$1" remote update "$2"
+		git -C "$1" remote prune "$2"
+	fi
 }
 
 function debian_gnome {
@@ -32,6 +35,9 @@ git_remote gnome-shell-extension-vertical-overview upstream "https://github.com/
 debian_gnome gnome-terminal
 git_remote libdrm debian "https://salsa.debian.org/xorg-team/lib/libdrm.git"
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
+git_remote linux upstream "https://github.com/torvalds/linux"
+git_remote linux ubuntu "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/impish"
+git_remote linux-firmware ubuntu "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux-firmware"
 git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
 git_remote mesa upstream https://gitlab.freedesktop.org/mesa/mesa.git
 git_remote mozc debian https://salsa.debian.org/debian/mozc.git
