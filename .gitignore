@@ -40,6 +40,7 @@
 /cosmic/
 /cosmic-dock/
 /cosmic-panel/
+/cosmic-workspaces/
 /dbus-udisks2/
 /deb-architectures/
 /deb-changelog/
@@ -55,6 +56,7 @@
 /desktop-widget/
 /disk-types/
 /distinst/
+/distinst-v2/
 /dwarves/
 /ecs-disk-manager/
 /eddy/
@@ -86,7 +88,6 @@
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-system76-power/
-/gnome-shell-extension-vertical-overview/
 /gnome-shell-theme/
 /gnome-terminal/
 /granite/
@@ -139,8 +140,10 @@
 /proc-modules/
 /proc-mounts/
 /progress-streams/
+/protonvpn-nm-lib/
 /pyflatpak/
 /python-apt/
+/raspi-img/
 /repo-curated-free/
 /repo-multiarch/
 /repo-proprietary/
@@ -183,7 +186,6 @@
 /ubuntu-release-upgrader/
 /ubuntu-version/
 /upgrade/
-/url-crawler/
 /url-scraper/
 /usb-disk-probe/
 /virtualbox/

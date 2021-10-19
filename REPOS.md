@@ -29,6 +29,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
+- [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [deb\-changelog](https://github.com/pop-os/deb-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
@@ -44,6 +45,7 @@ This is an automatically generated file. See `scripts/readme`
 - [desktop\-widget](https://github.com/pop-os/desktop-widget) - Pop Desktop Settings Widget
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
+- [distinst\-v2](https://github.com/pop-os/distinst-v2) - Distinst Rewrite as a DBus Service
 - [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
 - [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
@@ -75,7 +77,6 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
-- [gnome\-shell\-extension\-vertical\-overview](https://github.com/pop-os/gnome-shell-extension-vertical-overview) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [gnome\-shell\-theme](https://github.com/pop-os/gnome-shell-theme) - The GNOME Shell theme for Pop\!\_OS
 - [gnome\-terminal](https://github.com/pop-os/gnome-terminal) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-terminal\.git
 - [granite](https://github.com/pop-os/granite) - Library that extends GTK with common widgets and utilities
@@ -128,8 +129,10 @@ This is an automatically generated file. See `scripts/readme`
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
 - [progress\-streams](https://github.com/pop-os/progress-streams) - Rust crate to extend io::Read & io::Write types with progress callbacks
+- [protonvpn\-nm\-lib](https://github.com/pop-os/protonvpn-nm-lib) - ProtonVPN NM Library
 - [pyflatpak](https://github.com/pop-os/pyflatpak) - A simple Python wrapper around flatpak commands
 - [python\-apt](https://github.com/pop-os/python-apt) - Pop\!\_OS fork of https://salsa\.debian\.org/apt\-team/python\-apt
+- [raspi\-img](https://github.com/pop-os/raspi-img) - Raspberry Pi 4 Image
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
 - [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
@@ -172,7 +175,6 @@ This is an automatically generated file. See `scripts/readme`
 - [ubuntu\-release\-upgrader](https://github.com/pop-os/ubuntu-release-upgrader) - Forked from https://code\.launchpad\.net/ubuntu\-release\-upgrader
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
-- [url\-crawler](https://github.com/pop-os/url-crawler) - Rust crate for configurable parallel web crawling, designed to crawl for content
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
 - [virtualbox](https://github.com/pop-os/virtualbox) - Pop\!\_OS fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\.git
