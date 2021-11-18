@@ -1,7 +1,7 @@
-In general, it is preferred that Pop!\_OS projects are licensed `GPL-3.0`.
+In general, it is preferred that Pop!\_OS projects are licensed `GPL-3.0-only`.
 There are some exceptions to this:
 
-- `LGPL-3.0` may be used if it is desired to allow dynamic linkage with
+- `LGPL-3.0-only` may be used if it is desired to allow dynamic linkage with
   projects that use other licenses
 - `MPL-2.0` may be used if it is desired to allow both static and dynamic
   linkage with projects that use other licenses
