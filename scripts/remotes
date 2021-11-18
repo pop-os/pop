@@ -35,7 +35,8 @@ git_remote gnome-shell-extension-vertical-overview upstream "https://github.com/
 debian_gnome gnome-terminal
 git_remote libdrm debian "https://salsa.debian.org/xorg-team/lib/libdrm.git"
 git_remote libhandy debian "https://salsa.debian.org/DebianOnMobile-team/libhandy-1.git"
-git_remote linux upstream "https://github.com/torvalds/linux"
+git_remote linux stable "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+git_remote linux upstream "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
 git_remote linux ubuntu "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/impish"
 git_remote linux-firmware ubuntu "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux-firmware"
 git_remote mesa debian https://salsa.debian.org/xorg-team/lib/mesa.git
