@@ -7,6 +7,7 @@ This is an automatically generated file. See `scripts/readme`
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
+- [apt](https://github.com/pop-os/apt) - Fork of https://salsa\.debian\.org/apt\-team/apt
 - [apt\-cli\-wrappers](https://github.com/pop-os/apt-cli-wrappers) - Rust crate which provides CLI wrappers for apt commands\.
 - [apt\-cmd](https://github.com/pop-os/apt-cmd) - Rust crate for interacting with apt commands
 - [apt\-fetcher](https://github.com/pop-os/apt-fetcher) - Rust crate for asynchronous and parallel fetching of apt repo files from apt repos\. This can be used for updating apt lists and fetching packages from a pool\.
@@ -24,6 +25,7 @@ This is an automatically generated file. See `scripts/readme`
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
+- [bustd](https://github.com/pop-os/bustd) - \`bustd\`: Available memory or bust\!
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
@@ -98,6 +100,7 @@ This is an automatically generated file. See `scripts/readme`
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
 - [launcher](https://github.com/pop-os/launcher) - Modular IPC\-based desktop launcher service
 - [libbpf](https://github.com/pop-os/libbpf) - Pop\!\_OS fork of https://github\.com/sudipm\-mukherjee/libbpf
+- [libcosmic](https://github.com/pop-os/libcosmic) - WIP
 - [libdrm](https://github.com/pop-os/libdrm) - Forked from https://salsa\.debian\.org/xorg\-team/lib/libdrm
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
@@ -106,6 +109,7 @@ This is an automatically generated file. See `scripts/readme`
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [modemmanager](https://github.com/pop-os/modemmanager) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/modemmanager\.git
@@ -121,6 +125,7 @@ This is an automatically generated file. See `scripts/readme`
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
+- [packaging\-rust](https://github.com/pop-os/packaging-rust) - Packaging of Rust toolchain from official rust\-lang\.org releases
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
@@ -151,9 +156,9 @@ This is an automatically generated file. See `scripts/readme`
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
 - [support](https://github.com/pop-os/support) - Support utilities and libraries
-- [switcheroo\-control](https://github.com/pop-os/switcheroo-control) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/switcheroo\-control
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
+- [system\-updater](https://github.com/pop-os/system-updater) - Systemd services for checking for and applying system updates\.
 - [system76\-acpi\-dkms](https://github.com/pop-os/system76-acpi-dkms) - System76 ACPI Driver \(DKMS\)
 - [system76\-dkms](https://github.com/pop-os/system76-dkms) - System76 DKMS driver
 - [system76\-driver](https://github.com/pop-os/system76-driver) - System76 Driver for Pop\!\_OS

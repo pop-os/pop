@@ -18,6 +18,7 @@
 /api/
 /appstream-data/
 /appstream2dep11/
+/apt/
 /apt-cli-wrappers/
 /apt-cmd/
 /apt-fetcher/
@@ -35,6 +36,7 @@
 /blkid/
 /buildchain/
 /bus-writer/
+/bustd/
 /code-of-conduct/
 /connectivity/
 /cosmic/
@@ -109,6 +111,7 @@
 /kit/
 /launcher/
 /libbpf/
+/libcosmic/
 /libdrm/
 /libhandy/
 /libnvidia-container/
@@ -117,6 +120,7 @@
 /linux/
 /linux-firmware/
 /logind-dbus/
+/lutris/
 /mesa/
 /meta-python/
 /modemmanager/
@@ -132,6 +136,7 @@
 /os-release/
 /packaging-ci/
 /packaging-natron/
+/packaging-rust/
 /partition-identity/
 /pidfd/
 /plymouth-theme/
@@ -162,9 +167,9 @@
 /srmw/
 /steam/
 /support/
-/switcheroo-control/
 /sys-mount/
 /sysfs-class/
+/system-updater/
 /system76-acpi-dkms/
 /system76-dkms/
 /system76-driver/
