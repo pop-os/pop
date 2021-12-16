@@ -1,7 +1,9 @@
 use std::{
+    collections::BTreeMap,
     fs,
     io,
     path::{Path, PathBuf},
+    thread,
 };
 
 pub struct Cache {
@@ -50,7 +52,7 @@ impl Cache {
         Self::new(self.path().join(name), retain)
     }
 
-    pub fn build<F: Fn(&Path) -> io::Result<()>>(&mut self, name: &str, force: bool, f: F) -> io::Result<(PathBuf, bool)> {
+    fn build_inner(&mut self, name: &str, force: bool) -> io::Result<(PathBuf, Option<PathBuf>)> {
         let partial_prefix = "partial.";
         if name.starts_with(partial_prefix) {
             return Err(io::Error::new(
@@ -74,7 +76,7 @@ impl Cache {
                     fs::remove_file(&path)?;
                 }
             } else {
-                return Ok((path, false));
+                return Ok((path, None));
             }
         }
 
@@ -90,10 +92,59 @@ impl Cache {
             ));
         }
 
-        f(&partial_path)?;
+        Ok((path, Some(partial_path)))
+    }
 
-        fs::rename(partial_path, &path)?;
+    pub fn build<F: Fn(&Path) -> io::Result<()>>(&mut self, name: &str, force: bool, f: F) -> io::Result<(PathBuf, bool)> {
+        let (path, partial_path_opt) = self.build_inner(name, force)?;
+        match partial_path_opt {
+            Some(partial_path) => {
+                f(&partial_path)?;
 
-        Ok((path, true))
+                fs::rename(partial_path, &path)?;
+
+                Ok((path, true))
+            },
+            None => Ok((path, false))
+        }
+    }
+
+    pub fn build_parallel<
+        F: Fn(&Path) -> io::Result<()> + Send + 'static
+    >(&mut self, names: BTreeMap<String, F>, force: bool) -> BTreeMap<String, io::Result<(PathBuf, bool)>> {
+        let mut threads = BTreeMap::new();
+        let mut results = BTreeMap::new();
+        for (name, f) in names {
+            match self.build_inner(&name, force) {
+                Ok((path, partial_path_opt)) => match partial_path_opt {
+                    Some(partial_path) => {
+                        threads.insert(name, thread::spawn(move || {
+                            f(&partial_path)?;
+                            fs::rename(partial_path, &path)?;
+                            Ok(path)
+                        }));
+                    },
+                    None => {
+                        results.insert(name, Ok((path, false)));
+                    }
+                },
+                Err(err) => {
+                    results.insert(name, Err(err));
+                }
+            }
+        }
+
+        for (name, thread) in threads {
+            match thread.join().unwrap() {
+                Ok(path) => {
+                    results.insert(name, Ok((path, true)));
+                },
+                Err(err) => {
+                    results.insert(name, Err(err));
+                }
+            }
+        }
+
+        results
     }
 }

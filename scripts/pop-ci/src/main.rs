@@ -439,42 +439,50 @@ sudo sbuild-update \
                     continue;
                 }
 
-                let github_status = |step: &str, status: &str| {
-                    let target_url = match env::var("BUILD_URL") {
-                        Ok(some) => some,
-                        Err(_) => return,
-                    };
+                let github_status = {
+                    //TODO: cleanup extra clones
+                    let commit = commit.clone();
+                    let commit_name = commit_name.clone();
+                    let repo_name = repo_name.clone();
+                    let suite = suite.clone();
+                    let suite_name = suite_name.clone();
+                    move |step: &str, status: &str| {
+                        let target_url = match env::var("BUILD_URL") {
+                            Ok(some) => some,
+                            Err(_) => return,
+                        };
 
-                    eprintln!(
-                        bold!("{}: {}: {}: {} github status {}"),
-                        repo_name, commit_name, suite_name, step, status
-                    );
+                        eprintln!(
+                            bold!("{}: {}: {}: {} github status {}"),
+                            repo_name, commit_name, suite_name, step, status
+                        );
 
-                    let (context, description) = if dev {
-                        (
-                            format!("ubuntu/staging/{}/{}", suite.id(), step),
-                            format!("Ubuntu Staging {} {}", suite.id(), step),
-                        )
-                    } else {
-                        (
-                            format!("pop-os/staging/{}/{}", suite.id(), step),
-                            format!("Pop!_OS Staging {} {}", suite.id(), step),
-                        )
-                    };
+                        let (context, description) = if dev {
+                            (
+                                format!("ubuntu/staging/{}/{}", suite.id(), step),
+                                format!("Ubuntu Staging {} {}", suite.id(), step),
+                            )
+                        } else {
+                            (
+                                format!("pop-os/staging/{}/{}", suite.id(), step),
+                                format!("Pop!_OS Staging {} {}", suite.id(), step),
+                            )
+                        };
 
-                    match github_status_inner(
-                        repo_name,
-                        commit,
-                        &context,
-                        &description,
-                        status,
-                        &target_url
-                    ) {
-                        Ok(()) => (),
-                        Err(err) => eprintln!(
-                            bold!("{}: {}: {}: {} github status {} failed: {}"),
-                            repo_name, commit_name, suite_name, step, status, err
-                        )
+                        match github_status_inner(
+                            &repo_name,
+                            &commit,
+                            &context,
+                            &description,
+                            status,
+                            &target_url
+                        ) {
+                            Ok(()) => (),
+                            Err(err) => eprintln!(
+                                bold!("{}: {}: {}: {} github status {} failed: {}"),
+                                repo_name, commit_name, suite_name, step, status, err
+                            )
+                        }
                     }
                 };
 
@@ -680,7 +688,7 @@ sudo sbuild-update \
                     }
                 }
 
-                let mut binaries_failed = false;
+                let mut binary_builds = BTreeMap::new();
                 for arch in package.archs.iter() {
                     if arch.id() == "arm64" && arm64_opt.is_none() {
                         continue;
@@ -716,7 +724,19 @@ sudo sbuild-update \
                         continue;
                     }
 
-                    let binary_res = suite_cache.build(arch.id(), source_rebuilt, |path| {
+
+                    //TODO: cleanup extra clones
+                    let arch = arch.clone();
+                    let arm64_opt = arm64_opt.map(|x| x.to_string());
+                    let commit_name = commit_name.clone();
+                    let dsc_path = dsc_path.clone();
+                    let github_status = github_status.clone();
+                    let repo_name = repo_name.clone();
+                    let repo_info = repo_info.clone();
+                    let source = source.clone();
+                    let suite = suite.clone();
+                    let suite_name = suite_name.clone();
+                    binary_builds.insert(arch.id().to_string(), move |path: &Path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
                         github_status(&format!("binary-{}", arch.id()), "pending");
                         fs::create_dir(&path)?;
@@ -724,12 +744,12 @@ sudo sbuild-update \
                         let script = format!(
 r#"#!/usr/bin/env bash
 
-set -ex
+set -e
 
 mkdir -p '{path}'
 cd '{path}'
 sbuild \
-    '--verbose' \
+    '--quiet' \
     '{arch_all}' \
     '--arch={arch}' \
     '--dist={suite}' \
@@ -756,11 +776,11 @@ sbuild \
                         );
 
                         if arch.id() == "arm64" {
-                            let arm64 = arm64_opt.unwrap(); // checked above
+                            let arm64 = arm64_opt.clone().unwrap(); // checked above
 
                             //TODO: update rsync to allow use of --mkpath
                             process::Command::new("ssh")
-                                .arg(arm64)
+                                .arg(&arm64)
                                 .arg("--")
                                 .arg(format!("mkdir -p '{}'", source.display()))
                                 .status()
@@ -770,14 +790,13 @@ sbuild \
                             process::Command::new("rsync")
                                 .arg("--archive")
                                 .arg("--delete")
-                                .arg("--stats")
                                 .arg(format!("{}/", source.display()))
                                 .arg(format!("{}:{}/", arm64, source.display()))
                                 .status()
                                 .and_then(check_status)?;
 
                             let res = process::Command::new("ssh")
-                                .arg(arm64)
+                                .arg(&arm64)
                                 .arg("--")
                                 .arg(script)
                                 .status()
@@ -786,7 +805,6 @@ sbuild \
                             process::Command::new("rsync")
                                 .arg("--archive")
                                 .arg("--delete")
-                                .arg("--stats")
                                 .arg(format!("{}:{}/", arm64, path.display()))
                                 .arg(format!("{}/", path.display()))
                                 .status()
@@ -801,14 +819,35 @@ sbuild \
                                 .and_then(check_status)
                         }
                     });
+                }
 
-                    let (binary, binary_rebuilt) = match binary_res {
-                        Ok(ok) => {
+                let binary_results = suite_cache.build_parallel(binary_builds.clone(), source_rebuilt);
+
+                let mut binaries_failed = false;
+                for arch in package.archs.iter() {
+                    let binary_result = match binary_results.get(arch.id()) {
+                        Some(some) => some,
+                        None => continue,
+                    };
+
+                    match binary_result {
+                        Ok((binary, binary_rebuilt)) => {
                             eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch.id());
-                            if ok.1 {
+
+                            if *binary_rebuilt {
+                                package.rebuilt = true;
                                 github_status(&format!("binary-{}", arch.id()), "success");
                             }
-                            ok
+
+                            for entry_res in fs::read_dir(&binary).expect("failed to read suite binary directory") {
+                                let entry = entry_res.expect("failed to read suite binary entry");
+                                let file_name = entry.file_name()
+                                    .into_string()
+                                    .expect("suite binary filename is not utf-8");
+                                if file_name.ends_with(".deb") {
+                                    assert_eq!(package.debs.insert(file_name, entry.path()), None);
+                                }
+                            }
                         },
                         Err(err) => {
                             eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch.id(), err);
@@ -822,6 +861,10 @@ sbuild \
                                         .into_string()
                                         .expect("partial binary filename is not utf-8");
                                     if file_name.ends_with(&format!("_{}.build", arch.id())) {
+                                        let binary_log_name = format!(
+                                            "{}_{}_{}_{}.log",
+                                            repo_name, commit.id(), suite.id(), arch.id()
+                                        );
                                         assert_eq!(logs.insert(binary_log_name.clone(), (entry.path(), true)), None);
                                         for pocket in pockets.iter() {
                                             assert_eq!(
@@ -836,21 +879,6 @@ sbuild \
                             }
 
                             binaries_failed = true;
-                            continue;
-                        }
-                    };
-
-                    if binary_rebuilt {
-                        package.rebuilt = true;
-                    }
-
-                    for entry_res in fs::read_dir(&binary).expect("failed to read suite binary directory") {
-                        let entry = entry_res.expect("failed to read suite binary entry");
-                        let file_name = entry.file_name()
-                            .into_string()
-                            .expect("suite binary filename is not utf-8");
-                        if file_name.ends_with(".deb") {
-                            assert_eq!(package.debs.insert(file_name, entry.path()), None);
                         }
                     }
                 }

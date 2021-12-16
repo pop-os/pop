@@ -52,6 +52,7 @@ impl Pocket {
     }
 }
 
+#[derive(Clone)]
 pub struct RepoInfo {
     pub key: PathBuf,
     pub release: &'static str,
