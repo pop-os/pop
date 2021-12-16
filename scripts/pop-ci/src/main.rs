@@ -439,50 +439,42 @@ sudo sbuild-update \
                     continue;
                 }
 
-                let github_status = {
-                    //TODO: cleanup extra clones
-                    let commit = commit.clone();
-                    let commit_name = commit_name.clone();
-                    let repo_name = repo_name.clone();
-                    let suite = suite.clone();
-                    let suite_name = suite_name.clone();
-                    move |step: &str, status: &str| {
-                        let target_url = match env::var("BUILD_URL") {
-                            Ok(some) => some,
-                            Err(_) => return,
-                        };
+                let github_status = |step: &str, status: &str| {
+                    let target_url = match env::var("BUILD_URL") {
+                        Ok(some) => some,
+                        Err(_) => return,
+                    };
 
-                        eprintln!(
-                            bold!("{}: {}: {}: {} github status {}"),
-                            repo_name, commit_name, suite_name, step, status
-                        );
+                    eprintln!(
+                        bold!("{}: {}: {}: {} github status {}"),
+                        repo_name, commit_name, suite_name, step, status
+                    );
 
-                        let (context, description) = if dev {
-                            (
-                                format!("ubuntu/staging/{}/{}", suite.id(), step),
-                                format!("Ubuntu Staging {} {}", suite.id(), step),
-                            )
-                        } else {
-                            (
-                                format!("pop-os/staging/{}/{}", suite.id(), step),
-                                format!("Pop!_OS Staging {} {}", suite.id(), step),
-                            )
-                        };
+                    let (context, description) = if dev {
+                        (
+                            format!("ubuntu/staging/{}/{}", suite.id(), step),
+                            format!("Ubuntu Staging {} {}", suite.id(), step),
+                        )
+                    } else {
+                        (
+                            format!("pop-os/staging/{}/{}", suite.id(), step),
+                            format!("Pop!_OS Staging {} {}", suite.id(), step),
+                        )
+                    };
 
-                        match github_status_inner(
-                            &repo_name,
-                            &commit,
-                            &context,
-                            &description,
-                            status,
-                            &target_url
-                        ) {
-                            Ok(()) => (),
-                            Err(err) => eprintln!(
-                                bold!("{}: {}: {}: {} github status {} failed: {}"),
-                                repo_name, commit_name, suite_name, step, status, err
-                            )
-                        }
+                    match github_status_inner(
+                        &repo_name,
+                        &commit,
+                        &context,
+                        &description,
+                        status,
+                        &target_url
+                    ) {
+                        Ok(()) => (),
+                        Err(err) => eprintln!(
+                            bold!("{}: {}: {}: {} github status {} failed: {}"),
+                            repo_name, commit_name, suite_name, step, status, err
+                        )
                     }
                 };
 
@@ -724,17 +716,9 @@ sudo sbuild-update \
                         continue;
                     }
 
-
-                    //TODO: cleanup extra clones
-                    let arch = arch.clone();
-                    let arm64_opt = arm64_opt.map(|x| x.to_string());
                     let commit_name = commit_name.clone();
-                    let dsc_path = dsc_path.clone();
-                    let github_status = github_status.clone();
-                    let repo_name = repo_name.clone();
                     let repo_info = repo_info.clone();
                     let source = source.clone();
-                    let suite = suite.clone();
                     let suite_name = suite_name.clone();
                     binary_builds.insert(arch.id().to_string(), move |path: &Path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());

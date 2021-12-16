@@ -3,7 +3,6 @@ use std::{
     fs,
     io,
     path::{Path, PathBuf},
-    thread,
 };
 
 pub struct Cache {
@@ -110,40 +109,44 @@ impl Cache {
     }
 
     pub fn build_parallel<
-        F: Fn(&Path) -> io::Result<()> + Send + 'static
+        F: Fn(&Path) -> io::Result<()> + Send
     >(&mut self, names: BTreeMap<String, F>, force: bool) -> BTreeMap<String, io::Result<(PathBuf, bool)>> {
-        let mut threads = BTreeMap::new();
         let mut results = BTreeMap::new();
-        for (name, f) in names {
-            match self.build_inner(&name, force) {
-                Ok((path, partial_path_opt)) => match partial_path_opt {
-                    Some(partial_path) => {
-                        threads.insert(name, thread::spawn(move || {
-                            f(&partial_path)?;
-                            fs::rename(partial_path, &path)?;
-                            Ok(path)
-                        }));
-                    },
-                    None => {
-                        results.insert(name, Ok((path, false)));
-                    }
-                },
-                Err(err) => {
-                    results.insert(name, Err(err));
-                }
-            }
-        }
 
-        for (name, thread) in threads {
-            match thread.join().unwrap() {
-                Ok(path) => {
-                    results.insert(name, Ok((path, true)));
-                },
-                Err(err) => {
-                    results.insert(name, Err(err));
+        crossbeam::thread::scope(|s| {
+            let mut threads = BTreeMap::new();
+
+            for (name, f) in names {
+                match self.build_inner(&name, force) {
+                    Ok((path, partial_path_opt)) => match partial_path_opt {
+                        Some(partial_path) => {
+                            threads.insert(name, s.spawn(move |_| {
+                                f(&partial_path)?;
+                                fs::rename(partial_path, &path)?;
+                                Ok(path)
+                            }));
+                        },
+                        None => {
+                            results.insert(name, Ok((path, false)));
+                        }
+                    },
+                    Err(err) => {
+                        results.insert(name, Err(err));
+                    }
                 }
             }
-        }
+
+            for (name, thread) in threads {
+                match thread.join().unwrap() {
+                    Ok(path) => {
+                        results.insert(name, Ok((path, true)));
+                    },
+                    Err(err) => {
+                        results.insert(name, Err(err));
+                    }
+                }
+            }
+        }).unwrap();
 
         results
     }
