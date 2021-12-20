@@ -2,7 +2,7 @@ use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
-    repo::{Package, Pocket, RepoInfo, Suite},
+    repo::{Arch, Package, Pocket, RepoInfo, Suite},
     util::{check_output, check_status},
 };
 use std::{
@@ -14,6 +14,7 @@ use std::{
     path::{Path, PathBuf},
     process,
     str,
+    sync::{Arc, Mutex},
 };
 
 macro_rules! bold {
@@ -103,8 +104,120 @@ fn github_status_inner(repo_name: &str, commit: &GitCommit, context: &str, descr
         .arg("--data-raw").arg(json::stringify(data))
         .arg("--request").arg("POST")
         .arg(url)
+        .stdout(process::Stdio::null())
         .status()
         .and_then(check_status)
+}
+
+#[derive(Default)]
+struct CiContext {
+    logs: BTreeMap<String, (PathBuf, bool)>,
+    pocket_logs: BTreeMap<Pocket, BTreeMap<String, (PathBuf, bool)>>,
+    pocket_packages: BTreeMap<Pocket, BTreeMap<Suite, BTreeMap<String, (GitCommit, Package)>>>,
+}
+
+#[derive(Default)]
+struct RepoBuild {
+    branches: BTreeSet<GitBranch>,
+    suites: BTreeMap<Suite, BTreeSet<Pocket>>,
+}
+
+#[derive(Default)]
+struct RepoContext {
+    pockets: BTreeMap<(Pocket, Suite), (GitCommit, GitBranch)>,
+    builds: BTreeMap<GitCommit, RepoBuild>,
+}
+
+#[derive(Clone)]
+struct BinaryContext<'a> {
+    arch: Arch,
+    arm64_opt: Option<&'a str>,
+    dsc_path: PathBuf,
+    repo_info: RepoInfo,
+    source: PathBuf,
+    suite: Suite,
+}
+
+fn binary_build<'a>(ctx: &BinaryContext<'a>, path: &Path) -> io::Result<()> {
+    fs::create_dir(path)?;
+
+    let script = format!(
+r#"#!/usr/bin/env bash
+
+set -e
+
+mkdir -p '{path}'
+cd '{path}'
+sbuild \
+    '--quiet' \
+    '{arch_all}' \
+    '--arch={arch}' \
+    '--dist={suite}' \
+    '--extra-repository=deb {ubuntu_mirror} {suite}-updates main restricted universe multiverse' \
+    '--extra-repository=deb {ubuntu_mirror} {suite}-security main restricted universe multiverse' \
+    '--extra-repository=deb {release} {suite} main' \
+    '--extra-repository=deb {staging} {suite} main' \
+    '--extra-repository-key={key}' \
+    '--no-apt-distupgrade' \
+    '--no-run-autopkgtest' \
+    '--no-run-lintian' \
+    '--no-run-piuparts' \
+    '{dsc}'
+"#,
+        arch_all=if ctx.arch.build_all() { "--arch-all" } else { "--no-arch-all" },
+        arch=ctx.arch.id(),
+        suite=ctx.suite.id(),
+        ubuntu_mirror=ctx.arch.ubuntu_mirror(),
+        release=ctx.repo_info.release,
+        staging=ctx.repo_info.staging,
+        key=ctx.repo_info.key.display(),
+        path=path.display(),
+        dsc=ctx.dsc_path.display()
+    );
+
+    if ctx.arch.id() == "arm64" {
+        let arm64 = ctx.arm64_opt.unwrap(); // checked above
+
+        //TODO: update rsync to allow use of --mkpath
+        process::Command::new("ssh")
+            .arg(&arm64)
+            .arg("--")
+            .arg(format!("mkdir -p '{}'", ctx.source.display()))
+            .status()
+            .and_then(check_status)?;
+
+        //TODO: allow arm64 builder to have different filesystem layout
+        process::Command::new("rsync")
+            .arg("--archive")
+            .arg("--delete")
+            .arg(format!("{}/", ctx.source.display()))
+            .arg(format!("{}:{}/", arm64, ctx.source.display()))
+            .status()
+            .and_then(check_status)?;
+
+        let res = process::Command::new("ssh")
+            .arg(&arm64)
+            .arg("--")
+            .arg(script)
+            .status()
+            .and_then(check_status);
+
+        process::Command::new("rsync")
+            .arg("--archive")
+            .arg("--delete")
+            .arg(format!("{}:{}/", arm64, path.display()))
+            .arg(format!("{}/", path.display()))
+            .status()
+            .and_then(check_status)?;
+
+        res
+    } else {
+        process::Command::new("sh")
+            .arg("-c")
+            .arg(script)
+            .status()
+            .and_then(check_status)
+    }
 }
 
 fn main() {
@@ -291,16 +404,14 @@ sudo sbuild-update \
         repos.contains_key(name)
     }).expect("failed to open git cache");
 
-    let mut logs = BTreeMap::<String, (PathBuf, bool)>::new();
-    let mut pocket_logs = BTreeMap::<Pocket, BTreeMap<String, (PathBuf, bool)>>::new();
-    let mut pocket_packages = BTreeMap::<Pocket, BTreeMap<Suite, BTreeMap<String, (GitCommit, Package)>>>::new();
+    let ci_ctx_mtx = Arc::new(Mutex::new(CiContext::default()));
     for (repo_name, repo_path) in repos.iter() {
         eprintln!(bold!("{}"), repo_name);
 
         let repo = GitRepo::new(repo_path).expect("failed to open git repo");
         let heads = repo.heads(&remote).expect("failed to determine git repo heads");
 
-        let mut pockets = BTreeMap::<(Pocket, Suite), (GitCommit, GitBranch)>::new();
+        let mut repo_ctx = RepoContext::default();
         for (branch, commit) in heads.iter() {
             let mut parts = branch.id().splitn(2, '_');
             let pocket = Pocket::new(parts.next().unwrap());
@@ -313,24 +424,18 @@ sudo sbuild-update \
                     pattern == suite.id()
                 } else {
                     // Only insert wildcard entry if no others are found
-                    !pockets.contains_key(&key)
+                    ! repo_ctx.pockets.contains_key(&key)
                 };
                 if insert {
                     // Allow overwrite
-                    pockets.insert(key, (commit.clone(), branch.clone()));
+                    repo_ctx.pockets.insert(key, (commit.clone(), branch.clone()));
                 }
             }
         }
 
-        #[derive(Default)]
-        struct Build {
-            branches: BTreeSet<GitBranch>,
-            suites: BTreeMap<Suite, BTreeSet<Pocket>>,
-        }
-        let mut builds = BTreeMap::<GitCommit, Build>::new();
-        for ((pocket, suite), (commit, branch)) in pockets.iter() {
-            let build = builds.entry(commit.clone())
-                .or_insert(Build::default());
+        for ((pocket, suite), (commit, branch)) in repo_ctx.pockets.iter() {
+            let build = repo_ctx.builds.entry(commit.clone())
+                .or_insert(RepoBuild::default());
             build.branches.insert(branch.clone());
             build.suites
                 .entry(suite.clone())
@@ -339,10 +444,10 @@ sudo sbuild-update \
         }
 
         let repo_cache = git_cache.child(&repo_name, |name| {
-            builds.contains_key(&GitCommit::new(name))
+            repo_ctx.builds.contains_key(&GitCommit::new(name))
         }).expect("failed to open repo cache");
 
-        for (commit, build) in builds.iter() {
+        for (commit, build) in repo_ctx.builds.iter() {
             let commit_name = {
                 let mut join = String::new();
                 for branch in build.branches.iter() {
@@ -397,6 +502,7 @@ sudo sbuild-update \
                 str::from_utf8(&output.stdout).unwrap().trim().to_owned()
             };
 
+            let mut suite_builds = BTreeMap::new();
             for (suite, pockets) in build.suites.iter() {
                 let suite_name = format!("{} ({})", suite.id(), suite.version());
 
@@ -427,10 +533,11 @@ sudo sbuild-update \
                 let source_log_path = cache.path().join("log").join(&source_log_name);
                 if source_log_path.is_file() && !source_retry {
                     eprintln!(bold!("{}: {}: {}: source already failed"), repo_name, commit_name, suite_name);
-                    assert_eq!(logs.insert(source_log_name.clone(), (source_log_path.clone(), false)), None);
+                    let mut ci_ctx = ci_ctx_mtx.lock().unwrap();
+                    assert_eq!(ci_ctx.logs.insert(source_log_name.clone(), (source_log_path.clone(), false)), None);
                     for pocket in pockets.iter() {
                         assert_eq!(
-                            pocket_logs.entry(pocket.clone())
+                            ci_ctx.pocket_logs.entry(pocket.clone())
                                 .or_insert(BTreeMap::new())
                                 .insert(source_log_name.clone(), (source_log_path.clone(), false)),
                             None
@@ -439,42 +546,46 @@ sudo sbuild-update \
                     continue;
                 }
 
-                let github_status = |step: &str, status: &str| {
-                    let target_url = match env::var("BUILD_URL") {
-                        Ok(some) => some,
-                        Err(_) => return,
-                    };
+                let github_status = {
+                    let commit_name = commit_name.clone();
+                    let suite_name = suite_name.clone();
+                    move |step: &str, status: &str| {
+                        let target_url = match env::var("BUILD_URL") {
+                            Ok(some) => some,
+                            Err(_) => return,
+                        };
 
-                    eprintln!(
-                        bold!("{}: {}: {}: {} github status {}"),
-                        repo_name, commit_name, suite_name, step, status
-                    );
+                        eprintln!(
+                            bold!("{}: {}: {}: {} github status {}"),
+                            repo_name, commit_name, suite_name, step, status
+                        );
 
-                    let (context, description) = if dev {
-                        (
-                            format!("ubuntu/staging/{}/{}", suite.id(), step),
-                            format!("Ubuntu Staging {} {}", suite.id(), step),
-                        )
-                    } else {
-                        (
-                            format!("pop-os/staging/{}/{}", suite.id(), step),
-                            format!("Pop!_OS Staging {} {}", suite.id(), step),
-                        )
-                    };
+                        let (context, description) = if dev {
+                            (
+                                format!("ubuntu/staging/{}/{}", suite.id(), step),
+                                format!("Ubuntu Staging {} {}", suite.id(), step),
+                            )
+                        } else {
+                            (
+                                format!("pop-os/staging/{}/{}", suite.id(), step),
+                                format!("Pop!_OS Staging {} {}", suite.id(), step),
+                            )
+                        };
 
-                    match github_status_inner(
-                        &repo_name,
-                        &commit,
-                        &context,
-                        &description,
-                        status,
-                        &target_url
-                    ) {
-                        Ok(()) => (),
-                        Err(err) => eprintln!(
-                            bold!("{}: {}: {}: {} github status {} failed: {}"),
-                            repo_name, commit_name, suite_name, step, status, err
-                        )
+                        match github_status_inner(
+                            &repo_name,
+                            &commit,
+                            &context,
+                            &description,
+                            status,
+                            &target_url
+                        ) {
+                            Ok(()) => (),
+                            Err(err) => eprintln!(
+                                bold!("{}: {}: {}: {} github status {} failed: {}"),
+                                repo_name, commit_name, suite_name, step, status, err
+                            )
+                        }
                     }
                 };
 
@@ -609,10 +720,11 @@ sudo sbuild-update \
                                     .into_string()
                                     .expect("partial source filename is not utf-8");
                                 if file_name.ends_with("_source.build") {
-                                    assert_eq!(logs.insert(source_log_name.clone(), (entry.path(), true)), None);
+                                    let mut ci_ctx = ci_ctx_mtx.lock().unwrap();
+                                    assert_eq!(ci_ctx.logs.insert(source_log_name.clone(), (entry.path(), true)), None);
                                     for pocket in pockets.iter() {
                                         assert_eq!(
-                                            pocket_logs.entry(pocket.clone())
+                                            ci_ctx.pocket_logs.entry(pocket.clone())
                                                 .or_insert(BTreeMap::new())
                                                 .insert(source_log_name.clone(), (entry.path(), true)),
                                             None
@@ -704,10 +816,11 @@ sudo sbuild-update \
                     if binary_log_path.is_file() && !binary_retry {
                         //TODO: rebuild capability
                         eprintln!(bold!("{}: {}: {}: {}: binary already failed"), repo_name, commit_name, suite_name, arch.id());
-                        assert_eq!(logs.insert(binary_log_name.clone(), (binary_log_path.clone(), false)), None);
+                        let mut ci_ctx = ci_ctx_mtx.lock().unwrap();
+                        assert_eq!(ci_ctx.logs.insert(binary_log_name.clone(), (binary_log_path.clone(), false)), None);
                         for pocket in pockets.iter() {
                             assert_eq!(
-                                pocket_logs.entry(pocket.clone())
+                                ci_ctx.pocket_logs.entry(pocket.clone())
                                     .or_insert(BTreeMap::new())
                                     .insert(binary_log_name.clone(), (binary_log_path.clone(), false)),
                                 None
@@ -717,179 +830,123 @@ sudo sbuild-update \
                     }
 
                     let commit_name = commit_name.clone();
-                    let repo_info = repo_info.clone();
-                    let source = source.clone();
+                    let github_status = github_status.clone();
+                    let repo_name = repo_name.clone();
                     let suite_name = suite_name.clone();
+                    let binary_ctx = BinaryContext {
+                        arch: arch.clone(),
+                        arm64_opt,
+                        dsc_path: dsc_path.clone(),
+                        repo_info: repo_info.clone(),
+                        source: source.clone(),
+                        suite: suite.clone(),
+                    };
                     binary_builds.insert(arch.id().to_string(), move |path: &Path| {
-                        eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, arch.id());
-                        github_status(&format!("binary-{}", arch.id()), "pending");
-                        fs::create_dir(&path)?;
-
-                        let script = format!(
-r#"#!/usr/bin/env bash
-
-set -e
-
-mkdir -p '{path}'
-cd '{path}'
-sbuild \
-    '--quiet' \
-    '{arch_all}' \
-    '--arch={arch}' \
-    '--dist={suite}' \
-    '--extra-repository=deb {ubuntu_mirror} {suite}-updates main restricted universe multiverse' \
-    '--extra-repository=deb {ubuntu_mirror} {suite}-security main restricted universe multiverse' \
-    '--extra-repository=deb {release} {suite} main' \
-    '--extra-repository=deb {staging} {suite} main' \
-    '--extra-repository-key={key}' \
-    '--no-apt-distupgrade' \
-    '--no-run-autopkgtest' \
-    '--no-run-lintian' \
-    '--no-run-piuparts' \
-    '{dsc}'
-"#,
-                            arch_all=if arch.build_all() { "--arch-all" } else { "--no-arch-all" },
-                            arch=arch.id(),
-                            suite=suite.id(),
-                            ubuntu_mirror=arch.ubuntu_mirror(),
-                            release=repo_info.release,
-                            staging=repo_info.staging,
-                            key=repo_info.key.display(),
-                            path=path.display(),
-                            dsc=dsc_path.display()
-                        );
-
-                        if arch.id() == "arm64" {
-                            let arm64 = arm64_opt.clone().unwrap(); // checked above
-
-                            //TODO: update rsync to allow use of --mkpath
-                            process::Command::new("ssh")
-                                .arg(&arm64)
-                                .arg("--")
-                                .arg(format!("mkdir -p '{}'", source.display()))
-                                .status()
-                                .and_then(check_status)?;
-
-                            //TODO: allow arm64 builder to have different filesystem layout
-                            process::Command::new("rsync")
-                                .arg("--archive")
-                                .arg("--delete")
-                                .arg(format!("{}/", source.display()))
-                                .arg(format!("{}:{}/", arm64, source.display()))
-                                .status()
-                                .and_then(check_status)?;
-
-                            let res = process::Command::new("ssh")
-                                .arg(&arm64)
-                                .arg("--")
-                                .arg(script)
-                                .status()
-                                .and_then(check_status);
-
-                            process::Command::new("rsync")
-                                .arg("--archive")
-                                .arg("--delete")
-                                .arg(format!("{}:{}/", arm64, path.display()))
-                                .arg(format!("{}/", path.display()))
-                                .status()
-                                .and_then(check_status)?;
-
-                            res
-                        } else {
-                            process::Command::new("sh")
-                                .arg("-c")
-                                .arg(script)
-                                .status()
-                                .and_then(check_status)
-                        }
+                        eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, binary_ctx.arch.id());
+                        github_status(&format!("binary-{}", binary_ctx.arch.id()), "pending");
+                        binary_build(&binary_ctx, path)
                     });
                 }
 
-                let binary_results = suite_cache.build_parallel(binary_builds.clone(), source_rebuilt);
+                let ci_ctx_mtx = ci_ctx_mtx.clone();
+                let commit_name = commit_name.clone();
+                let repo_name = repo_name.clone();
+                let suite_name = suite_name.clone();
+                suite_builds.insert(suite, move || {
+                    let binary_results = suite_cache.build_parallel(binary_builds.clone(), source_rebuilt);
 
-                let mut binaries_failed = false;
-                for arch in package.archs.iter() {
-                    let binary_result = match binary_results.get(arch.id()) {
-                        Some(some) => some,
-                        None => continue,
-                    };
+                    let mut binaries_failed = false;
+                    for (arch_id, binary_result) in binary_results.iter() {
+                        match binary_result {
+                            Ok((binary, binary_rebuilt)) => {
+                                eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch_id);
 
-                    match binary_result {
-                        Ok((binary, binary_rebuilt)) => {
-                            eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch.id());
-
-                            if *binary_rebuilt {
-                                package.rebuilt = true;
-                                github_status(&format!("binary-{}", arch.id()), "success");
-                            }
-
-                            for entry_res in fs::read_dir(&binary).expect("failed to read suite binary directory") {
-                                let entry = entry_res.expect("failed to read suite binary entry");
-                                let file_name = entry.file_name()
-                                    .into_string()
-                                    .expect("suite binary filename is not utf-8");
-                                if file_name.ends_with(".deb") {
-                                    assert_eq!(package.debs.insert(file_name, entry.path()), None);
+                                if *binary_rebuilt {
+                                    package.rebuilt = true;
+                                    github_status(&format!("binary-{}", arch_id), "success");
                                 }
-                            }
-                        },
-                        Err(err) => {
-                            eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch.id(), err);
-                            github_status(&format!("binary-{}", arch.id()), "failure");
 
-                            let partial_binary_dir = suite_cache.path().join(format!("partial.{}", arch.id()));
-                            if partial_binary_dir.is_dir() {
-                                for entry_res in fs::read_dir(&partial_binary_dir).expect("failed to read partial binary directory") {
-                                    let entry = entry_res.expect("failed to read partial binary entry");
+                                for entry_res in fs::read_dir(&binary).expect("failed to read suite binary directory") {
+                                    let entry = entry_res.expect("failed to read suite binary entry");
                                     let file_name = entry.file_name()
                                         .into_string()
-                                        .expect("partial binary filename is not utf-8");
-                                    if file_name.ends_with(&format!("_{}.build", arch.id())) {
-                                        let binary_log_name = format!(
-                                            "{}_{}_{}_{}.log",
-                                            repo_name, commit.id(), suite.id(), arch.id()
-                                        );
-                                        assert_eq!(logs.insert(binary_log_name.clone(), (entry.path(), true)), None);
-                                        for pocket in pockets.iter() {
-                                            assert_eq!(
-                                                pocket_logs.entry(pocket.clone())
-                                                    .or_insert(BTreeMap::new())
-                                                    .insert(binary_log_name.clone(), (entry.path(), true)),
-                                                None
+                                        .expect("suite binary filename is not utf-8");
+                                    if file_name.ends_with(".deb") {
+                                        assert_eq!(package.debs.insert(file_name, entry.path()), None);
+                                    }
+                                }
+                            },
+                            Err(err) => {
+                                eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch_id, err);
+                                github_status(&format!("binary-{}", arch_id), "failure");
+
+                                let partial_binary_dir = suite_cache.path().join(format!("partial.{}", arch_id));
+                                if partial_binary_dir.is_dir() {
+                                    for entry_res in fs::read_dir(&partial_binary_dir).expect("failed to read partial binary directory") {
+                                        let entry = entry_res.expect("failed to read partial binary entry");
+                                        let file_name = entry.file_name()
+                                            .into_string()
+                                            .expect("partial binary filename is not utf-8");
+                                        if file_name.ends_with(&format!("_{}.build", arch_id)) {
+                                            let binary_log_name = format!(
+                                                "{}_{}_{}_{}.log",
+                                                repo_name, commit.id(), suite.id(), arch_id
                                             );
+                                            let mut ci_ctx = ci_ctx_mtx.lock().unwrap();
+                                            assert_eq!(ci_ctx.logs.insert(binary_log_name.clone(), (entry.path(), true)), None);
+                                            for pocket in pockets.iter() {
+                                                assert_eq!(
+                                                    ci_ctx.pocket_logs.entry(pocket.clone())
+                                                        .or_insert(BTreeMap::new())
+                                                        .insert(binary_log_name.clone(), (entry.path(), true)),
+                                                    None
+                                                );
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            binaries_failed = true;
+                                binaries_failed = true;
+                            }
                         }
                     }
-                }
 
-                if binaries_failed {
-                    continue;
-                }
-
-                for pocket in pockets.iter() {
-                    assert_eq!(
-                        pocket_packages.entry(pocket.clone())
-                            .or_insert(BTreeMap::new())
-                            .entry(suite.clone())
-                            .or_insert(BTreeMap::new())
-                            .insert(repo_name.clone(), (commit.clone(), package.clone())),
-                        None
-                    );
-                }
+                    if ! binaries_failed {
+                        let mut ci_ctx = ci_ctx_mtx.lock().unwrap();
+                        for pocket in pockets.iter() {
+                            assert_eq!(
+                                ci_ctx.pocket_packages.entry(pocket.clone())
+                                    .or_insert(BTreeMap::new())
+                                    .entry(suite.clone())
+                                    .or_insert(BTreeMap::new())
+                                    .insert(repo_name.clone(), (commit.clone(), package.clone())),
+                                None
+                            );
+                        }
+                    }
+                });
             }
+
+            crossbeam::thread::scope(|s| {
+                let mut threads = BTreeMap::new();
+
+                for (suite, mut f) in suite_builds {
+                    threads.insert(suite, s.spawn(move |_| f()));
+                }
+
+                for (_suite, thread) in threads {
+                    thread.join().unwrap();
+                }
+            }).unwrap();
         }
     }
 
+    let ci_ctx = ci_ctx_mtx.lock().unwrap();
     let apt_cache = cache.child("apt", |name| {
-        pocket_packages.contains_key(&Pocket::new(name))
+        ci_ctx.pocket_packages.contains_key(&Pocket::new(name))
     }).expect("failed to open apt cache");
 
-    for (pocket, suite_packages) in pocket_packages.iter() {
+    for (pocket, suite_packages) in ci_ctx.pocket_packages.iter() {
         eprintln!(bold!("pocket: {}"), pocket.id());
 
         let pocket_cache = apt_cache.child(pocket.id(), |name| {
@@ -1159,17 +1216,17 @@ sbuild \
     }
 
     let mut log_cache = cache.child("log", |name| {
-        logs.contains_key(name) || pocket_logs.contains_key(&Pocket::new(name))
+        ci_ctx.logs.contains_key(name) || ci_ctx.pocket_logs.contains_key(&Pocket::new(name))
     }).expect("failed to open log cache");
 
-    for (log_name, (log_path, log_rebuilt)) in logs.iter() {
+    for (log_name, (log_path, log_rebuilt)) in ci_ctx.logs.iter() {
         log_cache.build(log_name, *log_rebuilt, |path| {
             fs::copy(log_path, path)?;
             Ok(())
         }).expect("failed to build log cache");
     }
 
-    for (pocket, logs) in pocket_logs.iter() {
+    for (pocket, logs) in ci_ctx.pocket_logs.iter() {
         let mut pocket_log_cache = log_cache.child(pocket.id(), |name| {
             logs.contains_key(name)
         }).expect("failed to open pocket log cache");
