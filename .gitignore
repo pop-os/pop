@@ -40,6 +40,7 @@
 /code-of-conduct/
 /connectivity/
 /cosmic/
+/cosmic-comp/
 /cosmic-dock/
 /cosmic-panel/
 /cosmic-workspaces/
@@ -71,6 +72,7 @@
 /freedesktop-desktop-entry/
 /fwupd/
 /fwupd-dbus/
+/gamehub/
 /gdm3/
 /gir/
 /gnome-control-center/
@@ -141,6 +143,7 @@
 /pidfd/
 /plymouth-theme/
 /pop/
+/popsec/
 /popsicle/
 /proc-modules/
 /proc-mounts/
@@ -156,6 +159,7 @@
 /repo-ubuntu-mirror/
 /repolib/
 /repoman/
+/rust-tss-esapi/
 /scheduler/
 /session/
 /sessioninstaller/
@@ -177,6 +181,7 @@
 /system76-io-dkms/
 /system76-oled/
 /system76-power/
+/system76-scheduler/
 /system76-wallpapers/
 /systemd/
 /systemd-boot-conf/
@@ -186,6 +191,7 @@
 /tiler/
 /token_expander/
 /touchegg/
+/tpm2-totp/
 /transition/
 /ubuntu-drivers-common/
 /ubuntu-release-upgrader/

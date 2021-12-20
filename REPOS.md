@@ -29,6 +29,7 @@ This is an automatically generated file. See `scripts/readme`
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
+- [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
@@ -60,6 +61,7 @@ This is an automatically generated file. See `scripts/readme`
 - [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
 - [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
+- [gamehub](https://github.com/pop-os/gamehub) - Pop\!\_OS fork of https://github\.com/tkashkin/GameHub
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
@@ -130,6 +132,7 @@ This is an automatically generated file. See `scripts/readme`
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
 - [proc\-mounts](https://github.com/pop-os/proc-mounts) - Rust crate for fetching active mounts and swaps on a Linux system
@@ -145,6 +148,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
 - [repolib](https://github.com/pop-os/repolib) - Python library for managing APT sources
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
+- [rust\-tss\-esapi](https://github.com/pop-os/rust-tss-esapi) - TSS 2\.0 Enhanced System API \(ESAPI\) Rust wrapper
 - [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
 - [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Pop\!\_OS fork of https://launchpad\.net/sessioninstaller
@@ -166,6 +170,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-oled](https://github.com/pop-os/system76-oled) - Control brightness on OLED displays
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
+- [system76\-scheduler](https://github.com/pop-os/system76-scheduler) - Auto\-configure CFS for improved desktop responsiveness at high CPU load when on AC \(based on Zen CFS settings\)
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd](https://github.com/pop-os/systemd) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-core\-dev/ubuntu/\+source/systemd
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
@@ -175,6 +180,7 @@ This is an automatically generated file. See `scripts/readme`
 - [tiler](https://github.com/pop-os/tiler) - Generic tiling window manager library in Rust
 - [token\_expander](https://github.com/pop-os/token_expander) - Rust crate with a shell\-like tokenizer & token expander
 - [touchegg](https://github.com/pop-os/touchegg) - Pop\!\_OS fork of https://github\.com/JoseExposito/touchegg
+- [tpm2\-totp](https://github.com/pop-os/tpm2-totp) - Attest the trustworthiness of a device against a human using time\-based one\-time passwords
 - [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak
 - [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
 - [ubuntu\-release\-upgrader](https://github.com/pop-os/ubuntu-release-upgrader) - Forked from https://code\.launchpad\.net/ubuntu\-release\-upgrader
