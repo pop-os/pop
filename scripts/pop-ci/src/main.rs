@@ -844,14 +844,23 @@ sudo sbuild-update \
                     binary_builds.insert(arch.id().to_string(), move |path: &Path| {
                         eprintln!(bold!("{}: {}: {}: {}: binary building"), repo_name, commit_name, suite_name, binary_ctx.arch.id());
                         github_status(&format!("binary-{}", binary_ctx.arch.id()), "pending");
-                        binary_build(&binary_ctx, path)
+                        match binary_build(&binary_ctx, path) {
+                            Ok(()) => {
+                                eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, binary_ctx.arch.id());
+                                github_status(&format!("binary-{}", binary_ctx.arch.id()), "success");
+                                Ok(())
+                            },
+                            Err(err) => {
+                                eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, binary_ctx.arch.id(), err);
+                                github_status(&format!("binary-{}", binary_ctx.arch.id()), "failure");
+                                Err(err)
+                            }
+                        }
                     });
                 }
 
                 let ci_ctx_mtx = ci_ctx_mtx.clone();
-                let commit_name = commit_name.clone();
                 let repo_name = repo_name.clone();
-                let suite_name = suite_name.clone();
                 suite_builds.insert(suite, move || {
                     let binary_results = suite_cache.build_parallel(binary_builds.clone(), source_rebuilt);
 
@@ -859,11 +868,8 @@ sudo sbuild-update \
                     for (arch_id, binary_result) in binary_results.iter() {
                         match binary_result {
                             Ok((binary, binary_rebuilt)) => {
-                                eprintln!(bold!("{}: {}: {}: {}: binary built"), repo_name, commit_name, suite_name, arch_id);
-
                                 if *binary_rebuilt {
                                     package.rebuilt = true;
-                                    github_status(&format!("binary-{}", arch_id), "success");
                                 }
 
                                 for entry_res in fs::read_dir(&binary).expect("failed to read suite binary directory") {
@@ -876,9 +882,8 @@ sudo sbuild-update \
                                     }
                                 }
                             },
-                            Err(err) => {
-                                eprintln!(bold!("{}: {}: {}: {}: binary failed: {}"), repo_name, commit_name, suite_name, arch_id, err);
-                                github_status(&format!("binary-{}", arch_id), "failure");
+                            Err(_err) => {
+                                binaries_failed = true;
 
                                 let partial_binary_dir = suite_cache.path().join(format!("partial.{}", arch_id));
                                 if partial_binary_dir.is_dir() {
@@ -905,8 +910,6 @@ sudo sbuild-update \
                                         }
                                     }
                                 }
-
-                                binaries_failed = true;
                             }
                         }
                     }
