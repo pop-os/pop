@@ -778,6 +778,19 @@ sudo sbuild-update \
                 for line in dsc.lines() {
                     if line.starts_with("Architecture: ") {
                         for arch in repo_info.archs.iter() {
+                            if arch.id() == "arm64" {
+                                // Skip arm64 builds if there is no arm64 builder
+                                if arm64_opt.is_none() {
+                                    continue;
+                                }
+
+                                // Skip arm64 linux builds
+                                //TODO: improve arm64 linux build performance
+                                if repo_name == "linux" {
+                                    continue;
+                                }
+                            }
+
                             for part in line.split(' ') {
                                 if part == arch.id()
                                 || part == "any"
@@ -794,10 +807,6 @@ sudo sbuild-update \
 
                 let mut binary_builds = BTreeMap::new();
                 for arch in package.archs.iter() {
-                    if arch.id() == "arm64" && arm64_opt.is_none() {
-                        continue;
-                    }
-
                     let mut binary_retry = source_retry;
                     for retry_key in &[
                         format!("arch:{}", arch.id()),
