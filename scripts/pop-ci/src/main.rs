@@ -53,6 +53,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "system76-wallpapers",
     "ubuntu-drivers-common",
     "virtualbox",
+    "zfs-linux",
 ];
 
 //TODO: limit jobs?

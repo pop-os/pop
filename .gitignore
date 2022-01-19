@@ -43,7 +43,9 @@
 /cosmic-comp/
 /cosmic-dock/
 /cosmic-panel/
+/cosmic-settings/
 /cosmic-workspaces/
+/dbus-settings-bindings/
 /dbus-udisks2/
 /deb-architectures/
 /deb-changelog/
@@ -99,6 +101,7 @@
 /gtk-extras/
 /gtk-rs/
 /gtk-theme/
+/gtk4/
 /gweather-rs/
 /happiness/
 /hidpi-daemon/
@@ -110,6 +113,7 @@
 /iso/
 /kernelstub/
 /keyboard-configurator/
+/keyring/
 /kit/
 /launcher/
 /libbpf/
@@ -132,6 +136,7 @@
 /ninja-build/
 /nvidia-container-runtime/
 /nvidia-container-toolkit/
+/nvidia-docker/
 /nvidia-graphics-drivers/
 /opt/
 /os-autoinst-distri-pop/
@@ -197,6 +202,7 @@
 /ubuntu-release-upgrader/
 /ubuntu-version/
 /upgrade/
+/upower-dbus/
 /url-scraper/
 /usb-disk-probe/
 /virtualbox/
@@ -204,3 +210,4 @@
 /website/
 /whitespace-conf/
 /xmm7360-dkms/
+/zfs-linux/
