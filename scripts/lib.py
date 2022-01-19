@@ -35,6 +35,7 @@ DEV_REPOS = (
     "system76-wallpapers",
     "ubuntu-drivers-common",
     "virtualbox",
+    "zfs-linux",
 )
 
 def github_inner(url, data=None):
