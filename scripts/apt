@@ -70,11 +70,12 @@ case "$1" in
 					--source-code \
 					--ident "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}" \
 					--name "Pop Development Branch $newrepo"
-				sudo apt-get update
 			else
-				sudo add-apt-repository -s "${LINE}"
+				sudo add-apt-repository --enable-source --no-update "${LINE}"
 			fi
 		done
+
+		sudo apt-get update
 		;;
 	remove)
 		if [ -z "$2" ]
@@ -85,19 +86,20 @@ case "$1" in
 
 		for newrepo in "${ARGV[@]:1}"
 		do
+			echo "Removing preference for '$newrepo'"
+			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
+
 			echo "Removing repository for '$newrepo'"
 			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
 			if command -v apt-manage > /dev/null
 			then
 				sudo apt-manage remove -y "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}"
-				sudo apt-get update
 			else
-				sudo add-apt-repository -r -s "${LINE}"
+				sudo add-apt-repository -enable-source --no-update --remove "${LINE}"
 			fi
-
-			echo "Removing preference for '$newrepo'"
-			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
 		done
+
+		sudo apt-get update
 		;;
 	local)
 		grep "^deb ${REPOS}" /etc/apt/sources.list{,.d/*} | \
