@@ -29,6 +29,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "dwarves",
     "firmware-manager",
     "fwupd",
+    "fwupd-efi",
     "gdm3",
     "gnome-desktop3",
     "gnome-settings-daemon",

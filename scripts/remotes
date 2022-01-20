@@ -25,6 +25,7 @@ git_remote dwarves debian "https://salsa.debian.org/debian/dwarves.git"
 git_remote flatpak debian "https://salsa.debian.org/debian/flatpak.git"
 git_remote fwupd debian "https://salsa.debian.org/efi-team/fwupd.git"
 git_remote fwupd upstream "https://github.com/fwupd/fwupd.git"
+git_remote fwupd-efi debian "https://salsa.debian.org/efi-team/fwupd-efi.git"
 git_remote gdm3 debian "https://salsa.debian.org/gnome-team/gdm.git"
 debian_gnome gnome-control-center
 debian_gnome gnome-disk-utility
