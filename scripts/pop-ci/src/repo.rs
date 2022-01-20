@@ -116,6 +116,7 @@ impl Suite {
         Self("focal", "20.04"),
         Self("hirsute", "21.04"),
         Self("impish", "21.10"),
+        Self("jammy", "22.04"),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
