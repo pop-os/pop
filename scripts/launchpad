@@ -37,7 +37,6 @@ if args.dev:
     codenames = (
         "bionic",
         "focal",
-        "hirsute",
         "impish",
         "jammy",
     )
@@ -49,7 +48,6 @@ else:
     codenames = (
         "bionic",
         "focal",
-        "hirsute",
     )
 
 proposed_pending = {}
