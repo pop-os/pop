@@ -87,7 +87,7 @@ impl RepoInfo {
 
         match suite.id() {
             // Launchpad used prior to Pop 21.10
-            "bionic" | "focal" | "hirsute" => Self {
+            "bionic" | "focal" => Self {
                 key: fs::canonicalize("scripts/.ppa.asc").expect("failed to find PPA key"),
                 release: "http://ppa.launchpad.net/system76/pop/ubuntu",
                 staging: "http://ppa.launchpad.net/system76/proposed/ubuntu",
@@ -114,7 +114,6 @@ impl Suite {
     pub const ALL: &'static [Self] = &[
         Self("bionic", "18.04"),
         Self("focal", "20.04"),
-        Self("hirsute", "21.04"),
         Self("impish", "21.10"),
         Self("jammy", "22.04"),
     ];
