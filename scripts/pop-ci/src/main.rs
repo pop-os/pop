@@ -294,7 +294,7 @@ then
         '--components=main,restricted,universe,multiverse' \
         '--arch={arch}' \
         '{suite}' \
-        '$CHROOT' \
+        "$CHROOT" \
         '{ubuntu_mirror}'
 fi
 "#,
