@@ -24,6 +24,18 @@ else:
     ppa_release = "system76/pop"
     ppa_proposed = "system76/proposed"
 
+chroot_path = "/srv/chroot/" + args.dist + "-" + args.arch + "-sbuild"
+if not path.exists(chroot_path):
+    check_call([
+        "sudo", "sbuild-createchroot",
+        "--include=gnupg",
+        "--components=main,restricted,universe,multiverse",
+        "--arch=" + args.arch,
+        args.dist,
+        chroot_path,
+        "http://archive.ubuntu.com/ubuntu"
+    ])
+
 sbuild = [
     "sbuild",
     "--dist=" + args.dist,
