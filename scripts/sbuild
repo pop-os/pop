@@ -14,15 +14,23 @@ parser.add_argument("--arch", default="amd64")
 parser.add_argument("repo")
 args = parser.parse_args(sys.argv[1:])
 
+def ppa_url(ppa):
+    return "http://ppa.launchpad.net/" + ppa + "/ubuntu"
+
 if args.dev:
     os.environ["S76_DEV"] = "1"
-    ppa_key = ".ppa-dev.asc"
-    ppa_release = "system76-dev/stable"
-    ppa_proposed = "system76-dev/pre-stable"
+    apt_key = ".ppa-dev.asc"
+    apt_release = ppa_url("system76-dev/stable")
+    apt_proposed = ppa_url("system76-dev/pre-stable")
+elif args.dist in ["bionic", "focal"]:
+    apt_key = ".ppa.asc"
+    apt_release = ppa_url("system76/pop")
+    apt_proposed = ppa_url("system76/proposed")
 else:
-    ppa_key = ".ppa.asc"
-    ppa_release = "system76/pop"
-    ppa_proposed = "system76/proposed"
+    apt_key = ".iso.asc"
+    apt_release = "http://apt.pop-os.org/release"
+    apt_proposed = "http://apt.pop-os.org/staging/master"
+
 
 chroot_path = "/srv/chroot/" + args.dist + "-" + args.arch + "-sbuild"
 if not path.exists(chroot_path):
@@ -44,11 +52,11 @@ sbuild = [
     "--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-updates main restricted universe multiverse",
     "--extra-repository=deb http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-security main restricted universe multiverse",
     "--extra-repository=deb-src http://us.archive.ubuntu.com/ubuntu/ " + args.dist + "-security main restricted universe multiverse",
-    "--extra-repository=deb http://ppa.launchpad.net/" + ppa_release + "/ubuntu " + args.dist + " main",
-    "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_release + "/ubuntu " + args.dist + " main",
-    "--extra-repository=deb http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
-    "--extra-repository=deb-src http://ppa.launchpad.net/" + ppa_proposed + "/ubuntu " + args.dist + " main",
-    "--extra-repository-key=" + path.join(os.getcwd(), "scripts", ppa_key),
+    "--extra-repository=deb " + apt_release + " " + args.dist + " main",
+    "--extra-repository=deb-src " + apt_release + " " + args.dist + " main",
+    "--extra-repository=deb " + apt_proposed + " " + args.dist + " main",
+    "--extra-repository=deb-src " + apt_proposed + " " + args.dist + " main",
+    "--extra-repository-key=" + path.join(os.getcwd(), "scripts", apt_key),
     "--no-apt-distupgrade",
 ]
 
