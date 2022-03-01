@@ -29,11 +29,15 @@ This is an automatically generated file. See `scripts/readme`
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
+- [cosmic\-applibrary](https://github.com/pop-os/cosmic-applibrary) - WIP
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
+- [cosmic\-dock\-epoch](https://github.com/pop-os/cosmic-dock-epoch) - WIP
+- [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - WIP \- the Settings app for COSMIC
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
+- [cups\-filters](https://github.com/pop-os/cups-filters) - CUPS Filters
 - [dbus\-settings\-bindings](https://github.com/pop-os/dbus-settings-bindings) - Rust bindings for D\-Bus settings interfaces
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
@@ -101,11 +105,13 @@ This is an automatically generated file. See `scripts/readme`
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
+- [just](https://github.com/pop-os/just) - Packaging fork of https://github\.com/casey/just
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [keyring](https://github.com/pop-os/keyring) - Pop\!\_OS keyring
 - [kit](https://github.com/pop-os/kit) - Pop\!\_Kits \- Discipline\-specific toolkits for Makers
 - [launcher](https://github.com/pop-os/launcher) - Modular IPC\-based desktop launcher service
+- [libabigail](https://github.com/pop-os/libabigail) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/libabigail
 - [libbpf](https://github.com/pop-os/libbpf) - Pop\!\_OS fork of https://github\.com/sudipm\-mukherjee/libbpf
 - [libcosmic](https://github.com/pop-os/libcosmic) - WIP library for COSMIC applications
 - [libdrm](https://github.com/pop-os/libdrm) - Forked from https://salsa\.debian\.org/xorg\-team/lib/libdrm
@@ -128,6 +134,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-container\-toolkit](https://github.com/pop-os/nvidia-container-toolkit) - Packaging fork of https://gitlab\.com/nvidia/container\-toolkit/container\-toolkit
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
+- [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
@@ -136,8 +143,10 @@ This is an automatically generated file. See `scripts/readme`
 - [packaging\-rust](https://github.com/pop-os/packaging-rust) - Packaging of Rust toolchain from official rust\-lang\.org releases
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
+- [plymouth](https://github.com/pop-os/plymouth) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/plymouth
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [pop\-sync](https://github.com/pop-os/pop-sync) - WIP utility for syncing Pop\!\_OS utilities
 - [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
@@ -155,7 +164,6 @@ This is an automatically generated file. See `scripts/readme`
 - [repolib](https://github.com/pop-os/repolib) - Python library for managing APT sources
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [rust\-tss\-esapi](https://github.com/pop-os/rust-tss-esapi) - TSS 2\.0 Enhanced System API \(ESAPI\) Rust wrapper
-- [scheduler](https://github.com/pop-os/scheduler) - Process scheduling daemon for Linux systems, written in Rust
 - [session](https://github.com/pop-os/session) - Session default settings
 - [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Pop\!\_OS fork of https://launchpad\.net/sessioninstaller
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell
@@ -165,7 +173,7 @@ This is an automatically generated file. See `scripts/readme`
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
-- [support](https://github.com/pop-os/support) - Support utilities and libraries
+- [support\-panel](https://github.com/pop-os/support-panel) - Support panel for the settings application in Pop\!\_OS
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
 - [system\-updater](https://github.com/pop-os/system-updater) - Systemd services for checking for and applying system updates\.
@@ -176,7 +184,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-io\-dkms](https://github.com/pop-os/system76-io-dkms) - DKMS module for controlling System76 Io board
 - [system76\-oled](https://github.com/pop-os/system76-oled) - Control brightness on OLED displays
 - [system76\-power](https://github.com/pop-os/system76-power) - System76 Power Management
-- [system76\-scheduler](https://github.com/pop-os/system76-scheduler) - Auto\-configure CFS for improved desktop responsiveness when on AC \(based on Zen CFS settings\)
+- [system76\-scheduler](https://github.com/pop-os/system76-scheduler) - Auto\-configure CFS and process priorities for improved desktop responsiveness
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd](https://github.com/pop-os/systemd) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-core\-dev/ubuntu/\+source/systemd
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.

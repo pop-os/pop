@@ -40,11 +40,15 @@
 /code-of-conduct/
 /connectivity/
 /cosmic/
+/cosmic-applibrary/
 /cosmic-comp/
 /cosmic-dock/
+/cosmic-dock-epoch/
+/cosmic-launcher/
 /cosmic-panel/
 /cosmic-settings/
 /cosmic-workspaces/
+/cups-filters/
 /dbus-settings-bindings/
 /dbus-udisks2/
 /deb-architectures/
@@ -112,11 +116,13 @@
 /installer/
 /intel-pstate/
 /iso/
+/just/
 /kernelstub/
 /keyboard-configurator/
 /keyring/
 /kit/
 /launcher/
+/libabigail/
 /libbpf/
 /libcosmic/
 /libdrm/
@@ -139,6 +145,7 @@
 /nvidia-container-toolkit/
 /nvidia-docker/
 /nvidia-graphics-drivers/
+/nvidia-graphics-drivers-470/
 /opt/
 /os-autoinst-distri-pop/
 /os-release/
@@ -147,8 +154,10 @@
 /packaging-rust/
 /partition-identity/
 /pidfd/
+/plymouth/
 /plymouth-theme/
 /pop/
+/pop-sync/
 /popsec/
 /popsicle/
 /proc-modules/
@@ -166,7 +175,6 @@
 /repolib/
 /repoman/
 /rust-tss-esapi/
-/scheduler/
 /session/
 /sessioninstaller/
 /shell/
@@ -176,7 +184,7 @@
 /sponsors/
 /srmw/
 /steam/
-/support/
+/support-panel/
 /sys-mount/
 /sysfs-class/
 /system-updater/
