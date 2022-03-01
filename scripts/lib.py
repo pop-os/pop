@@ -17,6 +17,7 @@ DEV_REPOS = (
     "gnome-settings-daemon",
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
+    "libabigail",
     "libbpf",
     "libdrm",
     "libxmlb",
