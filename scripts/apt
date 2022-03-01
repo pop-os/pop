@@ -95,7 +95,7 @@ case "$1" in
 			then
 				sudo apt-manage remove -y "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}"
 			else
-				sudo add-apt-repository -enable-source --no-update --remove "${LINE}"
+				sudo add-apt-repository --enable-source --no-update --remove "${LINE}"
 			fi
 		done
 
