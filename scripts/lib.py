@@ -26,6 +26,7 @@ DEV_REPOS = (
     "mesa",
     "ninja-build",
     "nvidia-graphics-drivers",
+    "nvidia-graphics-drivers-470",
     "system76-acpi-dkms",
     "system76-dkms",
     "system76-driver",
