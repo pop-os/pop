@@ -44,10 +44,12 @@ def github_inner(url, data=None):
     headers = {"Accept": "application/vnd.github.v3+json"}
 
     # Put a token in scripts/.github_token to increase rate limit
-    if os.path.exists("scripts/.github_token"):
-        f = open("scripts/.github_token")
-        headers["Authorization"] = "token " + f.read().strip()
-        f.close()
+    for location in ["scripts/.github_token","./.github_token","~/.github_token"]:
+    	if os.path.exists(location):
+        	f = open(location)
+        	headers["Authorization"] = "token " + f.read().strip()
+        	f.close()
+        	break
 
     if data:
         request_data = json.dumps(data).encode()
