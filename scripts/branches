@@ -23,9 +23,9 @@ def callback(repo):
 			out[repo["name"]].append(branch["name"])
 		else:
 			if branch["name"] == repo["default_branch"]:
-					print(" * " + branch["name"])
+				print(" * " + branch["name"])
 			else:
-					print("   " + branch["name"])
+				print("   " + branch["name"])
 
 foreach_repo(callback, args.repos)
 if args.json:
