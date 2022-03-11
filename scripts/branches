@@ -10,26 +10,23 @@ from lib import foreach_repo, github
 out = {}
 parser = argparse.ArgumentParser(description="Show branches of Pop!_OS repositories")
 parser.add_argument("repos", nargs="*", default=[])
-parser.add_argument("--output",help="Set output format (Currently only json)")
+parser.add_argument("--json",action='store_true',help="Set output format to json")
 args = parser.parse_args()
 
 def callback(repo):
-	if args.output == None:
+	if args.json == False:
 		print("\x1B[1m" + repo["name"] + "\x1B[0m")
 	else:
 		out[repo["name"]] = []
 	for branch in github(repo["branches_url"].replace("{/branch}", "")):
-		if branch["name"] == repo["default_branch"]:
-			if args.output == None:
-				print(" * " + branch["name"])
-			else:
-				out[repo["name"]].append(branch["name"])
+		if args.json == True:
+			out[repo["name"]].append(branch["name"])
 		else:
-			if args.output == None:
-				print("   " + branch["name"])
+			if branch["name"] == repo["default_branch"]:
+					print(" * " + branch["name"])
 			else:
-				out[repo["name"]].append(branch["name"])
+					print("   " + branch["name"])
 
 foreach_repo(callback, args.repos)
-if args.output != None:
+if args.json == True:
 	print(json.dumps(out))
