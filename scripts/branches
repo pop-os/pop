@@ -14,12 +14,12 @@ parser.add_argument("--json",action='store_true',help="Set output format to json
 args = parser.parse_args()
 
 def callback(repo):
-	if args.json == False:
+	if not args.json:
 		print("\x1B[1m" + repo["name"] + "\x1B[0m")
 	else:
 		out[repo["name"]] = []
 	for branch in github(repo["branches_url"].replace("{/branch}", "")):
-		if args.json == True:
+		if args.json:
 			out[repo["name"]].append(branch["name"])
 		else:
 			if branch["name"] == repo["default_branch"]:
@@ -28,5 +28,5 @@ def callback(repo):
 					print("   " + branch["name"])
 
 foreach_repo(callback, args.repos)
-if args.json == True:
+if args.json:
 	print(json.dumps(out))
