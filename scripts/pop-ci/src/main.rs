@@ -426,9 +426,12 @@ sudo sbuild-update \
                 let insert = if let Some(pattern) = pattern_opt {
                     // Insert pattern entry if pattern matches
                     pattern == suite.id()
-                } else {
-                    // Only insert wildcard entry if no others are found
+                } else if suite.wildcard() {
+                    // Only insert wildcard entry if no others are found, and suite supports it
                     ! repo_ctx.pockets.contains_key(&key)
+                } else {
+                    // No match found and suite does not support wildcard branches
+                    false
                 };
                 if insert {
                     // Allow overwrite

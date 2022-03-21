@@ -107,15 +107,15 @@ impl RepoInfo {
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct Suite(&'static str, &'static str);
+pub struct Suite(&'static str, &'static str, bool);
 
 impl Suite {
     // This list has every supported Pop!_OS and Ubuntu release
     pub const ALL: &'static [Self] = &[
-        Self("bionic", "18.04"),
-        Self("focal", "20.04"),
-        Self("impish", "21.10"),
-        Self("jammy", "22.04"),
+        Self("bionic", "18.04", false),
+        Self("focal", "20.04", true),
+        Self("impish", "21.10", true),
+        Self("jammy", "22.04", true),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
@@ -133,5 +133,9 @@ impl Suite {
 
     pub fn version(&self) -> &str {
         self.1
+    }
+
+    pub fn wildcard(&self) -> bool {
+        self.2
     }
 }
