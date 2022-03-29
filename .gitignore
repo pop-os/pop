@@ -15,6 +15,7 @@
 /accountsservice/
 /alacritty/
 /amd-ppt-bin/
+/analytics-panel/
 /api/
 /appstream-data/
 /appstream2dep11/
@@ -29,6 +30,7 @@
 /apt-sources-lists/
 /apt.pop-os.org/
 /as-result/
+/asahi-pop/
 /async-fetcher/
 /atom-editor/
 /bcmwl/
@@ -47,6 +49,8 @@
 /cosmic-launcher/
 /cosmic-panel/
 /cosmic-settings/
+/cosmic-theme/
+/cosmic-theme-editor/
 /cosmic-workspaces/
 /cups-filters/
 /dbus-settings-bindings/
@@ -66,6 +70,7 @@
 /disk-types/
 /distinst/
 /distinst-v2/
+/docs/
 /dwarves/
 /ecs-disk-manager/
 /eddy/
@@ -83,12 +88,9 @@
 /gdm3/
 /gir/
 /gnome-control-center/
-/gnome-desktop3/
 /gnome-disk-utility/
 /gnome-initial-setup/
 /gnome-online-accounts/
-/gnome-pomodoro/
-/gnome-remote-desktop/
 /gnome-settings-daemon/
 /gnome-shell/
 /gnome-shell-extension-alt-tab-raise-first-window/
@@ -112,6 +114,8 @@
 /hidpi-daemon/
 /hidpi-widget/
 /hostname-validator/
+/hp-vendor/
+/hp-wallpapers/
 /icon-theme/
 /installer/
 /intel-pstate/
@@ -136,7 +140,6 @@
 /lutris/
 /mesa/
 /meta-python/
-/modemmanager/
 /mozc/
 /mutter/
 /mutter-rs/
@@ -150,6 +153,7 @@
 /os-autoinst-distri-pop/
 /os-release/
 /packaging-ci/
+/packaging-firefox/
 /packaging-natron/
 /packaging-rust/
 /partition-identity/
@@ -167,6 +171,7 @@
 /pyflatpak/
 /python-apt/
 /raspi-img/
+/recently-used-xbel/
 /repo-curated-free/
 /repo-multiarch/
 /repo-proprietary/
@@ -181,6 +186,7 @@
 /shell-shortcuts/
 /shop/
 /sideload/
+/smithay/
 /sponsors/
 /srmw/
 /steam/
@@ -218,5 +224,4 @@
 /wallpapers/
 /website/
 /whitespace-conf/
-/xmm7360-dkms/
 /zfs-linux/
