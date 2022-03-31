@@ -130,6 +130,7 @@ This is an automatically generated file. See `scripts/readme`
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
+- [mpris2\-zbus](https://github.com/pop-os/mpris2-zbus) - A zbus\-based MPRIS2 wrapper for Rust
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [mutter\-rs](https://github.com/pop-os/mutter-rs) - Rust wrappers for Mutter and related projects
 - [ninja\-build](https://github.com/pop-os/ninja-build) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/ninja\-build
