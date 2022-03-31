@@ -15,6 +15,9 @@ f.write("# Repositories\n")
 f.write("This is an automatically generated file. See `scripts/readme`\n\n")
 
 def callback(repo):
+    if repo['visibility'] == 'private':
+        return;
+
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     name = markdown_escape(repo["name"])
