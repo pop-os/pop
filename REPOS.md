@@ -4,6 +4,7 @@ This is an automatically generated file. See `scripts/readme`
 - [accountsservice](https://github.com/pop-os/accountsservice) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/accountsservice
 - [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
 - [amd\-ppt\-bin](https://github.com/pop-os/amd-ppt-bin) - AMD PPT binary package
+- [analytics\-panel](https://github.com/pop-os/analytics-panel) - Analytics Settings Panel
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
@@ -18,6 +19,7 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
 - [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
+- [asahi\-pop](https://github.com/pop-os/asahi-pop) - Experimental scripts for building an Asahi\-compatible Pop\!\_OS image
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [atom\-editor](https://github.com/pop-os/atom-editor) - GitHub's Atom Editor
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
@@ -36,8 +38,10 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - WIP \- the Settings app for COSMIC
+- [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
+- [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
-- [cups\-filters](https://github.com/pop-os/cups-filters) - CUPS Filters
+- [cups\-filters](https://github.com/pop-os/cups-filters) - CUPS Filters with Pop\!\_OS branding
 - [dbus\-settings\-bindings](https://github.com/pop-os/dbus-settings-bindings) - Rust bindings for D\-Bus settings interfaces
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
@@ -55,6 +59,7 @@ This is an automatically generated file. See `scripts/readme`
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
 - [distinst\-v2](https://github.com/pop-os/distinst-v2) - Distinst Rewrite as a DBus Service
+- [docs](https://github.com/pop-os/docs) - Pop\!\_OS Documentation Site
 - [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
 - [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
@@ -64,7 +69,7 @@ This is an automatically generated file. See `scripts/readme`
 - [firmware\-manager](https://github.com/pop-os/firmware-manager) - Generic framework and GTK UI for firmware updates from system76\-firmware and fwupd, written in Rust\.
 - [flatpak](https://github.com/pop-os/flatpak) - Fork of https://salsa\.debian\.org/debian/flatpak
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
-- [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for generating Freedesktop desktop entries
+- [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for navigating Freedesktop desktop entries
 - [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [fwupd\-efi](https://github.com/pop-os/fwupd-efi) - Pop\!\_OS fork of https://salsa\.debian\.org/efi\-team/fwupd\-efi
@@ -72,12 +77,9 @@ This is an automatically generated file. See `scripts/readme`
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
-- [gnome\-desktop3](https://github.com/pop-os/gnome-desktop3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-desktop3
 - [gnome\-disk\-utility](https://github.com/pop-os/gnome-disk-utility) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/gnome\-disk\-utility
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
 - [gnome\-online\-accounts](https://github.com/pop-os/gnome-online-accounts) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-online\-accounts
-- [gnome\-pomodoro](https://github.com/pop-os/gnome-pomodoro) - Packaging fork of https://github\.com/codito/gnome\-pomodoro
-- [gnome\-remote\-desktop](https://github.com/pop-os/gnome-remote-desktop) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-remote\-desktop
 - [gnome\-settings\-daemon](https://github.com/pop-os/gnome-settings-daemon) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-settings\-daemon
 - [gnome\-shell](https://github.com/pop-os/gnome-shell) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-shell
 - [gnome\-shell\-extension\-alt\-tab\-raise\-first\-window](https://github.com/pop-os/gnome-shell-extension-alt-tab-raise-first-window) - Make Alt\+Tab only raise the first window in group\.
@@ -101,6 +103,8 @@ This is an automatically generated file. See `scripts/readme`
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
 - [hidpi\-widget](https://github.com/pop-os/hidpi-widget) - GTK widget for the System76 HiDPI daemon
 - [hostname\-validator](https://github.com/pop-os/hostname-validator) - Rust crate for validating hostnames according to the IETF RFC 1123
+- [hp\-vendor](https://github.com/pop-os/hp-vendor) - Vendor support for HP products using Pop\!\_OS
+- [hp\-wallpapers](https://github.com/pop-os/hp-wallpapers) - Wallpapers for HP products
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
@@ -125,8 +129,8 @@ This is an automatically generated file. See `scripts/readme`
 - [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
-- [modemmanager](https://github.com/pop-os/modemmanager) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/modemmanager\.git
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
+- [mpris2\-zbus](https://github.com/pop-os/mpris2-zbus) - A zbus\-based MPRIS2 wrapper for Rust
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [mutter\-rs](https://github.com/pop-os/mutter-rs) - Rust wrappers for Mutter and related projects
 - [ninja\-build](https://github.com/pop-os/ninja-build) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/ninja\-build
@@ -139,6 +143,7 @@ This is an automatically generated file. See `scripts/readme`
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
+- [packaging\-firefox](https://github.com/pop-os/packaging-firefox) - Debian packaging of Mozilla Firefox
 - [packaging\-natron](https://github.com/pop-os/packaging-natron) - debrep\-compatible Debian packaging for Natron
 - [packaging\-rust](https://github.com/pop-os/packaging-rust) - Packaging of Rust toolchain from official rust\-lang\.org releases
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
@@ -156,6 +161,7 @@ This is an automatically generated file. See `scripts/readme`
 - [pyflatpak](https://github.com/pop-os/pyflatpak) - A simple Python wrapper around flatpak commands
 - [python\-apt](https://github.com/pop-os/python-apt) - Pop\!\_OS fork of https://salsa\.debian\.org/apt\-team/python\-apt
 - [raspi\-img](https://github.com/pop-os/raspi-img) - Raspberry Pi 4 Image
+- [recently\-used\-xbel](https://github.com/pop-os/recently-used-xbel) - Rust crate to parse ~/\.local/share/recently\-used\.xbel
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
 - [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
@@ -170,6 +176,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shell\-shortcuts](https://github.com/pop-os/shell-shortcuts) - Application for displaying and demoing Pop Shell shortcuts
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [sideload](https://github.com/pop-os/sideload) - Fork of https://github\.com/elementary/sideload
+- [smithay](https://github.com/pop-os/smithay) - Fork of https://github\.com/Smithay/smithay with pending patches
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
@@ -207,5 +214,4 @@ This is an automatically generated file. See `scripts/readme`
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
-- [xmm7360\-dkms](https://github.com/pop-os/xmm7360-dkms) - Pop\!\_OS fork of https://github\.com/xmm7360/xmm7360\-pci
 - [zfs\-linux](https://github.com/pop-os/zfs-linux) - Pop\!\_OS fork of https://salsa\.debian\.org/zfsonlinux\-team/zfs\.git
