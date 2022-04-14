@@ -30,7 +30,6 @@
 /apt-sources-lists/
 /apt.pop-os.org/
 /as-result/
-/asahi-pop/
 /async-fetcher/
 /atom-editor/
 /bcmwl/
@@ -46,6 +45,7 @@
 /cosmic-comp/
 /cosmic-dock/
 /cosmic-dock-epoch/
+/cosmic-epoch/
 /cosmic-launcher/
 /cosmic-panel/
 /cosmic-settings/
@@ -141,6 +141,7 @@
 /mesa/
 /meta-python/
 /mozc/
+/mpris2-zbus/
 /mutter/
 /mutter-rs/
 /ninja-build/
@@ -158,9 +159,11 @@
 /packaging-rust/
 /partition-identity/
 /pidfd/
+/pipewire/
 /plymouth/
 /plymouth-theme/
 /pop/
+/pop-arm64/
 /pop-sync/
 /popsec/
 /popsicle/
@@ -224,4 +227,6 @@
 /wallpapers/
 /website/
 /whitespace-conf/
+/wireplumber/
+/xdg-shell-wrapper/
 /zfs-linux/

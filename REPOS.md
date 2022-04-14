@@ -19,7 +19,6 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
 - [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
-- [asahi\-pop](https://github.com/pop-os/asahi-pop) - Experimental scripts for building an Asahi\-compatible Pop\!\_OS image
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [atom\-editor](https://github.com/pop-os/atom-editor) - GitHub's Atom Editor
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
@@ -35,6 +34,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-dock\-epoch](https://github.com/pop-os/cosmic-dock-epoch) - WIP
+- [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - WIP \- the Settings app for COSMIC
@@ -148,9 +148,11 @@ This is an automatically generated file. See `scripts/readme`
 - [packaging\-rust](https://github.com/pop-os/packaging-rust) - Packaging of Rust toolchain from official rust\-lang\.org releases
 - [partition\-identity](https://github.com/pop-os/partition-identity) - Find the ID of a device by its path, or find a device path by its ID\.
 - [pidfd](https://github.com/pop-os/pidfd) - Rust crate providing Linux \(>= 5\.3\) PID file descriptor support
+- [pipewire](https://github.com/pop-os/pipewire) - Backports of https://salsa\.debian\.org/utopia\-team/pipewire/
 - [plymouth](https://github.com/pop-os/plymouth) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/plymouth
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
+- [pop\-arm64](https://github.com/pop-os/pop-arm64) - Experimental scripts for building an Pop\!\_OS for ARM64 EFI platforms\.
 - [pop\-sync](https://github.com/pop-os/pop-sync) - WIP utility for syncing Pop\!\_OS utilities
 - [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
@@ -214,4 +216,6 @@ This is an automatically generated file. See `scripts/readme`
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
+- [wireplumber](https://github.com/pop-os/wireplumber) - Backports of https://salsa\.debian\.org/utopia\-team/wireplumber
+- [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper
 - [zfs\-linux](https://github.com/pop-os/zfs-linux) - Pop\!\_OS fork of https://salsa\.debian\.org/zfsonlinux\-team/zfs\.git
