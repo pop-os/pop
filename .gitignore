@@ -14,6 +14,7 @@
 
 /accountsservice/
 /alacritty/
+/alsa-ucm-conf/
 /amd-ppt-bin/
 /analytics-panel/
 /api/
@@ -35,16 +36,18 @@
 /bcmwl/
 /beta/
 /blkid/
+/bluez/
 /buildchain/
 /bus-writer/
 /bustd/
 /code-of-conduct/
 /connectivity/
+/console-setup/
 /cosmic/
+/cosmic-applets/
 /cosmic-applibrary/
 /cosmic-comp/
 /cosmic-dock/
-/cosmic-dock-epoch/
 /cosmic-epoch/
 /cosmic-launcher/
 /cosmic-panel/
@@ -100,6 +103,7 @@
 /gnome-shell-extension-pop-battery-icon-fix/
 /gnome-shell-extension-pop-shop-details/
 /gnome-shell-extension-pop-suspend-button/
+/gnome-shell-extension-popx11gestures/
 /gnome-shell-extension-system76-power/
 /gnome-shell-theme/
 /gnome-terminal/
@@ -142,6 +146,7 @@
 /meta-python/
 /mozc/
 /mpris2-zbus/
+/msttcorefonts/
 /mutter/
 /mutter-rs/
 /ninja-build/
@@ -150,6 +155,7 @@
 /nvidia-docker/
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
+/nvidia-vaapi-driver/
 /opt/
 /os-autoinst-distri-pop/
 /os-release/
@@ -164,6 +170,7 @@
 /plymouth-theme/
 /pop/
 /pop-arm64/
+/pop-snapshot/
 /pop-sync/
 /popsec/
 /popsicle/

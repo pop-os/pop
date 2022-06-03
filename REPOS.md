@@ -3,6 +3,7 @@ This is an automatically generated file. See `scripts/readme`
 
 - [accountsservice](https://github.com/pop-os/accountsservice) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/accountsservice
 - [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
+- [alsa\-ucm\-conf](https://github.com/pop-os/alsa-ucm-conf) - ALSA Use Case Manager configuration
 - [amd\-ppt\-bin](https://github.com/pop-os/amd-ppt-bin) - AMD PPT binary package
 - [analytics\-panel](https://github.com/pop-os/analytics-panel) - Analytics Settings Panel
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
@@ -24,19 +25,21 @@ This is an automatically generated file. See `scripts/readme`
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
 - [beta](https://github.com/pop-os/beta) - Pop\!\_OS Beta
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
+- [bluez](https://github.com/pop-os/bluez) - Pop\!\_OS fork of https://git\.launchpad\.net/~bluetooth/bluez
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [bustd](https://github.com/pop-os/bustd) - \`bustd\`: Available memory or bust\!
 - [code\-of\-conduct](https://github.com/pop-os/code-of-conduct) - Code of Conduct for the Pop Community
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
+- [console\-setup](https://github.com/pop-os/console-setup) - Fork of https://salsa\.debian\.org/installer\-team/console\-setup
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
+- [cosmic\-applets](https://github.com/pop-os/cosmic-applets) - WIP panel for COSMIC
 - [cosmic\-applibrary](https://github.com/pop-os/cosmic-applibrary) - WIP
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
-- [cosmic\-dock\-epoch](https://github.com/pop-os/cosmic-dock-epoch) - WIP
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
-- [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP panel for COSMIC
+- [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - WIP \- the Settings app for COSMIC
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
@@ -89,6 +92,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-pop\-battery\-icon\-fix](https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix) - Fixes the battery icon in Pop\!\_OS to correctly match the current battery level\.
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
+- [gnome\-shell\-extension\-popx11gestures](https://github.com/pop-os/gnome-shell-extension-popx11gestures) - Fork of https://github\.com/JoseExposito/gnome\-shell\-extension\-x11gestures with modifications for Pop\!\_OS
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
 - [gnome\-shell\-theme](https://github.com/pop-os/gnome-shell-theme) - The GNOME Shell theme for Pop\!\_OS
 - [gnome\-terminal](https://github.com/pop-os/gnome-terminal) - Fork of https://salsa\.debian\.org/gnome\-team/gnome\-terminal\.git
@@ -131,6 +135,7 @@ This is an automatically generated file. See `scripts/readme`
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
 - [mpris2\-zbus](https://github.com/pop-os/mpris2-zbus) - A zbus\-based MPRIS2 wrapper for Rust
+- [msttcorefonts](https://github.com/pop-os/msttcorefonts) - Fixed packaging for ttf\-mscorefonts\-installer on Pop
 - [mutter](https://github.com/pop-os/mutter) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/mutter
 - [mutter\-rs](https://github.com/pop-os/mutter-rs) - Rust wrappers for Mutter and related projects
 - [ninja\-build](https://github.com/pop-os/ninja-build) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/ninja\-build
@@ -139,6 +144,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
+- [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
@@ -153,6 +159,7 @@ This is an automatically generated file. See `scripts/readme`
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
 - [pop\-arm64](https://github.com/pop-os/pop-arm64) - Experimental scripts for building an Pop\!\_OS for ARM64 EFI platforms\.
+- [pop\-snapshot](https://github.com/pop-os/pop-snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
 - [pop\-sync](https://github.com/pop-os/pop-sync) - WIP utility for syncing Pop\!\_OS utilities
 - [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
