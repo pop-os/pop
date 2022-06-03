@@ -19,6 +19,8 @@ function debian_gnome {
     git_remote "$1" debian "https://salsa.debian.org/gnome-team/$1.git"
 }
 
+git_remote bluez ubuntu "https://git.launchpad.net/~bluetooth/bluez"
+git_remote bluez upstream "https://git.kernel.org/pub/scm/bluetooth/bluez.git"
 git_remote cosmic-dock upstream "https://github.com/micheleg/dash-to-dock.git"
 git_remote desktop-icons-ng upstream "https://gitlab.com/rastersoft/desktop-icons-ng.git"
 git_remote dwarves debian "https://salsa.debian.org/debian/dwarves.git"

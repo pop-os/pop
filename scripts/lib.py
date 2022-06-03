@@ -7,6 +7,7 @@ DEV_REPOS = (
     "accountsservice",
     "amd-ppt-bin",
     "bcmwl",
+    "bluez",
     "distinst",
     "dwarves",
     "firmware-manager",

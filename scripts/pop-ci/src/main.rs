@@ -25,6 +25,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "accountsservice",
     "amd-ppt-bin",
     "bcmwl",
+    "bluez",
     "distinst",
     "dwarves",
     "firmware-manager",
