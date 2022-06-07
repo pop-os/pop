@@ -91,6 +91,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gnome\-shell\-extension\-gsconnect](https://github.com/pop-os/gnome-shell-extension-gsconnect) - KDE Connect implementation for GNOME
 - [gnome\-shell\-extension\-pop\-battery\-icon\-fix](https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix) - Fixes the battery icon in Pop\!\_OS to correctly match the current battery level\.
 - [gnome\-shell\-extension\-pop\-shop\-details](https://github.com/pop-os/gnome-shell-extension-pop-shop-details) - Adds a Show Details item to applications if Pop Shop is installed
+- [gnome\-shell\-extension\-pop\-snapshot](https://github.com/pop-os/gnome-shell-extension-pop-snapshot) - A simple GNOME Shell extension for notifying the user when a snapshot is restored
 - [gnome\-shell\-extension\-pop\-suspend\-button](https://github.com/pop-os/gnome-shell-extension-pop-suspend-button) - GNOME Shell Extension Suspend\-Button
 - [gnome\-shell\-extension\-popx11gestures](https://github.com/pop-os/gnome-shell-extension-popx11gestures) - Fork of https://github\.com/JoseExposito/gnome\-shell\-extension\-x11gestures with modifications for Pop\!\_OS
 - [gnome\-shell\-extension\-system76\-power](https://github.com/pop-os/gnome-shell-extension-system76-power) - System76 Power Management Extension
@@ -133,6 +134,7 @@ This is an automatically generated file. See `scripts/readme`
 - [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
+- [mouse\-configurator](https://github.com/pop-os/mouse-configurator) - Configurator for HP 935 Creator Wireless Mouse
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
 - [mpris2\-zbus](https://github.com/pop-os/mpris2-zbus) - A zbus\-based MPRIS2 wrapper for Rust
 - [msttcorefonts](https://github.com/pop-os/msttcorefonts) - Fixed packaging for ttf\-mscorefonts\-installer on Pop
@@ -159,7 +161,6 @@ This is an automatically generated file. See `scripts/readme`
 - [plymouth\-theme](https://github.com/pop-os/plymouth-theme) - Plymouth splash screen themes
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
 - [pop\-arm64](https://github.com/pop-os/pop-arm64) - Experimental scripts for building an Pop\!\_OS for ARM64 EFI platforms\.
-- [pop\-snapshot](https://github.com/pop-os/pop-snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
 - [pop\-sync](https://github.com/pop-os/pop-sync) - WIP utility for syncing Pop\!\_OS utilities
 - [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
@@ -186,6 +187,7 @@ This is an automatically generated file. See `scripts/readme`
 - [shop](https://github.com/pop-os/shop) - Pop\!\_Shop
 - [sideload](https://github.com/pop-os/sideload) - Fork of https://github\.com/elementary/sideload
 - [smithay](https://github.com/pop-os/smithay) - Fork of https://github\.com/Smithay/smithay with pending patches
+- [snapshot](https://github.com/pop-os/snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop

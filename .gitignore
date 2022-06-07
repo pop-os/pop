@@ -102,6 +102,7 @@
 /gnome-shell-extension-gsconnect/
 /gnome-shell-extension-pop-battery-icon-fix/
 /gnome-shell-extension-pop-shop-details/
+/gnome-shell-extension-pop-snapshot/
 /gnome-shell-extension-pop-suspend-button/
 /gnome-shell-extension-popx11gestures/
 /gnome-shell-extension-system76-power/
@@ -144,6 +145,7 @@
 /lutris/
 /mesa/
 /meta-python/
+/mouse-configurator/
 /mozc/
 /mpris2-zbus/
 /msttcorefonts/
@@ -170,7 +172,6 @@
 /plymouth-theme/
 /pop/
 /pop-arm64/
-/pop-snapshot/
 /pop-sync/
 /popsec/
 /popsicle/
@@ -197,6 +198,7 @@
 /shop/
 /sideload/
 /smithay/
+/snapshot/
 /sponsors/
 /srmw/
 /steam/
