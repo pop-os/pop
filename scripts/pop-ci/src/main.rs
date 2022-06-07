@@ -240,7 +240,7 @@ fn main() {
         .arg(
             Arg::with_name("publish")
                 .long("publish")
-                .help("Publish to apt.pop-os.org after build")
+                .help("Publish to apt-origin.pop-os.org after build")
         )
         .arg(
             Arg::with_name("sbuild-update")
@@ -1207,11 +1207,11 @@ sudo sbuild-update \
         if dev {
             rsync_args.push("--rsh=ssh");
             rsync_args.push("./_build/ci-dev/apt/");
-            rsync_args.push("ubuntu@apt.pop-os.org:/var/www/html/staging-ubuntu/");
+            rsync_args.push("ubuntu@apt-origin.pop-os.org:/var/www/html/staging-ubuntu/");
         } else {
             rsync_args.push("--rsh=ssh");
             rsync_args.push("./_build/ci/apt/");
-            rsync_args.push("ubuntu@apt.pop-os.org:/var/www/html/staging/");
+            rsync_args.push("ubuntu@apt-origin.pop-os.org:/var/www/html/staging/");
         }
 
         // Publish new package data (without changing release data)
