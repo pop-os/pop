@@ -3,6 +3,7 @@
 set -e
 
 PACKAGES=(
+	appstream-generator # for repo-release
 	cargo # for rust packages
 	devscripts # for all packages
 	debhelper # for most packages
