@@ -114,7 +114,6 @@ impl Suite {
     pub const ALL: &'static [Self] = &[
         Self("bionic", "18.04", false),
         Self("focal", "20.04", true),
-        Self("impish", "21.10", true),
         Self("jammy", "22.04", true),
     ];
 
