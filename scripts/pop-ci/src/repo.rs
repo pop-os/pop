@@ -22,7 +22,7 @@ impl Arch {
 
     pub fn ubuntu_mirror(&self) -> &'static str {
         if self.id() == "amd64" || self.id() == "i386" {
-            "http://archive.ubuntu.com/ubuntu"
+            "http://apt.pop-os.org/ubuntu"
         } else {
             "http://ports.ubuntu.com/ubuntu-ports"
         }
