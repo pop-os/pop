@@ -20,9 +20,13 @@ impl Arch {
         self.id() == "amd64" || self.id() == "arm64"
     }
 
-    pub fn ubuntu_mirror(&self) -> &'static str {
+    pub fn ubuntu_mirror(&self, release: &str) -> &'static str {
         if self.id() == "amd64" || self.id() == "i386" {
-            "http://apt.pop-os.org/ubuntu"
+            if release == "focal" {
+                "http://us.archive.ubuntu.com/ubuntu"
+            } else {
+                "http://apt.pop-os.org/ubuntu"
+            }
         } else {
             "http://ports.ubuntu.com/ubuntu-ports"
         }

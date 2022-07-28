@@ -172,7 +172,7 @@ sbuild \
         arch_all=if ctx.arch.build_all() { "--arch-all" } else { "--no-arch-all" },
         arch=ctx.arch.id(),
         suite=ctx.suite.id(),
-        ubuntu_mirror=ctx.arch.ubuntu_mirror(),
+        ubuntu_mirror=ctx.arch.ubuntu_mirror(ctx.suite.id()),
         release=ctx.repo_info.release,
         staging=ctx.repo_info.staging,
         key=ctx.repo_info.key.display(),
@@ -303,7 +303,7 @@ fi
 "#,
                     arch=arch.id(),
                     suite=suite.id(),
-                    ubuntu_mirror=arch.ubuntu_mirror()
+                    ubuntu_mirror=arch.ubuntu_mirror(suite.id())
                 );
 
                 if arch.id() == "arm64" {
