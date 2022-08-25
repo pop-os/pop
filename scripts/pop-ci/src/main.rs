@@ -24,6 +24,8 @@ macro_rules! bold {
 static DEV_REPOS: &'static [&'static str] = &[
     "accountsservice",
     "amd-ppt-bin",
+    "alsa-usm-conf",
+    "alsa-utils",
     "bcmwl",
     "bluez",
     "distinst",
@@ -37,6 +39,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libabigail",
+    "libasound2",
     "libbpf",
     "libdrm",
     "libxmlb",
