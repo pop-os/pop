@@ -6,6 +6,8 @@ import urllib.request
 DEV_REPOS = (
     "accountsservice",
     "amd-ppt-bin",
+    "alsa-ucm-conf",
+    "alsa-utils",
     "bcmwl",
     "bluez",
     "distinst",
@@ -19,6 +21,7 @@ DEV_REPOS = (
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libabigail",
+    "libasound2",
     "libbpf",
     "libdrm",
     "libxmlb",
