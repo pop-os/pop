@@ -21,9 +21,12 @@ def callback(repo):
     print("\x1B[1m" + repo["name"] + "\x1B[0m")
 
     name = markdown_escape(repo["name"])
-    description = markdown_escape(repo["description"])
+    if repo["description"] is not None:
+        description = " - " + markdown_escape(repo["description"])
+    else:
+        description = ""
 
-    f.write("- [" + name + "](" + repo["html_url"] + ") - " + description + "\n")
+    f.write("- [" + name + "](" + repo["html_url"] + ")" + description + "\n")
 
 foreach_repo(callback, args.repos)
 
