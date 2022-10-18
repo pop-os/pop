@@ -49,30 +49,11 @@ case "$1" in
 			echo "$0 $1 [repo]"
 			exit 1
 		fi
-
-		echo "Adding key"
-		sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
-
+		
 		for newrepo in "${ARGV[@]:1}"
 		do
-			echo "Adding preference for '$newrepo'"
-			sudo tee "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}" > /dev/null <<-EOF
-				Package: *
-				Pin: release o=pop-os-staging-$newrepo
-				Pin-Priority: 1002
-			EOF
-
-			echo "Adding repository for '$newrepo'"
-			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
-			if command -v apt-manage
-			then
-				sudo apt-manage add "${LINE}" \
-					--source-code \
-					--ident "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}" \
-					--name "Pop Development Branch $newrepo"
-			else
-				sudo add-apt-repository --enable-source --no-update "${LINE}"
-			fi
+			echo "Deprecated: use 'apt-manage add popdev:$newrepo' instead."
+			sudo apt-manage add popdev:$newrepo
 		done
 
 		sudo apt-get update
@@ -86,25 +67,15 @@ case "$1" in
 
 		for newrepo in "${ARGV[@]:1}"
 		do
-			echo "Removing preference for '$newrepo'"
-			sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
-
-			echo "Removing repository for '$newrepo'"
-			LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
-			if command -v apt-manage > /dev/null
-			then
-				sudo apt-manage remove -y "popdev-${LOCALREMOTE}${newrepo//./-}${DEVLINE}"
-			else
-				sudo add-apt-repository --enable-source --no-update --remove "${LINE}"
-			fi
+			echo "Deprecated: use 'apt-manage remove popdev:$newrepo' instead."
+			sudo apt-manage remove popdev:$newrepo
 		done
 
 		sudo apt-get update
 		;;
 	local)
-		grep "^deb ${REPOS}" /etc/apt/sources.list{,.d/*} | \
-			cut -d " " -f2 |
-			sed -s "s#${REPOS}##"
+		echo "Deprecated: use 'apt-manage list | grep popdev' instead."
+		apt-manage list | grep popdev
 		;;
 	remote)
 		curl -s "${REPOS}" | \
