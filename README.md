@@ -10,13 +10,12 @@ The purpose of this repository is to allow easy management of all Pop!\_OS relat
 
 Binary packages are hosted [on Launchpad](https://launchpad.net/~system76/+archive/ubuntu/pop/+packages). Many packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
 
-To view a list of all included repositories, see [REPOS.md](./REPOS.md)
-
 ## Developer Resources
 For instructions on how to build the shell:
 	* [Cosmic, our current gnome-based shell](https://github.com/pop-os/cosmic). 
 	* [Cosmic-Epoch, the new Rust based shell](https://github.com/pop-os/cosmic-epoch).
-For a full list of repos used in Pop, see [REPOS.md](https://github.com/pop-os/pop/blob/master/REPOS.md)!
+
+To view a list of all included repositories, see [REPOS.md](./REPOS.md)
 Developer chat: https://chat.pop-os.org/
 
 ## How to Make a Change
