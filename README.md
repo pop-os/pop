@@ -27,7 +27,9 @@ Before you make a change, you need to find the relevant repository to make a con
 ### Make An Issue
 All changes should start with an issue so the change can be properly discussed. The more complex the issue, the more discussion would be required. If an issue doesn't already exist, here would be the place to start.
 
-### Make a PR.
+### Make a Pull Request.
+Fork the repository, make your changes and then make a Pull Request! Don't forget to use detail and explain what your change does. 
+
 Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Anything that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
 
 ### Enjoy Your Contribution!
