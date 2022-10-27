@@ -37,7 +37,7 @@ Fork the repository, make your changes, and then make a pull request! It helps t
 
 Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Request a review from each of these teams in order to make sure your PR is seen. Any change that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
 
-### Enjoy Your Contribution!
+### Post-Merge Release Process
 
 The Pop!_OS CI server automatically builds the master/main branch of every git repository (every 15 minutes), and all packages from those git branches are published in the master staging apt repository. Packages are then released from master staging as regular updates via PRs to the repo-release repository, which contains a list of the current version of every package in the release repository: https://github.com/pop-os/repo-release (There is another CI job that checks this list and copies the listed versions of each package from the master staging repo to the release repo.)
 
