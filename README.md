@@ -8,7 +8,7 @@ Pop!\_OS’s first release was on October 19th, 2017. For more information, [vis
 
 The purpose of this repository is to allow easy management of all Pop!\_OS related source code and assets. To view a list of all included repositories, see [REPOS.md](./REPOS.md).
 
-Binary packages are hosted [in the Pop!_OS APT repositories](https://apt.pop-os.org/). Many packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
+Binary packages are hosted [in the Pop!_OS APT repositories](https://apt.pop-os.org/). Many packages have source on GitHub under the [Pop!\_OS organization](https://github.com/pop-os). Some related components or documentation may be hosted under the [System76 organization](https://github.com/system76).
 
 ## Developer Resources
 
