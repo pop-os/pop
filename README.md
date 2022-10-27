@@ -35,7 +35,7 @@ For large features, it's recommended to start with an issue for discussion if it
 
 Fork the repository, make your changes, and then make a pull request! It helps to use detail and explain what your change does. 
 
-Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Anything that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
+Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Request a review from each of these teams in order to make sure your PR is seen. Any change that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
 
 ### Enjoy Your Contribution!
 
