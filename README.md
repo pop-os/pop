@@ -25,7 +25,7 @@ Before you make a change, you need to find the relevant repository to make a con
 ### Make An Issue
 For large features, it's recommended to start with an issue for discussion if it doesn't already exist. Nobody forces you to get an approval, but you will certainly have a higher chance of getting merged, if the discussion reached a consensus on how the feature should be implemented (if at all).
 
-### Make a Pull Request.
+### Make a Pull Request
 Fork the repository, make your changes, and then make a pull request! It helps to use detail and explain what your change does. 
 
 Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Anything that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
