@@ -43,11 +43,11 @@ The Pop!_OS CI server automatically builds the master (or main) branch of every 
 
 Packages are then released from master staging as regular updates via PRs to the [repo-release repository](https://github.com/pop-os/repo-release/), which contains a [list](https://github.com/pop-os/repo-release/blob/master/sync) of the name and version of every currently released package. After the list is updated, another CI job automatically releases the package versions contained in the list.
 
-### Pop!_OS Release Frequency
+#### Pop!_OS Release Frequency
 
 Pop!_OS component updates such as security patches, bug fixes, and even some new features are released regularly (in a rolling-release fashion.)
 
-Packages inherited from Ubuntu, as well as very large UX changes (such as the introduction of COSMIC with 21.10) use the six-month release cycle.
+Feature updates for packages inherited from Ubuntu, as well as very large UX changes (such as the introduction of the COSMIC interface), are released as major version upgrades.
 
 ## Dependencies
 
