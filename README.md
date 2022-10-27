@@ -15,7 +15,7 @@ Binary packages are hosted [in the Pop!_OS APT repositories](https://apt.pop-os.
 For instructions on how to build the shell:
 
 * [COSMIC (GNOME-based)](https://github.com/pop-os/cosmic)
-* [COSMIC-Epoch (Rust-based)](https://github.com/pop-os/cosmic-epoch)
+* [COSMIC Epoch (Rust-based)](https://github.com/pop-os/cosmic-epoch)
  
 Developer chat: https://chat.pop-os.org/pop-os/channels/development
 
