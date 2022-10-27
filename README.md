@@ -39,7 +39,9 @@ Every PR to Pop!_OS components requires approval from the engineering team (for 
 
 ### Post-Merge Release Process
 
-The Pop!_OS CI server automatically builds the master/main branch of every git repository (every 15 minutes), and all packages from those git branches are published in the master staging apt repository. Packages are then released from master staging as regular updates via PRs to the repo-release repository, which contains a list of the current version of every package in the release repository: https://github.com/pop-os/repo-release (There is another CI job that checks this list and copies the listed versions of each package from the master staging repo to the release repo.)
+The Pop!_OS CI server automatically builds the master (or main) branch of every git repository every 15 minutes. All packages from those git branches are published in the [master staging apt repository](http://apt-origin.pop-os.org/staging/master/).
+
+Packages are then released from master staging as regular updates via PRs to the [repo-release repository](https://github.com/pop-os/repo-release/), which contains a [list](https://github.com/pop-os/repo-release/blob/master/sync) of the name and version of every currently released package. After the list is updated, another CI job automatically releases the package versions contained in the list.
 
 ### Pop!_OS Release Frequency
 
