@@ -4,11 +4,9 @@ Pop!\_OS is designed for people who use their computer to create; whether it’s
 
 Pop!\_OS’s first release was on October 19th, 2017. For more information, [visit the Pop!\_OS website](https://system76.com/pop) and [view the Pop!\_OS documentation](https://support.system76.com/).
 
-To view a list of all included repositories, see [REPOS.md](./REPOS.md)
-
 ## Purpose
 
-The purpose of this repository is to allow easy management of all Pop!\_OS related source code and assets.
+The purpose of this repository is to allow easy management of all Pop!\_OS related source code and assets. To view a list of all included repositories, see [REPOS.md](./REPOS.md).
 
 Binary packages are hosted [on Launchpad](https://launchpad.net/~system76/+archive/ubuntu/pop/+packages). Many packages have source on Github, under the [Pop!\_OS organization](https://github.com/pop-os).
 
