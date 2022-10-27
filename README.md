@@ -19,7 +19,7 @@ For instructions on how to build the shell:
  
 Developer chat: https://chat.pop-os.org/pop-os/channels/development
 
-## Contributing to Pop!_OS
+### Contributing to Pop!_OS
 
 For instructions and guidelines to make changes in Pop!_OS, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
