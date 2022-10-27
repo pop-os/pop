@@ -29,7 +29,7 @@ Before you make a change, you need to find the relevant repository to make a con
 
 ### Make An Issue
 
-For large features, it's recommended to start with an issue for discussion if it doesn't already exist. Nobody forces you to get an approval, but you will certainly have a higher chance of getting merged, if the discussion reached a consensus on how the feature should be implemented (if at all).
+For large features, it's recommended to start with an issue for discussion if it doesn't already exist. Your work will have the highest chance of being merged if the discussion reaches a consensus in advance on how (or if) the feature should be implemented.
 
 ### Make a Pull Request
 
