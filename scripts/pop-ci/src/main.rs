@@ -2,7 +2,7 @@ use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
-    repo::{Arch, Package, Pocket, RepoInfo, Suite},
+    repo::{Arch, Package, Pocket, RepoInfo, Suite, SuiteDistro},
     util::{check_output, check_status},
 };
 use std::{
@@ -426,6 +426,14 @@ sudo sbuild-update \
             let pattern_opt = parts.next();
 
             for suite in Suite::ALL.iter() {
+                match suite.distro() {
+                    SuiteDistro::All => (),
+                    // Do not build for dev repo if suite only builds for Pop
+                    SuiteDistro::Pop => if dev { continue },
+                    // Do not build for non-dev repo if suite only builds for Ubuntu
+                    SuiteDistro::Ubuntu => if !dev { continue },
+                }
+
                 let key = (pocket.clone(), suite.clone());
                 let insert = if let Some(pattern) = pattern_opt {
                     // Insert pattern entry if pattern matches

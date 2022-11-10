@@ -111,14 +111,22 @@ impl RepoInfo {
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct Suite(&'static str, &'static str, bool);
+pub enum SuiteDistro {
+    All,
+    Pop,
+    Ubuntu,
+}
+
+#[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct Suite(&'static str, &'static str, bool, SuiteDistro);
 
 impl Suite {
     // This list has every supported Pop!_OS and Ubuntu release
     pub const ALL: &'static [Self] = &[
-        Self("bionic", "18.04", false),
-        Self("focal", "20.04", true),
-        Self("jammy", "22.04", true),
+        Self("bionic", "18.04", false, SuiteDistro::All),
+        Self("focal", "20.04", true, SuiteDistro::All),
+        Self("jammy", "22.04", true, SuiteDistro::All),
+        Self("kinetic", "22.10", false, SuiteDistro::Ubuntu),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
@@ -140,5 +148,9 @@ impl Suite {
 
     pub fn wildcard(&self) -> bool {
         self.2
+    }
+
+    pub fn distro(&self) -> &SuiteDistro {
+        &self.3
     }
 }
