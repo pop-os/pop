@@ -8,15 +8,15 @@ LOCAL="0"
 ARGV=()
 for opt in "$@"
 do
-	if [ "$opt" == "--dev" ]
-	then
-        DEV="1"
-    elif [ "$opt" == "--local" ]
-    then
-        LOCAL="1"
-	else
-		ARGV+=("$opt")
-	fi
+  if [ "$opt" == "--dev" ]
+  then
+    DEV="1"
+  elif [ "$opt" == "--local" ]
+  then
+    LOCAL="1"
+  else
+    ARGV+=("$opt")
+  fi
 done
 
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
@@ -24,71 +24,110 @@ REPOS="http://apt.pop-os.org/staging/"
 DEVLINE=''
 if [ "$DEV" == "1" ]
 then
-	DEVLINE='-dev'
-    if [ "$LOCAL" == "1" ]
-    then
-        REPOS="file://${POP_DIR}/_build/ci-dev/apt/"
-    else
-        REPOS="http://apt.pop-os.org/staging-ubuntu/"
-    fi
+  DEVLINE='-dev'
+  if [ "$LOCAL" == "1" ]
+  then
+    REPOS="file://${POP_DIR}/_build/ci-dev/apt/"
+  else
+    REPOS="http://apt.pop-os.org/staging-ubuntu/"
+  fi
 elif [ "$LOCAL" == "1" ]
 then
-    REPOS="file://${POP_DIR}/_build/ci/apt/"
+  REPOS="file://${POP_DIR}/_build/ci/apt/"
 fi
 
 LOCALREMOTE=''
 if [ "$LOCAL" == "1" ]
 then
-	LOCALREMOTE='local-'
+  LOCALREMOTE='local-'
 fi
 
 case "$1" in
-	add)
-		if [ -z "$2" ]
-		then
-			echo "$0 $1 [repo]"
-			exit 1
-		fi
-		
-		for newrepo in "${ARGV[@]:1}"
-		do
-			echo "Deprecated: use 'apt-manage add popdev:$newrepo' instead."
-			sudo apt-manage add popdev:$newrepo
-		done
+  add)
+    if [ -z "$2" ]
+    then
+      echo "$0 $1 [repo]"
+      exit 1
+    fi
 
-		sudo apt-get update
-		;;
-	remove)
-		if [ -z "$2" ]
-		then
-			echo "$0 $1 [repo]"
-			exit 1
-		fi
+    added_key=0
+    for newrepo in "${ARGV[@]:1}"
+    do
+      if command -v apt-manage > /dev/null
+      then
+        echo "Deprecated: use 'apt-manage add popdev:${newrepo}' instead."
+        sudo apt-manage add "popdev:${newrepo}"
+      else
+        if [ "${added_key}" == "0" ]
+        then
+          echo "Adding key"
+          sudo apt-key add "${POP_DIR}/scripts/.iso.asc"
+          added_key=1
+        fi
 
-		for newrepo in "${ARGV[@]:1}"
-		do
-			echo "Deprecated: use 'apt-manage remove popdev:$newrepo' instead."
-			sudo apt-manage remove popdev:$newrepo
-		done
+        echo "Adding preference for '$newrepo'"
+        sudo tee "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}" > /dev/null <<-EOF
+Package: *
+Pin: release o=pop-os-staging-$newrepo
+Pin-Priority: 1002
+EOF
 
-		sudo apt-get update
-		;;
-	local)
-		echo "Deprecated: use 'apt-manage list | grep popdev' instead."
-		apt-manage list | grep popdev
-		;;
-	remote)
-		curl -s "${REPOS}" | \
-			grep '^<a href="' | \
-			cut -d '"' -f 2 | \
-			cut -d / -f 1 | \
-			sort
-		;;
-	*)
-		echo "$0 add [repo] <--dev> <--local> - add a repository"
-		echo "$0 remove [repo] <--dev> <--local> - remove a repository"
-		echo "$0 local <--dev> <--local> - show locally added repositories"
-		echo "$0 remote <--dev> <--local> - show remote available repositories"
-		exit 1
-		;;
+        echo "Adding repository for '$newrepo'"
+        LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+        sudo add-apt-repository --enable-source --no-update "${LINE}"
+      fi
+    done
+
+    sudo apt-get update
+    ;;
+  remove)
+    if [ -z "$2" ]
+    then
+      echo "$0 $1 [repo]"
+      exit 1
+    fi
+
+    for newrepo in "${ARGV[@]:1}"
+    do
+      if command -v apt-manage > /dev/null
+      then
+        echo "Deprecated: use 'apt-manage remove popdev:$newrepo' instead."
+        sudo apt-manage remove "popdev:$newrepo"
+      else
+        echo "Removing preference for '$newrepo'"
+        sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
+
+        echo "Removing repository for '$newrepo'"
+        LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
+        sudo add-apt-repository --enable-source --no-update --remove "${LINE}"
+      fi
+    done
+
+    sudo apt-get update
+    ;;
+  local)
+    if command -v apt-manage > /dev/null
+    then
+       echo "Deprecated: use 'apt-manage list | grep popdev' instead."
+      apt-manage list | grep popdev
+    else
+      grep "^deb ${REPOS}" /etc/apt/sources.list{,.d/*} | \
+        cut -d " " -f2 |
+        sed -s "s#${REPOS}##"
+    fi
+    ;;
+  remote)
+    curl -s "${REPOS}" | \
+      grep '^<a href="' | \
+      cut -d '"' -f 2 | \
+      cut -d / -f 1 | \
+      sort
+    ;;
+  *)
+    echo "$0 add [repo] <--dev> <--local> - add a repository"
+    echo "$0 remove [repo] <--dev> <--local> - remove a repository"
+    echo "$0 local <--dev> <--local> - show locally added repositories"
+    echo "$0 remote <--dev> <--local> - show remote available repositories"
+    exit 1
+    ;;
 esac
