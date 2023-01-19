@@ -6,6 +6,7 @@ This is an automatically generated file. See `scripts/readme`
 - [alsa\-ucm\-conf](https://github.com/pop-os/alsa-ucm-conf) - ALSA Use Case Manager configuration
 - [alsa\-utils](https://github.com/pop-os/alsa-utils) - The Advanced Linux Sound Architecture \(ALSA\) \- utilities
 - [amd\-ppt\-bin](https://github.com/pop-os/amd-ppt-bin) - AMD PPT binary package
+- [amd64\-microcode](https://github.com/pop-os/amd64-microcode) - Fork of https://salsa\.debian\.org/janitor\-team/proposed/amd64\-microcode to backport newer microcode to Jammy
 - [analytics\-panel](https://github.com/pop-os/analytics-panel) - Analytics Settings Panel
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
@@ -37,7 +38,7 @@ This is an automatically generated file. See `scripts/readme`
 - [console\-setup](https://github.com/pop-os/console-setup) - Fork of https://salsa\.debian\.org/installer\-team/console\-setup
 - [cosmic](https://github.com/pop-os/cosmic) - Computer Operating System Main Interface Components
 - [cosmic\-applet\-host](https://github.com/pop-os/cosmic-applet-host)
-- [cosmic\-applets](https://github.com/pop-os/cosmic-applets) - WIP panel for COSMIC
+- [cosmic\-applets](https://github.com/pop-os/cosmic-applets) - WIP applets for cosmic\-panel
 - [cosmic\-applibrary](https://github.com/pop-os/cosmic-applibrary) - WIP
 - [cosmic\-bg](https://github.com/pop-os/cosmic-bg)
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
@@ -46,13 +47,14 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
-- [cosmic\-panel\-workspaces\-relm4](https://github.com/pop-os/cosmic-panel-workspaces-relm4)
 - [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Addtional wayland\-protocols used by the COSMIC desktop environment
-- [cosmic\-session](https://github.com/pop-os/cosmic-session) - Session manager for the COSMIC desktop enviornment
+- [cosmic\-session](https://github.com/pop-os/cosmic-session) - Session manager for the COSMIC desktop environment
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - WIP \- the Settings app for COSMIC
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
+- [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
+- [cosmic\-time](https://github.com/pop-os/cosmic-time) - Animation Library for gitub\.com/iced\-rs/iced
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [cryptsetup](https://github.com/pop-os/cryptsetup) - Packaging for https://gitlab\.com/cryptsetup/cryptsetup
 - [cups\-filters](https://github.com/pop-os/cups-filters) - CUPS Filters with Pop\!\_OS branding
@@ -122,7 +124,9 @@ This is an automatically generated file. See `scripts/readme`
 - [hostname\-validator](https://github.com/pop-os/hostname-validator) - Rust crate for validating hostnames according to the IETF RFC 1123
 - [hp\-vendor](https://github.com/pop-os/hp-vendor) - Vendor support for HP products using Pop\!\_OS
 - [hp\-wallpapers](https://github.com/pop-os/hp-wallpapers) - Wallpapers for HP products
+- [iced](https://github.com/pop-os/iced) - A cross\-platform GUI library for Rust, inspired by Elm
 - [iced\-launcher](https://github.com/pop-os/iced-launcher)
+- [iced\-sctk](https://github.com/pop-os/iced-sctk) - WIP
 - [iced\-workspaces\-applet](https://github.com/pop-os/iced-workspaces-applet)
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
@@ -146,7 +150,9 @@ This is an automatically generated file. See `scripts/readme`
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
+- [llvm\-toolchain\-15](https://github.com/pop-os/llvm-toolchain-15) - Backport of https://salsa\.debian\.org/pkg\-llvm\-team/llvm\-toolchain/\-/tree/15
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
+- [logind\-zbus](https://github.com/pop-os/logind-zbus) - Temporary, please read most recent commi message
 - [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
@@ -162,6 +168,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
+- [nvidia\-graphics\-drivers\-515](https://github.com/pop-os/nvidia-graphics-drivers-515) -  Pop\!\_OS Legacy NVIDIA Graphics Drivers \(515\) 
 - [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
@@ -212,6 +219,9 @@ This is an automatically generated file. See `scripts/readme`
 - [simple\-wrapper](https://github.com/pop-os/simple-wrapper)
 - [smithay](https://github.com/pop-os/smithay) - Fork of https://github\.com/Smithay/smithay with pending patches
 - [snapshot](https://github.com/pop-os/snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
+- [softbuffer](https://github.com/pop-os/softbuffer) - Softbuffer integrates with the raw\-window\-handle crate to allow writing to a window in a cross\-platform way while using the very high quality dedicated window management libraries that are available in the Rust ecosystem\.
+- [spirv\-llvm\-translator\-14](https://github.com/pop-os/spirv-llvm-translator-14) - Backport of https://salsa\.debian\.org/opencl\-team/spirv\-llvm\-translator
+- [spirv\-llvm\-translator\-15](https://github.com/pop-os/spirv-llvm-translator-15) - Backport of https://salsa\.debian\.org/opencl\-team/spirv\-llvm\-translator/\-/tree/llvm15/main
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam with improved packaging for Pop
@@ -252,6 +262,7 @@ This is an automatically generated file. See `scripts/readme`
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
+- [winit](https://github.com/pop-os/winit) - Development fork
 - [wireplumber](https://github.com/pop-os/wireplumber) - Backports of https://salsa\.debian\.org/utopia\-team/wireplumber
 - [xdg\-desktop\-portal\-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic)
 - [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper

@@ -17,6 +17,7 @@
 /alsa-ucm-conf/
 /alsa-utils/
 /amd-ppt-bin/
+/amd64-microcode/
 /analytics-panel/
 /api/
 /appstream-data/
@@ -57,13 +58,14 @@
 /cosmic-launcher/
 /cosmic-osd/
 /cosmic-panel/
-/cosmic-panel-workspaces-relm4/
 /cosmic-protocols/
 /cosmic-session/
 /cosmic-settings/
 /cosmic-settings-daemon/
+/cosmic-text/
 /cosmic-theme/
 /cosmic-theme-editor/
+/cosmic-time/
 /cosmic-workspaces/
 /cryptsetup/
 /cups-filters/
@@ -133,7 +135,9 @@
 /hostname-validator/
 /hp-vendor/
 /hp-wallpapers/
+/iced/
 /iced-launcher/
+/iced-sctk/
 /iced-workspaces-applet/
 /icon-theme/
 /installer/
@@ -157,7 +161,9 @@
 /libxmlb/
 /linux/
 /linux-firmware/
+/llvm-toolchain-15/
 /logind-dbus/
+/logind-zbus/
 /lutris/
 /mesa/
 /meta-python/
@@ -173,6 +179,7 @@
 /nvidia-docker/
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
+/nvidia-graphics-drivers-515/
 /nvidia-vaapi-driver/
 /opt/
 /os-autoinst-distri-pop/
@@ -223,6 +230,9 @@
 /simple-wrapper/
 /smithay/
 /snapshot/
+/softbuffer/
+/spirv-llvm-translator-14/
+/spirv-llvm-translator-15/
 /sponsors/
 /srmw/
 /steam/
@@ -263,6 +273,7 @@
 /wallpapers/
 /website/
 /whitespace-conf/
+/winit/
 /wireplumber/
 /xdg-desktop-portal-cosmic/
 /xdg-shell-wrapper/
