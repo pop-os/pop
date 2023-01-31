@@ -39,12 +39,14 @@ if not path.exists(chroot_path):
         "--include=gnupg",
         "--components=main,restricted,universe,multiverse",
         "--arch=" + args.arch,
+        "--merged-usr",
         args.dist,
         chroot_path,
         "http://archive.ubuntu.com/ubuntu"
     ])
 
 sbuild = [
+    "sudo",
     "sbuild",
     "--dist=" + args.dist,
     "--arch=" + args.arch,
@@ -58,6 +60,7 @@ sbuild = [
     "--extra-repository=deb-src " + apt_proposed + " " + args.dist + " main",
     "--extra-repository-key=" + path.join(os.getcwd(), "scripts", apt_key),
     "--no-apt-distupgrade",
+    "--chroot-setup-commands=mkdir -p /sbuild-nonexistent",
 ]
 
 check_call(sbuild, cwd=args.repo)
