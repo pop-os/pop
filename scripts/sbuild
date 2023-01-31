@@ -39,7 +39,6 @@ if not path.exists(chroot_path):
         "--include=gnupg",
         "--components=main,restricted,universe,multiverse",
         "--arch=" + args.arch,
-        "--merged-usr",
         args.dist,
         chroot_path,
         "http://archive.ubuntu.com/ubuntu"
