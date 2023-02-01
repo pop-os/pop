@@ -3,8 +3,9 @@
 import argparse
 import distro
 import os
+import re
 from os import path
-from subprocess import check_call
+from subprocess import check_call, check_output
 import sys
 
 parser = argparse.ArgumentParser(description="Run Pop!_OS build process")
@@ -31,7 +32,6 @@ else:
     apt_release = "http://apt.pop-os.org/release"
     apt_proposed = "http://apt.pop-os.org/staging/master"
 
-
 chroot_path = "/srv/chroot/" + args.dist + "-" + args.arch + "-sbuild"
 if not path.exists(chroot_path):
     check_call([
@@ -44,8 +44,14 @@ if not path.exists(chroot_path):
         "http://archive.ubuntu.com/ubuntu"
     ])
 
-sbuild = [
-    "sudo",
+requires_sudo = [ "Fetch URL: git@github.com:pop-os/mesa.git" ]
+
+fetch_path = [ "git", "remote", "show", "origin" ]
+origin_data = check_output(fetch_path, cwd=args.repo).decode("utf-8")
+
+sudo = [ "sudo" ] if re.search("|".join(require_sudo), origin_data) else []
+
+sbuild = sudo + [
     "sbuild",
     "--dist=" + args.dist,
     "--arch=" + args.arch,
