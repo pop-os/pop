@@ -58,6 +58,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "system76-oled",
     "system76-power",
     "system76-wallpapers",
+    "systemd",
     "ubuntu-drivers-common",
     "virtualbox",
     "zfs-linux",

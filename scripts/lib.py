@@ -40,6 +40,7 @@ DEV_REPOS = (
     "system76-oled",
     "system76-power",
     "system76-wallpapers",
+    "systemd",
     "ubuntu-drivers-common",
     "virtualbox",
     "zfs-linux",
