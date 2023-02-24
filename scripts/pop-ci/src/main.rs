@@ -36,6 +36,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "gdm3",
     "gnome-desktop3",
     "gnome-settings-daemon",
+    "gnome-shell",
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
     "libabigail",
