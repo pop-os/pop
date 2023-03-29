@@ -3,7 +3,7 @@ use pop_ci::{
     cache::Cache,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
     repo::{Arch, Package, Pocket, RepoInfo, Suite, SuiteDistro},
-    util::{check_output, check_status},
+    util::{check_output, check_status, get_repos},
 };
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -20,50 +20,6 @@ macro_rules! bold {
         concat!("\x1B[1m", $arg, "\x1B[0m")
     };
 }
-
-static DEV_REPOS: &[&str] = &[
-    "accountsservice",
-    "amd-ppt-bin",
-    "alsa-ucm-conf",
-    "alsa-utils",
-    "bcmwl",
-    "bluez",
-    "distinst",
-    "dwarves",
-    "firmware-manager",
-    "fwupd",
-    "fwupd-efi",
-    "gdm3",
-    "gnome-desktop3",
-    "gnome-settings-daemon",
-    "gnome-shell",
-    "gnome-shell-extension-system76-power",
-    "hidpi-daemon",
-    "libabigail",
-    "libasound2",
-    "libbpf",
-    "libdrm",
-    "libxmlb",
-    "linux",
-    "linux-firmware",
-    "mesa",
-    "ninja-build",
-    "nvidia-graphics-drivers",
-    "nvidia-graphics-drivers-470",
-    "system76-acpi-dkms",
-    "system76-dkms",
-    "system76-driver",
-    "system76-firmware",
-    "system76-io-dkms",
-    "system76-keyboard-configurator",
-    "system76-oled",
-    "system76-power",
-    "system76-wallpapers",
-    "systemd",
-    "ubuntu-drivers-common",
-    "virtualbox",
-    "zfs-linux",
-];
 
 //TODO: limit jobs?
 async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote) {
@@ -384,32 +340,7 @@ sudo sbuild-update \
     }
 
     let mut repos = BTreeMap::new();
-    for entry_res in fs::read_dir(".").expect("failed to read directory") {
-        let entry = entry_res.expect("failed to read directory entry");
-
-        let path = entry.path();
-        if !path.is_dir() {
-            // Skip if not a folder
-            continue;
-        }
-
-        if !path.join(".git").is_dir() {
-            // Skip if not a git repository
-            continue;
-        }
-
-        let file_name = entry
-            .file_name()
-            .into_string()
-            .expect("filename is not utf-8");
-
-        if dev && !DEV_REPOS.contains(&file_name.as_str()) {
-            // Skip if building dev repos and this is not one of them
-            continue;
-        }
-
-        assert_eq!(repos.insert(file_name, path), None);
-    }
+    get_repos(&mut repos, fs::read_dir("."), dev);
 
     let remote = GitRemote::origin();
     {
