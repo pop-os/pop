@@ -5,7 +5,7 @@ pub struct Arch(&'static str);
 
 impl Arch {
     pub fn id(&self) -> &str {
-        &self.0
+        self.0
     }
 
     pub fn build_all(&self) -> bool {
@@ -63,9 +63,9 @@ pub struct RepoInfo {
 
 impl RepoInfo {
     pub fn new(suite: &Suite, dev: bool) -> Self {
-        const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64")];
+        const ARCHS: &[Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64")];
 
-        const DEV_ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386")];
+        const DEV_ARCHS: &[Arch] = &[Arch("amd64"), Arch("i386")];
 
         if dev {
             // Launchpad for all Ubuntu releases

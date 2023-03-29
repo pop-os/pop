@@ -21,7 +21,7 @@ macro_rules! bold {
     };
 }
 
-static DEV_REPOS: &'static [&'static str] = &[
+static DEV_REPOS: &[&str] = &[
     "accountsservice",
     "amd-ppt-bin",
     "alsa-ucm-conf",
@@ -130,6 +130,7 @@ fn github_status_inner(
 }
 
 #[derive(Default)]
+#[allow(clippy::type_complexity)]
 struct CiContext {
     logs: BTreeMap<String, (PathBuf, bool)>,
     pocket_logs: BTreeMap<Pocket, BTreeMap<String, (PathBuf, bool)>>,
@@ -158,7 +159,7 @@ struct BinaryContext<'a> {
     suite: Suite,
 }
 
-fn binary_build<'a>(ctx: &BinaryContext<'a>, path: &Path) -> io::Result<()> {
+fn binary_build(ctx: &BinaryContext, path: &Path) -> io::Result<()> {
     fs::create_dir(path)?;
 
     let script = format!(
@@ -204,7 +205,7 @@ sbuild \
 
         //TODO: update rsync to allow use of --mkpath
         process::Command::new("ssh")
-            .arg(&arm64)
+            .arg(arm64)
             .arg("--")
             .arg(format!("mkdir -p '{}'", ctx.source.display()))
             .status()
@@ -220,7 +221,7 @@ sbuild \
             .and_then(check_status)?;
 
         let res = process::Command::new("ssh")
-            .arg(&arm64)
+            .arg(arm64)
             .arg("--")
             .arg(script)
             .status()
@@ -492,7 +493,7 @@ sudo sbuild-update \
         }
 
         let repo_cache = git_cache
-            .child(&repo_name, |name| {
+            .child(repo_name, |name| {
                 repo_ctx.builds.contains_key(&GitCommit::new(name))
             })
             .expect("failed to open repo cache");
@@ -512,7 +513,7 @@ sudo sbuild-update \
             eprintln!(bold!("{}: {}"), repo_name, commit_name);
 
             if !repo
-                .file_exists(&commit, "debian/changelog")
+                .file_exists(commit, "debian/changelog")
                 .expect("failed to check for debian/changelog")
             {
                 eprintln!(bold!("{}: {}: no debian changelog"), repo_name, commit_name);
@@ -527,7 +528,7 @@ sudo sbuild-update \
                 .expect("failed to open commit cache");
 
             let (archive_tar, archive_rebuilt) = commit_cache
-                .build("archive.tar.gz", false, |path| repo.archive(&commit, path))
+                .build("archive.tar.gz", false, |path| repo.archive(commit, path))
                 .expect("failed to build git archive");
 
             let commit_timestamp = {
@@ -584,7 +585,7 @@ sudo sbuild-update \
                     format!("git:{}", commit.id()),
                     format!("dist:{}", suite.id()),
                 ] {
-                    if retry.contains(&retry_key) {
+                    if retry.contains(retry_key) {
                         source_retry = true;
                         break;
                     }
@@ -650,8 +651,8 @@ sudo sbuild-update \
                         };
 
                         match github_status_inner(
-                            &repo_name,
-                            &commit,
+                            repo_name,
+                            commit,
                             &context,
                             &description,
                             status,
@@ -672,7 +673,7 @@ sudo sbuild-update \
                         repo_name, commit_name, suite_name
                     );
                     github_status("source", "pending");
-                    fs::create_dir(&path)?;
+                    fs::create_dir(path)?;
 
                     let archive = path.join("archive");
                     fs::create_dir(&archive)?;
@@ -907,7 +908,7 @@ sudo sbuild-update \
                 }
                 let (_dsc_name, dsc_path) = package.dscs.iter().next().unwrap();
 
-                let dsc = fs::read_to_string(&dsc_path).expect("failed to read .dsc file");
+                let dsc = fs::read_to_string(dsc_path).expect("failed to read .dsc file");
                 for line in dsc.lines() {
                     if line.starts_with("Architecture: ") {
                         for arch in repo_info.archs.iter() {
@@ -942,7 +943,7 @@ sudo sbuild-update \
                 for arch in package.archs.iter() {
                     let mut binary_retry = source_retry;
                     for retry_key in &[format!("arch:{}", arch.id())] {
-                        if retry.contains(&retry_key) {
+                        if retry.contains(retry_key) {
                             binary_retry = true;
                             break;
                         }
@@ -1057,7 +1058,7 @@ sudo sbuild-update \
                                     package.rebuilt = true;
                                 }
 
-                                for entry_res in fs::read_dir(&binary)
+                                for entry_res in fs::read_dir(binary)
                                     .expect("failed to read suite binary directory")
                                 {
                                     let entry =
@@ -1211,7 +1212,7 @@ sudo sbuild-update \
 
                 let (_, repo_pool_rebuilt) = repo_pool_cache
                     .build(commit.id(), package.rebuilt, |path| {
-                        fs::create_dir(&path)?;
+                        fs::create_dir(path)?;
 
                         for (dsc_name, dsc_path) in package.dscs.iter() {
                             eprintln!("      dsc: {}", dsc_name);
@@ -1260,7 +1261,7 @@ sudo sbuild-update \
                         eprintln!(bold!("      launchpad upload to {}"), dput);
                         let dput_res = process::Command::new("dput")
                             .arg(dput)
-                            .arg(&changes_path)
+                            .arg(changes_path)
                             .status()
                             .and_then(check_status);
                         match dput_res {
@@ -1280,7 +1281,7 @@ sudo sbuild-update \
 
             dists_cache
                 .build(suite.id(), pool_rebuilt, |path| {
-                    fs::create_dir(&path)?;
+                    fs::create_dir(path)?;
 
                     let pool_relative = Path::new("pool").join(suite.id());
                     let main_dir = path.join("main");
@@ -1294,7 +1295,7 @@ sudo sbuild-update \
                             .arg("-qq")
                             .arg("sources")
                             .arg(&pool_relative)
-                            .current_dir(&pocket_cache.path())
+                            .current_dir(pocket_cache.path())
                             .stdout(process::Stdio::piped())
                             .spawn()?
                             .wait_with_output()
@@ -1331,7 +1332,7 @@ sudo sbuild-update \
                             .arg(arch.id())
                             .arg("packages")
                             .arg(&pool_relative)
-                            .current_dir(&pocket_cache.path())
+                            .current_dir(pocket_cache.path())
                             .stdout(process::Stdio::piped())
                             .spawn()?
                             .wait_with_output()
@@ -1398,13 +1399,13 @@ sudo sbuild-update \
                         ))
                         .arg("release")
                         .arg(".")
-                        .current_dir(&path)
+                        .current_dir(path)
                         .stdout(process::Stdio::piped())
                         .spawn()?
                         .wait_with_output()
                         .and_then(check_output)?;
                     let release_file = path.join("Release");
-                    fs::write(&release_file, &release_output.stdout)?;
+                    fs::write(&release_file, release_output.stdout)?;
 
                     process::Command::new("gpg")
                         .arg("--clearsign")
