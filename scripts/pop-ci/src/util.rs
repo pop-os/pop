@@ -9,9 +9,6 @@ pub fn check_status(status: process::ExitStatus) -> io::Result<()> {
     if status.success() {
         Ok(())
     } else {
-        Err(io::Error::new(
-            io::ErrorKind::Other,
-            format!("{}", status)
-        ))
+        Err(io::Error::new(io::ErrorKind::Other, format!("{}", status)))
     }
 }

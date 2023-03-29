@@ -1,9 +1,7 @@
 use std::{
-    fs,
-    io,
+    fs, io,
     path::{Path, PathBuf},
-    process,
-    str,
+    process, str,
 };
 
 use crate::util::{check_output, check_status};
@@ -70,7 +68,8 @@ impl GitRepo {
 
     pub async fn async_fetch(&mut self, remote: &GitRemote) -> io::Result<()> {
         async_std::process::Command::new("git")
-            .arg("-C").arg(&self.path())
+            .arg("-C")
+            .arg(&self.path())
             .arg("fetch")
             .arg("--prune")
             .arg("--quiet")
@@ -86,13 +85,14 @@ impl GitRepo {
         if remote.id().contains("/") {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                "git remotes with slashes are not supported"
+                "git remotes with slashes are not supported",
             ));
         }
 
         let prefix = format!("refs/remotes/{}/", remote.id());
 
-        let output = self.command()
+        let output = self
+            .command()
             .arg("for-each-ref")
             .arg("--format=%(objectname)\t%(refname)")
             .arg("--")
@@ -102,9 +102,8 @@ impl GitRepo {
             .wait_with_output()
             .and_then(check_output)?;
 
-        let stdout = str::from_utf8(&output.stdout).map_err(|err| {
-            io::Error::new(io::ErrorKind::InvalidData, err)
-        })?;
+        let stdout = str::from_utf8(&output.stdout)
+            .map_err(|err| io::Error::new(io::ErrorKind::InvalidData, err))?;
 
         let mut heads = Vec::new();
         for line in stdout.lines() {
@@ -112,17 +111,21 @@ impl GitRepo {
 
             let commit_id = parts.next().ok_or(io::Error::new(
                 io::ErrorKind::InvalidData,
-                "git for-each-ref missing commit"
+                "git for-each-ref missing commit",
             ))?;
             let commit = GitCommit::new(commit_id);
 
-            let branch_id = parts.next().ok_or(io::Error::new(
-                io::ErrorKind::InvalidData,
-                "git for-each-ref missing ref"
-            ))?.strip_prefix(&prefix).ok_or(io::Error::new(
-                io::ErrorKind::InvalidData,
-                "git for-each-ref ref did not start with expected prefix"
-            ))?;
+            let branch_id = parts
+                .next()
+                .ok_or(io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    "git for-each-ref missing ref",
+                ))?
+                .strip_prefix(&prefix)
+                .ok_or(io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    "git for-each-ref ref did not start with expected prefix",
+                ))?;
             if branch_id == "HEAD" {
                 // Skip HEAD refs, they do not represent remote branches
                 continue;
@@ -143,7 +146,8 @@ impl GitRepo {
     pub fn archive<P: AsRef<Path>>(&self, commit: &GitCommit, archive: P) -> io::Result<()> {
         self.command()
             .arg("archive")
-            .arg("-o").arg(archive.as_ref())
+            .arg("-o")
+            .arg(archive.as_ref())
             .arg("--")
             .arg(commit.id())
             .status()
@@ -151,7 +155,8 @@ impl GitRepo {
     }
 
     pub fn file_exists(&self, commit: &GitCommit, path: &str) -> io::Result<bool> {
-        let status = self.command()
+        let status = self
+            .command()
             .arg("cat-file")
             .arg("-e")
             .arg(format!("{}:{}", commit.id(), path))
