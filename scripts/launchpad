@@ -39,6 +39,7 @@ if args.dev:
         "focal",
         "jammy",
         "kinetic",
+        "lunar",
     )
 else:
     owner = lp.people["system76"]
