@@ -21,6 +21,7 @@ DEV_REPOS = (
     "gnome-shell",
     "gnome-shell-extension-system76-power",
     "hidpi-daemon",
+    "kbuild",
     "libabigail",
     "libasound2",
     "libbpf",
