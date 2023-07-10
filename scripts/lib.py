@@ -45,6 +45,7 @@ DEV_REPOS = (
     "systemd",
     "ubuntu-drivers-common",
     "virtualbox",
+    "virtualbox-ext-pack",
     "zfs-linux",
 )
 

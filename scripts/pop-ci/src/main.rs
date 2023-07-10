@@ -63,6 +63,7 @@ static DEV_REPOS: &'static [&'static str] = &[
     "systemd",
     "ubuntu-drivers-common",
     "virtualbox",
+    "virtualbox-ext-pack",
     "zfs-linux",
 ];
 
