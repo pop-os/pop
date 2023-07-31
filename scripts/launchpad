@@ -38,7 +38,6 @@ if args.dev:
         "bionic",
         "focal",
         "jammy",
-        "kinetic",
         "lunar",
     )
 else:
