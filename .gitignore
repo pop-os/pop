@@ -20,6 +20,7 @@
 /amd64-microcode/
 /analytics-panel/
 /api/
+/appstream/
 /appstream-data/
 /appstream2dep11/
 /apt/
@@ -58,9 +59,11 @@
 /cosmic-dock/
 /cosmic-epoch/
 /cosmic-launcher/
+/cosmic-notifications/
 /cosmic-osd/
 /cosmic-panel/
 /cosmic-protocols/
+/cosmic-screenshot/
 /cosmic-session/
 /cosmic-settings/
 /cosmic-settings-daemon/
@@ -149,6 +152,7 @@
 /intel-pstate/
 /iso/
 /just/
+/kbuild/
 /kernelstub/
 /keyboard-configurator/
 /keyring/
@@ -163,6 +167,7 @@
 /libinput/
 /libnvidia-container/
 /libparted/
+/libsdl2/
 /libxmlb/
 /linux/
 /linux-firmware/
@@ -280,4 +285,5 @@
 /xdg-desktop-portal-cosmic/
 /xdg-shell-wrapper/
 /xserver-xorg-video-amdgpu/
+/xz-utils/
 /zfs-linux/

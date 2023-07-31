@@ -9,6 +9,7 @@ This is an automatically generated file. See `scripts/readme`
 - [amd64\-microcode](https://github.com/pop-os/amd64-microcode) - Fork of https://salsa\.debian\.org/janitor\-team/proposed/amd64\-microcode to backport newer microcode to Jammy
 - [analytics\-panel](https://github.com/pop-os/analytics-panel) - Analytics Settings Panel
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
+- [appstream](https://github.com/pop-os/appstream) - Pop\!\_OS Fork of https://salsa\.debian\.org/pkgutopia\-team/appstream
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
 - [apt](https://github.com/pop-os/apt) - Fork of https://salsa\.debian\.org/apt\-team/apt
@@ -47,9 +48,11 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
+- [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
 - [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Addtional wayland\-protocols used by the COSMIC desktop environment
+- [cosmic\-screenshot](https://github.com/pop-os/cosmic-screenshot) - Utility for capturing screenshots via XDG Desktop Portal
 - [cosmic\-session](https://github.com/pop-os/cosmic-session) - Session manager for the COSMIC desktop environment
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - COSMIC Settings
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
@@ -138,6 +141,7 @@ This is an automatically generated file. See `scripts/readme`
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
 - [just](https://github.com/pop-os/just) - Packaging fork of https://github\.com/casey/just
+- [kbuild](https://github.com/pop-os/kbuild) - Pop\!\_OS packaging for https://salsa\.debian\.org/pkg\-virtualbox\-team/kbuild
 - [kernelstub](https://github.com/pop-os/kernelstub) - A simple EFI boot manager manager for Linux
 - [keyboard\-configurator](https://github.com/pop-os/keyboard-configurator) - Keyboard configuration UI
 - [keyring](https://github.com/pop-os/keyring) - Pop\!\_OS keyring
@@ -152,6 +156,7 @@ This is an automatically generated file. See `scripts/readme`
 - [libinput](https://github.com/pop-os/libinput) - Backport of https://salsa\.debian\.org/xorg\-team/lib/libinput
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
+- [libsdl2](https://github.com/pop-os/libsdl2) - Pop\!\_OS fork of https://salsa\.debian\.org/sdl\-team/libsdl2
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
@@ -269,4 +274,5 @@ This is an automatically generated file. See `scripts/readme`
 - [xdg\-desktop\-portal\-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic)
 - [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper
 - [xserver\-xorg\-video\-amdgpu](https://github.com/pop-os/xserver-xorg-video-amdgpu) - Pop\!\_OS fork of https://salsa\.debian\.org/xorg\-team/driver/xserver\-xorg\-video\-amdgpu
+- [xz\-utils](https://github.com/pop-os/xz-utils) - Pop\!\_OS Fork of https://salsa\.debian\.org/debian/xz\-utils
 - [zfs\-linux](https://github.com/pop-os/zfs-linux) - Pop\!\_OS fork of https://salsa\.debian\.org/zfsonlinux\-team/zfs\.git
