@@ -6,6 +6,7 @@ import urllib.request
 DEV_REPOS = (
     "accountsservice",
     "amd-ppt-bin",
+    "amd64-microcode",
     "alsa-ucm-conf",
     "alsa-utils",
     "bcmwl",

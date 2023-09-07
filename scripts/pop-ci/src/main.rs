@@ -24,6 +24,7 @@ macro_rules! bold {
 static DEV_REPOS: &'static [&'static str] = &[
     "accountsservice",
     "amd-ppt-bin",
+    "amd64-microcode",
     "alsa-ucm-conf",
     "alsa-utils",
     "bcmwl",
