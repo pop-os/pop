@@ -126,7 +126,6 @@ impl Suite {
         Self("bionic", "18.04", false, SuiteDistro::All),
         Self("focal", "20.04", true, SuiteDistro::All),
         Self("jammy", "22.04", true, SuiteDistro::All),
-        Self("kinetic", "22.10", false, SuiteDistro::Ubuntu),
         Self("lunar", "23.04", false, SuiteDistro::Ubuntu),
         Self("mantic", "23.10", false, SuiteDistro::Ubuntu),
     ];
