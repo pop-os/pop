@@ -710,6 +710,13 @@ sudo sbuild-update \
                             .and_then(check_status)?;
                     }
 
+                    process::Command::new("fakeroot")
+                        .arg("debian/rules")
+                        .arg("clean")
+                        .current_dir(&archive)
+                        .status()
+                        .and_then(check_status)?;
+
                     process::Command::new("debuild")
                         .arg("--preserve-envvar").arg("PATH")
                         .arg("--set-envvar").arg(format!("SOURCE_DATE_EPOCH={}", commit_timestamp))
