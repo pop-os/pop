@@ -710,12 +710,16 @@ sudo sbuild-update \
                             .and_then(check_status)?;
                     }
 
-                    process::Command::new("fakeroot")
-                        .arg("debian/rules")
-                        .arg("clean")
-                        .current_dir(&archive)
-                        .status()
-                        .and_then(check_status)?;
+                    // Linux needs to have debian/rules clean run to build with the automatic
+                    // version number
+                    if repo_name == "linux" {
+                        process::Command::new("fakeroot")
+                            .arg("debian/rules")
+                            .arg("clean")
+                            .current_dir(&archive)
+                            .status()
+                            .and_then(check_status)?;
+                    }
 
                     process::Command::new("debuild")
                         .arg("--preserve-envvar").arg("PATH")
