@@ -40,6 +40,7 @@ if args.dev:
         "jammy",
         "lunar",
         "mantic",
+        "noble",
     )
 else:
     owner = lp.people["system76"]
