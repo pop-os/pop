@@ -45,8 +45,12 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-application\-template](https://github.com/pop-os/cosmic-application-template)
 - [cosmic\-bg](https://github.com/pop-os/cosmic-bg)
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
+- [cosmic\-design\-demo](https://github.com/pop-os/cosmic-design-demo) - libcosmic widget toolkit showcase for testing COSMIC widgets and their styling
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
+- [cosmic\-edit](https://github.com/pop-os/cosmic-edit) - COSMIC Text Editor
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
+- [cosmic\-greeter](https://github.com/pop-os/cosmic-greeter) - libcosmic greeter for greetd, which can be run inside cosmic\-comp
+- [cosmic\-icons](https://github.com/pop-os/cosmic-icons) -  System76 Cosmic icon theme for Linux 
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
@@ -57,12 +61,12 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - COSMIC Settings
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
-- [cosmic\-text\-editor](https://github.com/pop-os/cosmic-text-editor) - COSMIC Text Editor
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
 - [cosmic\-time](https://github.com/pop-os/cosmic-time) - Animation Library for https://github\.com/iced\-rs/iced and https://github\.com/pop\-os/cosmic\-epoch
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [cosmic\-workspaces\-epoch](https://github.com/pop-os/cosmic-workspaces-epoch)
+- [cosmic\_undo\_2](https://github.com/pop-os/cosmic_undo_2) - Fork of https://gitlab\.com/okannen/undo\_2 with improved compiler support
 - [cryptsetup](https://github.com/pop-os/cryptsetup) - Packaging for https://gitlab\.com/cryptsetup/cryptsetup
 - [cups\-filters](https://github.com/pop-os/cups-filters) - CUPS Filters with Pop\!\_OS branding
 - [dbus\-settings\-bindings](https://github.com/pop-os/dbus-settings-bindings) - Rust bindings for D\-Bus settings interfaces
@@ -136,6 +140,7 @@ This is an automatically generated file. See `scripts/readme`
 - [iced\-launcher](https://github.com/pop-os/iced-launcher)
 - [iced\-sctk](https://github.com/pop-os/iced-sctk) - WIP
 - [iced\-workspaces\-applet](https://github.com/pop-os/iced-workspaces-applet)
+- [iced\_aw](https://github.com/pop-os/iced_aw) - Additional widgets for the Iced GUI library
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
@@ -156,7 +161,6 @@ This is an automatically generated file. See `scripts/readme`
 - [libinput](https://github.com/pop-os/libinput) - Backport of https://salsa\.debian\.org/xorg\-team/lib/libinput
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
-- [libsdl2](https://github.com/pop-os/libsdl2) - Pop\!\_OS fork of https://salsa\.debian\.org/sdl\-team/libsdl2
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
@@ -164,6 +168,7 @@ This is an automatically generated file. See `scripts/readme`
 - [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
+- [modit](https://github.com/pop-os/modit) - Modal Editor Parser
 - [mouse\-configurator](https://github.com/pop-os/mouse-configurator) - Configurator for HP 935 Creator Wireless Mouse
 - [mozc](https://github.com/pop-os/mozc) - Fork of https://salsa\.debian\.org/debian/mozc\.git/
 - [mpris2\-zbus](https://github.com/pop-os/mpris2-zbus) - Migrated to https://github\.com/pop\-os/dbus\-settings\-bindings
@@ -217,6 +222,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [rtl8821ce\-dkms](https://github.com/pop-os/rtl8821ce-dkms) - Backports of https://packages\.ubuntu\.com/kinetic/rtl8821ce\-dkms
 - [rust\-tss\-esapi](https://github.com/pop-os/rust-tss-esapi) - TSS 2\.0 Enhanced System API \(ESAPI\) Rust wrapper
+- [sctk\-adwaita](https://github.com/pop-os/sctk-adwaita) - Adwaita\-like SCTK Frame
 - [session](https://github.com/pop-os/session) - Session default settings
 - [sessioninstaller](https://github.com/pop-os/sessioninstaller) - Pop\!\_OS fork of https://launchpad\.net/sessioninstaller
 - [shell](https://github.com/pop-os/shell) - Pop\!\_OS Shell

@@ -56,8 +56,12 @@
 /cosmic-application-template/
 /cosmic-bg/
 /cosmic-comp/
+/cosmic-design-demo/
 /cosmic-dock/
+/cosmic-edit/
 /cosmic-epoch/
+/cosmic-greeter/
+/cosmic-icons/
 /cosmic-launcher/
 /cosmic-notifications/
 /cosmic-osd/
@@ -68,12 +72,12 @@
 /cosmic-settings/
 /cosmic-settings-daemon/
 /cosmic-text/
-/cosmic-text-editor/
 /cosmic-theme/
 /cosmic-theme-editor/
 /cosmic-time/
 /cosmic-workspaces/
 /cosmic-workspaces-epoch/
+/cosmic_undo_2/
 /cryptsetup/
 /cups-filters/
 /dbus-settings-bindings/
@@ -147,6 +151,7 @@
 /iced-launcher/
 /iced-sctk/
 /iced-workspaces-applet/
+/iced_aw/
 /icon-theme/
 /installer/
 /intel-pstate/
@@ -167,7 +172,6 @@
 /libinput/
 /libnvidia-container/
 /libparted/
-/libsdl2/
 /libxmlb/
 /linux/
 /linux-firmware/
@@ -175,6 +179,7 @@
 /lutris/
 /mesa/
 /meta-python/
+/modit/
 /mouse-configurator/
 /mozc/
 /mpris2-zbus/
@@ -228,6 +233,7 @@
 /repoman/
 /rtl8821ce-dkms/
 /rust-tss-esapi/
+/sctk-adwaita/
 /session/
 /sessioninstaller/
 /shell/
