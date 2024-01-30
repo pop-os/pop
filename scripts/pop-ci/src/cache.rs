@@ -1,30 +1,31 @@
 use std::{
     collections::BTreeMap,
-    fs,
-    io,
+    fs, io,
     path::{Path, PathBuf},
 };
 
 pub struct Cache {
     path: PathBuf,
-    cleaned: bool
+    cleaned: bool,
 }
 
 impl Cache {
     pub fn new<P: AsRef<Path>, F: Fn(&str) -> bool>(path: P, retain: F) -> io::Result<Self> {
         let path = path.as_ref();
-        if ! path.is_dir() {
+        if !path.is_dir() {
             fs::create_dir_all(&path)?;
         }
         let path = fs::canonicalize(path)?;
         let mut cleaned = false;
         for entry_res in fs::read_dir(&path)? {
             let entry = entry_res?;
-            let file_name = entry.file_name().into_string().map_err(|err| io::Error::new(
-                io::ErrorKind::InvalidData,
-                format!("failed to parse file_name: {:?}", err)
-            ))?;
-            if ! retain(&file_name) {
+            let file_name = entry.file_name().into_string().map_err(|err| {
+                io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    format!("failed to parse file_name: {:?}", err),
+                )
+            })?;
+            if !retain(&file_name) {
                 let entry_path = entry.path();
                 eprintln!("Cache::new: removing {}", entry_path.display());
                 //TODO: rename before removing
@@ -36,7 +37,7 @@ impl Cache {
                 cleaned = true;
             }
         }
-        Ok(Self{ path, cleaned })
+        Ok(Self { path, cleaned })
     }
 
     pub fn path(&self) -> &Path {
@@ -56,11 +57,7 @@ impl Cache {
         if name.starts_with(partial_prefix) {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                format!(
-                    "name starts with '{}': {:?}",
-                    partial_prefix,
-                    name
-                )
+                format!("name starts with '{}': {:?}", partial_prefix, name),
             ));
         }
 
@@ -84,17 +81,19 @@ impl Cache {
             //TODO: should we automatically remove?
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                format!(
-                    "partial data already exists: {:?}",
-                    partial_path
-                )
+                format!("partial data already exists: {:?}", partial_path),
             ));
         }
 
         Ok((path, Some(partial_path)))
     }
 
-    pub fn build<F: Fn(&Path) -> io::Result<()>>(&mut self, name: &str, force: bool, f: F) -> io::Result<(PathBuf, bool)> {
+    pub fn build<F: Fn(&Path) -> io::Result<()>>(
+        &mut self,
+        name: &str,
+        force: bool,
+        f: F,
+    ) -> io::Result<(PathBuf, bool)> {
         let (path, partial_path_opt) = self.build_inner(name, force)?;
         match partial_path_opt {
             Some(partial_path) => {
@@ -103,14 +102,16 @@ impl Cache {
                 fs::rename(partial_path, &path)?;
 
                 Ok((path, true))
-            },
-            None => Ok((path, false))
+            }
+            None => Ok((path, false)),
         }
     }
 
-    pub fn build_parallel<
-        F: Fn(&Path) -> io::Result<()> + Send
-    >(&mut self, names: BTreeMap<String, F>, force: bool) -> BTreeMap<String, io::Result<(PathBuf, bool)>> {
+    pub fn build_parallel<F: Fn(&Path) -> io::Result<()> + Send>(
+        &mut self,
+        names: BTreeMap<String, F>,
+        force: bool,
+    ) -> BTreeMap<String, io::Result<(PathBuf, bool)>> {
         let mut results = BTreeMap::new();
 
         crossbeam::thread::scope(|s| {
@@ -120,12 +121,15 @@ impl Cache {
                 match self.build_inner(&name, force) {
                     Ok((path, partial_path_opt)) => match partial_path_opt {
                         Some(partial_path) => {
-                            threads.insert(name, s.spawn(move |_| {
-                                f(&partial_path)?;
-                                fs::rename(partial_path, &path)?;
-                                Ok(path)
-                            }));
-                        },
+                            threads.insert(
+                                name,
+                                s.spawn(move |_| {
+                                    f(&partial_path)?;
+                                    fs::rename(partial_path, &path)?;
+                                    Ok(path)
+                                }),
+                            );
+                        }
                         None => {
                             results.insert(name, Ok((path, false)));
                         }
@@ -140,13 +144,14 @@ impl Cache {
                 match thread.join().unwrap() {
                     Ok(path) => {
                         results.insert(name, Ok((path, true)));
-                    },
+                    }
                     Err(err) => {
                         results.insert(name, Err(err));
                     }
                 }
             }
-        }).unwrap();
+        })
+        .unwrap();
 
         results
     }

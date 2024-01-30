@@ -1,8 +1,4 @@
-use std::{
-    collections::BTreeMap,
-    fs,
-    path::PathBuf,
-};
+use std::{collections::BTreeMap, fs, path::PathBuf};
 
 use crate::config::{DEV_REPOS, POP_FOCAL_REPOS};
 
@@ -69,16 +65,9 @@ pub struct RepoInfo {
 
 impl RepoInfo {
     pub fn new(suite: &Suite, dev: bool) -> Self {
-        const ARCHS: &'static [Arch] = &[
-            Arch("amd64"),
-            Arch("i386"),
-            Arch("arm64"),
-        ];
+        const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64")];
 
-        const DEV_ARCHS: &'static [Arch] = &[
-            Arch("amd64"),
-            Arch("i386"),
-        ];
+        const DEV_ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386")];
 
         if dev {
             // Launchpad for all Ubuntu releases
@@ -88,7 +77,7 @@ impl RepoInfo {
                 staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
                 dput: Some("ppa:system76-dev/pre-stable"),
                 archs: DEV_ARCHS,
-            }
+            };
         }
 
         match suite.id() {
@@ -160,7 +149,9 @@ impl Suite {
     pub fn wildcard(&self, repo_name: &str) -> bool {
         match &self.2 {
             SuiteWildcard::None => false,
-            SuiteWildcard::Focal => DEV_REPOS.contains(&repo_name) || POP_FOCAL_REPOS.contains(&repo_name),
+            SuiteWildcard::Focal => {
+                DEV_REPOS.contains(&repo_name) || POP_FOCAL_REPOS.contains(&repo_name)
+            }
             SuiteWildcard::All => true,
         }
     }
