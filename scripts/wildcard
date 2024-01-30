@@ -13,28 +13,24 @@ args = parser.parse_args()
 
 def callback(repo):
 	if os.path.exists(os.path.join(repo["name"], "debian")):
-		has_master_wildcard = False
-		has_master_focal = False
-		has_master_jammy = False
-		has_master_noble = False
+		branches = []
 		for branch in github(repo["branches_url"].replace("{/branch}", "")):
-			if branch["name"] == "master":
-				has_master_wildcard = True
-			if branch["name"] == "master_focal":
-				has_master_focal = True
-			if branch["name"] == "master_jammy":
-				has_master_jammy = True
+			branches.append(branch["name"])
 
 		if repo["name"] in DEV_REPOS:
 			suffix = "dev"
 		else:
 			suffix = "pop"
 
-		if has_master_wildcard or has_master_focal:
-			print("focal," + suffix + " " + repo["name"])
-		if has_master_wildcard or has_master_jammy:
-			print("jammy," + suffix + " " + repo["name"])
-		if has_master_wildcard or has_master_noble:
-			print("noble," + suffix + " " + repo["name"])
+		for codename in ["focal", "jammy", "noble"]:
+			matches = []
+			wildcard_master = "master"
+			codename_master = wildcard_master + "_" + codename
+			if codename_master in branches:
+				matches.append(codename_master)
+			if wildcard_master in branches:
+				matches.append(wildcard_master)
+			if len(matches) > 0:
+				print(codename + "," + suffix + " " + ",".join(matches) + " " + repo["name"])
 
 foreach_repo(callback, args.repos)
