@@ -4,7 +4,7 @@ import argparse
 import os.path
 import subprocess
 import sys
-from lib import foreach_repo, github
+from lib import foreach_repo, github, DEV_REPOS
 
 out = {}
 parser = argparse.ArgumentParser(description="Show branches of Pop!_OS repositories")
@@ -25,11 +25,16 @@ def callback(repo):
 			if branch["name"] == "master_jammy":
 				has_master_jammy = True
 
+		if repo["name"] in DEV_REPOS:
+			suffix = "dev"
+		else:
+			suffix = "pop"
+
 		if has_master_wildcard or has_master_focal:
-			print("focal " + repo["name"])
+			print("focal," + suffix + " " + repo["name"])
 		if has_master_wildcard or has_master_jammy:
-			print("jammy " + repo["name"])
+			print("jammy," + suffix + " " + repo["name"])
 		if has_master_wildcard or has_master_noble:
-			print("noble " + repo["name"])
+			print("noble," + suffix + " " + repo["name"])
 
 foreach_repo(callback, args.repos)

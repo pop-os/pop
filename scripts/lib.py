@@ -5,10 +5,10 @@ import urllib.request
 # Packages to release in system76-dev
 DEV_REPOS = (
     "accountsservice",
-    "amd-ppt-bin",
-    "amd64-microcode",
     "alsa-ucm-conf",
     "alsa-utils",
+    "amd-ppt-bin",
+    "amd64-microcode",
     "bcmwl",
     "bluez",
     "distinst",

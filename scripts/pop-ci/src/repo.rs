@@ -4,6 +4,8 @@ use std::{
     path::PathBuf,
 };
 
+use crate::config::{DEV_REPOS, POP_FOCAL_REPOS};
+
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Arch(&'static str);
 
@@ -111,6 +113,13 @@ impl RepoInfo {
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub enum SuiteWildcard {
+    None,
+    Focal,
+    All,
+}
+
+#[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum SuiteDistro {
     All,
     Pop,
@@ -118,17 +127,17 @@ pub enum SuiteDistro {
 }
 
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct Suite(&'static str, &'static str, bool, SuiteDistro);
+pub struct Suite(&'static str, &'static str, SuiteWildcard, SuiteDistro);
 
 impl Suite {
     // This list has every supported Pop!_OS and Ubuntu release
     pub const ALL: &'static [Self] = &[
-        Self("bionic", "18.04", false, SuiteDistro::All),
-        Self("focal", "20.04", true, SuiteDistro::All),
-        Self("jammy", "22.04", true, SuiteDistro::All),
-        Self("lunar", "23.04", false, SuiteDistro::Ubuntu),
-        Self("mantic", "23.10", false, SuiteDistro::Ubuntu),
-        Self("noble", "24.04", false, SuiteDistro::Ubuntu),
+        Self("bionic", "18.04", SuiteWildcard::None, SuiteDistro::All),
+        Self("focal", "20.04", SuiteWildcard::Focal, SuiteDistro::All),
+        Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
+        Self("lunar", "23.04", SuiteWildcard::None, SuiteDistro::Ubuntu),
+        Self("mantic", "23.10", SuiteWildcard::None, SuiteDistro::Ubuntu),
+        Self("noble", "24.04", SuiteWildcard::None, SuiteDistro::Ubuntu),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
@@ -148,8 +157,12 @@ impl Suite {
         self.1
     }
 
-    pub fn wildcard(&self) -> bool {
-        self.2
+    pub fn wildcard(&self, repo_name: &str) -> bool {
+        match &self.2 {
+            SuiteWildcard::None => false,
+            SuiteWildcard::Focal => DEV_REPOS.contains(&repo_name) || POP_FOCAL_REPOS.contains(&repo_name),
+            SuiteWildcard::All => true,
+        }
     }
 
     pub fn distro(&self) -> &SuiteDistro {

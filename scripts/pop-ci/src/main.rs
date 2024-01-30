@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
+    config::DEV_REPOS,
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
     repo::{Arch, Package, Pocket, RepoInfo, Suite, SuiteDistro},
     util::{check_output, check_status},
@@ -20,53 +21,6 @@ use std::{
 macro_rules! bold {
     ($arg:tt) => (concat!("\x1B[1m", $arg, "\x1B[0m"));
 }
-
-static DEV_REPOS: &'static [&'static str] = &[
-    "accountsservice",
-    "amd-ppt-bin",
-    "amd64-microcode",
-    "alsa-ucm-conf",
-    "alsa-utils",
-    "bcmwl",
-    "bluez",
-    "distinst",
-    "dwarves",
-    "firmware-manager",
-    "fwupd",
-    "fwupd-efi",
-    "gdm3",
-    "gnome-desktop3",
-    "gnome-settings-daemon",
-    "gnome-shell",
-    "gnome-shell-extension-system76-power",
-    "hidpi-daemon",
-    "kbuild",
-    "libabigail",
-    "libasound2",
-    "libbpf",
-    "libdrm",
-    "libxmlb",
-    "linux",
-    "linux-firmware",
-    "mesa",
-    "ninja-build",
-    "nvidia-graphics-drivers",
-    "nvidia-graphics-drivers-470",
-    "system76-acpi-dkms",
-    "system76-dkms",
-    "system76-driver",
-    "system76-firmware",
-    "system76-io-dkms",
-    "system76-keyboard-configurator",
-    "system76-oled",
-    "system76-power",
-    "system76-wallpapers",
-    "systemd",
-    "ubuntu-drivers-common",
-    "virtualbox",
-    "virtualbox-ext-pack",
-    "zfs-linux",
-];
 
 //TODO: limit jobs?
 async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote) {
@@ -443,7 +397,7 @@ sudo sbuild-update \
                 let insert = if let Some(pattern) = pattern_opt {
                     // Insert pattern entry if pattern matches
                     pattern == suite.id()
-                } else if suite.wildcard() {
+                } else if suite.wildcard(repo_name) {
                     // Only insert wildcard entry if no others are found, and suite supports it
                     ! repo_ctx.pockets.contains_key(&key)
                 } else {
