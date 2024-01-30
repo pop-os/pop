@@ -89,6 +89,14 @@ impl RepoInfo {
                 dput: Some("ppa:system76/proposed"),
                 archs: DEV_ARCHS,
             },
+            // Disable arm64 for noble temporarily
+            "noble" => Self {
+                key: fs::canonicalize("scripts/.iso.asc").expect("failed to find ISO key"),
+                release: "http://apt.pop-os.org/release",
+                staging: "http://apt.pop-os.org/staging/master",
+                dput: None,
+                archs: DEV_ARCHS,
+            },
             // apt.pop-os.org for Pop 21.10 and later
             _ => Self {
                 key: fs::canonicalize("scripts/.iso.asc").expect("failed to find ISO key"),
