@@ -137,7 +137,7 @@ impl Suite {
         Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
         Self("lunar", "23.04", SuiteWildcard::None, SuiteDistro::Ubuntu),
         Self("mantic", "23.10", SuiteWildcard::None, SuiteDistro::Ubuntu),
-        Self("noble", "24.04", SuiteWildcard::None, SuiteDistro::Ubuntu),
+        Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
