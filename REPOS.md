@@ -49,17 +49,23 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-edit](https://github.com/pop-os/cosmic-edit) - COSMIC Text Editor
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
+- [cosmic\-files](https://github.com/pop-os/cosmic-files) - WIP COSMIC file manager
 - [cosmic\-greeter](https://github.com/pop-os/cosmic-greeter) - libcosmic greeter for greetd, which can be run inside cosmic\-comp
 - [cosmic\-icons](https://github.com/pop-os/cosmic-icons) -  System76 Cosmic icon theme for Linux 
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
+- [cosmic\-player](https://github.com/pop-os/cosmic-player) - WIP COSMIC media player
 - [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Addtional wayland\-protocols used by the COSMIC desktop environment
+- [cosmic\-randr](https://github.com/pop-os/cosmic-randr) - Library and utility for displaying and configuring Wayland outputs
 - [cosmic\-screenshot](https://github.com/pop-os/cosmic-screenshot) - Utility for capturing screenshots via XDG Desktop Portal
 - [cosmic\-session](https://github.com/pop-os/cosmic-session) - Session manager for the COSMIC desktop environment
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - COSMIC Settings
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
+- [cosmic\-store](https://github.com/pop-os/cosmic-store) - WIP COSMIC app store
+- [cosmic\-syntax\-theme](https://github.com/pop-os/cosmic-syntax-theme) - COSMIC Syntax Theme
+- [cosmic\-term](https://github.com/pop-os/cosmic-term) - WIP COSMIC terminal emulator
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
@@ -185,6 +191,7 @@ This is an automatically generated file. See `scripts/readme`
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
+- [packagekit\-rs](https://github.com/pop-os/packagekit-rs) - Rust bindings for PackageKit
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-cog](https://github.com/pop-os/packaging-cog) - Packaging for https://github\.com/replicate/cog
 - [packaging\-firefox](https://github.com/pop-os/packaging-firefox) - Debian packaging of Mozilla Firefox
@@ -273,6 +280,7 @@ This is an automatically generated file. See `scripts/readme`
 - [virtualbox](https://github.com/pop-os/virtualbox) - Pop\!\_OS fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\.git
 - [virtualbox\-ext\-pack](https://github.com/pop-os/virtualbox-ext-pack) - Fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\-ext\-pack
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
+- [wayland\-protocols](https://github.com/pop-os/wayland-protocols) - Backport of https://salsa\.debian\.org/xorg\-team/wayland/wayland\-protocols for Mesa packaging
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
 - [winit](https://github.com/pop-os/winit) - Development fork
