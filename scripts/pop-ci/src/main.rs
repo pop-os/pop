@@ -269,7 +269,7 @@ then
     set -ex
 
     sudo auto-apt-proxy sbuild-createchroot \
-        '--include=eatmydata,gnupg,auto-apt-proxy' \
+        '--include=gnupg,auto-apt-proxy' \
         '--components=main,restricted,universe,multiverse' \
         '--arch={arch}' \
         '{suite}' \
