@@ -760,6 +760,7 @@ sudo sbuild-update \
                         .arg("--no-tgz-check")
                         .arg("-d")
                         .arg("-S")
+                        .arg("--compression-level=fast")
                         .current_dir(&archive)
                         .status()
                         .and_then(check_status)?;
