@@ -4,6 +4,8 @@ set -e
 
 PACKAGES=(
 	appstream-generator # for repo-release
+    apt-cacher-ng # for caching apt packages
+    auto-apt-proxy # for detecting apt proxy when building sbuild chroot
 	cargo # for rust packages
 	devscripts # for all packages
 	debhelper # for most packages

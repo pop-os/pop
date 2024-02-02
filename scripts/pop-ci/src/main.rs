@@ -268,8 +268,8 @@ if [ ! -d "$CHROOT" ]
 then
     set -ex
 
-    sudo sbuild-createchroot \
-        '--include=gnupg' \
+    sudo auto-apt-proxy sbuild-createchroot \
+        '--include=eatmydata,gnupg,auto-apt-proxy' \
         '--components=main,restricted,universe,multiverse' \
         '--arch={arch}' \
         '{suite}' \
