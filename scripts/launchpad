@@ -35,10 +35,8 @@ if args.dev:
     release_archive = owner.getPPAByName(name="stable")
     proposed_archive = owner.getPPAByName(name="pre-stable")
     codenames = (
-        "bionic",
         "focal",
         "jammy",
-        "lunar",
         "mantic",
         "noble",
     )

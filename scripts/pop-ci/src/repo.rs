@@ -129,10 +129,8 @@ pub struct Suite(&'static str, &'static str, SuiteWildcard, SuiteDistro);
 impl Suite {
     // This list has every supported Pop!_OS and Ubuntu release
     pub const ALL: &'static [Self] = &[
-        Self("bionic", "18.04", SuiteWildcard::None, SuiteDistro::All),
         Self("focal", "20.04", SuiteWildcard::Focal, SuiteDistro::All),
         Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
-        Self("lunar", "23.04", SuiteWildcard::None, SuiteDistro::Ubuntu),
         Self("mantic", "23.10", SuiteWildcard::None, SuiteDistro::Ubuntu),
         Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
     ];
