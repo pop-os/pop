@@ -94,7 +94,7 @@ impl GitRepo {
         let output = self
             .command()
             .arg("for-each-ref")
-            .arg("--format=%(objectname:short)\t%(refname)")
+            .arg("--format=%(objectname)\t%(refname)")
             .arg("--")
             .arg(&prefix)
             .stdout(process::Stdio::piped())
