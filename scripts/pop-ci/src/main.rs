@@ -756,6 +756,7 @@ sudo sbuild-update \
                         .arg("PATH")
                         .arg("--set-envvar")
                         .arg(format!("SOURCE_DATE_EPOCH={}", commit_timestamp))
+                        .arg(format!("SOURCE_GIT_HASH={}", commit_name))
                         .arg("--no-lintian")
                         .arg("--no-tgz-check")
                         .arg("-d")
