@@ -14,6 +14,7 @@ PACKAGES=(
 	dh-python # for hidpi-daemon
 	gnome-pkg-tools # for gnome-settings-daemon
 	gobject-introspection # for fwupd and gdm3
+    just # for cosmic packages
 	kernel-wedge # for linux
 	libdrm-dev # for ubuntu-drivers-common
 	libkmod-dev # for ubuntu-drivers-common
