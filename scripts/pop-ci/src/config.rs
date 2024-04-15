@@ -30,6 +30,7 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "ninja-build",
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",
+    "spirv-llvm-translator-15",
     "system76-acpi-dkms",
     "system76-dkms",
     "system76-driver",
