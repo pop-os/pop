@@ -13,6 +13,8 @@
 /_build/
 
 /accountsservice/
+/acpid-plug/
+/adw-gtk3/
 /alacritty/
 /alsa-ucm-conf/
 /alsa-utils/
@@ -34,6 +36,7 @@
 /apt-sources-lists/
 /apt.pop-os.org/
 /as-result/
+/async-cron-scheduler/
 /async-fetcher/
 /atom-editor/
 /bcmwl/
@@ -121,6 +124,7 @@
 /gamehub/
 /gdm3/
 /gir/
+/glyphon/
 /gnome-control-center/
 /gnome-disk-utility/
 /gnome-initial-setup/
@@ -146,6 +150,7 @@
 /gtk-rs/
 /gtk-theme/
 /gtk4/
+/gvfs-zbus/
 /gweather-rs/
 /happiness/
 /hidpi-daemon/
@@ -159,6 +164,7 @@
 /iced-workspaces-applet/
 /iced_aw/
 /icon-theme/
+/initramfs-tools/
 /installer/
 /intel-pstate/
 /iso/
@@ -174,6 +180,7 @@
 /libasound2/
 /libbpf/
 /libcosmic/
+/libdrm/
 /libhandy/
 /libinput/
 /libnvidia-container/
@@ -202,7 +209,7 @@
 /opt/
 /os-autoinst-distri-pop/
 /os-release/
-/packagekit-rs/
+/packagekit-zbus/
 /packaging-ci/
 /packaging-cog/
 /packaging-firefox/
@@ -249,6 +256,7 @@
 /sideload/
 /simple-wrapper/
 /smithay/
+/smithay-clipboard/
 /snapshot/
 /softbuffer/
 /spirv-llvm-translator-15/
@@ -286,18 +294,20 @@
 /upower-dbus/
 /url-scraper/
 /usb-disk-probe/
-/user-color-editor/
 /v4l2loopback/
 /virtualbox/
 /virtualbox-ext-pack/
 /wallpapers/
 /wayland-protocols/
 /website/
+/wgpu/
 /whitespace-conf/
+/window_clipboard/
 /winit/
 /wireplumber/
 /xdg-desktop-portal-cosmic/
 /xdg-shell-wrapper/
+/xkb-data/
 /xserver-xorg-video-amdgpu/
 /xz-utils/
 /zfs-linux/

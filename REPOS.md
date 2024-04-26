@@ -2,6 +2,8 @@
 This is an automatically generated file. See `scripts/readme`
 
 - [accountsservice](https://github.com/pop-os/accountsservice) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/accountsservice
+- [acpid\-plug](https://github.com/pop-os/acpid-plug) - Rust crate for listening to AC adapter plug events on Linux from \`acpid\`\.
+- [adw\-gtk3](https://github.com/pop-os/adw-gtk3) - Packaging for https://github\.com/lassekongo83/adw\-gtk3
 - [alacritty](https://github.com/pop-os/alacritty) - A cross\-platform, GPU\-accelerated terminal emulator \(debian packaging fork\)
 - [alsa\-ucm\-conf](https://github.com/pop-os/alsa-ucm-conf) - ALSA Use Case Manager configuration
 - [alsa\-utils](https://github.com/pop-os/alsa-utils) - The Advanced Linux Sound Architecture \(ALSA\) \- utilities
@@ -23,6 +25,7 @@ This is an automatically generated file. See `scripts/readme`
 - [apt\-sources\-lists](https://github.com/pop-os/apt-sources-lists) - Rust crate for fetching detailed information from all available apt sources\. Additionally supports abstractions for modifying source lists on the system\.
 - [apt\.pop\-os\.org](https://github.com/pop-os/apt.pop-os.org) - Website files for apt\.pop\-os\.org
 - [as\-result](https://github.com/pop-os/as-result) - Rust crate which provides the \`AsResult<T, E>\` and \`IntoResult<T, E>\` traits\.
+- [async\-cron\-scheduler](https://github.com/pop-os/async-cron-scheduler) - Runtime\-agnostic async task scheduler with cron expression support
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [atom\-editor](https://github.com/pop-os/atom-editor) - GitHub's Atom Editor
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
@@ -110,6 +113,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gamehub](https://github.com/pop-os/gamehub) - Pop\!\_OS fork of https://github\.com/tkashkin/GameHub
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
+- [glyphon](https://github.com/pop-os/glyphon) - 🦅🦁 Fast, simple 2D text renderer for wgpu
 - [gnome\-control\-center](https://github.com/pop-os/gnome-control-center) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-control\-center
 - [gnome\-disk\-utility](https://github.com/pop-os/gnome-disk-utility) - Pop\!\_OS fork of https://salsa\.debian\.org/gnome\-team/gnome\-disk\-utility
 - [gnome\-initial\-setup](https://github.com/pop-os/gnome-initial-setup) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gnome\-initial\-setup
@@ -135,6 +139,7 @@ This is an automatically generated file. See `scripts/readme`
 - [gtk\-rs](https://github.com/pop-os/gtk-rs) - Fork of gtk\-rs to build with Ubuntu's Rustc version\.
 - [gtk\-theme](https://github.com/pop-os/gtk-theme) - System76 Pop GTK\+ Theme
 - [gtk4](https://github.com/pop-os/gtk4) - Forked from https://salsa\.debian\.org/gnome\-team/gtk4
+- [gvfs\-zbus](https://github.com/pop-os/gvfs-zbus) - zbus bindings to gvfs interfaces
 - [gweather\-rs](https://github.com/pop-os/gweather-rs) - Rust wrapper for gweather
 - [happiness](https://github.com/pop-os/happiness) - Send random quotes about happiness to your desktop
 - [hidpi\-daemon](https://github.com/pop-os/hidpi-daemon) - Daemon to manage HiDPI and LoDPI monitors on X
@@ -148,6 +153,7 @@ This is an automatically generated file. See `scripts/readme`
 - [iced\-workspaces\-applet](https://github.com/pop-os/iced-workspaces-applet)
 - [iced\_aw](https://github.com/pop-os/iced_aw) - Additional widgets for the Iced GUI library
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
+- [initramfs\-tools](https://github.com/pop-os/initramfs-tools) - Patches to https://packages\.ubuntu\.com/jammy\-updates/initramfs\-tools
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
@@ -163,6 +169,7 @@ This is an automatically generated file. See `scripts/readme`
 - [libasound2](https://github.com/pop-os/libasound2) - The Advanced Linux Sound Architecture \(ALSA\) \- library
 - [libbpf](https://github.com/pop-os/libbpf) - Pop\!\_OS fork of https://github\.com/sudipm\-mukherjee/libbpf
 - [libcosmic](https://github.com/pop-os/libcosmic) - WIP library for COSMIC applications
+- [libdrm](https://github.com/pop-os/libdrm) - Backport of https://salsa\.debian\.org/xorg\-team/lib/libdrm
 - [libhandy](https://github.com/pop-os/libhandy) - Read\-only mirror of https://gitlab\.gnome\.org/GNOME/libhandy
 - [libinput](https://github.com/pop-os/libinput) - Backport of https://salsa\.debian\.org/xorg\-team/lib/libinput
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
@@ -191,7 +198,7 @@ This is an automatically generated file. See `scripts/readme`
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [os\-autoinst\-distri\-pop](https://github.com/pop-os/os-autoinst-distri-pop) - os\-autoinst test cases for Pop\!\_OS \(for use with openQA\)
 - [os\-release](https://github.com/pop-os/os-release) - Rust crate for parsing the /etc/os\-release file, common with Linux distributions
-- [packagekit\-rs](https://github.com/pop-os/packagekit-rs) - Rust bindings for PackageKit
+- [packagekit\-zbus](https://github.com/pop-os/packagekit-zbus) - Rust bindings for PackageKit
 - [packaging\-ci](https://github.com/pop-os/packaging-ci) - WIP Rust rewrite of the Pop packaging CI script, using async/await
 - [packaging\-cog](https://github.com/pop-os/packaging-cog) - Packaging for https://github\.com/replicate/cog
 - [packaging\-firefox](https://github.com/pop-os/packaging-firefox) - Debian packaging of Mozilla Firefox
@@ -238,6 +245,7 @@ This is an automatically generated file. See `scripts/readme`
 - [sideload](https://github.com/pop-os/sideload) - Fork of https://github\.com/elementary/sideload
 - [simple\-wrapper](https://github.com/pop-os/simple-wrapper)
 - [smithay](https://github.com/pop-os/smithay) - Fork of https://github\.com/Smithay/smithay with pending patches
+- [smithay\-clipboard](https://github.com/pop-os/smithay-clipboard) - Provides access to the wayland clipboard for client applications
 - [snapshot](https://github.com/pop-os/snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
 - [softbuffer](https://github.com/pop-os/softbuffer) - Softbuffer integrates with the raw\-window\-handle crate to allow writing to a window in a cross\-platform way while using the very high quality dedicated window management libraries that are available in the Rust ecosystem\.
 - [spirv\-llvm\-translator\-15](https://github.com/pop-os/spirv-llvm-translator-15) - Pop\!\_OS fork of https://salsa\.debian\.org/opencl\-team/spirv\-llvm\-translator
@@ -275,18 +283,20 @@ This is an automatically generated file. See `scripts/readme`
 - [upower\-dbus](https://github.com/pop-os/upower-dbus) - Migrated to https://github\.com/pop\-os/dbus\-settings\-bindings
 - [url\-scraper](https://github.com/pop-os/url-scraper) - Rust crate for scraping URLs from HTML pages
 - [usb\-disk\-probe](https://github.com/pop-os/usb-disk-probe) - Rust crate which provides a stream type which can be used to probe for USB storage devices in the system\.
-- [user\-color\-editor](https://github.com/pop-os/user-color-editor)
 - [v4l2loopback](https://github.com/pop-os/v4l2loopback) - Backports from https://code\.launchpad\.net/ubuntu/\+source/v4l2loopback
 - [virtualbox](https://github.com/pop-os/virtualbox) - Pop\!\_OS fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\.git
 - [virtualbox\-ext\-pack](https://github.com/pop-os/virtualbox-ext-pack) - Fork of https://salsa\.debian\.org/pkg\-virtualbox\-team/virtualbox\-ext\-pack
 - [wallpapers](https://github.com/pop-os/wallpapers) - Wallpapers for Pop\!\_OS
 - [wayland\-protocols](https://github.com/pop-os/wayland-protocols) - Backport of https://salsa\.debian\.org/xorg\-team/wayland/wayland\-protocols for Mesa packaging
 - [website](https://github.com/pop-os/website) - The Pop\!\_OS website
+- [wgpu](https://github.com/pop-os/wgpu) - Cross\-platform, safe, pure\-rust graphics api\.
 - [whitespace\-conf](https://github.com/pop-os/whitespace-conf) - Parses configuration files which are key\-value pairs delimited by whitespace\.
+- [window\_clipboard](https://github.com/pop-os/window_clipboard) - A library to obtain clipboard access from a \`raw\-window\-handle\`\.
 - [winit](https://github.com/pop-os/winit) - Development fork
 - [wireplumber](https://github.com/pop-os/wireplumber) - Backports of https://salsa\.debian\.org/utopia\-team/wireplumber
 - [xdg\-desktop\-portal\-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic)
 - [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper
+- [xkb\-data](https://github.com/pop-os/xkb-data) - Keyboard layout data from xkb\-data
 - [xserver\-xorg\-video\-amdgpu](https://github.com/pop-os/xserver-xorg-video-amdgpu) - Pop\!\_OS fork of https://salsa\.debian\.org/xorg\-team/driver/xserver\-xorg\-video\-amdgpu
 - [xz\-utils](https://github.com/pop-os/xz-utils) - Pop\!\_OS Fork of https://salsa\.debian\.org/debian/xz\-utils
 - [zfs\-linux](https://github.com/pop-os/zfs-linux) - Pop\!\_OS fork of https://salsa\.debian\.org/zfsonlinux\-team/zfs\.git
