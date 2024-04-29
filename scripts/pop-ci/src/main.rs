@@ -887,12 +887,6 @@ sudo sbuild-update \
                                 if arm64_opt.is_none() {
                                     continue;
                                 }
-
-                                // Skip arm64 linux builds
-                                //TODO: improve arm64 linux build performance
-                                if repo_name == "linux" {
-                                    continue;
-                                }
                             }
 
                             for part in line.split(' ') {
