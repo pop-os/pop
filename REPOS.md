@@ -68,11 +68,13 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
 - [cosmic\-store](https://github.com/pop-os/cosmic-store) - WIP COSMIC app store
 - [cosmic\-syntax\-theme](https://github.com/pop-os/cosmic-syntax-theme) - COSMIC Syntax Theme
+- [cosmic\-tasks](https://github.com/pop-os/cosmic-tasks) - Packaging for https://github\.com/edfloreshz/cosmic\-tasks
 - [cosmic\-term](https://github.com/pop-os/cosmic-term) - WIP COSMIC terminal emulator
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
 - [cosmic\-time](https://github.com/pop-os/cosmic-time) - Animation Library for https://github\.com/iced\-rs/iced and https://github\.com/pop\-os/cosmic\-epoch
+- [cosmic\-webapps](https://github.com/pop-os/cosmic-webapps) - Packaging for https://github\.com/elevenhsoft/WebApps
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [cosmic\-workspaces\-epoch](https://github.com/pop-os/cosmic-workspaces-epoch)
 - [cosmic\_undo\_2](https://github.com/pop-os/cosmic_undo_2) - Fork of https://gitlab\.com/okannen/undo\_2 with improved compiler support
