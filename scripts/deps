@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# You may need to run this if on jammy in order to build noble systemd:
+# sudo add-apt-repository ppa:upstream-systemd-ci/systemd-ci
+
 set -e
 
 PACKAGES=(
