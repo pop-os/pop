@@ -3,28 +3,28 @@
 set -e
 
 PACKAGES=(
-	appstream-generator # for repo-release
+    appstream-generator # for repo-release
     auto-apt-proxy # for detecting apt proxy when building sbuild chroot
-	cargo # for rust packages
-	devscripts # for all packages
-	debhelper # for most packages
-	dh-apport # for ubuntu-drivers-common
-	dh-migrations # for gnome-control-center
-	dh-modaliases # for bcmwl
-	dh-python # for hidpi-daemon
-	gnome-pkg-tools # for gnome-settings-daemon
-	gobject-introspection # for fwupd and gdm3
+    cargo # for rust packages
+    devscripts # for all packages
+    debhelper # for most packages
+    dh-apport # for ubuntu-drivers-common
+    dh-migrations # for gnome-control-center
+    dh-modaliases # for bcmwl
+    dh-python # for hidpi-daemon
+    gnome-pkg-tools # for gnome-settings-daemon
+    gobject-introspection # for fwupd and gdm3
     just # for cosmic packages
-	kernel-wedge # for linux
-	libdrm-dev # for ubuntu-drivers-common
-	libkmod-dev # for ubuntu-drivers-common
-	libpciaccess-dev # for ubuntu-drivers-common
-	pkg-config # for mozc
-	po4a # for debconf
-	python3-distutils-extra # for sessioninstaller
-	python3-setuptools # for python-apt and ubuntu-drivers-common
-	quilt # for packages that use patches
-	sphinx-common # for python-apt
+    kernel-wedge # for linux
+    libdrm-dev # for ubuntu-drivers-common
+    libkmod-dev # for ubuntu-drivers-common
+    libpciaccess-dev # for ubuntu-drivers-common
+    pkg-config # for mozc
+    po4a # for debconf
+    python3-distutils-extra # for sessioninstaller
+    python3-setuptools # for python-apt and ubuntu-drivers-common
+    quilt # for packages that use patches
+    sphinx-common # for python-apt
     squid-deb-proxy # for caching apt packages
 )
 
