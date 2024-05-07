@@ -11,7 +11,10 @@ PACKAGES=(
     dh-apport # for ubuntu-drivers-common
     dh-migrations # for gnome-control-center
     dh-modaliases # for bcmwl
+    dh-package-notes # for systemd
     dh-python # for hidpi-daemon
+    dh-sequence-installnss # for systemd
+    dh-sequence-installsysusers # for systemd
     gnome-pkg-tools # for gnome-settings-daemon
     gobject-introspection # for fwupd and gdm3
     just # for cosmic packages
