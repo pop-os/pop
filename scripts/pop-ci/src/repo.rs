@@ -67,7 +67,7 @@ impl RepoInfo {
     pub fn new(suite: &Suite, dev: bool) -> Self {
         const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64")];
 
-        const DEV_ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386")];
+        const OLD_ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386")];
 
         if dev {
             // Launchpad for all Ubuntu releases
@@ -76,7 +76,10 @@ impl RepoInfo {
                 release: "http://ppa.launchpad.net/system76-dev/stable/ubuntu",
                 staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
                 dput: Some("ppa:system76-dev/pre-stable"),
-                archs: DEV_ARCHS,
+                archs: match suite.id() {
+                    "bionic" | "focal" => OLD_ARCHS,
+                    _ => ARCHS,
+                }
             };
         }
 
@@ -87,7 +90,7 @@ impl RepoInfo {
                 release: "http://ppa.launchpad.net/system76/pop/ubuntu",
                 staging: "http://ppa.launchpad.net/system76/proposed/ubuntu",
                 dput: Some("ppa:system76/proposed"),
-                archs: DEV_ARCHS,
+                archs: OLD_ARCHS,
             },
             // apt.pop-os.org for Pop 21.10 and later
             _ => Self {
