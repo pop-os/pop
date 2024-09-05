@@ -77,7 +77,7 @@ impl RepoInfo {
                 staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
                 dput: Some("ppa:system76-dev/pre-stable"),
                 archs: match suite.id() {
-                    "bionic" | "focal" => OLD_ARCHS,
+                    "bionic" => OLD_ARCHS,
                     _ => ARCHS,
                 }
             };
