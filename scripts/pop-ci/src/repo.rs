@@ -126,8 +126,8 @@ impl Suite {
     pub const ALL: &'static [Self] = &[
         Self("focal", "20.04", SuiteWildcard::Focal, SuiteDistro::All),
         Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
-        Self("mantic", "23.10", SuiteWildcard::None, SuiteDistro::Ubuntu),
         Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
+        Self("oracular", "24.10", SuiteWildcard::All, SuiteDistro::Ubuntu),
     ];
 
     pub fn new(id: &str) -> Option<Self> {

@@ -37,8 +37,8 @@ if args.dev:
     codenames = (
         "focal",
         "jammy",
-        "mantic",
         "noble",
+        "oracular",
     )
 else:
     owner = lp.people["system76"]
