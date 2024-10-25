@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(description="Run Pop!_OS build process")
 parser.add_argument("--dev", action="store_true")
 parser.add_argument("--dist", default=distro.codename())
 parser.add_argument("--arch", default="amd64")
+parser.add_argument("--update", action="store_true")
 parser.add_argument("repo")
 args = parser.parse_args(sys.argv[1:])
 
@@ -42,6 +43,18 @@ if not path.exists(chroot_path):
         args.dist,
         chroot_path,
         "http://archive.ubuntu.com/ubuntu"
+    ])
+
+if args.update:
+    check_call([
+        "sudo", "sbuild-update",
+        "--update",
+        "--dist-upgrade",
+        "--clean",
+        "--autoclean",
+        "--autoremove",
+        "--arch=" + args.arch,
+        args.dist
     ])
 
 sbuild = [
