@@ -23,6 +23,8 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "libasound2",
     "libbpf",
     "libdrm",
+    "libtraceevent",
+    "libtracefs",
     "libxmlb",
     "linux",
     "linux-firmware",

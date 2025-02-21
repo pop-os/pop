@@ -27,6 +27,8 @@ DEV_REPOS = (
     "libasound2",
     "libbpf",
     "libdrm",
+    "libtraceevent",
+    "libtracefs",
     "libxmlb",
     "linux",
     "linux-firmware",
