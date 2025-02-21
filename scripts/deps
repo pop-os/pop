@@ -25,6 +25,7 @@ PACKAGES=(
     libdrm-dev # for ubuntu-drivers-common
     libkmod-dev # for ubuntu-drivers-common
     libpciaccess-dev # for ubuntu-drivers-common
+    libtraceevent-dev # for libtracefs and linux kernel
     pkg-config # for mozc
     po4a # for debconf
     python3-distutils-extra # for sessioninstaller
