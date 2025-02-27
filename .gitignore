@@ -69,7 +69,9 @@
 /cosmic-greeter/
 /cosmic-icons/
 /cosmic-idle/
+/cosmic-initial-setup/
 /cosmic-launcher/
+/cosmic-mime-apps/
 /cosmic-notifications/
 /cosmic-osd/
 /cosmic-panel/
@@ -96,6 +98,7 @@
 /cryptsetup/
 /dbus-settings-bindings/
 /dbus-udisks2/
+/dbusmenu-zbus/
 /deb-architectures/
 /deb-changelog/
 /deb-control/
@@ -123,7 +126,9 @@
 /flatpak/
 /fonts/
 /freedesktop-desktop-entry/
+/freedesktop-icons/
 /fs_extra/
+/fwts/
 /fwupd/
 /fwupd-dbus/
 /fwupd-efi/
@@ -192,6 +197,8 @@
 /libinput/
 /libnvidia-container/
 /libparted/
+/libtraceevent/
+/libtracefs/
 /libxmlb/
 /linux/
 /linux-firmware/
@@ -212,6 +219,7 @@
 /nvidia-docker/
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
+/nvidia-graphics-drivers-565/
 /nvidia-vaapi-driver/
 /opt/
 /orca/

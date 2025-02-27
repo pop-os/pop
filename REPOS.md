@@ -53,17 +53,19 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-edit](https://github.com/pop-os/cosmic-edit) - COSMIC Text Editor
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
-- [cosmic\-files](https://github.com/pop-os/cosmic-files) - WIP COSMIC file manager
+- [cosmic\-files](https://github.com/pop-os/cosmic-files) - COSMIC file manager
 - [cosmic\-flatpak\-runtime](https://github.com/pop-os/cosmic-flatpak-runtime) - COSMIC runtimes for flatpak applications
 - [cosmic\-greeter](https://github.com/pop-os/cosmic-greeter) - libcosmic greeter for greetd, which can be run inside cosmic\-comp
 - [cosmic\-icons](https://github.com/pop-os/cosmic-icons) -  System76 Cosmic icon theme for Linux 
 - [cosmic\-idle](https://github.com/pop-os/cosmic-idle)
+- [cosmic\-initial\-setup](https://github.com/pop-os/cosmic-initial-setup) - COSMIC Initial Setup
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
+- [cosmic\-mime\-apps](https://github.com/pop-os/cosmic-mime-apps) - Parse and update xdg mimeapps\.list files to manage default apps
 - [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
 - [cosmic\-player](https://github.com/pop-os/cosmic-player) - WIP COSMIC media player
-- [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Addtional wayland\-protocols used by the COSMIC desktop environment
+- [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Additional wayland\-protocols used by the COSMIC desktop environment
 - [cosmic\-randr](https://github.com/pop-os/cosmic-randr) - Library and utility for displaying and configuring Wayland outputs
 - [cosmic\-reader](https://github.com/pop-os/cosmic-reader) - WIP COSMIC PDF reader
 - [cosmic\-screenshot](https://github.com/pop-os/cosmic-screenshot) - Utility for capturing screenshots via XDG Desktop Portal
@@ -85,6 +87,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cryptsetup](https://github.com/pop-os/cryptsetup) - Packaging for https://gitlab\.com/cryptsetup/cryptsetup
 - [dbus\-settings\-bindings](https://github.com/pop-os/dbus-settings-bindings) - Rust bindings for D\-Bus settings interfaces
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
+- [dbusmenu\-zbus](https://github.com/pop-os/dbusmenu-zbus) - zbus bindings for dbusmenu
 - [deb\-architectures](https://github.com/pop-os/deb-architectures) - Rust crate for parsing Debian architecture strings into an enum, and vice versa\. Additionally supports fetching a list of supported architectures\.
 - [deb\-changelog](https://github.com/pop-os/deb-changelog) - Rust crate for efficiently parsing and appending entries to a debian changelog
 - [deb\-control](https://github.com/pop-os/deb-control) - Zero\-copy parser & futures codec for Debian control files
@@ -112,7 +115,9 @@ This is an automatically generated file. See `scripts/readme`
 - [flatpak](https://github.com/pop-os/flatpak) - Fork of https://salsa\.debian\.org/debian/flatpak
 - [fonts](https://github.com/pop-os/fonts) - Fonts for the System76 Pop look, Fira and Roboto Slab
 - [freedesktop\-desktop\-entry](https://github.com/pop-os/freedesktop-desktop-entry) - Rust crate for navigating Freedesktop desktop entries
+- [freedesktop\-icons](https://github.com/pop-os/freedesktop-icons) - A rust freedestkop icon lookup implementation
 - [fs\_extra](https://github.com/pop-os/fs_extra) - Expanding opportunities standard library std::fs and std::io
+- [fwts](https://github.com/pop-os/fwts) - Backports of https://github\.com/fwts/fwts/ with Linux kernel patches
 - [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [fwupd\-efi](https://github.com/pop-os/fwupd-efi) - Pop\!\_OS fork of https://salsa\.debian\.org/efi\-team/fwupd\-efi
@@ -181,6 +186,8 @@ This is an automatically generated file. See `scripts/readme`
 - [libinput](https://github.com/pop-os/libinput) - Backport of https://salsa\.debian\.org/xorg\-team/lib/libinput
 - [libnvidia\-container](https://github.com/pop-os/libnvidia-container) - Pop\!\_OS packaging of https://gitlab\.com/nvidia/container\-toolkit/libnvidia\-container
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
+- [libtraceevent](https://github.com/pop-os/libtraceevent) - Backport of https://packages\.ubuntu\.com/noble/libtraceevent\-dev
+- [libtracefs](https://github.com/pop-os/libtracefs) - Backport of https://packages\.ubuntu\.com/noble/libtracefs1
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
@@ -201,6 +208,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
+- [nvidia\-graphics\-drivers\-565](https://github.com/pop-os/nvidia-graphics-drivers-565) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(565\) 
 - [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [orca](https://github.com/pop-os/orca) - Packaging for https://gitlab\.gnome\.org/mwcampbell/orca/\-/tree/newton
