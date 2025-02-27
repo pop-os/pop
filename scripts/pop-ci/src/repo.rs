@@ -18,6 +18,10 @@ impl Arch {
         self.id() == "amd64" || self.id() == "arm64"
     }
 
+    pub fn is_arm(&self) -> bool {
+        self.id() == "arm64" || self.id() == "armhf"
+    }
+
     pub fn ubuntu_mirror(&self, release: &str) -> &'static str {
         if self.id() == "amd64" || self.id() == "i386" {
             if release == "focal" {
@@ -65,7 +69,7 @@ pub struct RepoInfo {
 
 impl RepoInfo {
     pub fn new(suite: &Suite, dev: bool) -> Self {
-        const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64")];
+        const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64"), Arch("armhf")];
 
         const OLD_ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386")];
 

@@ -156,7 +156,7 @@ sbuild \
         dsc = ctx.dsc_path.display()
     );
 
-    if ctx.arch.id() == "arm64" {
+    if ctx.arch.is_arm() {
         let arm64 = ctx.arm64_opt.unwrap(); // checked above
 
         //TODO: update rsync to allow use of --mkpath
@@ -255,7 +255,7 @@ fn main() {
     for suite in Suite::ALL.iter() {
         let repo_info = RepoInfo::new(suite, dev);
         for arch in repo_info.archs.iter() {
-            if arch.id() == "arm64" && arm64_opt.is_none() {
+            if arch.is_arm() && arm64_opt.is_none() {
                 continue;
             }
 
@@ -282,7 +282,7 @@ fi
                     ubuntu_mirror = arch.ubuntu_mirror(suite.id())
                 );
 
-                if arch.id() == "arm64" {
+                if arch.is_arm() {
                     let arm64 = arm64_opt.unwrap(); // checked above
                     process::Command::new("ssh")
                         .arg(arm64)
@@ -319,7 +319,7 @@ sudo sbuild-update \
                     suite = suite.id()
                 );
 
-                if arch.id() == "arm64" {
+                if arch.is_arm() {
                     let arm64 = arm64_opt.unwrap(); // checked above
                     process::Command::new("ssh")
                         .arg(arm64)
@@ -882,7 +882,7 @@ sudo sbuild-update \
                 for line in dsc.lines() {
                     if line.starts_with("Architecture: ") {
                         for arch in repo_info.archs.iter() {
-                            if arch.id() == "arm64" {
+                            if arch.is_arm() {
                                 // Skip arm64 builds if there is no arm64 builder
                                 if arm64_opt.is_none() {
                                     continue;
