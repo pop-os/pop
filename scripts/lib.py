@@ -11,6 +11,7 @@ DEV_REPOS = (
     "amd64-microcode",
     "bcmwl",
     "bluez",
+    "directx-headers",
     "distinst",
     "dwarves",
     "firmware-manager",
@@ -29,6 +30,7 @@ DEV_REPOS = (
     "libdrm",
     "libtraceevent",
     "libtracefs",
+    "libvdpau",
     "libxmlb",
     "linux",
     "linux-firmware",
@@ -37,7 +39,9 @@ DEV_REPOS = (
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",
     "nvidia-graphics-drivers-565",
+    "spirv-headers",
     "spirv-llvm-translator-15",
+    "spirv-tools",
     "system76-acpi-dkms",
     "system76-dkms",
     "system76-driver",
@@ -51,6 +55,8 @@ DEV_REPOS = (
     "ubuntu-drivers-common",
     "virtualbox",
     "virtualbox-ext-pack",
+    "wayland",
+    "wayland-protocols"
     "zfs-linux",
 )
 
