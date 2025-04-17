@@ -14,6 +14,7 @@ DEV_REPOS = (
     "directx-headers",
     "distinst",
     "dwarves",
+    "egl-wayland",
     "firmware-manager",
     "fwupd",
     "fwupd-efi",

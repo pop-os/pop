@@ -10,6 +10,7 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "directx-headers",
     "distinst",
     "dwarves",
+    "egl-wayland",
     "firmware-manager",
     "fwupd",
     "fwupd-efi",
