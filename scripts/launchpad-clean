@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+
+import argparse
+import sys
+
+# Documentation can be found here: https://launchpad.net/+apidoc/devel.html
+from launchpadlib.launchpad import Launchpad
+
+parser = argparse.ArgumentParser(description="Upload packages to proposed")
+parser.add_argument("--yes", action="store_true")
+args = parser.parse_args(sys.argv[1:])
+
+lp = Launchpad.login_with("pop-os/pop", "production", "scripts/__lpcache__", version="devel")
+
+owner = lp.people["system76-dev"]
+repos = (
+    "stable",
+    "pre-stable"
+)
+codenames = (
+    "focal",
+    "jammy",
+    "noble",
+    "oracular",
+)
+
+for repo in repos:
+    ppa = owner.getPPAByName(name=repo)
+    for pkg in ppa.getPublishedSources(status = 'Superseded'):
+        print(pkg.source_package_name, pkg.source_package_version)
+        if args.yes or input("  Delete superseded version (y/N)? ") == "y":
+            pkg.requestDeletion(removal_comment='Automated removal')
+            print("  Deleted", flush=True)
