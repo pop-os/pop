@@ -32,6 +32,7 @@ This is an automatically generated file. See `scripts/readme`
 - [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
 - [beta](https://github.com/pop-os/beta) - Pop\!\_OS Beta
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
+- [bubblewrap](https://github.com/pop-os/bubblewrap) - Fork of https://salsa\.debian\.org/debian/bubblewrap
 - [buildchain](https://github.com/pop-os/buildchain) - Software for creating and managing a distributed and reproducible chain of builds
 - [bus\-writer](https://github.com/pop-os/bus-writer) - Single\-reader, multi\-writer & single\-reader, multi\-verifier; broadcasts reads to multiple writeable destinations in parallel
 - [bustd](https://github.com/pop-os/bustd) - \`bustd\`: Available memory or bust\!
@@ -47,22 +48,25 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-applets](https://github.com/pop-os/cosmic-applets) - WIP applets for cosmic\-panel
 - [cosmic\-applibrary](https://github.com/pop-os/cosmic-applibrary) - WIP
 - [cosmic\-application\-template](https://github.com/pop-os/cosmic-application-template)
-- [cosmic\-bg](https://github.com/pop-os/cosmic-bg)
+- [cosmic\-bg](https://github.com/pop-os/cosmic-bg) - COSMIC session service which applies backgrounds to displays\.
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
+- [cosmic\-config\-demo](https://github.com/pop-os/cosmic-config-demo)
 - [cosmic\-design\-demo](https://github.com/pop-os/cosmic-design-demo) - libcosmic widget toolkit showcase for testing COSMIC widgets and their styling
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-edit](https://github.com/pop-os/cosmic-edit) - COSMIC Text Editor
 - [cosmic\-epoch](https://github.com/pop-os/cosmic-epoch) - Next generation Cosmic desktop environment
 - [cosmic\-files](https://github.com/pop-os/cosmic-files) - COSMIC file manager
+- [cosmic\-flatpak](https://github.com/pop-os/cosmic-flatpak) - COSMIC Flatpak Repository
 - [cosmic\-flatpak\-runtime](https://github.com/pop-os/cosmic-flatpak-runtime) - COSMIC runtimes for flatpak applications
 - [cosmic\-greeter](https://github.com/pop-os/cosmic-greeter) - libcosmic greeter for greetd, which can be run inside cosmic\-comp
 - [cosmic\-icons](https://github.com/pop-os/cosmic-icons) -  System76 Cosmic icon theme for Linux 
-- [cosmic\-idle](https://github.com/pop-os/cosmic-idle)
+- [cosmic\-idle](https://github.com/pop-os/cosmic-idle) - Timer to blank the screen/lock the session in the COSMIC desktop environment
 - [cosmic\-initial\-setup](https://github.com/pop-os/cosmic-initial-setup) - COSMIC Initial Setup
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-mime\-apps](https://github.com/pop-os/cosmic-mime-apps) - Parse and update xdg mimeapps\.list files to manage default apps
 - [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
+- [cosmic\-osk](https://github.com/pop-os/cosmic-osk) - COSMIC On\-Screen Keyboard
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
 - [cosmic\-player](https://github.com/pop-os/cosmic-player) - WIP COSMIC media player
 - [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Additional wayland\-protocols used by the COSMIC desktop environment
@@ -100,6 +104,7 @@ This is an automatically generated file. See `scripts/readme`
 - [desktop](https://github.com/pop-os/desktop) - Desktop metapackage
 - [desktop\-icons\-ng](https://github.com/pop-os/desktop-icons-ng) - Packaging of https://gitlab\.com/rastersoft/desktop\-icons\-ng
 - [desktop\-widget](https://github.com/pop-os/desktop-widget) - Pop Desktop Settings Widget
+- [directx\-headers](https://github.com/pop-os/directx-headers) - Mesa backport of https://code\.launchpad\.net/ubuntu/\+source/directx\-headers
 - [disk\-types](https://github.com/pop-os/disk-types) - Rust crate with common types and traits for handling block devices, partitions, file systems, etc\.
 - [distinst](https://github.com/pop-os/distinst) - Installer Backend
 - [distinst\-v2](https://github.com/pop-os/distinst-v2) - Distinst Rewrite as a DBus Service
@@ -122,6 +127,7 @@ This is an automatically generated file. See `scripts/readme`
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [fwupd\-efi](https://github.com/pop-os/fwupd-efi) - Pop\!\_OS fork of https://salsa\.debian\.org/efi\-team/fwupd\-efi
 - [gamehub](https://github.com/pop-os/gamehub) - Pop\!\_OS fork of https://github\.com/tkashkin/GameHub
+- [gamescope](https://github.com/pop-os/gamescope) - Packaging for https://github\.com/ValveSoftware/gamescope
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [glyphon](https://github.com/pop-os/glyphon) - 🦅🦁 Fast, simple 2D text renderer for wgpu
@@ -188,6 +194,7 @@ This is an automatically generated file. See `scripts/readme`
 - [libparted](https://github.com/pop-os/libparted) - Rust wrappers for libparted
 - [libtraceevent](https://github.com/pop-os/libtraceevent) - Backport of https://packages\.ubuntu\.com/noble/libtraceevent\-dev
 - [libtracefs](https://github.com/pop-os/libtracefs) - Backport of https://packages\.ubuntu\.com/noble/libtracefs1
+- [libvdpau](https://github.com/pop-os/libvdpau) - Backported dependency of mesa from https://salsa\.debian\.org/nvidia\-team/libvdpau
 - [libxmlb](https://github.com/pop-os/libxmlb) - Debian packaging for bionic
 - [linux](https://github.com/pop-os/linux) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/linux
 - [linux\-firmware](https://github.com/pop-os/linux-firmware) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-kernel/ubuntu/\+source/linux\-firmware
@@ -209,6 +216,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
 - [nvidia\-graphics\-drivers\-565](https://github.com/pop-os/nvidia-graphics-drivers-565) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(565\) 
+- [nvidia\-graphics\-drivers\-575](https://github.com/pop-os/nvidia-graphics-drivers-575) - NVIDIA 575 Beta driver
 - [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [orca](https://github.com/pop-os/orca) - Packaging for https://gitlab\.gnome\.org/mwcampbell/orca/\-/tree/newton
@@ -265,6 +273,9 @@ This is an automatically generated file. See `scripts/readme`
 - [smithay\-clipboard](https://github.com/pop-os/smithay-clipboard) - Provides access to the wayland clipboard for client applications
 - [snapshot](https://github.com/pop-os/snapshot) - A utility for taking btrfs snapshots of Pop\!\_OS installs
 - [softbuffer](https://github.com/pop-os/softbuffer) - Softbuffer integrates with the raw\-window\-handle crate to allow writing to a window in a cross\-platform way while using the very high quality dedicated window management libraries that are available in the Rust ecosystem\.
+- [spirv\-headers](https://github.com/pop-os/spirv-headers) - Mesa backport of https://code\.launchpad\.net/ubuntu/\+source/spirv\-headers
+- [spirv\-llvm\-translator\-15](https://github.com/pop-os/spirv-llvm-translator-15) - Backport missing spirv library for Mesa to Jammy
+- [spirv\-tools](https://github.com/pop-os/spirv-tools) - Mesa backport of https://code\.launchpad\.net/ubuntu/\+source/spirv\-tools
 - [sponsors](https://github.com/pop-os/sponsors) - The API behind Pop\!\_OS donations
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam\-installer with improved packaging for Pop

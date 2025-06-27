@@ -43,6 +43,7 @@
 /bcmwl/
 /beta/
 /blkid/
+/bubblewrap/
 /buildchain/
 /bus-writer/
 /bustd/
@@ -60,11 +61,13 @@
 /cosmic-application-template/
 /cosmic-bg/
 /cosmic-comp/
+/cosmic-config-demo/
 /cosmic-design-demo/
 /cosmic-dock/
 /cosmic-edit/
 /cosmic-epoch/
 /cosmic-files/
+/cosmic-flatpak/
 /cosmic-flatpak-runtime/
 /cosmic-greeter/
 /cosmic-icons/
@@ -74,6 +77,7 @@
 /cosmic-mime-apps/
 /cosmic-notifications/
 /cosmic-osd/
+/cosmic-osk/
 /cosmic-panel/
 /cosmic-player/
 /cosmic-protocols/
@@ -111,6 +115,7 @@
 /desktop/
 /desktop-icons-ng/
 /desktop-widget/
+/directx-headers/
 /disk-types/
 /distinst/
 /distinst-v2/
@@ -133,6 +138,7 @@
 /fwupd-dbus/
 /fwupd-efi/
 /gamehub/
+/gamescope/
 /gdm3/
 /gir/
 /glyphon/
@@ -199,6 +205,7 @@
 /libparted/
 /libtraceevent/
 /libtracefs/
+/libvdpau/
 /libxmlb/
 /linux/
 /linux-firmware/
@@ -220,6 +227,7 @@
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
 /nvidia-graphics-drivers-565/
+/nvidia-graphics-drivers-575/
 /nvidia-vaapi-driver/
 /opt/
 /orca/
@@ -276,6 +284,9 @@
 /smithay-clipboard/
 /snapshot/
 /softbuffer/
+/spirv-headers/
+/spirv-llvm-translator-15/
+/spirv-tools/
 /sponsors/
 /srmw/
 /steam/
