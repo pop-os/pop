@@ -159,18 +159,11 @@ sbuild \
     if ctx.arch.is_arm() {
         let arm64 = ctx.arm64_opt.unwrap(); // checked above
 
-        //TODO: update rsync to allow use of --mkpath
-        process::Command::new("ssh")
-            .arg(&arm64)
-            .arg("--")
-            .arg(format!("mkdir -p '{}'", ctx.source.display()))
-            .status()
-            .and_then(check_status)?;
-
         //TODO: allow arm64 builder to have different filesystem layout
         process::Command::new("rsync")
             .arg("--archive")
             .arg("--delete")
+            .arg("--mkpath")
             .arg(format!("{}/", ctx.source.display()))
             .arg(format!("{}:{}/", arm64, ctx.source.display()))
             .status()
@@ -186,6 +179,7 @@ sbuild \
         process::Command::new("rsync")
             .arg("--archive")
             .arg("--delete")
+            .arg("--mkpath")
             .arg(format!("{}:{}/", arm64, path.display()))
             .arg(format!("{}/", path.display()))
             .status()
