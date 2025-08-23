@@ -36,6 +36,7 @@ DEV_REPOS = (
     "linux",
     "linux-firmware",
     "mesa",
+    "meson-1.5",
     "ninja-build",
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",

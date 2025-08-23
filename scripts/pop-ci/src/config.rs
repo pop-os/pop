@@ -32,6 +32,7 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "linux",
     "linux-firmware",
     "mesa",
+    "meson-1.5",
     "ninja-build",
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",
