@@ -131,7 +131,6 @@ impl Suite {
         Self("focal", "20.04", SuiteWildcard::Focal, SuiteDistro::All),
         Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
         Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
-        Self("oracular", "24.10", SuiteWildcard::All, SuiteDistro::Ubuntu),
     ];
 
     pub fn new(id: &str) -> Option<Self> {
