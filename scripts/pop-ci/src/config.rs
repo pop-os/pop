@@ -40,6 +40,7 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "spirv-headers",
     "spirv-llvm-translator-15",
     "spirv-tools",
+    "switcheroo-control",
     "system76-acpi-dkms",
     "system76-dkms",
     "system76-driver",
