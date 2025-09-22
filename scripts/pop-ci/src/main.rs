@@ -162,6 +162,7 @@ sbuild \
         //TODO: allow arm64 builder to have different filesystem layout
         process::Command::new("rsync")
             .arg("--archive")
+            .arg("--delay-updates")
             .arg("--delete")
             .arg("--mkpath")
             .arg("--rsh=ssh")
@@ -179,6 +180,7 @@ sbuild \
 
         process::Command::new("rsync")
             .arg("--archive")
+            .arg("--delay-updates")
             .arg("--delete")
             .arg("--mkpath")
             .arg("--rsh=ssh")
