@@ -22,6 +22,8 @@ macro_rules! bold {
     };
 }
 
+static ARM64_RSYNC: Mutex<()> = Mutex::new(());
+
 //TODO: limit jobs?
 async fn async_fetch_repos(repos: &BTreeMap<String, PathBuf>, remote: &GitRemote) {
     use futures::stream::StreamExt;
@@ -160,16 +162,21 @@ sbuild \
         let arm64 = ctx.arm64_opt.unwrap(); // checked above
 
         //TODO: allow arm64 builder to have different filesystem layout
-        process::Command::new("rsync")
-            .arg("--archive")
-            .arg("--delay-updates")
-            .arg("--delete")
-            .arg("--mkpath")
-            .arg("--rsh=ssh")
-            .arg(format!("{}/", ctx.source.display()))
-            .arg(format!("{}:{}/", arm64, ctx.source.display()))
-            .status()
-            .and_then(check_status)?;
+        {
+            // arm64 source is shared between arm64 and armhf which do builds at the same time
+            let _guard = ARM64_RSYNC.lock().unwrap();
+            process::Command::new("rsync")
+                .arg("--archive")
+                .arg("--compress")
+                .arg("--delay-updates")
+                .arg("--delete")
+                .arg("--mkpath")
+                .arg("--rsh=ssh")
+                .arg(format!("{}/", ctx.source.display()))
+                .arg(format!("{}:{}/", arm64, ctx.source.display()))
+                .status()
+                .and_then(check_status)?;
+        }
 
         let res = process::Command::new("ssh")
             .arg(&arm64)
@@ -180,6 +187,7 @@ sbuild \
 
         process::Command::new("rsync")
             .arg("--archive")
+            .arg("--compress")
             .arg("--delay-updates")
             .arg("--delete")
             .arg("--mkpath")
