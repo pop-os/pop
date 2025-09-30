@@ -100,7 +100,7 @@ impl RepoInfo {
             _ => Self {
                 key: fs::canonicalize("scripts/.iso.asc").expect("failed to find ISO key"),
                 release: "http://apt.pop-os.org/release",
-                staging: "http://apt.pop-os.org/staging/master",
+                staging: "http://apt.pop-os.org/staging/main",
                 dput: None,
                 archs: ARCHS,
             },
