@@ -41,6 +41,7 @@ DEV_REPOS = (
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",
     "nvidia-graphics-drivers-565",
+    "rust-bindgen-cli",
     "spirv-headers",
     "spirv-llvm-translator-15",
     "spirv-tools",
