@@ -22,7 +22,7 @@ def callback(repo):
 		else:
 			suffix = "pop"
 
-		for codename in ["focal", "jammy", "noble", "resolute"]:
+        for codename in ["focal", "jammy", "noble", "questing", "resolute"]:
 			matches = []
 			wildcard_master = "master"
 			codename_master = wildcard_master + "_" + codename

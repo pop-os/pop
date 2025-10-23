@@ -131,6 +131,7 @@ impl Suite {
         Self("focal", "20.04", SuiteWildcard::Focal, SuiteDistro::All),
         Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
         Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
+        Self("questing", "25.10", SuiteWildcard::All, SuiteDistro::Ubuntu),
         Self("resolute", "26.04", SuiteWildcard::All, SuiteDistro::All),
     ];
 

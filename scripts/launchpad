@@ -38,6 +38,7 @@ if args.dev:
         "focal",
         "jammy",
         "noble",
+        "questing",
         "resolute",
     )
 else:
