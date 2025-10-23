@@ -12,6 +12,7 @@ PACKAGES=(
     devscripts # for all packages
     debhelper # for most packages
     dh-apport # for ubuntu-drivers-common
+    dh-dlopenlibdeps # for systemd
     dh-migrations # for gnome-control-center
     dh-modaliases # for bcmwl
     dh-package-notes # for systemd
