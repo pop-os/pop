@@ -441,6 +441,19 @@ sudo sbuild-update \
             }
         }
 
+        // Transition master pockets to main pockets, if main pocket does not exist
+        {
+            for suite in Suite::ALL.iter() {
+                let main_key = (Pocket::new("main"), suite.clone());
+                if ! repo_ctx.pockets.contains_key(&main_key) {
+                    let master_key = (Pocket::new("master"), suite.clone());
+                    if let Some(entry) = repo_ctx.pockets.remove(&master_key) {
+                        repo_ctx.pockets.insert(main_key, entry);
+                    }
+                }
+            }
+        }
+
         for ((pocket, suite), (commit, branch)) in repo_ctx.pockets.iter() {
             let build = repo_ctx
                 .builds
@@ -1212,7 +1225,7 @@ sudo sbuild-update \
                     pool_rebuilt = true;
                 }
 
-                if pocket.id() == "master" && launchpad {
+                if pocket.id() == "main" && launchpad {
                     for (changes_name, changes_path) in package.changes.iter() {
                         let dput = match repo_info.dput {
                             Some(some) => some,
