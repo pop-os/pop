@@ -542,11 +542,15 @@ sudo sbuild-update \
                     .expect("failed to open suite cache");
 
                 let mut source_retry = false;
-                for retry_key in &[
+                let mut retry_keys = vec![
                     repo_name.clone(),
                     format!("git:{}", commit.id()),
                     format!("dist:{}", suite.id()),
-                ] {
+                ];
+                for pocket in pockets.iter() {
+                    retry_keys.push(format!("pocket:{}", pocket.id()));
+                }
+                for retry_key in retry_keys {
                     if retry.contains(&retry_key) {
                         source_retry = true;
                         break;
