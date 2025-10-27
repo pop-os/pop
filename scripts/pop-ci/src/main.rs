@@ -400,9 +400,9 @@ sudo sbuild-update \
 
         let mut repo_ctx = RepoContext::default();
         for (branch, commit) in heads.iter() {
-            let mut parts = branch.id().splitn(2, '_');
+            let mut parts = branch.id().split('_');
             let pocket = Pocket::new(parts.next().unwrap());
-            let pattern_opt = parts.next();
+            let patterns: Vec<_> = parts.collect();
 
             for suite in Suite::ALL.iter() {
                 match suite.distro() {
@@ -422,9 +422,9 @@ sudo sbuild-update \
                 }
 
                 let key = (pocket.clone(), suite.clone());
-                let insert = if let Some(pattern) = pattern_opt {
+                let insert = if !patterns.is_empty() {
                     // Insert pattern entry if pattern matches
-                    pattern == suite.id()
+                    patterns.contains(&suite.id())
                 } else if suite.wildcard(repo_name) {
                     // Only insert wildcard entry if no others are found, and suite supports it
                     !repo_ctx.pockets.contains_key(&key)
