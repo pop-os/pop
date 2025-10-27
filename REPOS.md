@@ -45,6 +45,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic](https://github.com/pop-os/cosmic) - GNOME Shell extension\. See cosmic\-epoch for COSMIC Epoch
 - [cosmic\-app\-template](https://github.com/pop-os/cosmic-app-template) - Project template for creating applications for the COSMIC™ desktop
 - [cosmic\-applet\-host](https://github.com/pop-os/cosmic-applet-host)
+- [cosmic\-applet\-template](https://github.com/pop-os/cosmic-applet-template) - Project template for creating applets for the COSMIC™ desktop
 - [cosmic\-applets](https://github.com/pop-os/cosmic-applets) - WIP applets for cosmic\-panel
 - [cosmic\-applibrary](https://github.com/pop-os/cosmic-applibrary) - WIP
 - [cosmic\-application\-template](https://github.com/pop-os/cosmic-application-template)
@@ -62,12 +63,13 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-icons](https://github.com/pop-os/cosmic-icons) -  System76 Cosmic icon theme for Linux 
 - [cosmic\-idle](https://github.com/pop-os/cosmic-idle) - Timer to blank the screen/lock the session in the COSMIC desktop environment
 - [cosmic\-initial\-setup](https://github.com/pop-os/cosmic-initial-setup) - COSMIC Initial Setup
+- [cosmic\-justfiles](https://github.com/pop-os/cosmic-justfiles) - Justfile scripts shared between COSMIC and Pop\!\_OS projects\.
 - [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
 - [cosmic\-mime\-apps](https://github.com/pop-os/cosmic-mime-apps) - Parse and update xdg mimeapps\.list files to manage default apps
 - [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-osk](https://github.com/pop-os/cosmic-osk) - COSMIC On\-Screen Keyboard
-- [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - WIP
+- [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - COSMIC applet for creating panels and docks
 - [cosmic\-player](https://github.com/pop-os/cosmic-player) - WIP COSMIC media player
 - [cosmic\-protocols](https://github.com/pop-os/cosmic-protocols) - Additional wayland\-protocols used by the COSMIC desktop environment
 - [cosmic\-randr](https://github.com/pop-os/cosmic-randr) - Library and utility for displaying and configuring Wayland outputs
@@ -201,6 +203,7 @@ This is an automatically generated file. See `scripts/readme`
 - [logind\-dbus](https://github.com/pop-os/logind-dbus) - Rust crate that provides a DBus API for interacting with logind, which is useful for doing things such as inhibiting suspension\.
 - [lutris](https://github.com/pop-os/lutris) - Packaging for https://github\.com/lutris/lutris
 - [mesa](https://github.com/pop-os/mesa) - Forked from https://salsa\.debian\.org/xorg\-team/lib/mesa
+- [meson\-1\.5](https://github.com/pop-os/meson-1.5) - Backport of https://launchpad\.net/ubuntu/\+source/meson\-1\.5 for Pop 22\.04
 - [meta\-python](https://github.com/pop-os/meta-python) - Transitional metapackage for python2
 - [modit](https://github.com/pop-os/modit) - Modal Editor Parser
 - [mouse\-configurator](https://github.com/pop-os/mouse-configurator) - Configurator for HP 935 Creator Wireless Mouse
@@ -215,8 +218,6 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - Pop\!\_OS NVIDIA Graphics Drivers
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
-- [nvidia\-graphics\-drivers\-565](https://github.com/pop-os/nvidia-graphics-drivers-565) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(565\) 
-- [nvidia\-graphics\-drivers\-575](https://github.com/pop-os/nvidia-graphics-drivers-575) - NVIDIA 575 Beta driver
 - [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [orca](https://github.com/pop-os/orca) - Packaging for https://gitlab\.gnome\.org/mwcampbell/orca/\-/tree/newton
@@ -260,6 +261,7 @@ This is an automatically generated file. See `scripts/readme`
 - [repolib](https://github.com/pop-os/repolib) - Python library for managing APT sources
 - [repoman](https://github.com/pop-os/repoman) - Easily manage PPAs
 - [rtl8821ce\-dkms](https://github.com/pop-os/rtl8821ce-dkms) - Backports of https://packages\.ubuntu\.com/kinetic/rtl8821ce\-dkms
+- [rust\-bindgen\-cli](https://github.com/pop-os/rust-bindgen-cli) - Backport for Linux builds https://code\.launchpad\.net/ubuntu/\+source/rust\-bindgen\-cli
 - [rust\-tss\-esapi](https://github.com/pop-os/rust-tss-esapi) - TSS 2\.0 Enhanced System API \(ESAPI\) Rust wrapper
 - [sctk\-adwaita](https://github.com/pop-os/sctk-adwaita) - Adwaita\-like SCTK Frame
 - [session](https://github.com/pop-os/session) - Session default settings
@@ -280,6 +282,7 @@ This is an automatically generated file. See `scripts/readme`
 - [srmw](https://github.com/pop-os/srmw) - Rust crate which provides async functions to read data from a single reader, and write it to many writers\.
 - [steam](https://github.com/pop-os/steam) - Fork of https://salsa\.debian\.org/games\-team/steam\-installer with improved packaging for Pop
 - [support\-panel](https://github.com/pop-os/support-panel) - Support panel for the settings application in Pop\!\_OS
+- [switcheroo\-control](https://github.com/pop-os/switcheroo-control) - Fork of https://salsa\.debian\.org/gnome\-team/switcheroo\-control
 - [sys\-mount](https://github.com/pop-os/sys-mount) - High level FFI binding around the sys mount & umount2 calls, for Rust
 - [sysfs\-class](https://github.com/pop-os/sysfs-class) - Rust library for viewing /sys/class in an object\-oriented format
 - [system\-updater](https://github.com/pop-os/system-updater) - Systemd services for checking for and applying system updates\.

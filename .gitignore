@@ -56,6 +56,7 @@
 /cosmic/
 /cosmic-app-template/
 /cosmic-applet-host/
+/cosmic-applet-template/
 /cosmic-applets/
 /cosmic-applibrary/
 /cosmic-application-template/
@@ -73,6 +74,7 @@
 /cosmic-icons/
 /cosmic-idle/
 /cosmic-initial-setup/
+/cosmic-justfiles/
 /cosmic-launcher/
 /cosmic-mime-apps/
 /cosmic-notifications/
@@ -212,6 +214,7 @@
 /logind-dbus/
 /lutris/
 /mesa/
+/meson-1.5/
 /meta-python/
 /modit/
 /mouse-configurator/
@@ -226,8 +229,6 @@
 /nvidia-docker/
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
-/nvidia-graphics-drivers-565/
-/nvidia-graphics-drivers-575/
 /nvidia-vaapi-driver/
 /opt/
 /orca/
@@ -271,6 +272,7 @@
 /repolib/
 /repoman/
 /rtl8821ce-dkms/
+/rust-bindgen-cli/
 /rust-tss-esapi/
 /sctk-adwaita/
 /session/
@@ -291,6 +293,7 @@
 /srmw/
 /steam/
 /support-panel/
+/switcheroo-control/
 /sys-mount/
 /sysfs-class/
 /system-updater/
