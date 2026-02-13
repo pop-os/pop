@@ -4,6 +4,7 @@ If this is a bug, please use the template below. If this is a question or genera
 
 -->
 
+- [ ] I have searched the issue tracker and not found a duplicate for my issue.
 
 **Distribution (run `cat /etc/os-release`):**
  
