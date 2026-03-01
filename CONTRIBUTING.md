@@ -1,27 +1,22 @@
-# Contributing to Pop!_OS
+# Zu Pop!_OS beitragen
 
-## Find the Correct Repo
+## Das richtige Repository finden
+Bevor Sie eine Änderung vornehmen, müssen Sie das entsprechende Repository finden. Lesen Sie den Abschnitt "Entwicklerressourcen" für Hilfe beim Auffinden des richtigen Repos.
 
-Before you make a change, you need to find the relevant repository to make a contribution in. See the 'Developer Resources' section for help finding the correct one. 
+## Ein Issue erstellen
+Bei größeren Features wird empfohlen, zunächst ein Issue zur Diskussion zu erstellen, falls noch keines existiert. Die Chance, dass Ihre Arbeit gemergt wird, ist am höchsten, wenn die Diskussion im Voraus einen Konsens darüber erreicht, wie (oder ob) das Feature implementiert werden soll.
 
-## Make An Issue
+## Einen Pull Request erstellen
+Forken Sie das Repository, nehmen Sie Ihre Änderungen vor und erstellen Sie dann einen Pull Request! Es hilft, ausführlich zu beschreiben, was Ihre Änderung bewirkt.
 
-For large features, it's recommended to start with an issue for discussion if it doesn't already exist. Your work will have the highest chance of being merged if the discussion reaches a consensus in advance on how (or if) the feature should be implemented.
+Jeder PR zu Pop!_OS-Komponenten erfordert die Genehmigung des Engineering-Teams (für Codequalität und Architektur) sowie des Qualitätssicherungs-Teams (für Stabilität und UX). Fordern Sie von beiden Teams eine Überprüfung an, damit Ihr PR wahrgenommen wird. Änderungen, die die Benutzererfahrung erheblich beeinflussen (z.B. neue GUI-Funktionen), können auch die Genehmigung des UX-Teams erfordern.
 
-## Make a Pull Request
+## Veröffentlichungsprozess nach dem Merge
+Der Pop!_OS CI-Server baut automatisch alle 15 Minuten den master- (oder main-) Branch jedes Git-Repositorys. Alle Pakete aus diesen Git-Branches werden im [Master-Staging-apt-Repository](http://apt-origin.pop-os.org/staging/master/) veröffentlicht.
 
-Fork the repository, make your changes, and then make a pull request! It helps to use detail and explain what your change does. 
+Pakete werden dann aus dem Master-Staging als reguläre Updates über PRs an das [repo-release-Repository](https://github.com/pop-os/repo-release/) freigegeben, das eine [Liste](https://github.com/pop-os/repo-release/blob/master/sync) mit Name und Version jedes aktuell veröffentlichten Pakets enthält. Nach der Aktualisierung der Liste veröffentlicht ein weiterer CI-Job automatisch die in der Liste enthaltenen Paketversionen.
 
-Every PR to Pop!_OS components requires approval from the engineering team (for code quality and architectural fit) and quality assurance team (for stability and UX sanity.) Request a review from each of these teams in order to make sure your PR is seen. Any change that significantly impacts the user experience (e.g. new GUI features) may also require approval from the user experience team. 
+### Pop!_OS Veröffentlichungshäufigkeit
+Pop!_OS-Komponentenupdates wie Sicherheits-Patches, Bugfixes und sogar einige neue Features werden regelmäßig veröffentlicht (nach dem Rolling-Release-Prinzip).
 
-## Post-Merge Release Process
-
-The Pop!_OS CI server automatically builds the master (or main) branch of every git repository every 15 minutes. All packages from those git branches are published in the [master staging apt repository](http://apt-origin.pop-os.org/staging/master/).
-
-Packages are then released from master staging as regular updates via PRs to the [repo-release repository](https://github.com/pop-os/repo-release/), which contains a [list](https://github.com/pop-os/repo-release/blob/master/sync) of the name and version of every currently released package. After the list is updated, another CI job automatically releases the package versions contained in the list.
-
-### Pop!_OS Release Frequency
-
-Pop!_OS component updates such as security patches, bug fixes, and even some new features are released regularly (in a rolling-release fashion.)
-
-Feature updates for packages inherited from Ubuntu, as well as very large UX changes (such as the introduction of the COSMIC interface), are released as major version upgrades.
+Feature-Updates für von Ubuntu übernommene Pakete sowie sehr große UX-Änderungen (wie die Einführung der COSMIC-Oberfläche) werden als größere Versions-Upgrades veröffentlicht.
