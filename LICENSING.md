@@ -1,9 +1,11 @@
-In general, it is preferred that Pop!\_OS projects are licensed `GPL-3.0-only`.
-There are some exceptions to this:
+## Lizenzierung
 
-- `MPL-2.0` may be used if it is desired to allow linkage with projects that use other licenses, but require modifications to remain open source
-- `MIT OR Apache-2.0` may be used if it is desired to have wide use, with potential downstream modifications, in software of any license
+Im Allgemeinen wird bevorzugt, dass Pop!\_OS-Projekte unter der Lizenz `GPL-3.0-only` veröffentlicht werden.
 
-To summarize: Use `GPL-3.0-only` for applications, `MPL-2.0` for libraries with utility in the open source community, and `MIT OR Apache-2.0` for foundational libraries with utility anywhere.
+Es gibt einige Ausnahmen:
+- `MPL-2.0` kann verwendet werden, wenn eine Verlinkung mit Projekten anderer Lizenzen gewünscht wird, Änderungen jedoch Open Source bleiben müssen
+- `MIT OR Apache-2.0` kann verwendet werden, wenn eine breite Nutzung mit möglichen nachgelagerten Änderungen in Software jeglicher Lizenz gewünscht wird
 
-Please use SPDX identifiers in every source file: https://spdx.dev/ids/
+Zusammenfassung: `GPL-3.0-only` für Anwendungen, `MPL-2.0` für Bibliotheken mit Nutzen in der Open-Source-Community, und `MIT OR Apache-2.0` für grundlegende Bibliotheken mit allgemeinem Nutzen.
+
+Bitte verwenden Sie SPDX-Bezeichner in jeder Quelldatei: https://spdx.dev/ids/
