@@ -56,6 +56,22 @@ impl Pocket {
     pub fn id(&self) -> &str {
         &self.0
     }
+
+    pub fn origin(&self, dev: bool) -> String {
+        if dev {
+            format!("system76-ubuntu-staging-{}", self.0)
+        } else {
+            format!("pop-os-staging-{}", self.0)
+        }
+    }
+
+    pub fn label(&self, dev: bool) -> String {
+        if dev {
+            format!("System76 Ubuntu Staging {}", self.0)
+        } else {
+            format!("Pop!_OS Staging {}", self.0)
+        }
+    }
 }
 
 #[derive(Clone)]
@@ -83,7 +99,7 @@ impl RepoInfo {
                 archs: match suite.id() {
                     "bionic" => OLD_ARCHS,
                     _ => ARCHS,
-                }
+                },
             };
         }
 
