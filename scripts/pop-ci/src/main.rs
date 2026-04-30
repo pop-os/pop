@@ -1288,8 +1288,8 @@ sudo sbuild-update \
                         writeln!(release, "Archive: {}", suite.id()).unwrap();
                         writeln!(release, "Version: {}", suite.version()).unwrap();
                         writeln!(release, "Component: main").unwrap();
-                        writeln!(release, "Origin: pop-os-staging-{}", pocket.id()).unwrap();
-                        writeln!(release, "Label: Pop!_OS Staging {}", pocket.id()).unwrap();
+                        writeln!(release, "Origin: {}", pocket.origin(dev)).unwrap();
+                        writeln!(release, "Label: {}", pocket.label(dev)).unwrap();
                         writeln!(release, "Architecture: source").unwrap();
 
                         let release_file = source_dir.join("Release");
@@ -1325,8 +1325,8 @@ sudo sbuild-update \
                         writeln!(release, "Archive: {}", suite.id()).unwrap();
                         writeln!(release, "Version: {}", suite.version()).unwrap();
                         writeln!(release, "Component: main").unwrap();
-                        writeln!(release, "Origin: pop-os-staging-{}", pocket.id()).unwrap();
-                        writeln!(release, "Label: Pop!_OS Staging {}", pocket.id()).unwrap();
+                        writeln!(release, "Origin: {}", pocket.origin(dev)).unwrap();
+                        writeln!(release, "Label: {}", pocket.label(dev)).unwrap();
                         writeln!(release, "Architecture: {}", arch.id()).unwrap();
 
                         let release_file = binary_dir.join("Release");
@@ -1341,13 +1341,13 @@ sudo sbuild-update \
                     let release_output = process::Command::new("apt-ftparchive")
                         .arg("-o")
                         .arg(format!(
-                            "APT::FTPArchive::Release::Origin=pop-os-staging-{}",
-                            pocket.id()
+                            "APT::FTPArchive::Release::Origin={}",
+                            pocket.origin(dev)
                         ))
                         .arg("-o")
                         .arg(format!(
-                            "APT::FTPArchive::Release::Label=Pop!_OS Staging {}",
-                            pocket.id()
+                            "APT::FTPArchive::Release::Label={}",
+                            pocket.label(dev)
                         ))
                         .arg("-o")
                         .arg(format!("APT::FTPArchive::Release::Suite={}", suite.id()))
@@ -1367,10 +1367,10 @@ sudo sbuild-update \
                         .arg("APT::FTPArchive::Release::Components=main")
                         .arg("-o")
                         .arg(format!(
-                            "APT::FTPArchive::Release::Description=Pop!_OS Staging {} {} {}",
+                            "APT::FTPArchive::Release::Description={} {} {}",
+                            pocket.label(dev),
                             suite.id(),
                             suite.version(),
-                            pocket.id()
                         ))
                         .arg("release")
                         .arg(".")

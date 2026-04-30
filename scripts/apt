@@ -20,11 +20,13 @@ do
 done
 
 POP_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+ORIGIN="pop-os-staging"
 REPOS="http://apt.pop-os.org/staging/"
 DEVLINE=''
 if [ "$DEV" == "1" ]
 then
   DEVLINE='-dev'
+  ORIGIN="system76-ubuntu-staging"
   if [ "$LOCAL" == "1" ]
   then
     REPOS="file://${POP_DIR}/_build/ci-dev/apt/"
@@ -66,9 +68,9 @@ case "$1" in
         fi
 
         echo "Adding preference for '$newrepo'"
-        sudo tee "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}" > /dev/null <<-EOF
+        sudo tee "/etc/apt/preferences.d/${ORIGIN}-${newrepo//./_}" > /dev/null <<-EOF
 Package: *
-Pin: release o=pop-os-staging-$newrepo
+Pin: release o=${ORIGIN}-$newrepo
 Pin-Priority: 1002
 EOF
 
@@ -95,7 +97,7 @@ EOF
         sudo apt-manage remove "popdev:$newrepo"
       else
         echo "Removing preference for '$newrepo'"
-        sudo rm -f "/etc/apt/preferences.d/pop-os-staging-${newrepo//./_}"
+        sudo rm -f "/etc/apt/preferences.d/${ORIGIN}-${newrepo//./_}"
 
         echo "Removing repository for '$newrepo'"
         LINE="deb ${REPOS}$newrepo ${UBUNTU_CODENAME} main"
