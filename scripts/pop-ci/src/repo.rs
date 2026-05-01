@@ -91,14 +91,27 @@ impl RepoInfo {
 
         if dev {
             // Launchpad for all Ubuntu releases
-            return Self {
-                key: fs::canonicalize("scripts/.ppa-dev.asc").expect("failed to find dev PPA key"),
-                release: "http://ppa.launchpad.net/system76-dev/stable/ubuntu",
-                staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
-                dput: Some("ppa:system76-dev/pre-stable"),
-                archs: match suite.id() {
-                    "bionic" => OLD_ARCHS,
-                    _ => ARCHS,
+            // Launchpad used prior to Ubuntu 22.04
+            return match suite.id() {
+                "bionic" | "focal" => Self {
+                    key: fs::canonicalize("scripts/.ppa-dev.asc")
+                        .expect("failed to find dev PPA key"),
+                    release: "http://ppa.launchpad.net/system76-dev/stable/ubuntu",
+                    staging: "http://ppa.launchpad.net/system76-dev/pre-stable/ubuntu",
+                    dput: Some("ppa:system76-dev/pre-stable"),
+                    archs: match suite.id() {
+                        "bionic" => OLD_ARCHS,
+                        _ => ARCHS,
+                    },
+                },
+                // apt.pop-os.org for Ubuntu 22.04 and later
+                _ => Self {
+                    key: fs::canonicalize("scripts/.ppa-dev.asc")
+                        .expect("failed to find dev PPA key"),
+                    release: "http://apt.pop-os.org/release-ubuntu",
+                    staging: "http://apt.pop-os.org/staging-ubuntu/master",
+                    dput: Some("ppa:system76-dev/pre-stable"),
+                    archs: ARCHS,
                 },
             };
         }

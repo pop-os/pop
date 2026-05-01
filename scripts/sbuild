@@ -19,10 +19,14 @@ def ppa_url(ppa):
     return "http://ppa.launchpad.net/" + ppa + "/ubuntu"
 
 if args.dev:
-    os.environ["S76_DEV"] = "1"
-    apt_key = ".ppa-dev.asc"
-    apt_release = ppa_url("system76-dev/stable")
-    apt_proposed = ppa_url("system76-dev/pre-stable")
+    if args.dist in ["bionic", "focal"]:
+        apt_key = ".ppa-dev.asc"
+        apt_release = ppa_url("system76-dev/stable")
+        apt_proposed = ppa_url("system76-dev/pre-stable")
+    else:
+        apt_key = ".iso.asc"
+        apt_release = "http://apt.pop-os.org/release-ubuntu"
+        apt_proposed = "http://apt.pop-os.org/staging-ubuntu/master"
 elif args.dist in ["bionic", "focal"]:
     apt_key = ".ppa.asc"
     apt_release = ppa_url("system76/pop")
