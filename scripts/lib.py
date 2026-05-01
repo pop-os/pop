@@ -54,6 +54,7 @@ DEV_REPOS = (
     "system76-keyboard-configurator",
     "system76-oled",
     "system76-power",
+    "system76-ubuntu-repo",
     "system76-wallpapers",
     "systemd",
     "ubuntu-drivers-common",
