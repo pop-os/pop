@@ -60,6 +60,9 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "zfs-linux",
 ];
 
+/// Repos from DEV_REPOS to build for only Ubuntu
+pub static DEV_ONLY_REPOS: &'static [&'static str] = &["system76-ubuntu-repo"];
+
 /// Repos to build for Pop 20.04, in addition to DEV_REPOS
 pub static POP_FOCAL_REPOS: &'static [&'static str] = &[
     "alacritty",

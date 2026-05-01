@@ -1,7 +1,7 @@
 use clap::{App, Arg};
 use pop_ci::{
     cache::Cache,
-    config::DEV_REPOS,
+    config::{DEV_ONLY_REPOS, DEV_REPOS},
     git::{GitBranch, GitCommit, GitRemote, GitRepo},
     repo::{Arch, Package, Pocket, RepoInfo, Suite, SuiteDistro},
     util::{check_output, check_status},
@@ -367,6 +367,10 @@ sudo sbuild-update \
 
         if dev && !DEV_REPOS.contains(&file_name.as_str()) {
             // Skip if building dev repos and this is not one of them
+            continue;
+        }
+        if !dev && DEV_ONLY_REPOS.contains(&file_name.as_str()) {
+            // Skip if not building dev repos and this is only for them
             continue;
         }
 
