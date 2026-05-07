@@ -138,6 +138,7 @@
 /fwupd/
 /fwupd-dbus/
 /fwupd-efi/
+/game-devices-udev/
 /gamehub/
 /gamescope/
 /gdm3/
@@ -230,6 +231,7 @@
 /nvidia-docker/
 /nvidia-graphics-drivers/
 /nvidia-graphics-drivers-470/
+/nvidia-graphics-drivers-595/
 /nvidia-vaapi-driver/
 /opt/
 /orca/
@@ -255,6 +257,7 @@
 /pop/
 /pop-arm64/
 /pop-sync/
+/poparazzi/
 /popsec/
 /popsicle/
 /proc-modules/
@@ -266,7 +269,7 @@
 /raspi-img/
 /recently-used-xbel/
 /repo-curated-free/
-/repo-multiarch/
+/repo-ppa-mirror/
 /repo-proprietary/
 /repo-release/
 /repo-ubuntu-mirror/
@@ -306,6 +309,7 @@
 /system76-oled/
 /system76-power/
 /system76-scheduler/
+/system76-ubuntu-repo/
 /system76-wallpapers/
 /systemd/
 /systemd-boot-conf/
@@ -319,7 +323,6 @@
 /tpm2-totp/
 /transition/
 /ubuntu-drivers-common/
-/ubuntu-meta/
 /ubuntu-version/
 /upgrade/
 /upower-dbus/
@@ -340,6 +343,7 @@
 /wireplumber/
 /xdg-desktop-portal-cosmic/
 /xdg-shell-wrapper/
+/xdgen/
 /xkb-data/
 /xorgproto/
 /xwayland/

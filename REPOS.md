@@ -42,7 +42,7 @@ This is an automatically generated file. See `scripts/readme`
 - [connectivity](https://github.com/pop-os/connectivity) - The Pop\!\_OS Connectivity Checker
 - [console\-setup](https://github.com/pop-os/console-setup) - Fork of https://salsa\.debian\.org/installer\-team/console\-setup
 - [core](https://github.com/pop-os/core) - WIP immutable base
-- [cosmic\-app\-library](https://github.com/pop-os/cosmic-app-library) - WIP
+- [cosmic\-app\-library](https://github.com/pop-os/cosmic-app-library) - COSMIC App Library
 - [cosmic\-app\-template](https://github.com/pop-os/cosmic-app-template) - Project template for creating applications for the COSMIC™ desktop
 - [cosmic\-applet\-host](https://github.com/pop-os/cosmic-applet-host)
 - [cosmic\-applet\-template](https://github.com/pop-os/cosmic-applet-template) - Project template for creating applets for the COSMIC™ desktop
@@ -80,7 +80,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-settings\-subscriptions](https://github.com/pop-os/cosmic-settings-subscriptions)
 - [cosmic\-store](https://github.com/pop-os/cosmic-store) - WIP COSMIC app store
 - [cosmic\-syntax\-theme](https://github.com/pop-os/cosmic-syntax-theme) - COSMIC Syntax Theme
-- [cosmic\-term](https://github.com/pop-os/cosmic-term) - WIP COSMIC terminal emulator
+- [cosmic\-term](https://github.com/pop-os/cosmic-term) - COSMIC terminal emulator
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
@@ -127,6 +127,7 @@ This is an automatically generated file. See `scripts/readme`
 - [fwupd](https://github.com/pop-os/fwupd) - A simple daemon to allow session software to update firmware
 - [fwupd\-dbus](https://github.com/pop-os/fwupd-dbus) - Rust crate which provides a client for the fwupd DBus daemon
 - [fwupd\-efi](https://github.com/pop-os/fwupd-efi) - Pop\!\_OS fork of https://salsa\.debian\.org/efi\-team/fwupd\-efi
+- [game\-devices\-udev](https://github.com/pop-os/game-devices-udev) - Packaging for https://codeberg\.org/fabiscafe/game\-devices\-udev
 - [gamehub](https://github.com/pop-os/gamehub) - Pop\!\_OS fork of https://github\.com/tkashkin/GameHub
 - [gamescope](https://github.com/pop-os/gamescope) - Packaging for https://github\.com/ValveSoftware/gamescope
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
@@ -219,6 +220,7 @@ This is an automatically generated file. See `scripts/readme`
 - [nvidia\-docker](https://github.com/pop-os/nvidia-docker) - Packaging for https://github\.com/NVIDIA/nvidia\-docker
 - [nvidia\-graphics\-drivers](https://github.com/pop-os/nvidia-graphics-drivers) - NVIDIA packaging repository for Pop\!\_OS
 - [nvidia\-graphics\-drivers\-470](https://github.com/pop-os/nvidia-graphics-drivers-470) - Pop\!\_OS Legacy NVIDIA Graphics Drivers \(470\)
+- [nvidia\-graphics\-drivers\-595](https://github.com/pop-os/nvidia-graphics-drivers-595) - Packaging for NVIDIA 595
 - [nvidia\-vaapi\-driver](https://github.com/pop-os/nvidia-vaapi-driver) - Packaging fork of https://github\.com/elFarto/nvidia\-vaapi\-driver
 - [opt](https://github.com/pop-os/opt) - Pop\!\_OS Optimization
 - [orca](https://github.com/pop-os/orca) - Packaging for https://gitlab\.gnome\.org/mwcampbell/orca/\-/tree/newton
@@ -244,6 +246,7 @@ This is an automatically generated file. See `scripts/readme`
 - [pop](https://github.com/pop-os/pop) - A project for managing all Pop\!\_OS sources
 - [pop\-arm64](https://github.com/pop-os/pop-arm64) - Experimental scripts for building an Pop\!\_OS for ARM64 EFI platforms\.
 - [pop\-sync](https://github.com/pop-os/pop-sync) - WIP utility for syncing Pop\!\_OS utilities
+- [poparazzi](https://github.com/pop-os/poparazzi) - Pop\!\_OS maintenance dashboard
 - [popsec](https://github.com/pop-os/popsec) - WIP Pop\!\_OS Security Daemon and Settings
 - [popsicle](https://github.com/pop-os/popsicle) - Multiple USB File Flasher
 - [proc\-modules](https://github.com/pop-os/proc-modules) - Rust crate for fetching a list of kernel modules from /proc/modules
@@ -255,7 +258,7 @@ This is an automatically generated file. See `scripts/readme`
 - [raspi\-img](https://github.com/pop-os/raspi-img) - Raspberry Pi 4 Image
 - [recently\-used\-xbel](https://github.com/pop-os/recently-used-xbel) - Rust crate to parse ~/\.local/share/recently\-used\.xbel
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
-- [repo\-multiarch](https://github.com/pop-os/repo-multiarch) - Future repository configuration for i386 packages
+- [repo\-ppa\-mirror](https://github.com/pop-os/repo-ppa-mirror) - Mirror System76 Launchpad PPAs
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
 - [repo\-release](https://github.com/pop-os/repo-release) - Produces Pop release package repositories
 - [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
@@ -295,6 +298,7 @@ This is an automatically generated file. See `scripts/readme`
 - [system76\-oled](https://github.com/pop-os/system76-oled) - Control brightness on OLED displays
 - [system76\-power](https://github.com/pop-os/system76-power) - Power profile management for Linux
 - [system76\-scheduler](https://github.com/pop-os/system76-scheduler) - Auto\-configure CFS and process priorities for improved desktop responsiveness
+- [system76\-ubuntu\-repo](https://github.com/pop-os/system76-ubuntu-repo) - System76 APT repository for Ubuntu
 - [system76\-wallpapers](https://github.com/pop-os/system76-wallpapers) - System76 Wallpapers
 - [systemd](https://github.com/pop-os/systemd) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-core\-dev/ubuntu/\+source/systemd
 - [systemd\-boot\-conf](https://github.com/pop-os/systemd-boot-conf) - Rust crate for managing the systemd\-boot loader configuration\.
@@ -308,7 +312,6 @@ This is an automatically generated file. See `scripts/readme`
 - [tpm2\-totp](https://github.com/pop-os/tpm2-totp) - Attest the trustworthiness of a device against a human using time\-based one\-time passwords
 - [transition](https://github.com/pop-os/transition) - Simple Dialog to allow users to transition deprecated Debian packages to Flatpak
 - [ubuntu\-drivers\-common](https://github.com/pop-os/ubuntu-drivers-common) - Pop\!\_OS fork of https://git\.launchpad\.net/ubuntu/\+source/ubuntu\-drivers\-common
-- [ubuntu\-meta](https://github.com/pop-os/ubuntu-meta) - Pop\_OS\! fork of https://packages\.ubuntu\.com/kinetic/ubuntu\-minimal
 - [ubuntu\-version](https://github.com/pop-os/ubuntu-version) - Rust crate to convert Ubuntu versions to codenames, and vice versa\.
 - [upgrade](https://github.com/pop-os/upgrade) - Utility for upgrading Pop\!\_OS and its recovery partition to new releases\.
 - [upower\-dbus](https://github.com/pop-os/upower-dbus) - Migrated to https://github\.com/pop\-os/dbus\-settings\-bindings
@@ -329,6 +332,7 @@ This is an automatically generated file. See `scripts/readme`
 - [wireplumber](https://github.com/pop-os/wireplumber) - Backports of https://salsa\.debian\.org/utopia\-team/wireplumber
 - [xdg\-desktop\-portal\-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic)
 - [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper
+- [xdgen](https://github.com/pop-os/xdgen) - Generate localized XDG metadata for an application
 - [xkb\-data](https://github.com/pop-os/xkb-data) - Keyboard layout data from xkb\-data
 - [xorgproto](https://github.com/pop-os/xorgproto) - Backport of https://salsa\.debian\.org/xorg\-team/proto/xorgproto
 - [xwayland](https://github.com/pop-os/xwayland) - Backport of https://salsa\.debian\.org/xorg\-team/xwayland/
