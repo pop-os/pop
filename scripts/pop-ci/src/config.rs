@@ -37,6 +37,7 @@ pub static DEV_REPOS: &'static [&'static str] = &[
     "nvidia-graphics-drivers",
     "nvidia-graphics-drivers-470",
     "nvidia-graphics-drivers-565",
+    "nvidia-graphics-drivers-595",
     "spirv-headers",
     "spirv-llvm-translator-15",
     "spirv-tools",
