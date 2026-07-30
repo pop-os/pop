@@ -1,5 +1,7 @@
 use std::{collections::BTreeMap, fs, path::PathBuf};
 
+use crate::config::JAMMY_EXCLUDED_REPOS;
+
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Arch(&'static str);
 
@@ -110,6 +112,7 @@ impl RepoInfo {
 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum SuiteWildcard {
     None,
+    Jammy,
     All,
 }
 
@@ -126,7 +129,7 @@ pub struct Suite(&'static str, &'static str, SuiteWildcard, SuiteDistro);
 impl Suite {
     // This list has every supported Pop!_OS and Ubuntu release
     pub const ALL: &'static [Self] = &[
-        Self("jammy", "22.04", SuiteWildcard::All, SuiteDistro::All),
+        Self("jammy", "22.04", SuiteWildcard::Jammy, SuiteDistro::All),
         Self("noble", "24.04", SuiteWildcard::All, SuiteDistro::All),
         Self("questing", "25.10", SuiteWildcard::All, SuiteDistro::Ubuntu),
         Self("resolute", "26.04", SuiteWildcard::All, SuiteDistro::All),
@@ -149,9 +152,10 @@ impl Suite {
         self.1
     }
 
-    pub fn wildcard(&self, _repo_name: &str) -> bool {
+    pub fn wildcard(&self, repo_name: &str) -> bool {
         match &self.2 {
             SuiteWildcard::None => false,
+            SuiteWildcard::Jammy => !JAMMY_EXCLUDED_REPOS.contains(&repo_name),
             SuiteWildcard::All => true,
         }
     }
