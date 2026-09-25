@@ -1,5 +1,5 @@
 /// Repos to build for both Pop and Ubuntu
-pub static DEV_REPOS: &'static [&'static str] = &[
+pub static DEV_REPOS: &[&str] = &[
     "accountsservice",
     "alsa-ucm-conf",
     "alsa-utils",
@@ -62,10 +62,10 @@ pub static DEV_REPOS: &'static [&'static str] = &[
 ];
 
 /// Repos from DEV_REPOS to build for only Ubuntu
-pub static DEV_ONLY_REPOS: &'static [&'static str] = &["system76-ubuntu-repo"];
+pub static DEV_ONLY_REPOS: &[&str] = &["system76-ubuntu-repo"];
 
 /// Repos that no longer support Pop 22.04, and must not be build wildcard branches (master) for jammy
-pub static JAMMY_EXCLUDED_REPOS: &'static [&'static str] = &[
+pub static JAMMY_EXCLUDED_REPOS: &[&str] = &[
     "cosmic-bg",
     "cosmic-comp",
     "cosmic-settings",

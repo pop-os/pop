@@ -13,7 +13,7 @@ impl Cache {
     pub fn new<P: AsRef<Path>, F: Fn(&str) -> bool>(path: P, retain: F) -> io::Result<Self> {
         let path = path.as_ref();
         if !path.is_dir() {
-            fs::create_dir_all(&path)?;
+            fs::create_dir_all(path)?;
         }
         let path = fs::canonicalize(path)?;
         let mut cleaned = false;
