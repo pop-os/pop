@@ -67,7 +67,7 @@ impl GitRepo {
     }
 
     pub async fn async_fetch(&mut self, remote: &GitRemote) -> io::Result<()> {
-        async_std::process::Command::new("git")
+        smol::process::Command::new("git")
             .arg("-C")
             .arg(&self.path())
             .arg("fetch")

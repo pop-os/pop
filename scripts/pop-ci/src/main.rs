@@ -1,4 +1,4 @@
-use clap::{App, Arg};
+use clap::{Arg, Command};
 use pop_ci::{
     cache::Cache,
     config::{DEV_ONLY_REPOS, DEV_REPOS},
@@ -208,52 +208,52 @@ sbuild \
 }
 
 fn main() {
-    let matches = App::new("pop-ci")
+    let matches = Command::new("pop-ci")
         .arg(
-            Arg::with_name("dev")
+            Arg::new("dev")
                 .long("dev")
                 .help("Build for Ubuntu instead of Pop!_OS"),
         )
         .arg(
-            Arg::with_name("launchpad")
+            Arg::new("launchpad")
                 .long("launchpad")
                 .help("Upload to launchpad after build"),
         )
         .arg(
-            Arg::with_name("publish")
+            Arg::new("publish")
                 .long("publish")
                 .help("Publish to apt-origin.pop-os.org after build"),
         )
         .arg(
-            Arg::with_name("sbuild-update")
+            Arg::new("sbuild-update")
                 .long("sbuild-update")
                 .help("Update sbuild chroots"),
         )
         .arg(
-            Arg::with_name("retry")
+            Arg::new("retry")
                 .long("retry")
-                .takes_value(true)
+                .num_args(1)
                 .help("Matching builds will be retried"),
         )
         .arg(
-            Arg::with_name("arm64")
+            Arg::new("arm64")
                 .long("arm64")
-                .takes_value(true)
+                .num_args(1)
                 .help("ARM64 builder"),
         )
         .get_matches();
 
-    let dev = matches.is_present("dev");
-    let launchpad = matches.is_present("launchpad");
-    let publish = matches.is_present("publish");
-    let sbuild_update = matches.is_present("sbuild-update");
+    let dev = matches.contains_id("dev");
+    let launchpad = matches.contains_id("launchpad");
+    let publish = matches.contains_id("publish");
+    let sbuild_update = matches.contains_id("sbuild-update");
     let mut retry = Vec::new();
-    if let Some(retry_string) = matches.value_of("retry") {
+    if let Some(retry_string) = matches.get_one::<String>("retry") {
         for retry_key in retry_string.split(' ') {
             retry.push(retry_key.to_string());
         }
     }
-    let arm64_opt = matches.value_of("arm64");
+    let arm64_opt = matches.get_one::<String>("arm64").map(|s| s.as_str());
 
     let debemail = env::var("DEBEMAIL").expect("DEBEMAIL not set");
     let debfullname = env::var("DEBFULLNAME").expect("DEBFULLNAME not set");
@@ -380,7 +380,7 @@ sudo sbuild-update \
     let remote = GitRemote::origin();
     {
         eprintln!(bold!("ci: fetching {} repos in parallel"), repos.len());
-        async_std::task::block_on(async_fetch_repos(&repos, &remote));
+        smol::block_on(async_fetch_repos(&repos, &remote));
     }
 
     let cache_path = if dev { "_build/ci-dev" } else { "_build/ci" };
