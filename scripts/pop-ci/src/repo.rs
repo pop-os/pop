@@ -7,7 +7,7 @@ pub struct Arch(&'static str);
 
 impl Arch {
     pub fn id(&self) -> &str {
-        &self.0
+        self.0
     }
 
     pub fn build_all(&self) -> bool {
@@ -85,7 +85,7 @@ pub struct RepoInfo {
 
 impl RepoInfo {
     pub fn new(_suite: &Suite, dev: bool) -> Self {
-        const ARCHS: &'static [Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64"), Arch("armhf")];
+        const ARCHS: &[Arch] = &[Arch("amd64"), Arch("i386"), Arch("arm64"), Arch("armhf")];
         let key = fs::canonicalize("scripts/.iso.asc").expect("failed to find ISO key");
         if dev {
             // apt.pop-os.org for Ubuntu 22.04 and later
