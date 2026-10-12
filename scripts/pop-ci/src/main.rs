@@ -1,4 +1,4 @@
-use clap::{Arg, Command};
+use clap::{Arg, ArgAction, Command};
 use pop_ci::{
     cache::Cache,
     config::{DEV_ONLY_REPOS, DEV_REPOS},
@@ -212,21 +212,25 @@ fn main() {
         .arg(
             Arg::new("dev")
                 .long("dev")
+                .action(ArgAction::SetTrue)
                 .help("Build for Ubuntu instead of Pop!_OS"),
         )
         .arg(
             Arg::new("launchpad")
                 .long("launchpad")
+                .action(ArgAction::SetTrue)
                 .help("Upload to launchpad after build"),
         )
         .arg(
             Arg::new("publish")
                 .long("publish")
+                .action(ArgAction::SetTrue)
                 .help("Publish to apt-origin.pop-os.org after build"),
         )
         .arg(
             Arg::new("sbuild-update")
                 .long("sbuild-update")
+                .action(ArgAction::SetTrue)
                 .help("Update sbuild chroots"),
         )
         .arg(
@@ -243,10 +247,10 @@ fn main() {
         )
         .get_matches();
 
-    let dev = matches.contains_id("dev");
-    let launchpad = matches.contains_id("launchpad");
-    let publish = matches.contains_id("publish");
-    let sbuild_update = matches.contains_id("sbuild-update");
+    let dev = matches.get_flag("dev");
+    let launchpad = matches.get_flag("launchpad");
+    let publish = matches.get_flag("publish");
+    let sbuild_update = matches.get_flag("sbuild-update");
     let mut retry = Vec::new();
     if let Some(retry_string) = matches.get_one::<String>("retry") {
         for retry_key in retry_string.split(' ') {
