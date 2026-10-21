@@ -29,7 +29,7 @@ This is an automatically generated file. See `scripts/readme`
 - [async\-fetcher](https://github.com/pop-os/async-fetcher) - Rust crate for asynchronous file fetching, using optional fetching based on modified times and checksums
 - [at\-spi2\-core](https://github.com/pop-os/at-spi2-core)
 - [atom\-editor](https://github.com/pop-os/atom-editor) - GitHub's Atom Editor
-- [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/bcmwl
+- [bcmwl](https://github.com/pop-os/bcmwl) - Pop\!\_OS backports from https://salsa\.debian\.org/broadcom\-sta\-team/broadcom\-sta/
 - [beta](https://github.com/pop-os/beta) - Pop\!\_OS Beta
 - [blkid](https://github.com/pop-os/blkid) - Rust blkid safe interface
 - [bubblewrap](https://github.com/pop-os/bubblewrap) - Fork of https://salsa\.debian\.org/debian/bubblewrap
@@ -63,9 +63,10 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-idle](https://github.com/pop-os/cosmic-idle) - Timer to blank the screen/lock the session in the COSMIC desktop environment
 - [cosmic\-initial\-setup](https://github.com/pop-os/cosmic-initial-setup) - COSMIC Initial Setup
 - [cosmic\-justfiles](https://github.com/pop-os/cosmic-justfiles) - Justfile scripts shared between COSMIC and Pop\!\_OS projects\.
-- [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - WIP
+- [cosmic\-launcher](https://github.com/pop-os/cosmic-launcher) - COSMIC launcher
 - [cosmic\-mime\-apps](https://github.com/pop-os/cosmic-mime-apps) - Parse and update xdg mimeapps\.list files to manage default apps
-- [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications)
+- [cosmic\-monitor](https://github.com/pop-os/cosmic-monitor) - COSMIC System Monitor
+- [cosmic\-notifications](https://github.com/pop-os/cosmic-notifications) - Layer Shell notifications daemon which integrates with COSMIC\.
 - [cosmic\-osd](https://github.com/pop-os/cosmic-osd)
 - [cosmic\-osk](https://github.com/pop-os/cosmic-osk) - COSMIC On\-Screen Keyboard
 - [cosmic\-panel](https://github.com/pop-os/cosmic-panel) - COSMIC applet for creating panels and docks
@@ -78,18 +79,21 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-settings](https://github.com/pop-os/cosmic-settings) - COSMIC Settings
 - [cosmic\-settings\-daemon](https://github.com/pop-os/cosmic-settings-daemon)
 - [cosmic\-settings\-subscriptions](https://github.com/pop-os/cosmic-settings-subscriptions)
-- [cosmic\-store](https://github.com/pop-os/cosmic-store) - WIP COSMIC app store
+- [cosmic\-sound\-theme](https://github.com/pop-os/cosmic-sound-theme) - System76 COSMIC Sound Theme
+- [cosmic\-store](https://github.com/pop-os/cosmic-store) - COSMIC app store
 - [cosmic\-syntax\-theme](https://github.com/pop-os/cosmic-syntax-theme) - COSMIC Syntax Theme
 - [cosmic\-term](https://github.com/pop-os/cosmic-term) - COSMIC terminal emulator
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
 - [cosmic\-time](https://github.com/pop-os/cosmic-time) - Animation Library for https://github\.com/iced\-rs/iced and https://github\.com/pop\-os/cosmic\-epoch
+- [cosmic\-viewer](https://github.com/pop-os/cosmic-viewer) - COSMIC Image Viewer
 - [cosmic\-wallpapers](https://github.com/pop-os/cosmic-wallpapers) - Wallpapers for the COSMIC Desktop Environment
 - [cosmic\-workspaces](https://github.com/pop-os/cosmic-workspaces) - Pop\!\_OS fork of https://github\.com/RensAlthuis/vertical\-overview
 - [cosmic\-workspaces\-epoch](https://github.com/pop-os/cosmic-workspaces-epoch)
 - [cosmic\_undo\_2](https://github.com/pop-os/cosmic_undo_2) - Fork of https://gitlab\.com/okannen/undo\_2 with improved compiler support
 - [cryptsetup](https://github.com/pop-os/cryptsetup) - Packaging for https://gitlab\.com/cryptsetup/cryptsetup
+- [cutecosmic](https://github.com/pop-os/cutecosmic) - Packaging for https://github\.com/IgKh/cutecosmic
 - [dbus\-settings\-bindings](https://github.com/pop-os/dbus-settings-bindings) - Rust bindings for D\-Bus settings interfaces
 - [dbus\-udisks2](https://github.com/pop-os/dbus-udisks2) - Rust library for interacting with the UDisks2 DBus API
 - [dbusmenu\-zbus](https://github.com/pop-os/dbusmenu-zbus) - zbus bindings for dbusmenu
@@ -113,7 +117,7 @@ This is an automatically generated file. See `scripts/readme`
 - [dwarves](https://github.com/pop-os/dwarves) - Pop\!\_OS fork of https://salsa\.debian\.org/debian/dwarves\.git
 - [ecs\-disk\-manager](https://github.com/pop-os/ecs-disk-manager) - Rust library experiment to design a flexible disk management library with an ECS architecture\.
 - [eddy](https://github.com/pop-os/eddy) - A debian package installer for Pop\!\_OS
-- [egl\-wayland](https://github.com/pop-os/egl-wayland) - Packaging for nvidia egl\-wayland
+- [egl\-wayland](https://github.com/pop-os/egl-wayland) - Packaging for https://github\.com/NVIDIA/egl\-wayland/
 - [envfile](https://github.com/pop-os/envfile) - Rust crate for reading an environment file into an in\-memory map, updating it, and writing it back\.
 - [exit\-status\-ext](https://github.com/pop-os/exit-status-ext) - Rust trait for extending \`std::process::ExitStatus\`
 - [fd\-reactor](https://github.com/pop-os/fd-reactor) - A Rust crate which provides an async reactor for handling file descriptors in a background thread
@@ -129,7 +133,6 @@ This is an automatically generated file. See `scripts/readme`
 - [fwupd\-efi](https://github.com/pop-os/fwupd-efi) - Pop\!\_OS fork of https://salsa\.debian\.org/efi\-team/fwupd\-efi
 - [game\-devices\-udev](https://github.com/pop-os/game-devices-udev) - Packaging for https://codeberg\.org/fabiscafe/game\-devices\-udev
 - [gamehub](https://github.com/pop-os/gamehub) - Pop\!\_OS fork of https://github\.com/tkashkin/GameHub
-- [gamescope](https://github.com/pop-os/gamescope) - Packaging for https://github\.com/ValveSoftware/gamescope
 - [gdm3](https://github.com/pop-os/gdm3) - Pop\!\_OS fork of https://git\.launchpad\.net/~ubuntu\-desktop/ubuntu/\+source/gdm3
 - [gir](https://github.com/pop-os/gir) - Tool to generate rust bindings and user API for glib\-based libraries
 - [glyphon](https://github.com/pop-os/glyphon) - 🦅🦁 Fast, simple 2D text renderer for wgpu
@@ -174,6 +177,8 @@ This is an automatically generated file. See `scripts/readme`
 - [iced\_aw](https://github.com/pop-os/iced_aw) - Additional widgets for the Iced GUI library
 - [icon\-theme](https://github.com/pop-os/icon-theme) - System76 Pop icon theme for Linux
 - [initramfs\-tools](https://github.com/pop-os/initramfs-tools) - Patches to https://packages\.ubuntu\.com/jammy\-updates/initramfs\-tools
+- [inputplumber](https://github.com/pop-os/inputplumber) - Fork of https://github\.com/shadowblip/InputPlumber for packaging
+- [inputplumber\-zbus](https://github.com/pop-os/inputplumber-zbus) - zbus bindings for inputplumber
 - [installer](https://github.com/pop-os/installer) - Installer for Pop\!\_OS & other Linux\-based OSes
 - [intel\-pstate](https://github.com/pop-os/intel-pstate) - Rust crate for fetching and modifying Intel pstate kernel parameters
 - [iso](https://github.com/pop-os/iso) - Pop\!\_OS ISO production
@@ -186,6 +191,7 @@ This is an automatically generated file. See `scripts/readme`
 - [launch\-pad](https://github.com/pop-os/launch-pad) - Automatic process management library for Rust
 - [launcher](https://github.com/pop-os/launcher) - Modular IPC\-based desktop launcher service
 - [libabigail](https://github.com/pop-os/libabigail) - Pop\!\_OS fork of https://launchpad\.net/ubuntu/\+source/libabigail
+- [libappstream](https://github.com/pop-os/libappstream) - Patches for https://code\.launchpad\.net/ubuntu/\+source/appstream
 - [libasound2](https://github.com/pop-os/libasound2) - The Advanced Linux Sound Architecture \(ALSA\) \- library
 - [libbpf](https://github.com/pop-os/libbpf) - Pop\!\_OS fork of https://github\.com/sudipm\-mukherjee/libbpf
 - [libcosmic](https://github.com/pop-os/libcosmic) - GUI platform toolkit for developing COSMIC applications and applets
@@ -258,7 +264,6 @@ This is an automatically generated file. See `scripts/readme`
 - [raspi\-img](https://github.com/pop-os/raspi-img) - Raspberry Pi 4 Image
 - [recently\-used\-xbel](https://github.com/pop-os/recently-used-xbel) - Rust crate to parse ~/\.local/share/recently\-used\.xbel
 - [repo\-curated\-free](https://github.com/pop-os/repo-curated-free) - APT repository configuration for building an apt repository with only free software\.
-- [repo\-ppa\-mirror](https://github.com/pop-os/repo-ppa-mirror) - Mirror System76 Launchpad PPAs
 - [repo\-proprietary](https://github.com/pop-os/repo-proprietary) - Configuration for building the proprietary repo with debrep
 - [repo\-release](https://github.com/pop-os/repo-release) - Produces Pop release package repositories
 - [repo\-ubuntu\-mirror](https://github.com/pop-os/repo-ubuntu-mirror) - APT repository configuration for building an apt mirror of Ubuntu
@@ -335,6 +340,6 @@ This is an automatically generated file. See `scripts/readme`
 - [xdgen](https://github.com/pop-os/xdgen) - Generate localized XDG metadata for an application
 - [xkb\-data](https://github.com/pop-os/xkb-data) - Keyboard layout data from xkb\-data
 - [xorgproto](https://github.com/pop-os/xorgproto) - Backport of https://salsa\.debian\.org/xorg\-team/proto/xorgproto
-- [xwayland](https://github.com/pop-os/xwayland) - Backport of https://salsa\.debian\.org/xorg\-team/xwayland/
+- [xwayland](https://github.com/pop-os/xwayland) - Backport of https://salsa\.debian\.org/xorg\-team/wayland/xwayland
 - [xz\-utils](https://github.com/pop-os/xz-utils) - Pop\!\_OS Fork of https://salsa\.debian\.org/debian/xz\-utils
 - [zfs\-linux](https://github.com/pop-os/zfs-linux) - Pop\!\_OS fork of https://salsa\.debian\.org/zfsonlinux\-team/zfs\.git

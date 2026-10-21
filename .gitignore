@@ -76,6 +76,7 @@
 /cosmic-justfiles/
 /cosmic-launcher/
 /cosmic-mime-apps/
+/cosmic-monitor/
 /cosmic-notifications/
 /cosmic-osd/
 /cosmic-osk/
@@ -89,6 +90,7 @@
 /cosmic-settings/
 /cosmic-settings-daemon/
 /cosmic-settings-subscriptions/
+/cosmic-sound-theme/
 /cosmic-store/
 /cosmic-syntax-theme/
 /cosmic-term/
@@ -96,11 +98,13 @@
 /cosmic-theme/
 /cosmic-theme-editor/
 /cosmic-time/
+/cosmic-viewer/
 /cosmic-wallpapers/
 /cosmic-workspaces/
 /cosmic-workspaces-epoch/
 /cosmic_undo_2/
 /cryptsetup/
+/cutecosmic/
 /dbus-settings-bindings/
 /dbus-udisks2/
 /dbusmenu-zbus/
@@ -140,7 +144,6 @@
 /fwupd-efi/
 /game-devices-udev/
 /gamehub/
-/gamescope/
 /gdm3/
 /gir/
 /glyphon/
@@ -185,6 +188,8 @@
 /iced_aw/
 /icon-theme/
 /initramfs-tools/
+/inputplumber/
+/inputplumber-zbus/
 /installer/
 /intel-pstate/
 /iso/
@@ -197,6 +202,7 @@
 /launch-pad/
 /launcher/
 /libabigail/
+/libappstream/
 /libasound2/
 /libbpf/
 /libcosmic/
@@ -269,7 +275,6 @@
 /raspi-img/
 /recently-used-xbel/
 /repo-curated-free/
-/repo-ppa-mirror/
 /repo-proprietary/
 /repo-release/
 /repo-ubuntu-mirror/
