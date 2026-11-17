@@ -22,7 +22,6 @@
 /amd64-microcode/
 /analytics-panel/
 /api/
-/appstream/
 /appstream-data/
 /appstream2dep11/
 /apt/
@@ -62,6 +61,7 @@
 /cosmic-bg/
 /cosmic-comp/
 /cosmic-config-demo/
+/cosmic-constellations/
 /cosmic-design-demo/
 /cosmic-dock/
 /cosmic-edit/
@@ -96,6 +96,7 @@
 /cosmic-term/
 /cosmic-text/
 /cosmic-theme/
+/cosmic-theme-bundles/
 /cosmic-theme-editor/
 /cosmic-time/
 /cosmic-viewer/
@@ -346,6 +347,7 @@
 /window_clipboard/
 /winit/
 /wireplumber/
+/xdg-dbus-proxy/
 /xdg-desktop-portal-cosmic/
 /xdg-shell-wrapper/
 /xdgen/

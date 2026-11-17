@@ -11,7 +11,6 @@ This is an automatically generated file. See `scripts/readme`
 - [amd64\-microcode](https://github.com/pop-os/amd64-microcode) - Fork of https://salsa\.debian\.org/janitor\-team/proposed/amd64\-microcode to backport newer microcode to Jammy
 - [analytics\-panel](https://github.com/pop-os/analytics-panel) - Analytics Settings Panel
 - [api](https://github.com/pop-os/api) - Rust crate for interacting with api\.pop\-os\.org
-- [appstream](https://github.com/pop-os/appstream) - Pop\!\_OS Fork of https://salsa\.debian\.org/pkgutopia\-team/appstream
 - [appstream\-data](https://github.com/pop-os/appstream-data) - Additional appstream data to be shipped in Pop\!\_OS
 - [appstream2dep11](https://github.com/pop-os/appstream2dep11) - A crate dedicated to parsing Appstream XML metadata to Debian DEP11 format\.
 - [apt](https://github.com/pop-os/apt) - Fork of https://salsa\.debian\.org/apt\-team/apt
@@ -51,6 +50,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-bg](https://github.com/pop-os/cosmic-bg) - COSMIC session service which applies backgrounds to displays\.
 - [cosmic\-comp](https://github.com/pop-os/cosmic-comp) - Compositor for the COSMIC desktop environment
 - [cosmic\-config\-demo](https://github.com/pop-os/cosmic-config-demo)
+- [cosmic\-constellations](https://github.com/pop-os/cosmic-constellations) - Community contributed theme bundles for COSMIC
 - [cosmic\-design\-demo](https://github.com/pop-os/cosmic-design-demo) - libcosmic widget toolkit showcase for testing COSMIC widgets and their styling
 - [cosmic\-dock](https://github.com/pop-os/cosmic-dock) - Pop\!\_OS fork of https://github\.com/micheleg/dash\-to\-dock/tree/ubuntu\-dock
 - [cosmic\-edit](https://github.com/pop-os/cosmic-edit) - COSMIC Text Editor
@@ -85,6 +85,7 @@ This is an automatically generated file. See `scripts/readme`
 - [cosmic\-term](https://github.com/pop-os/cosmic-term) - COSMIC terminal emulator
 - [cosmic\-text](https://github.com/pop-os/cosmic-text) - Pure Rust multi\-line text handling
 - [cosmic\-theme](https://github.com/pop-os/cosmic-theme) - WIP
+- [cosmic\-theme\-bundles](https://github.com/pop-os/cosmic-theme-bundles) - Theme bundles for COSMIC
 - [cosmic\-theme\-editor](https://github.com/pop-os/cosmic-theme-editor) - WIP
 - [cosmic\-time](https://github.com/pop-os/cosmic-time) - Animation Library for https://github\.com/iced\-rs/iced and https://github\.com/pop\-os/cosmic\-epoch
 - [cosmic\-viewer](https://github.com/pop-os/cosmic-viewer) - COSMIC Image Viewer
@@ -335,6 +336,7 @@ This is an automatically generated file. See `scripts/readme`
 - [window\_clipboard](https://github.com/pop-os/window_clipboard) - A library to obtain clipboard access from a \`raw\-window\-handle\`\.
 - [winit](https://github.com/pop-os/winit) - Development fork
 - [wireplumber](https://github.com/pop-os/wireplumber) - Backports of https://salsa\.debian\.org/utopia\-team/wireplumber
+- [xdg\-dbus\-proxy](https://github.com/pop-os/xdg-dbus-proxy) - Backport of https://salsa\.debian\.org/debian/xdg\-dbus\-proxy
 - [xdg\-desktop\-portal\-cosmic](https://github.com/pop-os/xdg-desktop-portal-cosmic)
 - [xdg\-shell\-wrapper](https://github.com/pop-os/xdg-shell-wrapper) - WIP xdg\-shell wrapper
 - [xdgen](https://github.com/pop-os/xdgen) - Generate localized XDG metadata for an application
