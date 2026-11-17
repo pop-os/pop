@@ -69,8 +69,12 @@ impl Pocket {
         }
     }
 
+    pub fn is_master(&self) -> bool {
+        self.0 == "master"
+    }
+
     pub fn build_arm(&self) -> bool {
-        self.0 == "master" || self.0 == "arm"
+        self.is_master() || self.0 == "arm"
     }
 }
 
