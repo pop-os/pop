@@ -906,8 +906,8 @@ sudo sbuild-update \
                                     continue;
                                 }
 
-                                // Only do arm64 builds for master pockets
-                                if !pockets.iter().any(|pocket| pocket.is_master()) {
+                                // Only do arm64 builds for master and arm pockets
+                                if !pockets.iter().any(|pocket| pocket.build_arm()) {
                                     continue;
                                 }
                             }
