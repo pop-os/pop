@@ -68,6 +68,7 @@ pub static DEV_ONLY_REPOS: &[&str] = &["system76-ubuntu-repo"];
 pub static JAMMY_EXCLUDED_REPOS: &[&str] = &[
     "cosmic-bg",
     "cosmic-comp",
+    "cosmic-greeter",
     "cosmic-settings",
     "xdg-desktop-portal-cosmic",
 ];
