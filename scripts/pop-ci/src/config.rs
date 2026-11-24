@@ -70,5 +70,6 @@ pub static JAMMY_EXCLUDED_REPOS: &[&str] = &[
     "cosmic-comp",
     "cosmic-greeter",
     "cosmic-settings",
+    "cosmic-viewer",
     "xdg-desktop-portal-cosmic",
 ];
